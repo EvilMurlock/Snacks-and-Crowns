@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcadc2f7bd5b4ad4ab2d7f8a37061b4c, type: 3}
+  m_Name: Human
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 9135c316646ff4e4580f2938ba04f328, type: 3}
+  race: Human
+  strenght: 10
+  agility: 10
+  size: 10
+  magic: 0
+  bravery: 0.5
+  greed: 0.5

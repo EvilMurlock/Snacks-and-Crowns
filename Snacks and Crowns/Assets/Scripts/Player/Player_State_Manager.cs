@@ -88,6 +88,7 @@ public class Player_State_Manager : MonoBehaviour
             case Player_State.in_menu:
                 break;
             case Player_State.in_ui_menu:
+                interact_manager.UnInteract(context);
                 break;
 
         }

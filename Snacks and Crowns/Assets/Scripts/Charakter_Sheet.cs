@@ -5,7 +5,7 @@ using UnityEngine;
 public class Charakter_Sheet : MonoBehaviour
 {
     [SerializeField]
-    Race_Data race_stats;
+    Race race;
     //Fyzical Stats
     float strenght;
     float agility;
@@ -21,16 +21,17 @@ public class Charakter_Sheet : MonoBehaviour
     void Start()
     {
         //Fyzical Stats
-        strenght = race_stats.strenght;
-        agility = race_stats.agility;
-        size = race_stats.size;
+        strenght = race.strenght;
+        agility = race.agility;
+        size = race.size;
 
         //Personality Stats
-        bravery = race_stats.bravery;
-        greed = race_stats.greed;
+        bravery = race.bravery;
+        greed = race.greed;
 
         //Derived Stats
         hp = size;
         speed = agility;
+        gameObject.GetComponent<SpriteRenderer>().sprite = race.sprite;
     }
 }

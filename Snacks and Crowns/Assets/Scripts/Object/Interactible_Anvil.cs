@@ -61,7 +61,7 @@ public class Interactible_Anvil : Interactible_Object
         {
             if(item_slot.item != null) player_items.Add(item_slot.item);
         }
-        Debug.Log(player_items.Count);
+
         foreach (Item item in recepies[index].ingredients)
         {
             

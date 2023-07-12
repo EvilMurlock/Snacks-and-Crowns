@@ -58,7 +58,6 @@ public class Player_Interact_Manager : MonoBehaviour
                     thing.GetComponent<DialogueManager>().EndDialogue();
                     interactedObjekt = thing;
                 }
-                gameObject.GetComponent<Player_State_Manager>().Change_State(Player_State.normal);
             }
         }
 

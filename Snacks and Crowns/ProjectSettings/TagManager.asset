@@ -41,6 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: ItemDrop
+    uniqueID: 2111938895
+    locked: 0
+  - name: Objekt
+    uniqueID: 903777823
+    locked: 0
+  - name: Creature
+    uniqueID: 3280176787
+    locked: 0
   - name: Equipment
     uniqueID: 405706303
     locked: 0

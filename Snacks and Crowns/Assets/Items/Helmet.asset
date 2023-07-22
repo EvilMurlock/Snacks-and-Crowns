@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba17b6f443f20c4ba84cc853803bebf, type: 3}
   m_Name: Helmet
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 03f0b8e2faa64f34b8d1f6b6240492b0, type: 3}
+  icon: {fileID: 21300000, guid: 89748e57f2836454b9e9ed5a78483e0a, type: 3}
   item_name: Helmet
   description: It protects you from harm
   prefab: {fileID: 5236949791698959159, guid: ff323cf0037bddd4db75c03ecf76b5ce, type: 3}

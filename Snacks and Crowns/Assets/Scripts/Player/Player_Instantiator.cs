@@ -19,7 +19,7 @@ public class Player_Instantiator : MonoBehaviour
     Canvas player_canvas;
 
 
-    private void Start()
+    private void Awake()
     {
         //PlayerInput player_input = gameObject.GetComponent<PlayerInput>();
         PlayerInput player_input = PlayerInput.Instantiate(playerPrefab, controlScheme: control_sheme, pairWithDevice: Keyboard.current);

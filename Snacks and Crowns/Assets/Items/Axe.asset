@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d9be0673d6fd48448a99a1bc5d48514, type: 3}
   m_Name: Axe
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 4b7700f321b6f434d8d0fe525e7d3fe1, type: 3}
+  icon: {fileID: 21300000, guid: 828e617e7c65264469ba56baa389ff4c, type: 3}
   item_name: Axe
   description: Used to chop down trees
   prefab: {fileID: 5236949791698959159, guid: ff323cf0037bddd4db75c03ecf76b5ce, type: 3}

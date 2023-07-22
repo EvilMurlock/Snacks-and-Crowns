@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class Player_Movement : MonoBehaviour
 {
     [SerializeField]
-    float movement_speed = 10f;
+    float movement_speed;
 
     Rigidbody2D rigid_body;
     Vector2 movement_direction;
@@ -16,7 +16,9 @@ public class Player_Movement : MonoBehaviour
     }
     void FixedUpdate()
     {
-        rigid_body.MovePosition((movement_direction * Time.deltaTime * movement_speed) + (Vector2) transform.position);
+        rigid_body.MovePosition((movement_direction * Time.fixedDeltaTime * movement_speed) + (Vector2)transform.position);
+        //Debug.Log("Move speed:" + movement_speed);
+        //Debug.Log("Move direction:" + movement_direction);
 
         if (movement_direction != Vector2.zero) //rotates object in direction of movement
         {

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07e9516094330654095878bb5ed6c708, type: 3}
+  m_Name: Plank
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 4834310ade47df04c969822e3aab32dc, type: 3}
+  item_name: Log
+  description: It's a wooden plank
+  cost: 10
+  prefab: {fileID: 5236949791698959159, guid: ff323cf0037bddd4db75c03ecf76b5ce, type: 3}

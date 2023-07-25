@@ -580,6 +580,7 @@ MonoBehaviour:
     equipment_slot: 0
   menu_widths: 
   active_menus: []
+  startingGold: 100
   gold: 100
   moneyChange:
     m_PersistentCalls:

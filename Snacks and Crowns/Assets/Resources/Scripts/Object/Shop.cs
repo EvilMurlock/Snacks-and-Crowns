@@ -11,14 +11,16 @@ public class Shop : Interactible_Object
     public GameObject firstSelectedButton;
     GameObject player;
 
-    public Item_Slot[] shopInventory;
+    public ShopSlot[] shopInventory;
     public void Start()
     {
-        int inventory_size = (shopUiInstance.GetComponentsInChildren<Image>().Length -1)/2;
-        shopInventory = new Item_Slot[inventory_size];
-        for (int i = 0; i< inventory_size; i++)
+        Generate_Ui();
+        firstSelectedButton = shopInventory[0].button;
+        //Testing items
+        Item axe = (Item)Resources.Load("Items/Equipment/Axe");
+        for (int i = 0; i<8; i++)
         {
-            shopInventory[i] = new Item_Slot();
+            shopInventory[i].AddItem(axe);
         }
     }
     public override void Interact(GameObject newPlayer)
@@ -26,40 +28,34 @@ public class Shop : Interactible_Object
         player = newPlayer;
         player.GetComponent<Player_State_Manager>().Change_State(Player_State.in_ui_menu);
 
-        Generate_Ui(player);
+        shopUiInstance.transform.SetParent(player.GetComponent<Player_Inventory>().canvas.transform, false);
+        shopUiInstance.SetActive(true);
 
         Player_Inventory player_inventory = player.GetComponent<Player_Inventory>();
         player_inventory.Add_Interacted_Object(this);
 
 
         player_inventory.event_system.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(firstSelectedButton);
+
+        foreach(ShopSlot shopSlot in shopInventory)
+        {
+            shopSlot.button.GetComponent<Button>().onClick.AddListener(delegate { shopSlot.BuyItem(player, shopSlot); });
+        }
     }
     public override void Un_Interact(GameObject player)
     {
-        Delete_Ui();
-    }
-
-    void Generate_Ui(GameObject player)
-    {
-        Player_Inventory p_inventory = player.GetComponent<Player_Inventory>();
-        shopUiInstance = Instantiate(shopUiInstance);
-
-        shopUiInstance.transform.SetParent(p_inventory.canvas.transform, false);
-
-        int index = 0;
-        foreach (Transform child in shopUiInstance.transform)
+        foreach(ShopSlot shopSlot in shopInventory)
         {
-            Item item = shopInventory[index].item;
-            shopInventory[index] = new Item_Slot();
-            shopInventory[index].panel = child.gameObject;
-            shopInventory[index].Add_Item(item);
-            index++;
+            shopSlot.button.GetComponent<Button>().onClick.RemoveAllListeners();
         }
         shopUiInstance.SetActive(false);
+        player.GetComponent<Player_State_Manager>().Change_State(Player_State.normal);
     }
 
-    void Delete_Ui()
+    void Generate_Ui()
     {
-        Destroy(shopUiInstance);
+        shopUiInstance = Instantiate(shopUiPrefab);
+        shopInventory = shopUiInstance.GetComponentsInChildren<ShopSlot>();
+        shopUiInstance.SetActive(false);
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Iron Ore
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 1117d71013ada1e4ea9cb17ada6b03fb, type: 3}
-  item_name: Iron ore
+  item_name: Iron Ore
   description: It's iron ore
   cost: 5
   prefab: {fileID: 5236949791698959159, guid: ff323cf0037bddd4db75c03ecf76b5ce, type: 3}

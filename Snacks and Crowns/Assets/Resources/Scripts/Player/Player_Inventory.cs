@@ -45,8 +45,8 @@ public class Player_Inventory : MonoBehaviour
     public List<GameObject> active_menus;
     public List<Menu_Slot[]> menu_items;
 
-    public int gold;
-    public UnityEvent<int> moneyChange;
+    public int gold = 0;
+    public UnityEvent<int> moneyChange = new UnityEvent<int>();
 
     Vector2 cursor;//first value is menu index (equipment/inventory), second value is slot in menu
     Vector2 cursor_last_move;
@@ -73,7 +73,8 @@ public class Player_Inventory : MonoBehaviour
         Set_Menus_Charakter_Sheet();
         Change_Cursor(cursor);
         ChangeHotbarCursor(hotbarCursor);
-        ChangeGold(0);
+        
+        //ChangeGold(10);
     }
     public void ChangeGold(int goldChange)
     {
@@ -153,7 +154,7 @@ public class Player_Inventory : MonoBehaviour
         item_info_panel.transform.SetParent(canvas.transform, false);
         hotbar.transform.SetParent(canvas.transform, false);
         money.transform.SetParent(canvas.transform, false);
-
+        money.GetComponentInChildren<MoneyTracker>().CoupleToPlayer(gameObject, gold);
         //charakter_sheet = Instantiate(charakter_sheet_prefab);
         //charakter_sheet.transform.SetParent(GameObject.Find("Canvas").transform, false);
 
@@ -317,6 +318,27 @@ public void Select(InputAction.CallbackContext context) //selects item
     void Change_Colour(Vector2 index, Color color)
     {
         menu_items[(int)index.x][(int)index.y].Change_Colour(color);
+    }
+    public bool FindEmptyInventorySlot()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            if (inventory_items[i].item == null) return true;
+        }
+        return false;
+    }
+
+    public void AddItemToInventory(Item item)
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            if (inventory_items[i].item == null)
+            {
+                Add_Item(item, new Vector2(0, i));
+                UpdateHotbar();
+                return;
+            }
+        }
     }
     public void Pick_Up_Item(GameObject new_item)
     {

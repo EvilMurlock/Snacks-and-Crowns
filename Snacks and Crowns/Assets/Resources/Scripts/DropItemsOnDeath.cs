@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class DropItemsOnDeath : MonoBehaviour
 {
-    GameObject prefab;
     public List<Item> itemsToDrop;
     void Start()
     {
-        prefab = (GameObject)Resources.Load("Prefabs/Items/Item");
         GetComponent<Damagable>().death.AddListener(DropItems);
     }
     void DropItems()

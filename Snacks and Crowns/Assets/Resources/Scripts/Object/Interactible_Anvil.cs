@@ -110,6 +110,8 @@ public class Interactible_Anvil : Interactible_Object
                     }
                 }
             }
+            player.GetComponent<Player_Inventory>().AddItemToInventory(recepies[dropdown.value].result);
+            /*
             foreach (Item_Slot item_slot in player.GetComponent<Player_Inventory>().inventory_items)
             {
                 if (item_slot.Is_Empty()) item_slot.Add_Item(recepies[dropdown.value].result);
@@ -118,6 +120,7 @@ public class Interactible_Anvil : Interactible_Object
                     break;
                 }
             }
+            */
         }
         Switch_Recepy();
     }

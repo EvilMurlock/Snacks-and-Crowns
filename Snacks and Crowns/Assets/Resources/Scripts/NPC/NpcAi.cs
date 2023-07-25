@@ -25,8 +25,6 @@ public class NpcAi : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         target = GameObject.Find("Player1(Clone)").transform;
-        Debug.Log(target);
-
         InvokeRepeating("UpdatePath", 0f, 1f);
     }
     void UpdatePath()

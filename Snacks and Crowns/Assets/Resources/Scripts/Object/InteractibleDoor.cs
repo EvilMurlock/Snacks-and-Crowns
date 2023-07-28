@@ -31,8 +31,6 @@ public class InteractibleDoor : Interactible_Object
                 open = true;
             }
         }
-        else ;
-
     }
     IEnumerator ChangeAnimation(float duration, AnimationClip new_animation)
     {

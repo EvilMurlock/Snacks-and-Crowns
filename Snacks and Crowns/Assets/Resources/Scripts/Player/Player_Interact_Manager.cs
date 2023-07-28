@@ -11,6 +11,15 @@ public class Player_Interact_Manager : MonoBehaviour
     {
         interactibles_in_range = new List<GameObject>();
     }
+    private void Update()
+    {
+        interactibles_in_range.Sort(delegate (GameObject a, GameObject b)
+        {
+            return Vector2.Distance(this.transform.position, a.transform.position)
+            .CompareTo(
+              Vector2.Distance(this.transform.position, b.transform.position));
+        });
+    }
     public void Interact(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -61,15 +70,6 @@ public class Player_Interact_Manager : MonoBehaviour
             }
         }
 
-    }
-    void Update()
-    {
-        interactibles_in_range.Sort(delegate (GameObject a, GameObject b)
-        {
-            return Vector2.Distance(this.transform.position, a.transform.position)
-            .CompareTo(
-              Vector2.Distance(this.transform.position, b.transform.position));
-        });
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

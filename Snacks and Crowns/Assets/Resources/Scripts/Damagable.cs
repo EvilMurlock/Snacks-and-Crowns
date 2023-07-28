@@ -13,12 +13,14 @@ public class Damagable : MonoBehaviour
     {
         resistances = new Dictionary<Damage_Type, float>();
     }
-    public void Take_Damage(Attack attack)
+    public void TakeDamage(Attack attack)
     {
         float resistance = 0;
         if (resistances.ContainsKey(attack.damage_type))
         { resistance = resistances[attack.damage_type]; }
-        hp -= attack.damage * Mathf.Clamp(1 - resistance,0,1);
+        float damageTaken = attack.damage * Mathf.Clamp(1 - resistance, 0, 1);
+        Debug.Log("Damage taken: " + damageTaken);
+        hp -= damageTaken;
         if (hp < 0) Die();
     }
     void Die()

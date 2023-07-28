@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d9be0673d6fd48448a99a1bc5d48514, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a7298259f1804e46a1fec448ab71e10, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: edf02af0aa593c345b584e540fa72124, type: 3}
@@ -17,6 +17,29 @@ MonoBehaviour:
   description: You can use this to hurt people
   cost: 50
   prefab: {fileID: 5236949791698959159, guid: ff323cf0037bddd4db75c03ecf76b5ce, type: 3}
+  componentData:
+  - rid: 6825547834093993989
+  - rid: 6825547834093993990
+  - rid: 6825547834093993991
   equipment_slot: 1
   prefab_eq: {fileID: 2449238230562422413, guid: 3c6aae53d21eed747bc7b3be86bf416a, type: 3}
   instance: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 6825547834093993989
+      type: {class: KnockbackComponentData, ns: , asm: Assembly-CSharp}
+      data:
+        knockback: 50
+    - rid: 6825547834093993990
+      type: {class: AttackComponentData, ns: , asm: Assembly-CSharp}
+      data:
+        attack:
+          damage: 30
+          damage_type: 1
+    - rid: 6825547834093993991
+      type: {class: AttackComponentData, ns: , asm: Assembly-CSharp}
+      data:
+        attack:
+          damage: 20
+          damage_type: 2

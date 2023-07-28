@@ -101,9 +101,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idle: {fileID: 7400000, guid: 05a1a6d9448d17b4785aa20c125b3aa4, type: 2}
   use: {fileID: 7400000, guid: c8820208c51d53d44b317a00eba99e0f, type: 2}
-  attacks:
-  - damage: 25
-    damage_type: 2
+  onHitEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &145943094992368112
 BoxCollider2D:
   m_ObjectHideFlags: 0

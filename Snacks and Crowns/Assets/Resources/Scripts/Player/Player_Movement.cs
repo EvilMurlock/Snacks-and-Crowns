@@ -16,12 +16,12 @@ public class Player_Movement : MonoBehaviour
     }
     void FixedUpdate()
     {
-        rigid_body.MovePosition((movement_direction * Time.fixedDeltaTime * movement_speed) + (Vector2)transform.position);
         //Debug.Log("Move speed:" + movement_speed);
         //Debug.Log("Move direction:" + movement_direction);
 
         if (movement_direction != Vector2.zero) //rotates object in direction of movement
         {
+            rigid_body.MovePosition((movement_direction * Time.fixedDeltaTime * movement_speed) + (Vector2)transform.position);
             Quaternion rotate_to = Quaternion.LookRotation(Vector3.forward, movement_direction);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rotate_to, 20);
         }

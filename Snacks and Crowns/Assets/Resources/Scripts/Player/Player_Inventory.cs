@@ -202,14 +202,6 @@ public class Player_Inventory : MonoBehaviour
             cursor_last_move = Vector2.zero;
         }
     }
-    public void Use_Left_Hand(InputAction.CallbackContext context)
-    {
-        if (equipment_items[0].item != null)
-        {
-            Equipment eq = (Equipment)equipment_items[0].item;
-            if (eq.instance != null) eq.Use();
-        }
-    }
     public void Scroll_Menu(InputAction.CallbackContext context) 
     {
         //depending on positive Q/E value go to other menu
@@ -233,9 +225,17 @@ public class Player_Inventory : MonoBehaviour
             ChangeHotbarCursor(newHotbarCursor);
         }
     }
+    public void Use_Left_Hand(InputAction.CallbackContext context)
+    {
+        if (context.started && equipment_items[0].item != null)
+        {
+            Equipment eq = (Equipment)equipment_items[0].item;
+            if (eq.instance != null) eq.Use();
+        }
+    }
     public void Use_Right_Hand(InputAction.CallbackContext context)
     {
-        if (equipment_items[1].item != null)
+        if (context.started && equipment_items[1].item != null)
         {
             Equipment eq = (Equipment)equipment_items[1].item;
             if (eq.instance != null) eq.Use();
@@ -354,9 +354,7 @@ public void Select(InputAction.CallbackContext context) //selects item
     }
     bool Swap(Vector2 index1, Vector2 index2)
     {
-
         if (Equip_Check(index1, index2) == false || Equip_Check(index2, index1) == false) return false;
-
         Un_Equip_Item(index1);
         Un_Equip_Item(index2);
 
@@ -393,13 +391,12 @@ public void Select(InputAction.CallbackContext context) //selects item
     {
         Item_Slot source_slot = (Item_Slot)menu_items[(int)source.x][(int)source.y];
         Item_Slot destination_slot = (Item_Slot)menu_items[(int)destination.x][(int)destination.y];
-
         if (source_slot.Is_Not_Empty() && destination_slot.equipment_slot != Equipment_Slot.none)
         {
-            if (source_slot.item.GetType().IsSubclassOf(typeof(Equipment)))
+            if(source_slot.item.GetType() == typeof(Equipment))
             {
                 Equipment to_equip = (Equipment)source_slot.item;
-                Debug.Log("Am here: " + to_equip.item_name + " : " + (to_equip.equipment_slot != destination_slot.equipment_slot));
+                //Debug.Log("Am here: " + to_equip.item_name + " : " + (to_equip.equipment_slot != destination_slot.equipment_slot));
                 if (to_equip.equipment_slot != destination_slot.equipment_slot) return false;
             }
             else return false;

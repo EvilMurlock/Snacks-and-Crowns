@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ba17b6f443f20c4ba84cc853803bebf, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a7298259f1804e46a1fec448ab71e10, type: 3}
   m_Name: Cultist_Hoodie
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 3a886846129055b4f916424a832db46a, type: 3}
@@ -17,6 +17,7 @@ MonoBehaviour:
   description: It shows that you are a member of the cult
   cost: 20
   prefab: {fileID: 5236949791698959159, guid: ff323cf0037bddd4db75c03ecf76b5ce, type: 3}
+  componentData: []
   equipment_slot: 2
   prefab_eq: {fileID: 6329217519378015856, guid: 11cf72895513ea1459571da1b1620def, type: 3}
   instance: {fileID: 0}

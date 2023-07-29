@@ -18,9 +18,15 @@ public class Shop : Interactible_Object
         firstSelectedButton = shopInventory[0].button;
         //Testing items
         Item axe = (Item)Resources.Load("Items/Equipment/Axe");
+        Item hpPotion = (Item)Resources.Load("Items/Potions/Health Potion");
+
         for (int i = 0; i<8; i++)
         {
             shopInventory[i].AddItem(axe);
+        }
+        for (int i = 8; i < 14; i++)
+        {
+            shopInventory[i].AddItem(hpPotion);
         }
     }
     public override void Interact(GameObject newPlayer)

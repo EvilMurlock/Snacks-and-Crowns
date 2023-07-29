@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4599701087864173615}
   - component: {fileID: 1289964042083643351}
   m_Layer: 5
-  m_Name: Money
+  m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 884.8037, y: 425.925}
-  m_SizeDelta: {x: -1769.6073, y: -990.7252}
+  m_AnchoredPosition: {x: 879.4164, y: 500.44067}
+  m_SizeDelta: {x: -1758.8328, y: -1000.8814}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4599701087864173615
 CanvasRenderer:
@@ -88,9 +88,9 @@ GameObject:
   - component: {fileID: 2480788047439262407}
   - component: {fileID: 8667209268702788574}
   - component: {fileID: 3990172751670160606}
-  - component: {fileID: 6728180285625513764}
+  - component: {fileID: 8934603658340195602}
   m_Layer: 5
-  m_Name: MoneyValue
+  m_Name: HealthValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,10 +111,10 @@ RectTransform:
   m_Father: {fileID: 3724244549713174226}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000023365, y: -0.0014381}
-  m_SizeDelta: {x: 176, y: 160.9}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8667209268702788574
 CanvasRenderer:
@@ -153,8 +153,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190335
+  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &6728180285625513764
+--- !u!114 &8934603658340195602
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,6 +222,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8418192112005942578}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3979ef4f8fcaf848818bd250500c701, type: 3}
+  m_Script: {fileID: 11500000, guid: c907307f79a4447489f265d787006fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

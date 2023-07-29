@@ -9,5 +9,6 @@ public class Item_Controler : MonoBehaviour
     void Start()
     {
         GetComponent<SpriteRenderer>().sprite = item.icon;
+        item.prefab = (GameObject)Resources.Load("Prefabs/Items/Item");
     }
 }

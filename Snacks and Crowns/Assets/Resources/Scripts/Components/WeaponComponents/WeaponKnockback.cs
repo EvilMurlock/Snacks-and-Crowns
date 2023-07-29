@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponKnockback : MonoBehaviour
 {
     public float knockback;
+    public float stunTime;
     public void Knockback(GameObject g)
     {
         Rigidbody2D rb = g.GetComponent<Rigidbody2D>();
@@ -12,6 +13,11 @@ public class WeaponKnockback : MonoBehaviour
         {
             Vector2 direction = -(gameObject.transform.parent.parent.position - g.transform.position).normalized; 
             rb.AddForce(direction*knockback);
+            Player_State_Manager pst = g.GetComponent<Player_State_Manager>();
+            if (pst != null)
+            {
+                pst.Stun(stunTime);
+            }
         }
     }
 }

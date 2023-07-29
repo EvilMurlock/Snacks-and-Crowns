@@ -6,15 +6,13 @@ using UnityEngine;
 public class KnockbackComponentData : ComponentData<WeaponKnockback>
 {
     public float knockback;
-    public override void Ping()
-    {
-        Debug.Log("I am inicialized DEEPER");
-    }
+    public float stunTime;
 
     public override void InicializeComponent(GameObject weapon)
     {
         WeaponKnockback weaponKnockback = weapon.AddComponent<WeaponKnockback>();
         weaponKnockback.knockback = knockback;
+        weaponKnockback.stunTime = stunTime;
         weapon.GetComponent<Hand_Item_Controler>().onHitEvent.AddListener(weaponKnockback.Knockback);
     }
 }

@@ -17,29 +17,24 @@ MonoBehaviour:
   description: Used to chop down trees
   cost: 50
   prefab: {fileID: 5236949791698959159, guid: ff323cf0037bddd4db75c03ecf76b5ce, type: 3}
-  componentData:
-  - rid: 6825547834093993984
-  - rid: 6825547834093993985
-  - rid: 6825547834093993986
+  componentDataUse: []
+  componentDataEquipment:
+  - rid: 6825547853902118912
+  - rid: 6825547854325481472
   equipment_slot: 1
   prefab_eq: {fileID: 2449238230562422413, guid: ac6d7e299149882499999f2c5204bba9, type: 3}
   instance: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 6825547834093993984
+    - rid: 6825547853902118912
       type: {class: KnockbackComponentData, ns: , asm: Assembly-CSharp}
       data:
-        knockback: 100
-    - rid: 6825547834093993985
+        knockback: 200
+        stunTime: 0.3
+    - rid: 6825547854325481472
       type: {class: AttackComponentData, ns: , asm: Assembly-CSharp}
       data:
         attack:
           damage: 30
           damage_type: 2
-    - rid: 6825547834093993986
-      type: {class: AttackComponentData, ns: , asm: Assembly-CSharp}
-      data:
-        attack:
-          damage: 10
-          damage_type: 1

@@ -121,7 +121,6 @@ public class Player_State_Manager : MonoBehaviour
             case Player_State.in_ui_menu:
                 inventory.Remove_Interacted_Object();
                 break;
-
         }
     }
 
@@ -141,10 +140,21 @@ public class Player_State_Manager : MonoBehaviour
 
         player_state = new_state;
     }
+    public void Stun(float stunTime)
+    {
+        StopCoroutine("StunCo");
+        StartCoroutine("StunCo",stunTime);
+    }
+    IEnumerator StunCo(float stunTime)
+    {
+        movement.ChangeSpeed(0,0);
+        yield return new WaitForSeconds(stunTime);
+        movement.ResetSpeed();
+    }
 }
 public enum Player_State
 {
     normal,
     in_menu,
-    in_ui_menu
+    in_ui_menu,
 }

@@ -18,7 +18,7 @@ public class Hand_Item_Controler : MonoBehaviour
     }
     public void Use()
     {
-        colidedObjects = new List<GameObject>();
+        colidedObjects.Clear();
         animator.Play(use.name);
     }
     public void Go_Idle()
@@ -28,7 +28,6 @@ public class Hand_Item_Controler : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject colObject = collision.gameObject;
-        Damagable damagable = colObject.GetComponent<Damagable>();
         //Isnt the weilder, can be hit and has not yet been hit
         if (colObject! != transform.parent.parent.gameObject && !colidedObjects.Contains(colObject))
         {

@@ -14,7 +14,9 @@ public class Player_Inventory : MonoBehaviour
     public GameObject equipment_panel_prefab;
     public GameObject item_info_panel_prefab;
     public GameObject hotbarPrefab;
+
     public GameObject moneyPrefab;
+    public GameObject healthPrefab;
 
 
     //GameObject charakter_sheet;
@@ -148,13 +150,18 @@ public class Player_Inventory : MonoBehaviour
         item_info_panel = Instantiate(item_info_panel_prefab);
         hotbar = Instantiate(hotbarPrefab);
         GameObject money = Instantiate(moneyPrefab);
+        GameObject health = Instantiate(healthPrefab);
 
         inventory_panel.transform.SetParent(canvas.transform, false);
         equipment_panel.transform.SetParent(canvas.transform, false);
         item_info_panel.transform.SetParent(canvas.transform, false);
         hotbar.transform.SetParent(canvas.transform, false);
+
         money.transform.SetParent(canvas.transform, false);
         money.GetComponentInChildren<MoneyTracker>().CoupleToPlayer(gameObject, gold);
+        health.transform.SetParent(canvas.transform, false);
+        health.GetComponentInChildren<HealthTracker>().CoupleToPlayer(gameObject);
+
         //charakter_sheet = Instantiate(charakter_sheet_prefab);
         //charakter_sheet.transform.SetParent(GameObject.Find("Canvas").transform, false);
 
@@ -230,7 +237,7 @@ public class Player_Inventory : MonoBehaviour
         if (context.started && equipment_items[0].item != null)
         {
             Equipment eq = (Equipment)equipment_items[0].item;
-            if (eq.instance != null) eq.Use();
+            if (eq.instance != null) eq.UseEquipment();
         }
     }
     public void Use_Right_Hand(InputAction.CallbackContext context)
@@ -238,14 +245,18 @@ public class Player_Inventory : MonoBehaviour
         if (context.started && equipment_items[1].item != null)
         {
             Equipment eq = (Equipment)equipment_items[1].item;
-            if (eq.instance != null) eq.Use();
+            if (eq.instance != null) eq.UseEquipment();
         }
     }
     public void Use_Item(InputAction.CallbackContext context)
     {
         if (context.started && hotbarItems[hotbarCursor].item != null)
         {
-            hotbarItems[hotbarCursor].item.Use();
+            hotbarItems[hotbarCursor].item.Use(this.gameObject);
+            if (hotbarItems[hotbarCursor].item.singleUse)
+            {
+                Remove_Item(new Vector2(0, hotbarCursor));
+            }
         }
     }
     public void On_Move(InputAction.CallbackContext context)

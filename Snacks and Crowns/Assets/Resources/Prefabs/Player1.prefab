@@ -342,6 +342,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movement_speed: 5
+  movementSpeed: 0
+  turningSpeed: 20
 --- !u!114 &718309233243571717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,6 +505,7 @@ MonoBehaviour:
   item_info_panel_prefab: {fileID: 2373870865900987792, guid: 52bf5a3f7e8c61945b6fe89b873fcf7b, type: 3}
   hotbarPrefab: {fileID: 8208114677986454215, guid: 9998a955e0a74754b84ffed37fc33598, type: 3}
   moneyPrefab: {fileID: 1521334342370810237, guid: c7d2dfe158e8b174da6deaceaabe5e8f, type: 3}
+  healthPrefab: {fileID: 1521334342370810237, guid: 744dbf7189f468b418be1223828b97a8, type: 3}
   left_hand: {fileID: 280908120042174228}
   right_hand: {fileID: 3493593143179132165}
   body: {fileID: 1363891384327316660}
@@ -626,6 +629,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   death:
+    m_PersistentCalls:
+      m_Calls: []
+  healthChange:
     m_PersistentCalls:
       m_Calls: []
   max_hp: 100

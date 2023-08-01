@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.Events;
 public class Damagable : MonoBehaviour
 {
+    [HideInInspector]
     public UnityEvent death;
-    public UnityEvent<float> healthChange;
+    [HideInInspector]
+    public UnityEvent<float,float> healthChange;
 
     public float max_hp = 100;
     public float hp { get; private set; }
@@ -32,7 +34,7 @@ public class Damagable : MonoBehaviour
     void Changehealth(float newHealth)
     {
         hp = newHealth;
-        healthChange.Invoke(hp);
+        healthChange.Invoke(hp,max_hp);
     }
     void Die()
     {

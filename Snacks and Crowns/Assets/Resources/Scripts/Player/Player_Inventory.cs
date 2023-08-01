@@ -87,8 +87,7 @@ public class Player_Inventory : MonoBehaviour
     {
         for(int i = 0; i < 9; i++)
         {
-            if (inventory_items[i].item == null) hotbarItems[i].Remove_Item();
-            else hotbarItems[i].Add_Item(inventory_items[i].item);
+            hotbarItems[i].Add_Item(inventory_items[i].item);
         }
     }
     public void Add_Interacted_Object(Interactible_Object new_object)
@@ -160,7 +159,7 @@ public class Player_Inventory : MonoBehaviour
         money.transform.SetParent(canvas.transform, false);
         money.GetComponentInChildren<MoneyTracker>().CoupleToPlayer(gameObject, gold);
         health.transform.SetParent(canvas.transform, false);
-        health.GetComponentInChildren<HealthTracker>().CoupleToPlayer(gameObject);
+        health.GetComponent<HealthTracker>().CoupleToPlayer(gameObject);
 
         //charakter_sheet = Instantiate(charakter_sheet_prefab);
         //charakter_sheet.transform.SetParent(GameObject.Find("Canvas").transform, false);
@@ -169,6 +168,7 @@ public class Player_Inventory : MonoBehaviour
         foreach (Transform child in inventory_panel.transform)
         {
             inventory_items[index].panel = child.gameObject;
+            inventory_items[index].Add_Item(inventory_items[index].item);
             index++;
         }
         index = 0;
@@ -184,7 +184,7 @@ public class Player_Inventory : MonoBehaviour
             if (index == 0 || index == 1) equipment_items[index].equipment_slot = Equipment_Slot.hand;
             if (index == 2) equipment_items[index].equipment_slot = Equipment_Slot.body;
             if (index == 3 || index == 4) equipment_items[index].equipment_slot = Equipment_Slot.miscelanious;
-
+            equipment_items[index].Add_Item(equipment_items[index].item);
             index++;
         }
         //charakter_sheet.SetActive(false);
@@ -300,7 +300,7 @@ public void Select(InputAction.CallbackContext context) //selects item
         if (menu_items[(int)cursor.x][(int)cursor.y] != null)
         {
             Item_Slot cursor_slot = (Item_Slot)menu_items[(int)cursor.x][(int)cursor.y];
-            GameObject item_object = Instantiate(cursor_slot.item.prefab, transform.position, transform.rotation);
+            GameObject item_object = Instantiate((GameObject)Resources.Load("Prefabs/Items/Item"), transform.position, transform.rotation);
             item_object.GetComponent<Item_Controler>().item = cursor_slot.item;
             item_object.GetComponent<Rigidbody2D>().AddForce(this.transform.rotation * Vector2.up*500);
             item_object.transform.rotation = this.transform.rotation;
@@ -371,13 +371,13 @@ public void Select(InputAction.CallbackContext context) //selects item
 
         Item_Slot index1_slot = (Item_Slot)menu_items[(int)index1.x][(int)index1.y];
         Item_Slot index2_slot = (Item_Slot)menu_items[(int)index2.x][(int)index2.y];
-
+        Debug.Log("Presawp");
         Item item_data = index1_slot.item;
         index1_slot.Add_Item(index2_slot.item);
         index2_slot.Add_Item(item_data);
-
+        Debug.Log("PostSwap");
+        UpdateHotbar();
         Equip_Equipment();
-
         return true;
     }
     void Un_Equip_Item(Vector2 index)

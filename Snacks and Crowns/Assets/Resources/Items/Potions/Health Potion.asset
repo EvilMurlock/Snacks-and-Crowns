@@ -17,12 +17,14 @@ MonoBehaviour:
   description: Heals your wounds if you drink it
   cost: 30
   prefab: {fileID: 5236949791698959159, guid: ff323cf0037bddd4db75c03ecf76b5ce, type: 3}
+  useDuration: 0
+  singleUse: 1
   componentDataUse:
-  - rid: 6825547854325481477
+  - rid: 6825547856982573057
   references:
     version: 2
     RefIds:
-    - rid: 6825547854325481477
+    - rid: 6825547856982573057
       type: {class: IncreaseHealthData, ns: , asm: Assembly-CSharp}
       data:
-        healAmount: 40
+        healAmount: 30

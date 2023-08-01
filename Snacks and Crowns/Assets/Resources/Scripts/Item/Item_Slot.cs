@@ -13,17 +13,28 @@ public class Item_Slot : Menu_Slot
     public void Add_Item(Item new_item)
     {
         item = new_item;
-        if(Is_Not_Empty()) panel.GetComponentsInChildren<Image>()[1].sprite = item.icon;
-        else panel.GetComponentsInChildren<Image>()[1].sprite = null;
+        //panel.GetComponent<Image>().color = new Color(255, 255, 255, 255);
+        panel.GetComponentsInChildren<Image>()[1].color = new Color(255, 255, 255, 255);
+        if (Is_Not_Empty()) panel.GetComponentsInChildren<Image>()[1].sprite = item.icon;//panel.GetComponent<Image>().sprite = item.icon;
+        else Remove_Item();//panel.GetComponentsInChildren<Image>()[1].sprite = null;//panel.GetComponent<Image>().color = new Color(0, 0, 0, 0);
     }
     public void Remove_Item()
     {
         item = null;
         panel.GetComponentsInChildren<Image>()[1].sprite = null;
+        panel.GetComponentsInChildren<Image>()[1].color = new Color(0, 0, 0, 0);
+
+        //panel.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+    }
+    public void ChangeBackground(Sprite sprite)
+    {
+        panel.GetComponent<Image>().sprite = sprite;
+        //panel.GetComponentsInChildren<Image>()[1].sprite = sprite;
     }
     public override void Change_Colour(Color color)
     {
         panel.GetComponent<Image>().color = color;
+        //panel.GetComponentsInChildren<Image>()[1].color = color;
     }
     public bool Is_Empty()
     {

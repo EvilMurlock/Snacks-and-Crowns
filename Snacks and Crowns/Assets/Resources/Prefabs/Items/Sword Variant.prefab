@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7712294567039239434
+--- !u!1001 &4822620735442616713
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -11,18 +11,18 @@ PrefabInstance:
     - target: {fileID: 4845444219183550298, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
       propertyPath: item
       value: 
-      objectReference: {fileID: 11400000, guid: 6e6a2399744b0d540be2f277fe0ca605, type: 2}
+      objectReference: {fileID: 11400000, guid: f46640e4fe00ea645b51317f0fe192d1, type: 2}
     - target: {fileID: 6242126777259267764, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
       propertyPath: m_RootOrder
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6242126777259267764, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.68998
+      value: 3.583334
       objectReference: {fileID: 0}
     - target: {fileID: 6242126777259267764, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.12285969
+      value: -1.3862587
       objectReference: {fileID: 0}
     - target: {fileID: 6242126777259267764, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
       propertyPath: m_Name
-      value: Axe Variant
+      value: Sword Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

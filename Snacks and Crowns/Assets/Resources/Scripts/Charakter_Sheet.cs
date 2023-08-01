@@ -7,31 +7,24 @@ public class Charakter_Sheet : MonoBehaviour
     [SerializeField]
     Race race;
     //Fyzical Stats
-    float strenght;
-    float agility;
-    float size;
 
-    //Personality Stats
-    float bravery;
-    float greed;
-
+    int faction;
     //Derived Stats
-    float hp;
-    float speed;
     void Start()
     {
-        //Fyzical Stats
-        strenght = race.strenght;
-        agility = race.agility;
-        size = race.size;
-
-        //Personality Stats
-        bravery = race.bravery;
-        greed = race.greed;
-
         //Derived Stats
-        hp = size;
-        speed = agility;
         gameObject.GetComponent<SpriteRenderer>().sprite = race.sprite;
+    }
+    public float GetSpeed()
+    {
+        return race.agility/2;
+    }
+    public float GetTurningSpeed()
+    {
+        return race.agility * 2;
+    }
+    public float GetMaxHP()
+    {
+        return race.size * 10;
     }
 }

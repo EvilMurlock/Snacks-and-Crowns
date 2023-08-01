@@ -15,5 +15,4 @@ public class Race : ScriptableObject
     //Personality Stats
     public float bravery;
     public float greed;
-
 }

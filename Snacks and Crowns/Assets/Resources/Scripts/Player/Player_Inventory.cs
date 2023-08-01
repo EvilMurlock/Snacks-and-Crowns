@@ -371,11 +371,9 @@ public void Select(InputAction.CallbackContext context) //selects item
 
         Item_Slot index1_slot = (Item_Slot)menu_items[(int)index1.x][(int)index1.y];
         Item_Slot index2_slot = (Item_Slot)menu_items[(int)index2.x][(int)index2.y];
-        Debug.Log("Presawp");
         Item item_data = index1_slot.item;
         index1_slot.Add_Item(index2_slot.item);
         index2_slot.Add_Item(item_data);
-        Debug.Log("PostSwap");
         UpdateHotbar();
         Equip_Equipment();
         return true;

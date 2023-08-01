@@ -10,7 +10,6 @@ public class NpcAi : MonoBehaviour
     int invetorySize = 9;
 
     public Transform target;
-    public float speed;
     public float nextWaypointDistance = 3f;
 
     Path path;
@@ -19,13 +18,15 @@ public class NpcAi : MonoBehaviour
 
     Seeker seeker;
     Rigidbody2D rb;
+    Player_Movement movementScript;
     void Start()
     {
+        movementScript = GetComponent<Player_Movement>();
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
 
-        target = GameObject.Find("Player1(Clone)").transform;
-        InvokeRepeating("UpdatePath", 0f, 1f);
+        //target = GameObject.Find("Player1(Clone)").transform;
+        InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
     void UpdatePath()
     {
@@ -49,24 +50,14 @@ public class NpcAi : MonoBehaviour
         if (currentWaypoint >= path.vectorPath.Count)
         {
             reachedEndOfPath = true;
+            movementScript.ChangeMovementDirection(Vector2.zero);
             return;
         }
         else reachedEndOfPath = false;
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 distance = direction * speed * Time.fixedDeltaTime;
 
-        //rb.AddForce(force);
-        rb.MovePosition((distance) + (Vector2)transform.position);
-
-
-        if (direction != Vector2.zero) //rotates object in direction of movement
-        {
-            Quaternion rotate_to = Quaternion.LookRotation(Vector3.forward, direction);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotate_to, 10);
-        }
-
-
+        movementScript.ChangeMovementDirection(direction);
 
         float distanceFromWaypoint = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 

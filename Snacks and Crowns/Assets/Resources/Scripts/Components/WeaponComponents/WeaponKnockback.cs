@@ -13,10 +13,10 @@ public class WeaponKnockback : MonoBehaviour
         {
             Vector2 direction = -(gameObject.transform.parent.parent.position - g.transform.position).normalized; 
             rb.AddForce(direction*knockback);
-            Player_State_Manager pst = g.GetComponent<Player_State_Manager>();
-            if (pst != null)
+            Player_Movement move = g.GetComponent<Player_Movement>();
+            if (move != null)
             {
-                pst.Stun(stunTime);
+                move.Stun(stunTime);
             }
         }
     }

@@ -140,17 +140,6 @@ public class Player_State_Manager : MonoBehaviour
 
         player_state = new_state;
     }
-    public void Stun(float stunTime)
-    {
-        StopCoroutine("StunCo");
-        StartCoroutine("StunCo",stunTime);
-    }
-    IEnumerator StunCo(float stunTime)
-    {
-        movement.ChangeSpeed(0,0);
-        yield return new WaitForSeconds(stunTime);
-        movement.ResetSpeed();
-    }
 }
 public enum Player_State
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "NewKnockbackData", menuName = "ComponentData/Weapon/Knockback")]
 
-public class KnockbackComponentData : ComponentData<WeaponKnockback>
+public class KnockbackComponentData : EquipmentComponentData<WeaponKnockback>
 {
     public float knockback;
     public float stunTime;

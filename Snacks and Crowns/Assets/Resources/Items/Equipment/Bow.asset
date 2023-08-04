@@ -16,14 +16,23 @@ MonoBehaviour:
   item_name: Bow
   description: Shoots arrows
   cost: 70
-  prefab: {fileID: 5236949791698959159, guid: ff323cf0037bddd4db75c03ecf76b5ce, type: 3}
+  prefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
   useDuration: 0
   singleUse: 0
   componentDataUse: []
-  componentDataEquipment: []
+  componentDataEquipment:
+  - rid: 8153713352461778947
   equipment_slot: 1
   prefab_eq: {fileID: 2449238230562422413, guid: 9cfaa6d9f2cd96442b163047cb20d924, type: 3}
   instance: {fileID: 0}
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 8153713352461778947
+      type: {class: SpawnProjectileOnSpriteChangeData, ns: , asm: Assembly-CSharp}
+      data:
+        name: SpawnProjectileOnSpriteChangeData
+        projectilePrefab: {fileID: 2732104517839151264, guid: c2bb36049dc52404eae88bc1d82215cc, type: 3}
+        speed: 10
+        extraAngle: 0
+        offset: {x: 0, y: 0}

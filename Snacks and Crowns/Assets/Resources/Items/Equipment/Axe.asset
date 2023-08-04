@@ -16,7 +16,9 @@ MonoBehaviour:
   item_name: Axe
   description: Used to chop down trees
   cost: 50
-  prefab: {fileID: 5236949791698959159, guid: ff323cf0037bddd4db75c03ecf76b5ce, type: 3}
+  prefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
+  useDuration: 0
+  singleUse: 0
   componentDataUse: []
   componentDataEquipment:
   - rid: 6825547853902118912
@@ -30,11 +32,13 @@ MonoBehaviour:
     - rid: 6825547853902118912
       type: {class: KnockbackComponentData, ns: , asm: Assembly-CSharp}
       data:
+        name: walker
         knockback: 200
         stunTime: 0.3
     - rid: 6825547854325481472
       type: {class: AttackComponentData, ns: , asm: Assembly-CSharp}
       data:
+        name: 
         attack:
           damage: 30
           damage_type: 2

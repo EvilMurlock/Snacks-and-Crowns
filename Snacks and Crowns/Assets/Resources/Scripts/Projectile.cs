@@ -5,8 +5,17 @@ using UnityEngine.Events;
 public class Projectile : MonoBehaviour
 {
     // Start is called before the first frame update
+    [SerializeReference]
     public List<ComponentDataGeneric> componentData;
-    UnityEvent<GameObject> onHit;
+    [HideInInspector]
+    public UnityEvent<GameObject> onHit;
+    [HideInInspector]
+    public UnityEvent<GameObject> onDestroy;
+
+    [HideInInspector]
+    public Vector2 direction;
+    [HideInInspector]
+    public float speed;
     void Start()
     {
         foreach (ComponentDataGeneric compData in componentData)
@@ -14,9 +23,20 @@ public class Projectile : MonoBehaviour
             compData.InicializeComponent(gameObject);
         }
     }
-
+    private void Update()
+    {
+        this.transform.position = this.transform.position + (Vector3)direction * speed * Time.deltaTime;
+    }
+    public void AddData(ComponentDataGeneric data)
+    {
+        componentData.Add(data);
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         onHit.Invoke(collision.gameObject);
+    }
+    private void OnDestroy()
+    {
+        onDestroy.Invoke(this.gameObject);
     }
 }

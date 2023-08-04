@@ -39,7 +39,6 @@ public class Player_Movement : MonoBehaviour
         Charakter_Sheet charakter = GetComponent<Charakter_Sheet>();
         movementSpeed = charakter.GetSpeed();
         turningSpeed = charakter.GetTurningSpeed();
-        Debug.Log(movementSpeed);
     }
     public void On_Move(InputAction.CallbackContext context)
     {

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07e9516094330654095878bb5ed6c708, type: 3}
   m_Name: Health Potion
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 58de7c4bfef282f4a927afa4d75f3de1, type: 3}
+  icon: {fileID: 21300000, guid: 43e2fbcb7ff1fbc4194ab7c218588323, type: 3}
   item_name: Health Potion
   description: Heals your wounds if you drink it
   cost: 30
@@ -27,4 +27,5 @@ MonoBehaviour:
     - rid: 6825547856982573057
       type: {class: IncreaseHealthData, ns: , asm: Assembly-CSharp}
       data:
+        name: IncreaseHealthData
         healAmount: 30

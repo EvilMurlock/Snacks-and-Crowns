@@ -9,6 +9,8 @@ public class Hand_Item_Controler : MonoBehaviour
     public AnimationClip use;
     List<GameObject> colidedObjects;
     public UnityEvent<GameObject> onHitEvent;
+    public UnityEvent<GameObject> spriteChangeEvent;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,11 @@ public class Hand_Item_Controler : MonoBehaviour
     {
         animator.Play(idle.name);
     }
+    public void SpriteChangeInAnimation()
+    {
+        spriteChangeEvent.Invoke(this.gameObject);
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject colObject = collision.gameObject;

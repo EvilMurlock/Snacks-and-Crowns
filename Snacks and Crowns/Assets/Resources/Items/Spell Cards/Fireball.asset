@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07e9516094330654095878bb5ed6c708, type: 3}
+  m_Name: Fireball
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 03c01edbfe698044193b59d5d3559e41, type: 3}
+  item_name: Fireball
+  description: Spell card that will shoot out a ball of fire.
+  cost: 60
+  prefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
+  useDuration: 1
+  singleUse: 1
+  componentDataUse:
+  - rid: 8153713352461778951
+  - rid: 8153713352461778953
+  references:
+    version: 2
+    RefIds:
+    - rid: 8153713352461778951
+      type: {class: SpawnProjectileOnUseData, ns: , asm: Assembly-CSharp}
+      data:
+        name: SpawnProjectileOnUseData
+        projectilePrefab: {fileID: 2095840691431628835, guid: 49a7316b8207bfb4d991e5854e9b39d8, type: 3}
+        speed: 10
+        extraAngle: 90
+        offset: {x: 0.5, y: 0}
+    - rid: 8153713352461778953
+      type: {class: SelfStun, ns: , asm: Assembly-CSharp}
+      data:
+        name: SelfStun
+        stunDuration: 0.5

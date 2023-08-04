@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewKnockbackData", menuName = "ComponentData/Weapon/Attack")]
-public class AttackComponentData : ComponentData<WeaponAttack>
+public class AttackComponentData : EquipmentComponentData<WeaponAttack>
 {
     public Attack attack;
     

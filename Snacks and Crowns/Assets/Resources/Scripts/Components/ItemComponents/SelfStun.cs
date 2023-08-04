@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "NewKnockbackData", menuName = "ComponentData/Weapon/Knockback")]
 
-public class SelfStun : ComponentData<WeaponKnockback>
+public class SelfStun : ItemComponentData<WeaponKnockback>
 {
     public float stunDuration;
     public override void InicializeComponent(GameObject self)

@@ -14,16 +14,6 @@ public class Item : ScriptableObject
     public float useDuration;
     public bool singleUse = false;
     [SerializeReference] private List<ComponentDataGeneric> componentDataUse;
-    [ContextMenu(itemName: "Add Heal")]
-    private void AddHeal()
-    {
-        componentDataUse.Add(new IncreaseHealthData());
-    }
-    [ContextMenu(itemName: "Add Stun")]
-    private void AddStun()
-    {
-        componentDataUse.Add(new SelfStun());
-    }
 
     public virtual void Use(GameObject player)
     {
@@ -32,5 +22,9 @@ public class Item : ScriptableObject
         {
             comData.InicializeComponent(player);
         }
+    }
+    public void AddDataUse(ComponentDataGeneric data)
+    {
+        componentDataUse.Add(data);
     }
 }

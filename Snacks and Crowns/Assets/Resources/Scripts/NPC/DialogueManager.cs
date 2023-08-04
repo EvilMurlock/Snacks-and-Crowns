@@ -91,7 +91,6 @@ public class DialogueManager : MonoBehaviour
 			}
 			else
 			{
-				Debug.Log("Yep, its false");
 				return false;
 			};
 

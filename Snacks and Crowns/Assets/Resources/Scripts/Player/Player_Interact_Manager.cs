@@ -13,30 +13,30 @@ public class Player_Interact_Manager : MonoBehaviour
     }
     private void Update()
     {
-        if (interactibles_in_range[0] == null) interactibles_in_range.Remove(interactibles_in_range[0]);
-        UnHighlight(interactibles_in_range[0]);
-        interactibles_in_range.Sort(delegate (GameObject a, GameObject b)
-        {
-            return Vector2.Distance(this.transform.position, a.transform.position)
-            .CompareTo(
-              Vector2.Distance(this.transform.position, b.transform.position));
-        });
         if (interactibles_in_range.Count > 0)
-        {
 
-        Highlight(interactibles_in_range[0]);
+        {
+            if (interactibles_in_range[0] == null) interactibles_in_range.Remove(interactibles_in_range[0]);
+            UnHighlight(interactibles_in_range[0]);
+            interactibles_in_range.Sort(delegate (GameObject a, GameObject b)
+            {
+                return Vector2.Distance(this.transform.position, a.transform.position)
+                .CompareTo(
+                  Vector2.Distance(this.transform.position, b.transform.position));
+            });
+            Highlight(interactibles_in_range[0]);
         }
     }
     void Highlight(GameObject g)
     {
-        if(g != null)
+        if(g != null && g.GetComponent<SpriteRenderer>() != null)
         {
             g.GetComponent<SpriteRenderer>().color = Color.green;
         }
     }
     void UnHighlight(GameObject g)
     {
-        if (g != null)
+        if (g != null && g.GetComponent<SpriteRenderer>() != null)
         {
             g.GetComponent<SpriteRenderer>().color = Color.white;
         }

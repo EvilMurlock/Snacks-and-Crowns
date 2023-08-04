@@ -10,18 +10,6 @@ public class Equipment : Item
     public GameObject prefab_eq;
     [HideInInspector]
     public GameObject instance;
-
-    [ContextMenu(itemName: "Add Knockback")]
-    private void AddKnockback()
-    {
-        componentDataEquipment.Add(new KnockbackComponentData());
-    }
-    [ContextMenu(itemName: "Add Attack")]
-    private void AddAttack()
-    {
-        componentDataEquipment.Add(new AttackComponentData());
-    }
-
     public void UseEquipment()
     {
         instance.GetComponent<Hand_Item_Controler>().Use();
@@ -40,5 +28,10 @@ public class Equipment : Item
         Destroy(instance);
         instance = null;
     }
+    public void AddDataEquipment(ComponentDataGeneric data)
+    {
+        componentDataEquipment.Add(data);
+    }
+
 }
 public enum Equipment_Slot {none, hand, body, miscelanious}

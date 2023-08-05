@@ -22,11 +22,13 @@ public class ShopSlot : MonoBehaviour
     {
         if (item != null)
         {
+            image.GetComponent<Image>().color = new Color(255, 255, 255, 255);
             priceText.GetComponent<TextMeshProUGUI>().text = item.cost.ToString();
             image.GetComponent<Image>().sprite = item.icon;
         }
         else
         {
+            image.GetComponent<Image>().color = new Color(0, 0, 0, 0);
             priceText.GetComponent<TextMeshProUGUI>().text = "";
             image.GetComponent<Image>().sprite = null;
         }

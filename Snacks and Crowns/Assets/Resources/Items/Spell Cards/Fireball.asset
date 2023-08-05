@@ -32,7 +32,7 @@ MonoBehaviour:
         projectilePrefab: {fileID: 2095840691431628835, guid: 49a7316b8207bfb4d991e5854e9b39d8, type: 3}
         speed: 10
         extraAngle: 90
-        offset: {x: 0.5, y: 0}
+        offset: {x: 0.7, y: 0}
     - rid: 8153713352461778953
       type: {class: SelfStun, ns: , asm: Assembly-CSharp}
       data:

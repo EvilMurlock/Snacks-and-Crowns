@@ -19,7 +19,10 @@ public class Shop : Interactible_Object
         //Testing items
         Item axe = (Item)Resources.Load("Items/Equipment/Axe");
         Item hpPotion = (Item)Resources.Load("Items/Potions/Health Potion");
-
+        foreach(ShopSlot shopSlot in shopInventory)
+        {
+            shopSlot.UpdateItem();
+        }
         for (int i = 0; i<8; i++)
         {
             shopInventory[i].AddItem(axe);

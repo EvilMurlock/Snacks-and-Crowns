@@ -8,6 +8,7 @@ public class ExplosionOnDeleteData : ProjectileComponentData<Explosion>
     public float maxKnockback;
     public float minKnockback;
     public Attack attack;
+    public GameObject explosionEffect;
     public override void InicializeComponent(GameObject projectile)
     {
         Explosion explosion = projectile.AddComponent<Explosion>();
@@ -15,6 +16,7 @@ public class ExplosionOnDeleteData : ProjectileComponentData<Explosion>
         explosion.maxKnockback = maxKnockback;
         explosion.minKnockback = minKnockback;
         explosion.attack = attack;
+        explosion.explosionEffect = explosionEffect;
 
         projectile.GetComponent<Projectile>().onDestroy.AddListener(explosion.Explode);
     }

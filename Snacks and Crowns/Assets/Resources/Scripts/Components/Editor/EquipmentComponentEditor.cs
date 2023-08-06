@@ -9,6 +9,7 @@ public class EquipmentComponentEditor : ItemComponentEditor
 {
     private static List<Type> dataComponetTypes = new List<Type>();
     private Equipment equipment;
+    private bool showComponents;
     private void OnEnable()
     {
         equipment = target as Equipment;
@@ -16,13 +17,19 @@ public class EquipmentComponentEditor : ItemComponentEditor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        foreach(var dataComponetType in dataComponetTypes)
+
+        showComponents = EditorGUILayout.Foldout(showComponents, "Add Equipment Components");
+
+        if (showComponents)
         {
-            if (GUILayout.Button(dataComponetType.Name))
+            foreach (var dataComponetType in dataComponetTypes)
             {
-                var comp = Activator.CreateInstance(dataComponetType) as ComponentDataGeneric;
-                if (comp == null) return;
-                equipment.AddDataEquipment(comp);
+                if (GUILayout.Button(dataComponetType.Name))
+                {
+                    var comp = Activator.CreateInstance(dataComponetType) as ComponentDataGeneric;
+                    if (comp == null) return;
+                    equipment.AddDataEquipment(comp);
+                }
             }
         }
     }

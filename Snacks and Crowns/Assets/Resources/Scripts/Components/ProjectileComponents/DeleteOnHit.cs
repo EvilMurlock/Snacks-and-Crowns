@@ -8,7 +8,8 @@ public class DeleteOnHit : MonoBehaviour
     {
         if (target.GetComponent<Damagable>())
         {
-            Debug.Log("Projectile DEAD");
+            Debug.Log("Target has DAMAGABLE");
+            this.gameObject.GetComponent<Projectile>().DestroyEvent();
             Destroy(this.gameObject);
         }
     }

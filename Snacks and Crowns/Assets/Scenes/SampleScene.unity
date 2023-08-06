@@ -7678,6 +7678,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 20
   turningSpeed: 20
+  stun:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1259665859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9370,6 +9373,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1343866618273334479, guid: 0cf939c499081a642857251834913b23, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1343866618273334479, guid: 0cf939c499081a642857251834913b23, type: 3}
+      propertyPath: m_Constraints
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 611436757035047128, guid: 0cf939c499081a642857251834913b23, type: 3}
       propertyPath: m_RootOrder
       value: 1

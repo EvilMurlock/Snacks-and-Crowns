@@ -124,6 +124,7 @@ MonoBehaviour:
   componentData:
   - rid: 8153713352461778954
   - rid: 8153713352461778955
+  - rid: 8153713401028673536
   onHit:
     m_PersistentCalls:
       m_Calls: []
@@ -145,10 +146,16 @@ MonoBehaviour:
         attack:
           damage: 30
           damage_type: 0
+        explosionEffect: {fileID: 8079436043623187588, guid: a1077a2b0dce81f4a92e0a2573e58732, type: 3}
     - rid: 8153713352461778955
       type: {class: DeleteOnHitData, ns: , asm: Assembly-CSharp}
       data:
         name: DeleteOnHitData
+    - rid: 8153713401028673536
+      type: {class: ParticleTrailData, ns: , asm: Assembly-CSharp}
+      data:
+        name: ParticleTrailData
+        particleEffect: {fileID: 1282006880964536575, guid: 60d7fda44d5825648bebc23799bf590e, type: 3}
 --- !u!114 &824920373527925688
 MonoBehaviour:
   m_ObjectHideFlags: 0

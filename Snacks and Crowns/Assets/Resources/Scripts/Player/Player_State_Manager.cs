@@ -14,10 +14,22 @@ public class Player_State_Manager : MonoBehaviour
     Player_Interact_Manager interact_manager;
     public Player_State player_state;
     // Start is called before the first frame update
+    Player_State preStunState;
     void Start()
     {
         player_state = Player_State.normal;
+        movement.stun.AddListener(ManageStun);
     }
+    public void ManageStun(bool value)
+    {
+        if (value)
+        {
+            preStunState = player_state;
+            Change_State(Player_State.stun);
+        }
+        else Change_State(preStunState);
+    }
+
     public void Movement(InputAction.CallbackContext context)
     {
         switch (player_state)
@@ -30,6 +42,10 @@ public class Player_State_Manager : MonoBehaviour
                 break;
             case Player_State.in_ui_menu:
                 break;
+            case Player_State.stun:
+                movement.On_Move(context);
+                break;
+
 
         }
     }
@@ -45,6 +61,9 @@ public class Player_State_Manager : MonoBehaviour
                 break;
             case Player_State.in_ui_menu:
                 break;
+            case Player_State.stun:
+                break;
+
         }
     }
     public void Right_Hand(InputAction.CallbackContext context)
@@ -59,6 +78,9 @@ public class Player_State_Manager : MonoBehaviour
                 break;
             case Player_State.in_ui_menu:
                 break;
+            case Player_State.stun:
+                break;
+
 
         }
     }
@@ -74,6 +96,9 @@ public class Player_State_Manager : MonoBehaviour
                 break;
             case Player_State.in_ui_menu:
                 break;
+            case Player_State.stun:
+                break;
+
 
         }
     }
@@ -90,6 +115,9 @@ public class Player_State_Manager : MonoBehaviour
             case Player_State.in_ui_menu:
                 interact_manager.UnInteract(context);
                 break;
+            case Player_State.stun:
+                break;
+
 
         }
     }
@@ -105,6 +133,9 @@ public class Player_State_Manager : MonoBehaviour
                 break;
             case Player_State.in_ui_menu:
                 break;
+            case Player_State.stun:
+                break;
+
 
         }
     }
@@ -121,6 +152,9 @@ public class Player_State_Manager : MonoBehaviour
             case Player_State.in_ui_menu:
                 inventory.Remove_Interacted_Object();
                 break;
+            case Player_State.stun:
+                break;
+
         }
     }
 
@@ -136,6 +170,8 @@ public class Player_State_Manager : MonoBehaviour
             case Player_State.in_ui_menu:
                 movement.Move_Stop();
                 break;
+            case Player_State.stun:
+                break;
         }
 
         player_state = new_state;
@@ -146,4 +182,5 @@ public enum Player_State
     normal,
     in_menu,
     in_ui_menu,
+    stun
 }

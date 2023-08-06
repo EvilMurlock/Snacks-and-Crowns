@@ -8,19 +8,22 @@ public class InteractibleDoor : Interactible_Object
     public AnimationClip closeAnim;
     public AnimationClip openAnim;
     public Animator animator;
+    bool playigAnim;
     public void Start()
     {
         animator = transform.parent.gameObject.GetComponent<Animator>();
         animator.Play(closeAnim.name);
+        playigAnim = false;
     }
     public override void Interact(GameObject new_player)
     {
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(closeAnim.name)
-            || !animator.GetCurrentAnimatorStateInfo(0).IsName(openAnim.name))
+        if (!playigAnim && (!animator.GetCurrentAnimatorStateInfo(0).IsName(closeAnim.name)
+            || !animator.GetCurrentAnimatorStateInfo(0).IsName(openAnim.name)))
         {
             if (open)
             {
                 animator.Play(closeAnim.name);
+                playigAnim = true;
                 //StartCoroutine(ChangeAnimation(closingAnim.length, closedAnim));
                 open = false;
                 StartCoroutine(ChangePathfinding(closeAnim.length, "Default"));
@@ -28,6 +31,7 @@ public class InteractibleDoor : Interactible_Object
             else
             {
                 animator.Play(openAnim.name);
+                playigAnim = true;
                 //StartCoroutine(ChangeAnimation(openingAnim.length, openAnim));
                 StartCoroutine(ChangePathfinding(closeAnim.length,"Obstacle"));
 
@@ -49,6 +53,7 @@ public class InteractibleDoor : Interactible_Object
         // Set some settings
         guo2.updatePhysics = true;
         AstarPath.active.UpdateGraphs(guo2);
+        playigAnim = false;
     }
     IEnumerator ChangeAnimation(float duration, AnimationClip new_animation)
     {

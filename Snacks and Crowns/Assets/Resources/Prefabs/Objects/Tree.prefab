@@ -104,6 +104,9 @@ MonoBehaviour:
   death:
     m_PersistentCalls:
       m_Calls: []
+  healthChange:
+    m_PersistentCalls:
+      m_Calls: []
   max_hp: 50
 --- !u!114 &5492951965968658843
 MonoBehaviour:

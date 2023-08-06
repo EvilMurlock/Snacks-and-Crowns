@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 public class Player_Movement : MonoBehaviour
 {
     [SerializeField]
@@ -11,11 +12,13 @@ public class Player_Movement : MonoBehaviour
     Rigidbody2D rigid_body;
     Vector2 movement_direction;
 
+    public UnityEvent<bool> stun;
     private void Start()
     {       
         rigid_body = gameObject.GetComponent<Rigidbody2D>();
         movement_direction = Vector2.zero;
         ResetSpeed();
+        stun.Invoke(false);
     }
     void FixedUpdate()
     {
@@ -59,9 +62,11 @@ public class Player_Movement : MonoBehaviour
     }
     IEnumerator StunCo(float stunTime)
     {
+        stun.Invoke(true);
         ChangeSpeed(0, 0);
         yield return new WaitForSeconds(stunTime);
         ResetSpeed();
+        stun.Invoke(false);
     }
 
 }

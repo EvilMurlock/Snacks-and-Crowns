@@ -17,9 +17,7 @@ public class EquipmentComponentEditor : ItemComponentEditor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-
         showComponents = EditorGUILayout.Foldout(showComponents, "Add Equipment Components");
-
         if (showComponents)
         {
             foreach (var dataComponetType in dataComponetTypes)
@@ -36,7 +34,7 @@ public class EquipmentComponentEditor : ItemComponentEditor
     [UnityEditor.Callbacks.DidReloadScripts]
     private static void OnRecompile()
     {
-        var assemblies = AppDomain.CurrentDomain.GetAssemblies() ;
+        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
         var types = assemblies.SelectMany(assembly => assembly.GetTypes());
         var filteredTypes = types.Where(
         type => IsSubclassOfRawGeneric(typeof(EquipmentComponentData<>), type)

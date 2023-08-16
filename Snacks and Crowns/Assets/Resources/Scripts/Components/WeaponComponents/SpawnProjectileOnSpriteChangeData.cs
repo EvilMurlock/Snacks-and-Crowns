@@ -8,7 +8,7 @@ public class SpawnProjectileOnSpriteChangeData : EquipmentComponentData<SpawnPro
     public float extraAngle;
     public Vector2 offset;
 
-    public override void InicializeComponent(GameObject weapon)
+    public override void InicializeComponent(GameObject weapon, Item item)
     {
         SpawnProjectileOnSpriteChange weaponAttack = weapon.AddComponent<SpawnProjectileOnSpriteChange>();
         weaponAttack.projectilePrefab = projectilePrefab;

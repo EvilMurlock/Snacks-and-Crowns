@@ -20,7 +20,7 @@ public class Equipment : Item
         instance.GetComponent<SpriteRenderer>().sprite = icon;
         foreach(ComponentDataGeneric comData in componentDataEquipment)
         {
-            comData.InicializeComponent(instance);
+            comData.InicializeComponent(instance, (Item) this);
         }
     }
     public virtual void Destroy_Eq()

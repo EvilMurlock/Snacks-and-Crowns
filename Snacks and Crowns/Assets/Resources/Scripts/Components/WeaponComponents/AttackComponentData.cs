@@ -6,7 +6,7 @@ public class AttackComponentData : EquipmentComponentData<WeaponAttack>
 {
     public Attack attack;
     
-    public override void InicializeComponent(GameObject weapon)
+    public override void InicializeComponent(GameObject weapon, Item item)
     {
         WeaponAttack weaponAttack = weapon.AddComponent<WeaponAttack>();
         weaponAttack.attack = attack;

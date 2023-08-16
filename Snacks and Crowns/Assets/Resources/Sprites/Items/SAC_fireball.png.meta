@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 397a889dbf220a543bc1da0d566e2f3b
+guid: 3f8489d6d24e351489d9696882d032ed
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33c18e80999ab0b41b591311447fbeaa
-      internalID: -2060878049
+      spriteID: 44e3a0fd6c66e324ea7154cb7499c1a6
+      internalID: -471335661
       vertices: []
       indices: 
       edges: []
@@ -145,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 541b2cec3367ce6448934b50d6ca62a9
-      internalID: -1554523173
+      spriteID: 9d859cd0cb6dab74fae59bef87bbee76
+      internalID: 1711800890
       vertices: []
       indices: 
       edges: []
@@ -166,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0a1c7306a0111ac49852d1af2583970c
-      internalID: -1230302851
+      spriteID: d9f33e70221546c47a632d844db42e6b
+      internalID: 815970444
       vertices: []
       indices: 
       edges: []
@@ -187,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 398b04613ccc74c4dbeef2fefeb0d4ab
-      internalID: 1581964330
+      spriteID: a0e8c217c1f1689459d828e8b5b95325
+      internalID: -1999241556
       vertices: []
       indices: 
       edges: []
@@ -208,8 +208,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d66fcafd068d334eb9a30cd8514e3a3
-      internalID: -371026510
+      spriteID: 1b3c0cb1bac659b41ad6f1a2a621ed9f
+      internalID: -164539495
       vertices: []
       indices: 
       edges: []
@@ -229,8 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a976c262935e32545a21d1d64e266c56
-      internalID: 1532078502
+      spriteID: 678c2b3637e76a94a803debd9d9fef80
+      internalID: 1987477918
       vertices: []
       indices: 
       edges: []
@@ -246,12 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SAC_fireball_0: -2060878049
-      SAC_fireball_1: -1554523173
-      SAC_fireball_2: -1230302851
-      SAC_fireball_3: 1581964330
-      SAC_fireball_4: -371026510
-      SAC_fireball_5: 1532078502
+      SAC_fireball_0: -471335661
+      SAC_fireball_1: 1711800890
+      SAC_fireball_2: 815970444
+      SAC_fireball_3: -1999241556
+      SAC_fireball_4: -164539495
+      SAC_fireball_5: 1987477918
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

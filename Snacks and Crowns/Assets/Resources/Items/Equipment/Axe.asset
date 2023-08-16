@@ -32,12 +32,14 @@ MonoBehaviour:
     - rid: 6825547853902118912
       type: {class: KnockbackComponentData, ns: , asm: Assembly-CSharp}
       data:
+        useEffect: 0
         name: walker
         knockback: 200
         stunTime: 0.3
     - rid: 6825547854325481472
       type: {class: AttackComponentData, ns: , asm: Assembly-CSharp}
       data:
+        useEffect: 0
         name: 
         attack:
           damage: 30

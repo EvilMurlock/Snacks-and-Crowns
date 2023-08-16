@@ -17,3 +17,30 @@ MonoBehaviour:
   description: It's a bar of iron
   cost: 10
   prefab: {fileID: 5236949791698959159, guid: ff323cf0037bddd4db75c03ecf76b5ce, type: 3}
+  useDuration: 0
+  singleUse: 0
+  componentDataUse:
+  - rid: 8153713445144887296
+  - rid: 8153713445144887297
+  - rid: 8153713445144887298
+  references:
+    version: 2
+    RefIds:
+    - rid: 8153713445144887296
+      type: {class: IncreaseHealthData, ns: , asm: Assembly-CSharp}
+      data:
+        name: IncreaseHealthData
+        healAmount: 50
+    - rid: 8153713445144887297
+      type: {class: SelfStun, ns: , asm: Assembly-CSharp}
+      data:
+        name: SelfStun
+        stunDuration: 0
+    - rid: 8153713445144887298
+      type: {class: SpawnProjectileOnUseData, ns: , asm: Assembly-CSharp}
+      data:
+        name: SpawnProjectileOnUseData
+        projectilePrefab: {fileID: 0}
+        speed: 0
+        extraAngle: 0
+        offset: {x: 0, y: 0}

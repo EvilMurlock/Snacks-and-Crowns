@@ -10,7 +10,6 @@ public class ProjectileComponentEditor : Editor
     private static List<Type> dataComponetTypes = new List<Type>();
     private Projectile item;
     private bool showComponents;
-
     private void OnEnable()
     {
         item = target as Projectile;

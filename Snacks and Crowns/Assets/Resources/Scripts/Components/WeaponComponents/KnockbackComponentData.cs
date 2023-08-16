@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "NewKnockbackData", menuName = "ComponentData/Weapon/Knockback")]
-
 public class KnockbackComponentData : EquipmentComponentData<WeaponKnockback>
 {
     public float knockback;
     public float stunTime;
 
-    public override void InicializeComponent(GameObject weapon)
+    public override void InicializeComponent(GameObject weapon, Item item)
     {
         WeaponKnockback weaponKnockback = weapon.AddComponent<WeaponKnockback>();
         weaponKnockback.knockback = knockback;

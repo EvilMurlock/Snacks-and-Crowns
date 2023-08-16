@@ -25,10 +25,14 @@ public class Item : ScriptableObject
     IEnumerator UsingItem(GameObject player, GameObject corutiner)
     {
         player.GetComponent<Player_Movement>().Stun(useDuration);
+        foreach (ComponentDataGeneric comData in componentDataUse)
+        {
+            if (comData.activateAtUse) comData.InicializeComponent(player, this);
+        }
         yield return new WaitForSeconds(useDuration);
         foreach (ComponentDataGeneric comData in componentDataUse)
         {
-            comData.InicializeComponent(player);
+            if(!comData.activateAtUse) comData.InicializeComponent(player, this);
         }
         Destroy(corutiner);
     }

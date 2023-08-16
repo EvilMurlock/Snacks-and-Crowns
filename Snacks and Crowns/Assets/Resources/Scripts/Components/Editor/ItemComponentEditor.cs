@@ -10,7 +10,6 @@ public class ItemComponentEditor : Editor
     private static List<Type> dataComponetTypes = new List<Type>();
     private Item item;
     private bool showComponents;
-
     private void OnEnable()
     {
         item = target as Item;
@@ -19,7 +18,6 @@ public class ItemComponentEditor : Editor
     {
         base.OnInspectorGUI();
         showComponents = EditorGUILayout.Foldout(showComponents, "Add Item Components");
-
         if (showComponents)
         {
             foreach (var dataComponetType in dataComponetTypes)

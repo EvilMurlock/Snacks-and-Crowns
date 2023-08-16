@@ -15,15 +15,20 @@ public class ComponentData<T> : ComponentDataGeneric
         Debug.Log("I am inicialized");
     }
 
-    public override void InicializeComponent(GameObject gameObject)
+    public override void InicializeComponent(GameObject gameObject, Item item)
     {
     }
 }
 [System.Serializable]
 public class ComponentDataGeneric
 {
+    [HideInInspector]
+    public bool activateAtUse = false;
+
     [SerializeField, HideInInspector] protected string name;
     public virtual void SetComponentName() { }
     public virtual void Ping() { }
     public virtual void InicializeComponent(GameObject gameObject) { }
+
+    public virtual void InicializeComponent(GameObject gameObject, Item item) { }
 }

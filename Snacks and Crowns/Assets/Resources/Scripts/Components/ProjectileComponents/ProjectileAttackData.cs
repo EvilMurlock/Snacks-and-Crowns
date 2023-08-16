@@ -5,10 +5,10 @@ public class ProjectileAttackData : ProjectileComponentData<WeaponAttack>
 {
     public Attack attack;
 
-    public override void InicializeComponent(GameObject weapon)
+    public override void InicializeComponent(GameObject projectile)
     {
-        WeaponAttack weaponAttack = weapon.AddComponent<WeaponAttack>();
+        WeaponAttack weaponAttack = projectile.AddComponent<WeaponAttack>();
         weaponAttack.attack = attack;
-        weapon.GetComponent<Projectile>().onHit.AddListener(weaponAttack.Attack);
+        projectile.GetComponent<Projectile>().onHit.AddListener(weaponAttack.Attack);
     }
 }

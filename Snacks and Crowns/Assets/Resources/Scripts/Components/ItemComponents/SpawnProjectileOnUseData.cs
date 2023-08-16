@@ -9,7 +9,7 @@ public class SpawnProjectileOnUseData : ItemComponentData<SpawnProjectileOnUseDa
     public float extraAngle;
     public Vector2 offset;
 
-    public override void InicializeComponent(GameObject g)
+    public override void InicializeComponent(GameObject g, Item item)
     {
         GameObject projectile = Object.Instantiate(projectilePrefab, (g.transform.position), g.transform.rotation);
         Projectile p = projectile.GetComponent<Projectile>();

@@ -299,7 +299,13 @@ public void Select(InputAction.CallbackContext context) //selects item
     {
         if (menu_items[(int)cursor.x][(int)cursor.y] != null)
         {
+            
             Item_Slot cursor_slot = (Item_Slot)menu_items[(int)cursor.x][(int)cursor.y];
+            if (cursor_slot.item.GetType() == typeof(Equipment))
+            {
+                Equipment equipment = (Equipment)cursor_slot.item;
+                equipment.Destroy_Eq();
+            }
             GameObject item_object = Instantiate((GameObject)Resources.Load("Prefabs/Items/Item"), transform.position, transform.rotation);
             item_object.GetComponent<Item_Controler>().item = cursor_slot.item;
             item_object.GetComponent<Rigidbody2D>().AddForce(this.transform.rotation * Vector2.up*500);

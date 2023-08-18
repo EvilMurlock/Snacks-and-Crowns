@@ -23,6 +23,7 @@ MonoBehaviour:
   componentDataEquipment:
   - rid: 6825547853902118912
   - rid: 6825547854325481472
+  - rid: 8153713674250354720
   equipment_slot: 1
   prefab_eq: {fileID: 2449238230562422413, guid: ac6d7e299149882499999f2c5204bba9, type: 3}
   instance: {fileID: 0}
@@ -32,15 +33,22 @@ MonoBehaviour:
     - rid: 6825547853902118912
       type: {class: KnockbackComponentData, ns: , asm: Assembly-CSharp}
       data:
-        useEffect: 0
-        name: walker
+        name: Knockback
+        activateAtUse: 0
         knockback: 200
         stunTime: 0.3
     - rid: 6825547854325481472
       type: {class: AttackComponentData, ns: , asm: Assembly-CSharp}
       data:
-        useEffect: 0
-        name: 
+        name: AttackComponentData
+        activateAtUse: 0
         attack:
           damage: 30
           damage_type: 2
+    - rid: 8153713674250354720
+      type: {class: ResistanceData, ns: , asm: Assembly-CSharp}
+      data:
+        name: 
+        activateAtUse: 0
+        resistanceType: 0
+        resistanceValue: 0

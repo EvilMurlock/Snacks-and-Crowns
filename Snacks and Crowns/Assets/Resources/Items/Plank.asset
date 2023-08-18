@@ -17,3 +17,16 @@ MonoBehaviour:
   description: It's a wooden plank
   cost: 10
   prefab: {fileID: 5236949791698959159, guid: ff323cf0037bddd4db75c03ecf76b5ce, type: 3}
+  useDuration: 0
+  singleUse: 0
+  componentDataUse:
+  - rid: 8153713674250354697
+  references:
+    version: 2
+    RefIds:
+    - rid: 8153713674250354697
+      type: {class: IncreaseHealthData, ns: , asm: Assembly-CSharp}
+      data:
+        name: 
+        activateAtUse: 0
+        healAmount: 0

@@ -139,8 +139,8 @@ MonoBehaviour:
     - rid: 8153713352461778954
       type: {class: ExplosionOnDeleteData, ns: , asm: Assembly-CSharp}
       data:
-        activateAtUse: 0
         name: ExplosionOnDeleteData
+        activateAtUse: 0
         radius: 3
         maxKnockback: 300
         minKnockback: 100
@@ -151,13 +151,13 @@ MonoBehaviour:
     - rid: 8153713630321049602
       type: {class: DeleteOnHitData, ns: , asm: Assembly-CSharp}
       data:
-        activateAtUse: 0
         name: DeleteOnHitData
+        activateAtUse: 0
     - rid: 8153713630321049603
       type: {class: ParticleTrailData, ns: , asm: Assembly-CSharp}
       data:
-        activateAtUse: 0
         name: ParticleTrailData
+        activateAtUse: 0
         particleEffect: {fileID: 1282006880964536575, guid: 60d7fda44d5825648bebc23799bf590e, type: 3}
 --- !u!114 &824920373527925688
 MonoBehaviour:

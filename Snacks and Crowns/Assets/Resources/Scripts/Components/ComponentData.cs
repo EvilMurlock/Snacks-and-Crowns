@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class ComponentData<T> : ComponentDataGeneric
 {
     //public T componentType;
@@ -22,10 +23,11 @@ public class ComponentData<T> : ComponentDataGeneric
 [System.Serializable]
 public class ComponentDataGeneric
 {
+    [SerializeField, HideInInspector] protected string name; //Name doesnt matter!! Must be a string and the first variable in class!!!
+
     [HideInInspector]
     public bool activateAtUse = false;
 
-    [SerializeField, HideInInspector] protected string name;
     public virtual void SetComponentName() { }
     public virtual void Ping() { }
     public virtual void InicializeComponent(GameObject gameObject) { }

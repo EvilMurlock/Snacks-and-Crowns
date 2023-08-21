@@ -14,7 +14,6 @@ public class Resistance : MonoBehaviour
         {
             this.gameObject.AddComponent<onDestroy>();
         }
-        Debug.Log("Exists?: " + this.gameObject.GetComponent<onDestroy>().destroyEvent);
         this.gameObject.GetComponent<onDestroy>().destroyEvent.AddListener(RemoveResistance);
         resistingObject.GetComponent<Damagable>().ChangeResistance(resistanceType, resistanceValue);
     }

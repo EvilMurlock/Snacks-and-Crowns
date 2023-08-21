@@ -17,10 +17,13 @@ MonoBehaviour:
   description: You can use this to hurt people
   cost: 50
   prefab: {fileID: 5236949791698959159, guid: ff323cf0037bddd4db75c03ecf76b5ce, type: 3}
+  useDuration: 0
+  singleUse: 0
   componentDataUse: []
   componentDataEquipment:
   - rid: 6825547854325481475
   - rid: 6825547854325481476
+  - rid: 8153713742510555142
   equipment_slot: 1
   prefab_eq: {fileID: 2449238230562422413, guid: 3c6aae53d21eed747bc7b3be86bf416a, type: 3}
   instance: {fileID: 0}
@@ -30,11 +33,23 @@ MonoBehaviour:
     - rid: 6825547854325481475
       type: {class: AttackComponentData, ns: , asm: Assembly-CSharp}
       data:
+        name: AttackComponentData
+        activateAtUse: 0
         attack:
-          damage: 35
-          damage_type: 1
+          damage: 20
+          damage_type: 2
     - rid: 6825547854325481476
       type: {class: KnockbackComponentData, ns: , asm: Assembly-CSharp}
       data:
+        name: KnockbackComponentData
+        activateAtUse: 0
         knockback: 100
         stunTime: 0.2
+    - rid: 8153713742510555142
+      type: {class: AttackComponentData, ns: , asm: Assembly-CSharp}
+      data:
+        name: AttackComponentData
+        activateAtUse: 0
+        attack:
+          damage: 20
+          damage_type: 1

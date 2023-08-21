@@ -10,12 +10,10 @@ public class EquipmentComponentEditor : ItemComponentEditor
     private static List<Type> dataComponetTypes = new List<Type>();
     private Equipment equipment;
     private bool showComponents;
-    private void OnEnable()
-    {
-        equipment = target as Equipment;
-    }
     public override void OnInspectorGUI()
     {
+        equipment = target as Equipment;
+
         base.OnInspectorGUI();
         showComponents = EditorGUILayout.Foldout(showComponents, "Add Equipment Components");
         if (showComponents)

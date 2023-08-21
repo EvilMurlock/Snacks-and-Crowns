@@ -22,8 +22,7 @@ MonoBehaviour:
   componentDataUse: []
   componentDataEquipment:
   - rid: 6825547853902118912
-  - rid: 6825547854325481472
-  - rid: 8153713674250354720
+  - rid: 8153713742510555141
   equipment_slot: 1
   prefab_eq: {fileID: 2449238230562422413, guid: ac6d7e299149882499999f2c5204bba9, type: 3}
   instance: {fileID: 0}
@@ -37,7 +36,7 @@ MonoBehaviour:
         activateAtUse: 0
         knockback: 200
         stunTime: 0.3
-    - rid: 6825547854325481472
+    - rid: 8153713742510555141
       type: {class: AttackComponentData, ns: , asm: Assembly-CSharp}
       data:
         name: AttackComponentData
@@ -45,10 +44,3 @@ MonoBehaviour:
         attack:
           damage: 30
           damage_type: 2
-    - rid: 8153713674250354720
-      type: {class: ResistanceData, ns: , asm: Assembly-CSharp}
-      data:
-        name: 
-        activateAtUse: 0
-        resistanceType: 0
-        resistanceValue: 0

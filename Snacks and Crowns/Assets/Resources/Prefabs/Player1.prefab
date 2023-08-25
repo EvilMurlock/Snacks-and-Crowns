@@ -343,6 +343,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 0
   turningSpeed: 20
+  stun:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &718309233243571717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,7 +504,7 @@ MonoBehaviour:
   event_system: {fileID: 0}
   inventory_panel_prefab: {fileID: 7307010317498917737, guid: 6503da4b0eb103944a805b7f4e476340, type: 3}
   equipment_panel_prefab: {fileID: 3660431390003730337, guid: ccd9e31349d880e41b3e45e3911d88b6, type: 3}
-  item_info_panel_prefab: {fileID: 2373870865900987792, guid: 52bf5a3f7e8c61945b6fe89b873fcf7b, type: 3}
+  item_info_panel_prefab: {fileID: 840758756135258311, guid: 1dd1c1592a00dd94d87f8dc6d8cef3fe, type: 3}
   hotbarPrefab: {fileID: 8208114677986454215, guid: 9998a955e0a74754b84ffed37fc33598, type: 3}
   moneyPrefab: {fileID: 1521334342370810237, guid: c7d2dfe158e8b174da6deaceaabe5e8f, type: 3}
   healthPrefab: {fileID: 1521334342370810237, guid: 744dbf7189f468b418be1223828b97a8, type: 3}

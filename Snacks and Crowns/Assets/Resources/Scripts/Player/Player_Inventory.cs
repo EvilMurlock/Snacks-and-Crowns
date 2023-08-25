@@ -55,6 +55,8 @@ public class Player_Inventory : MonoBehaviour
     Vector2 selected_item;
 
     public List<Interactible_Object> interacted_objects = new List<Interactible_Object>();
+
+    ItemInfo itemInfo;
     void Start()
     {
         
@@ -75,7 +77,6 @@ public class Player_Inventory : MonoBehaviour
         Set_Menus_Charakter_Sheet();
         Change_Cursor(cursor);
         ChangeHotbarCursor(hotbarCursor);
-        
         //ChangeGold(10);
     }
     public void ChangeGold(int goldChange)
@@ -167,6 +168,7 @@ public class Player_Inventory : MonoBehaviour
         int index = 0;
         foreach (Transform child in inventory_panel.transform)
         {
+            if (index >= inventory_items.Length) break;
             inventory_items[index].panel = child.gameObject;
             inventory_items[index].Add_Item(inventory_items[index].item);
             index++;
@@ -187,11 +189,13 @@ public class Player_Inventory : MonoBehaviour
             equipment_items[index].Add_Item(equipment_items[index].item);
             index++;
         }
+        itemInfo = inventory_panel.transform.Find("Item_Info").gameObject.GetComponent<ItemInfo>();
+        itemInfo.LoadNewItem(null);
+
         //charakter_sheet.SetActive(false);
         inventory_panel.SetActive(false);
         equipment_panel.SetActive(false);
         item_info_panel.SetActive(false);
-
     }
     public void Togle_Inventory(InputAction.CallbackContext context)
     {
@@ -320,6 +324,9 @@ public void Select(InputAction.CallbackContext context) //selects item
         cursor = new_cursor;
         Change_Colour(selected_item, Color.blue);
         Change_Colour(cursor, Color.red);
+        if (((Item_Slot)menu_items[(int)cursor.x][(int)cursor.y]) != null)
+            itemInfo.LoadNewItem(((Item_Slot)menu_items[(int)cursor.x][(int)cursor.y]).item);
+        else itemInfo.LoadNewItem(null);
     }
     void ChangeHotbarCursor(int new_cursor)
     {

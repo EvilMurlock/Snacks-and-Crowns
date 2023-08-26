@@ -132,6 +132,7 @@ public class Player_Inventory : MonoBehaviour
             GetComponent<Player_Movement>().Move_Stop(); //stops player walking "momentum"
         }
         GetComponent<Player_State_Manager>().Change_State(Player_State.in_menu);
+        UpdateItemInfo();
     }
     public void Deactivate_Menus()
     {
@@ -324,6 +325,10 @@ public void Select(InputAction.CallbackContext context) //selects item
         cursor = new_cursor;
         Change_Colour(selected_item, Color.blue);
         Change_Colour(cursor, Color.red);
+        UpdateItemInfo();
+    }
+    void UpdateItemInfo()
+    {
         if (((Item_Slot)menu_items[(int)cursor.x][(int)cursor.y]) != null)
             itemInfo.LoadNewItem(((Item_Slot)menu_items[(int)cursor.x][(int)cursor.y]).item);
         else itemInfo.LoadNewItem(null);

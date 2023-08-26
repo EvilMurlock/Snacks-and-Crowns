@@ -10,6 +10,7 @@ public class Shop : Interactible_Object
     public GameObject shopUiInstance;
     public GameObject firstSelectedButton;
     GameObject player;
+    ItemInfo itemInfo;
 
     public ShopSlot[] shopInventory;
     public void Start()
@@ -48,7 +49,10 @@ public class Shop : Interactible_Object
 
         foreach(ShopSlot shopSlot in shopInventory)
         {
+            shopSlot.button.GetComponent<ButtonOnSelectEvent>().onSelect.AddListener(delegate { UpdateItemInfo(shopSlot.item); });
             shopSlot.button.GetComponent<Button>().onClick.AddListener(delegate { shopSlot.BuyItem(player, shopSlot); });
+            shopSlot.button.GetComponent<Button>().onClick.AddListener(delegate { UpdateItemInfo(shopSlot.item); });
+
         }
     }
     public override void Un_Interact(GameObject player)
@@ -66,5 +70,12 @@ public class Shop : Interactible_Object
         shopUiInstance = Instantiate(shopUiPrefab);
         shopInventory = shopUiInstance.GetComponentsInChildren<ShopSlot>();
         shopUiInstance.SetActive(false);
+        itemInfo = shopUiInstance.transform.Find("Item_Info").GetComponent<ItemInfo>();
+    }
+    public void UpdateItemInfo(Item item)
+    {
+        if (item != null)
+            itemInfo.LoadNewItem(item);
+        else itemInfo.LoadNewItem(null);
     }
 }

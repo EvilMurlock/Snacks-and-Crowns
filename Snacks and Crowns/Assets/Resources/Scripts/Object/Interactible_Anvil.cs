@@ -17,6 +17,7 @@ public class Interactible_Anvil : Interactible_Object
     Item_Slot crafted_item;
     TMPro.TMP_Dropdown dropdown;
     GameObject ingredients_panel;
+    ItemInfo itemInfo;
 
     GameObject player;
     bool craftable;
@@ -55,6 +56,9 @@ public class Interactible_Anvil : Interactible_Object
         craftable = true;
 
         crafted_item.Add_Item(recepies[index].result);
+
+        itemInfo = instance_anvil_ui.transform.Find("Item_Info").GetComponent<ItemInfo>();
+        itemInfo.LoadNewItem(recepies[index].result);
 
         List<Item> player_items = new List<Item>();
         foreach (Item_Slot item_slot in player.GetComponent<Player_Inventory>().inventory_items)
@@ -163,6 +167,7 @@ public class Interactible_Anvil : Interactible_Object
         crafted_item = new Item_Slot();
         crafted_item.panel = instance_anvil_ui.transform.Find("Craft_Item").gameObject;
         instance_anvil_ui.transform.Find("Craft_Button").gameObject.GetComponent<Button>().onClick.AddListener(delegate { Craft(); });
+
         Load_Recepy(0);
     }
 }

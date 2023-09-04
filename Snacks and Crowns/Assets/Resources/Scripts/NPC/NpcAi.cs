@@ -66,4 +66,8 @@ public class NpcAi : MonoBehaviour
             currentWaypoint++;
         }
     }
+    public void ChangeTarget(GameObject newTarget)
+    {
+        target = newTarget.transform;
+    }
 }

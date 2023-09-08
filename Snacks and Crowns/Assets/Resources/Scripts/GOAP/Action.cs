@@ -9,11 +9,11 @@ namespace GOAP
         public string actionName = "Action";
         public float cost = 1f;
         public GameObject target;
-        public GameObject targetTag;
+        public string targetTag;
         public float duration = 0;
         public WorldState[] preConditions;
         public WorldState[] afterEffects;
-        NpcAi agent;
+        public NpcAi agent;
 
         public Dictionary<string, int> preconditions;
         public Dictionary<string, int> effects;
@@ -29,6 +29,7 @@ namespace GOAP
         }
         public void Awake()
         {
+            actionName = this.GetType().Name;
             agent = this.gameObject.GetComponent<NpcAi>();
             if (preConditions != null)
                 foreach(WorldState w in preConditions)

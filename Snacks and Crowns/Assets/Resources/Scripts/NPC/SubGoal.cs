@@ -11,11 +11,11 @@ namespace GOAP
         public Dictionary<string, int> sgoals;
         public bool remove;
 
-        public SubGoal(string s, int i, bool r)
+        public SubGoal(string key, int value, bool remove)
         {
             sgoals = new Dictionary<string, int>();
-            sgoals.Add(s, i);
-            remove = r;
+            sgoals.Add(key, value);
+            this.remove = remove;
         }
     }
 }

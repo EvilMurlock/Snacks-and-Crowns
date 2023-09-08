@@ -10,11 +10,11 @@ public class NpcAi : MonoBehaviour
     int invetorySize = 9;
 
     public Transform target;
-    public float nextWaypointDistance = 3f;
-
+    public float nextWaypointDistance = 0.1f;
+    public float lastWaypointDistance = 1f;
     Path path;
     int currentWaypoint = 0;
-    bool reachedEndOfPath = false;
+    public bool reachedEndOfPath = false;
 
     Seeker seeker;
     Rigidbody2D rb;
@@ -32,7 +32,6 @@ public class NpcAi : MonoBehaviour
     {
         if(seeker.IsDone())
         seeker.StartPath(rb.position, target.position, OnPathComplete);
-
     }
     void OnPathComplete(Path p)
     {
@@ -49,8 +48,7 @@ public class NpcAi : MonoBehaviour
 
         if (currentWaypoint >= path.vectorPath.Count)
         {
-            reachedEndOfPath = true;
-            movementScript.ChangeMovementDirection(Vector2.zero);
+            ReachedEnd();
             return;
         }
         else reachedEndOfPath = false;
@@ -60,14 +58,27 @@ public class NpcAi : MonoBehaviour
         movementScript.ChangeMovementDirection(direction);
 
         float distanceFromWaypoint = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+        float distanceFromEnd = Vector2.Distance(rb.position, path.vectorPath[path.vectorPath.Count-1]);//HERE READ LAST WAIPOINT!!!!
 
-        if(distanceFromWaypoint < nextWaypointDistance)
+        //Debug.Log("A*: Distance from waypoint = "+ distanceFromWaypoint);
+        if (distanceFromWaypoint < nextWaypointDistance)
         {
             currentWaypoint++;
         }
+        else if(distanceFromEnd < lastWaypointDistance)
+        {
+            ReachedEnd();
+        }
+    }
+    void ReachedEnd()
+    {
+        reachedEndOfPath = true;
+        movementScript.ChangeMovementDirection(Vector2.zero);
     }
     public void ChangeTarget(GameObject newTarget)
     {
         target = newTarget.transform;
+        reachedEndOfPath = false;
+        UpdatePath();
     }
 }

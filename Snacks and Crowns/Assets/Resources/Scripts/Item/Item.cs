@@ -14,7 +14,12 @@ public class Item : ScriptableObject
     public float useDuration;
     public bool singleUse = false;
     [SerializeReference] private List<ComponentDataGeneric> componentDataUse;
+    [SerializeReference] List<string> tags;
 
+    public List<string> Tags
+    {
+        get { return tags; }
+    }
     public virtual void Use(GameObject player)
     {
         Debug.Log("Using " + item_name);

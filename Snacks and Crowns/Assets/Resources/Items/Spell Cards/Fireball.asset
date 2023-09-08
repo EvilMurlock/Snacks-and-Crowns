@@ -22,6 +22,7 @@ MonoBehaviour:
   componentDataUse:
   - rid: 8153713352461778951
   - rid: 8153713630321049601
+  tags: []
   references:
     version: 2
     RefIds:

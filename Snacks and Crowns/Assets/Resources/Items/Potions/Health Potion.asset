@@ -21,6 +21,8 @@ MonoBehaviour:
   singleUse: 1
   componentDataUse:
   - rid: 6825547856982573057
+  tags:
+  - 
   references:
     version: 2
     RefIds:
@@ -28,4 +30,5 @@ MonoBehaviour:
       type: {class: IncreaseHealthData, ns: , asm: Assembly-CSharp}
       data:
         name: IncreaseHealthData
+        activateAtUse: 0
         healAmount: 30

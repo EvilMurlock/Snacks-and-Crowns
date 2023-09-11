@@ -32,6 +32,16 @@ public class Player_Movement : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rotate_to, turningSpeed);
         }
     }
+    public void RotateTowars(Vector3 point)
+    {
+        //Debug.Log("Rotating to: " + point);
+        Quaternion rotate_to = Quaternion.LookRotation(Vector3.forward, point);
+        //Debug.Log("Rotate_to: " + rotate_to);
+        Quaternion rotate_towards = Quaternion.RotateTowards(transform.rotation, rotate_to, turningSpeed);
+        //Debug.Log("Rotate_towards: " + rotate_towards);
+
+        transform.localRotation = rotate_towards;
+    }
     public void ChangeSpeed(float newSpeed, float newTurningSpeed)
     {
         movementSpeed = newSpeed;

@@ -45,14 +45,16 @@ namespace GOAP
             {
                 queue.Enqueue(a);
             }
-            Debug.Log("The plan is:");
+            string planDebug = "The plan is:";
             int actionNumber = 0;
             foreach (Action a in queue)
             {
-                Debug.Log(actionNumber +" - "+a.actionName);
+                //planDebug += "\n"; 
+                planDebug += " -> "+actionNumber + " - " + a.actionName + " | Cost: " + a.cost;
                 actionNumber++;
-            }
 
+            }
+            Debug.Log(planDebug);
             return queue;
         }
         bool BuildGraph(Node parent, List<Node> leaves, List<Action> usableActions, Dictionary<string,int> goal)

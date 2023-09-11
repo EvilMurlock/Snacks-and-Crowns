@@ -6,6 +6,8 @@ namespace GOAP
 {
     public class Agent : MonoBehaviour
     {
+        NpcAi npcAi;
+
         public List<Action> actions = new List<Action>();
         public Dictionary<SubGoal, int> goals = new Dictionary<SubGoal, int>();
 
@@ -19,6 +21,16 @@ namespace GOAP
         // Start is called before the first frame update
         protected virtual void Start()
         {
+            npcAi = gameObject.GetComponent<NpcAi>();
+            var all_actions = Resources.LoadAll("Scripts/GOAP/Actions");
+            Debug.Log("Action count: "+all_actions.Count());
+            Debug.Log("Loaded actions: ");
+            foreach (Object o in all_actions)   
+            {
+                Action a = (Action)o;
+                Debug.Log(o.GetType().ToString());
+                //if (a.IsAchievableBy(gameObject)) gameObject.AddComponent( a.GetType());
+            }
             Action[] acts = this.GetComponents<Action>();
             foreach (Action a in acts)
                 actions.Add(a);
@@ -43,7 +55,7 @@ namespace GOAP
             }
             if(currentAction != null && currentAction.running)
             {
-                if (currentAction.agent.reachedEndOfPath)
+                if (npcAi.reachedEndOfPath)
                 {
                     if (!invoked)
                     {
@@ -83,17 +95,19 @@ namespace GOAP
                 currentAction = actionQueue.Dequeue();
                 if (currentAction.PrePerform())
                 {
-                    if(currentAction.target == null && currentAction.targetTag != "")
+                    /*
+                    if(currentAction.target == null && currentAction.targetTags.cou != "")
                     {
                         //!!! REPLACE THIS WITH CUSTOM TAG SYSTEM!!!!
                         //ALSO MAKE THE TAGS IN ACTIONS A LIST OF TAGS - EG: (Pickupable, Weapon)
                         currentAction.target = GameObject.FindWithTag(currentAction.targetTag);
                     }
-                    if(currentAction.targetTag != null)
-                    {
+                    */
+                    //if(currentAction.targetTags.Count != 0)
+                    //{
                         currentAction.running = true;
-                        currentAction.agent.ChangeTarget(currentAction.target);
-                    }
+                        npcAi.ChangeTarget(currentAction.target);
+                    //}
                 }
                 else
                 {

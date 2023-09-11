@@ -7507,8 +7507,6 @@ GameObject:
   - component: {fileID: 1259665860}
   - component: {fileID: 1259665861}
   - component: {fileID: 1259665863}
-  - component: {fileID: 1259665862}
-  - component: {fileID: 1259665864}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -7832,29 +7830,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91fa75f881513e345bfed61977eacadf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1259665862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1259665848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f038931ac07484429279cf86c54023e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionName: Action
-  cost: 1
-  target: {fileID: 1972096034}
-  targetTag: 
-  duration: 3
-  preConditions: []
-  afterEffects:
-  - key: LogDrop
-    value: 0
-  agent: {fileID: 0}
-  running: 0
 --- !u!114 &1259665863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7869,31 +7844,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actions: []
   currentAction: {fileID: 0}
---- !u!114 &1259665864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1259665848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78324d508d71262419c607940ec2558a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionName: Action
-  cost: 1
-  target: {fileID: 0}
-  targetTag: Player
-  duration: 3
-  preConditions:
-  - key: LogDrop
-    value: 0
-  afterEffects:
-  - key: DeadPlayer
-    value: 0
-  agent: {fileID: 0}
-  running: 0
 --- !u!1 &1262293616
 GameObject:
   m_ObjectHideFlags: 0
@@ -8613,6 +8563,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1736146428}
+  - component: {fileID: 1736146429}
   m_Layer: 0
   m_Name: AI TEST TAG
   m_TagString: Player
@@ -8635,6 +8586,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1736146429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736146427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca139e25d7227a946947204c5c8ef0c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - Player
 --- !u!1001 &1751378289
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9003,11 +8968,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4384544087026626678, guid: 95d8735d76ff97e41a16fe275ce73d3a, type: 3}
   m_PrefabInstance: {fileID: 1843666425}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1972096034 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1825667078579017341, guid: a5c2462a8df5d114a8c67fa8b32acf15, type: 3}
-  m_PrefabInstance: {fileID: 8056293271075581071}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2026536278
 GameObject:

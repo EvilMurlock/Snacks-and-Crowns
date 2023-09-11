@@ -1,13 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using GOAP;
 public class DropItemsOnDeath : MonoBehaviour
 {
     public List<Item> itemsToDrop;
     void Start()
     {
         GetComponent<Damagable>().death.AddListener(DropItems);
+        if (!gameObject.GetComponent<TagSystem>())
+        {
+            gameObject.AddComponent<TagSystem>();
+        }
+        foreach(Item i in itemsToDrop)
+        {
+            gameObject.GetComponent<TagSystem>().AddTag(i.name);
+        }
     }
     void DropItems()
     {

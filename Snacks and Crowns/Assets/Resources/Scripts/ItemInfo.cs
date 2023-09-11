@@ -12,7 +12,6 @@ public class ItemInfo : MonoBehaviour
     {
         itemSlot = new Item_Slot();
         itemSlot.panel = this.transform.Find("Item_Icon").gameObject;
-        Debug.Log(itemSlot);
         itemName = this.transform.Find("Name").gameObject.GetComponent<TextMeshProUGUI>();
         itemDescription = this.transform.Find("Description").gameObject.GetComponent<TextMeshProUGUI>();
 

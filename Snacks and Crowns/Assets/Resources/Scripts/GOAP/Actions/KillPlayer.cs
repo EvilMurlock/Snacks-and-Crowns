@@ -8,22 +8,25 @@ namespace GOAP
     {
         public override void Awake()
         {
+            preconditions.AddState("LogDrop", 1);
+
+            effects.AddState("DeadPlayer", true);
+
             duration = 3;
             targetTags.Add("Player");
-            this.preconditions.Add("LogDrop", 0);
-
-            this.effects.Add("DeadPlayer", 0);
             base.Awake();
         }
+        public override void Tick()
+        {
 
-        public override bool PrePerform()
-        {
-            bool hasTarget = FindTarget();
-            return hasTarget;
         }
-        public override bool PostPreform()
+        public override void Activate()
         {
-            return true;
+
+        }
+        public override void Deactivate()
+        {
+
         }
     } 
 }

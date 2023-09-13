@@ -7505,8 +7505,10 @@ GameObject:
   - component: {fileID: 1259665858}
   - component: {fileID: 1259665859}
   - component: {fileID: 1259665860}
+  - component: {fileID: 1259665866}
   - component: {fileID: 1259665861}
-  - component: {fileID: 1259665863}
+  - component: {fileID: 1259665865}
+  - component: {fileID: 1259665864}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -7830,7 +7832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91fa75f881513e345bfed61977eacadf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1259665863
+--- !u!114 &1259665864
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7842,7 +7844,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2af6bcf3280db49a350036973463a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1259665865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259665848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecb138dc22acf14a825924c00f1fb4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1259665866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259665848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f058dc10001111f49995409614eba96a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   actions: []
+  goals: []
   currentAction: {fileID: 0}
 --- !u!1 &1262293616
 GameObject:

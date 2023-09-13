@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using System.Linq;
 namespace GOAP
 {
@@ -9,12 +10,12 @@ namespace GOAP
         NpcAi npcAi;
 
         public List<Action> actions = new List<Action>();
-        public Dictionary<SubGoal, int> goals = new Dictionary<SubGoal, int>();
+        public List<Goal> goals = new List<Goal>();
 
         Planner planner;
         Queue<Action> actionQueue;
         public Action currentAction;
-        SubGoal currentGoal;
+        Goal currentGoal;
 
         bool invoked = false;
 
@@ -22,23 +23,28 @@ namespace GOAP
         protected virtual void Start()
         {
             npcAi = gameObject.GetComponent<NpcAi>();
-            var all_actions = Resources.LoadAll("Scripts/GOAP/Actions");
-            Debug.Log("Action count: "+all_actions.Count());
-            Debug.Log("Loaded actions: ");
-            foreach (Object o in all_actions)   
+
+
+            object[] action_scripts = Resources.LoadAll("Scripts/GOAP/Actions");
+            foreach(object o in action_scripts)
             {
-                Action a = (Action)o;
-                Debug.Log(o.GetType().ToString());
-                //if (a.IsAchievableBy(gameObject)) gameObject.AddComponent( a.GetType());
+                MonoScript a = (MonoScript)o;
+                //Debug.Log("Action loaded: "+ a.GetClass().ToString());
+                
+                gameObject.AddComponent(a.GetClass());
             }
             Action[] acts = this.GetComponents<Action>();
             foreach (Action a in acts)
-                actions.Add(a);
+                if(a.IsUsableBy(gameObject))actions.Add(a);
+
+            Goal[] gs = this.GetComponents<Goal>();
+            foreach (Goal g in gs)
+                goals.Add(g);
         }
         void CompleteAction()
         {
             currentAction.running = false;
-            currentAction.PostPreform();
+            //currentAction.OnActionComplete();
             invoked = false;
         }
         void PrintWorldGoals()
@@ -65,35 +71,34 @@ namespace GOAP
                 }
                 return;
             }
-            if(planner == null || actionQueue == null)
+            if(planner == null || actionQueue == null) //Returns a plan for the most important goal posible
             {
                 planner = new Planner();
 
-                var sortedGoals = from entry in goals orderby entry.Value descending select entry;
+                var sortedGoals = from entry in goals orderby entry.CalculatePriority() descending select entry;
 
-                foreach(KeyValuePair<SubGoal, int> sg in sortedGoals)
+                foreach(Goal g in sortedGoals)
                 {
-                    actionQueue = planner.Plan(actions, sg.Key.sgoals, null);
+                    Debug.Log("Planing for: "+g.name);
+                    actionQueue = planner.Plan(actions, g.DesiredWorldState(), null);
                     if(actionQueue != null)
                     {
-                        currentGoal = sg.Key;
+                        currentGoal = g;
                         break;
                     }
                 }
             }
-            if(actionQueue != null && actionQueue.Count == 0)
+            if(actionQueue != null && actionQueue.Count == 0) //Goal quee finished - Goal no nececarily completed
             {
-                if (currentGoal.remove)
-                {
-                    Debug.Log("Acomplished goal: " + currentGoal.sgoals.Keys.First<string>());
-                    goals.Remove(currentGoal);
-                }
+                Debug.Log("Acomplished goal: " + currentGoal.GetType().ToString());
+                currentGoal.Complete();
+                currentGoal = null;
                 planner = null;
             }
             if(actionQueue != null && actionQueue.Count > 0)
             {
                 currentAction = actionQueue.Dequeue();
-                if (currentAction.PrePerform())
+                if (currentAction.IsAchievable())
                 {
                     /*
                     if(currentAction.target == null && currentAction.targetTags.cou != "")

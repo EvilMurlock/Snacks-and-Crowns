@@ -6,17 +6,13 @@ namespace GOAP
 {
     public class Planner
     {
-        public Queue<Action> Plan(List<Action> actions, Dictionary<string, int> goal, WorldStates states)
-        {
-            List<Action> usableActions = new List<Action>();
-            foreach(Action a in actions)
-            {
-                if (a.IsAchievable()) usableActions.Add(a);
-            }
+        public Queue<Action> Plan(List<Action> actions, WorldState goal, WorldState states)
+        {            
             List<Node> leaves = new List<Node>();
-            Node start = new Node(null, 0, World.Instance.GetWorld().GetStates(),null);
+            Node start = new Node(null, 0, World.Instance.GetWorld(), null);
 
-            bool success = BuildGraph(start, leaves, usableActions, goal);
+            bool success = BuildGraph(start, leaves, actions, goal);
+
             if (!success)
             {
                 Debug.Log("No GOAP plan!");
@@ -39,7 +35,6 @@ namespace GOAP
                 }
                 n = n.parent;
             }
-
             Queue<Action> queue = new Queue<Action>();
             foreach (Action a in result)
             {
@@ -50,36 +45,53 @@ namespace GOAP
             foreach (Action a in queue)
             {
                 //planDebug += "\n"; 
-                planDebug += " -> "+actionNumber + " - " + a.actionName + " | Cost: " + a.cost;
+                planDebug += " -> "+actionNumber + " - " + a.actionName;
                 actionNumber++;
 
             }
+            planDebug += " | Cost: " + cheapest.cost;
             Debug.Log(planDebug);
             return queue;
         }
-        bool BuildGraph(Node parent, List<Node> leaves, List<Action> usableActions, Dictionary<string,int> goal)
+        bool BuildGraph(Node parent, List<Node> leaves, List<Action> usableActions, WorldState goal)
         {
             //Plans can use each action only ONCE!!!
             //Actions are valid as long as required KEY exists, it ignores goal values!
             bool foundPath = false;
             foreach(Action action in usableActions)
             {
+                /*
+                Debug.Log("Curent State: \n" + parent.state.ToString());
+                Debug.Log("Action "+action.actionName+" predonditions: \n" + action.preconditions.ToString());
+                bool testBool = true;
+                foreach (KeyValuePair<string, object> g in action.preconditions.GetStates())
+                {
+                    if (!parent.state.GetStates().ContainsKey(g.Key)) testBool = false;
+                    else if (parent.state.GetStates()[g.Key] != (g.Value))
+                        {
+                        Debug.Log("Bool Result: " + !parent.state.GetStates()[g.Key].Equals(g.Value));
+                        Debug.Log("Goal Value: " + parent.state.GetStates()[g.Key]); 
+                        Debug.Log("State Value: " + g.Value); testBool = false; }
+                }
+
+                Debug.Log("Is achievable: " + testBool);
+                */
                 if (action.IsAchievableGiven(parent.state))
                 {
-                    Dictionary<string, int> currentState = new Dictionary<string, int>(parent.state);
-                    foreach(KeyValuePair<string, int> eff in action.effects)
+                    WorldState currentState = new WorldState(parent.state);
+                    currentState = action.OnActionCompleteWorldStates(currentState);
+
+                    Node node = new Node(parent, parent.cost + action.GetCost(currentState), currentState, action);
+
+                    if(currentState.CompletesGoal(goal))
                     {
-                        if (!currentState.ContainsKey(eff.Key))
-                            currentState.Add(eff.Key, eff.Value);
-                    }
-                    Node node = new Node(parent, parent.cost + action.cost, currentState, action);
-                    if(GoalAchieved(goal, currentState))
-                    {
+                        Debug.Log("Leaf Found");
                         leaves.Add(node);
                         foundPath = true;
                     }
                     else
                     {
+                        
                         List<Action> subset = ActionSubset(usableActions, action); //REMOVES USED ACTIONS - PREVENTS LOOPS - ALSO PREVENTS REUSING ACTIONS
                         bool found = BuildGraph(node, leaves, subset, goal);
                         if (found)
@@ -90,18 +102,7 @@ namespace GOAP
             return foundPath;
         }
 
-        bool GoalAchieved(Dictionary<string, int> goal, Dictionary<string, int> state)
-        {
-            foreach(KeyValuePair<string, int> g in goal)
-            {
-                if (!state.ContainsKey(g.Key))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-        List<Action> ActionSubset(List<Action> actions, Action removeMe)
+        List<Action> ActionSubset(List<Action> actions, Action removeMe)//removes used actions
         {
             List<Action> subset = new List<Action>();
             foreach(Action a in actions)

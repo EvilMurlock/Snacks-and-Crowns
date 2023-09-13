@@ -6,10 +6,10 @@ namespace GOAP
     public sealed class World
     {
         private static readonly World instance = new World();
-        private static WorldStates world;
+        private static WorldState worldState;
         static World()
         {
-            world = new WorldStates();
+            worldState = new WorldState();
         }
         private World()
         {
@@ -19,9 +19,9 @@ namespace GOAP
         {
             get { return instance; }
         }
-        public WorldStates GetWorld()
+        public WorldState GetWorld()
         {
-            return world;
+            return worldState;
         }
     }
 }

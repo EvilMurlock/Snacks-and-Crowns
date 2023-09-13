@@ -7,64 +7,60 @@ namespace GOAP
     public abstract class Action : MonoBehaviour
     {
         public string actionName = "Action";
-        [SerializeField]
-        public float cost = 1f;
         public GameObject target;
         public List<string> targetTags = new List<string>();
         public float duration = 0;
-        public WorldState[] preConditions;
-        public WorldState[] afterEffects;
-        //public NpcAi agent;
 
-        public Dictionary<string, int> preconditions;
-        public Dictionary<string, int> effects;
-
-        public WorldStates agentBeliefs;
+        public WorldState preconditions = new WorldState();
+        public WorldState effects = new WorldState();
 
         public bool running = false;
 
-        public Action()
-        {
-            preconditions = new Dictionary<string, int>();
-            effects = new Dictionary<string, int>();
-        }
         public virtual void Awake()
         {
             actionName = this.GetType().Name;
-            //agent = this.gameObject.GetComponent<NpcAi>();
-            /*
-            if (preConditions != null)
-                foreach(WorldState w in preConditions)
-                {
-                    preconditions.Add(w.key, w.value);
-                }
-            if (afterEffects != null)
-                foreach (WorldState w in afterEffects)
-                {
-                    effects.Add(w.key, w.value);
-                }
-            */
         }
-        public bool IsAchievableBy(GameObject actor)
+        public virtual void Tick()
+        {
+
+        }
+        public virtual float GetCost(WorldState worldState)
+        {
+            
+            return GetDistanceFromTarget();
+        }
+        public virtual bool IsUsableBy(GameObject g)
         {
             return true;
         }
-
-        public bool IsAchievable()
+        public virtual bool IsAchievableGiven(WorldState worldState)//For the planer
+        {
+            return worldState.CompletesGoal(preconditions);
+        }
+        public virtual bool IsAchievable()//Checs curent condition + world state
         {
             return true;
         }
-        public bool IsAchievableGiven(Dictionary<string, int> conditions)
+        public virtual void Activate()
         {
-            foreach(KeyValuePair<string,int> p in preconditions)
-            {
-                if (!conditions.ContainsKey(p.Key)) return false;
-            }
-            return FindTarget();
+            
         }
-        public abstract bool PrePerform();
-        public abstract bool PostPreform();
+        public virtual void Deactivate()
+        {
 
+        }
+        public virtual WorldState OnActionCompleteWorldStates(WorldState worldstate)
+        {
+            //Tells the planer how the world state will change on completion
+            WorldState newWorldstate = new WorldState(worldstate);
+            newWorldstate.AddStates(effects);
+            return newWorldstate;
+        }
+        float GetDistanceFromTarget()
+        {
+            if (target != null) return (gameObject.transform.position - target.transform.position).magnitude;
+            return 0;
+        }
         protected bool FindTarget()
         {
             if (targetTags.Count == 0) //If no target tags then target is considered self
@@ -86,7 +82,6 @@ namespace GOAP
                         target = tagSys.gameObject;
 
                     }
-                    cost = (gameObject.transform.position - target.transform.position).magnitude;
                 }
             }
 

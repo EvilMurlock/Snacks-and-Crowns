@@ -7,14 +7,14 @@ namespace GOAP
     {
         public Node parent;
         public float cost;
-        public Dictionary<string, int> state;
+        public WorldState state;
         public Action action;
 
-        public Node(Node parent, float cost, Dictionary<string,int> allstates, Action action)
+        public Node(Node parent, float cost, WorldState worldState, Action action)
         {
             this.parent = parent;
             this.cost = cost;
-            this.state = new Dictionary<string, int>(allstates);
+            this.state = new WorldState(worldState);
             this.action = action;
         }
     }

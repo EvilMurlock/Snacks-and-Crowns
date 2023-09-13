@@ -7,21 +7,23 @@ namespace GOAP
     {
         public override void Awake()
         {
+            effects.AddState("LogDrop", 1);
+
             duration = 3;
             targetTags.Add("Log");
-
-            this.effects.Add("LogDrop", 0);
             base.Awake();
         }
-        public override bool PrePerform()
+        public override void Tick()
         {
-            bool hasTarget = FindTarget();
-            return hasTarget;
-        }
 
-        public override bool PostPreform()
+        }
+        public override void Activate()
         {
-            return true;
+
+        }
+        public override void Deactivate()
+        {
+
         }
     } 
 }

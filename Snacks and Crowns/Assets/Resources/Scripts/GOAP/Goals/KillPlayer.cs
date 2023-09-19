@@ -4,8 +4,8 @@ using UnityEngine;
 using GOAP;
 public class KillPlayer : Goal
 {
-    float priority = 10;
-    private void Awake()
+    float defaultPriority = 10;
+    private void Start()
     {
         desiredState.AddState("DeadPlayer", true);
     }
@@ -29,6 +29,6 @@ public class KillPlayer : Goal
     }
     public override float CalculatePriority()
     {
-        return priority;
+        return defaultPriority;
     }
 }

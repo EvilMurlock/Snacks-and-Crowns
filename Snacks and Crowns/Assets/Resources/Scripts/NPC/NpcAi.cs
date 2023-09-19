@@ -30,7 +30,7 @@ public class NpcAi : MonoBehaviour
     }
     void UpdatePath()
     {
-        if(seeker.IsDone())
+        if(seeker.IsDone() && target != null)
         seeker.StartPath(rb.position, target.position, OnPathComplete);
     }
     void OnPathComplete(Path p)

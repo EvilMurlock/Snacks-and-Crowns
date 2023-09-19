@@ -9,21 +9,8 @@ namespace GOAP
         {
             effects.AddState("LogDrop", 1);
 
-            duration = 3;
             targetTags.Add("Log");
             base.Awake();
-        }
-        public override void Tick()
-        {
-
-        }
-        public override void Activate()
-        {
-
-        }
-        public override void Deactivate()
-        {
-
         }
     } 
 }

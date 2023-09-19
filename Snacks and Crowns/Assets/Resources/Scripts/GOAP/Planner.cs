@@ -6,10 +6,10 @@ namespace GOAP
 {
     public class Planner
     {
-        public Queue<Action> Plan(List<Action> actions, WorldState goal, WorldState states)
+        public Queue<Node> Plan(List<Action> actions, Goal goal, WorldState states)
         {            
             List<Node> leaves = new List<Node>();
-            Node start = new Node(null, 0, World.Instance.GetWorld(), null);
+            Node start = new Node(null, 0, states, null, null);
 
             bool success = BuildGraph(start, leaves, actions, goal);
 
@@ -25,27 +25,27 @@ namespace GOAP
                 else if (leaf.cost < cheapest.cost) cheapest = leaf;
             }
 
-            List<Action> result = new List<Action>();
+            List<Node> result = new List<Node>();
             Node n = cheapest;
             while(n != null)
             {
                 if(n.action != null)
                 {
-                    result.Insert(0, n.action);
+                    result.Insert(0, n);
                 }
                 n = n.parent;
             }
-            Queue<Action> queue = new Queue<Action>();
-            foreach (Action a in result)
+            Queue<Node> queue = new Queue<Node>();
+            foreach (Node a in result)
             {
                 queue.Enqueue(a);
             }
             string planDebug = "The plan is:";
             int actionNumber = 0;
-            foreach (Action a in queue)
+            foreach (Node a in queue)
             {
                 //planDebug += "\n"; 
-                planDebug += " -> "+actionNumber + " - " + a.actionName;
+                planDebug += " -> "+actionNumber + " - " + a.action.actionName;
                 actionNumber++;
 
             }
@@ -53,49 +53,35 @@ namespace GOAP
             Debug.Log(planDebug);
             return queue;
         }
-        bool BuildGraph(Node parent, List<Node> leaves, List<Action> usableActions, WorldState goal)
+        bool BuildGraph(Node parent, List<Node> leaves, List<Action> usableActions, Goal goal)
         {
             //Plans can use each action only ONCE!!!
             //Actions are valid as long as required KEY exists, it ignores goal values!
+            WorldState currentState = new WorldState(parent.state);
             bool foundPath = false;
             foreach(Action action in usableActions)
             {
-                /*
-                Debug.Log("Curent State: \n" + parent.state.ToString());
-                Debug.Log("Action "+action.actionName+" predonditions: \n" + action.preconditions.ToString());
-                bool testBool = true;
-                foreach (KeyValuePair<string, object> g in action.preconditions.GetStates())
-                {
-                    if (!parent.state.GetStates().ContainsKey(g.Key)) testBool = false;
-                    else if (parent.state.GetStates()[g.Key] != (g.Value))
-                        {
-                        Debug.Log("Bool Result: " + !parent.state.GetStates()[g.Key].Equals(g.Value));
-                        Debug.Log("Goal Value: " + parent.state.GetStates()[g.Key]); 
-                        Debug.Log("State Value: " + g.Value); testBool = false; }
-                }
-
-                Debug.Log("Is achievable: " + testBool);
-                */
                 if (action.IsAchievableGiven(parent.state))
                 {
-                    WorldState currentState = new WorldState(parent.state);
-                    currentState = action.OnActionCompleteWorldStates(currentState);
-
-                    Node node = new Node(parent, parent.cost + action.GetCost(currentState), currentState, action);
-
-                    if(currentState.CompletesGoal(goal))
+                    List<Node> possibleNewStates = new List<Node>();
+                    possibleNewStates = action.OnActionCompleteWorldStates(parent);
+                    //currentState = action.OnActionCompleteWorldStates(currentState);
+                    foreach (Node node in possibleNewStates)
                     {
-                        Debug.Log("Leaf Found");
-                        leaves.Add(node);
-                        foundPath = true;
-                    }
-                    else
-                    {
-                        
-                        List<Action> subset = ActionSubset(usableActions, action); //REMOVES USED ACTIONS - PREVENTS LOOPS - ALSO PREVENTS REUSING ACTIONS
-                        bool found = BuildGraph(node, leaves, subset, goal);
-                        if (found)
+                        //Node node = new Node(parent, parent.cost + newStateCostPair.cost, newStateCostPair.state, action);
+
+                        if (goal.CompletedByState(node.state))
+                        {
+                            leaves.Add(node);
                             foundPath = true;
+                        }
+                        else
+                        {
+                            List<Action> subset = ActionSubset(usableActions, action); //REMOVES USED ACTIONS - PREVENTS LOOPS - ALSO PREVENTS REUSING ACTIONS
+                            bool found = BuildGraph(node, leaves, subset, goal);
+                            if (found)
+                                foundPath = true;
+                        }
                     }
                 }
             }

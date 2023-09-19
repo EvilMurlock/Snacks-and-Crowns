@@ -71,8 +71,10 @@ namespace GOAP
         {
             foreach(KeyValuePair<string, object> g in goal.GetStates())
             {
-                if (!states.ContainsKey(g.Key)) return false;
-                else if(!states[g.Key].Equals(g.Value)) return false;
+                if (!states.ContainsKey(g.Key) 
+                    || !states[g.Key].Equals(g.Value))
+                    //|| states[g.Key] != g.Value) 
+                    return false;
             }
             return true;
         }

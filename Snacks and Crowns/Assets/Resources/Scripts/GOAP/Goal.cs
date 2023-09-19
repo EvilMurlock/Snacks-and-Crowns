@@ -31,7 +31,7 @@ namespace GOAP
 
         public virtual void Complete()
         {
-
+            Debug.Log("Acomplished goal: " + this.GetType().ToString());
         }
         public virtual float CalculatePriority()
         {
@@ -40,6 +40,10 @@ namespace GOAP
         public virtual WorldState DesiredWorldState()
         {
             return desiredState;
+        }
+        public virtual bool CompletedByState(WorldState state)
+        {
+            return state.CompletesGoal(desiredState);
         }
     }
 

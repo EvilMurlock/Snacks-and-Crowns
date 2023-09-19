@@ -17,6 +17,18 @@ public class Interactible_Chest : Interactible_Object
             chest_inventory[i] = new Item_Slot();
         }
     }
+    public bool AddItem(Item item)
+    {
+        foreach (Item_Slot slot in chest_inventory)
+        {
+            if (slot.Is_Empty())
+            { 
+                slot.Add_Item(item);
+                return true;
+            }
+        }
+        return false;
+    }
     public override void Interact(GameObject player)
     {
         Generate_Ui(player);

@@ -9,13 +9,14 @@ namespace GOAP
         public float cost;
         public WorldState state;
         public Action action;
-
-        public Node(Node parent, float cost, WorldState worldState, Action action)
+        public object data;
+        public Node(Node parent, float cost, WorldState worldState, Action action, object data)
         {
             this.parent = parent;
             this.cost = cost;
             this.state = new WorldState(worldState);
             this.action = action;
+            this.data = data;
         }
     }
 }

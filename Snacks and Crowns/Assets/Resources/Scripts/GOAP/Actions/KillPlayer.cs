@@ -12,21 +12,8 @@ namespace GOAP
 
             effects.AddState("DeadPlayer", true);
 
-            duration = 3;
             targetTags.Add("Player");
             base.Awake();
-        }
-        public override void Tick()
-        {
-
-        }
-        public override void Activate()
-        {
-
-        }
-        public override void Deactivate()
-        {
-
         }
     } 
 }

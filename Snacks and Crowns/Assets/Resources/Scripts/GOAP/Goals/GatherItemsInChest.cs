@@ -12,13 +12,6 @@ namespace GOAP {
         AgentBelieveState agentBelieves;
         private void Start()
         {
-            agentBelieves = GetComponent<AgentBelieveState>();
-            Item_Slot[] wantedInventory = new Item_Slot[chest.chest_inventory.Length];
-            foreach (Item_Slot slot in wantedInventory)
-            {
-                slot.Add_Item(item);
-            }
-            desiredState.AddState(chest.GetInstanceID().ToString(), wantedInventory); //Chest inventory gets stored in value with the key same as the ID of the chest object
         }
         public override bool CompletedByState(WorldState state) //If more of desired item in chest then there is curently, then returns true
         {
@@ -29,15 +22,18 @@ namespace GOAP {
 
             int originalItemCount = 0;
             int newItemCount = 0;
-            foreach(Item item in pair.Item2)
+            string planInv = "";
+
+            foreach (Item item in pair.Item2)
             {
-                if (item == this.item) newItemCount++;
+                if (item == this.item) {newItemCount++; planInv += item.item_name+"|"; }
             }
             foreach (Item_Slot item in chest.chest_inventory)
             {
                 if (item.item == this.item) originalItemCount++;
             }
-
+            
+            Debug.Log("Complete Goal Check:    | Number of Logs in Chest: " + originalItemCount+"    | Number of Logs in Plan: " + newItemCount + " Plan inventory: "+planInv);
             return originalItemCount < newItemCount;
         }
 

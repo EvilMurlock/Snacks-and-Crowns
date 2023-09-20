@@ -72,14 +72,20 @@ public class NpcAi : MonoBehaviour
     }
     void ReachedEnd()
     {
-        Vector2 direction = ((Vector2)target.position - rb.position).normalized;
-        movementScript.RotateTowars(direction);//End of path not nececeraly insode of the actual object, use diferent end point
+        if (target != null) {
+            Vector2 direction = ((Vector2)target.position - rb.position).normalized;
+            movementScript.RotateTowars(direction);//End of path not nececeraly insode of the actual object, use diferent end point
+        }
+        else target = null;
         reachedEndOfPath = true;
         movementScript.ChangeMovementDirection(Vector2.zero);
+        //Debug.Log("reached End of path");
     }
     public void ChangeTarget(GameObject newTarget)
     {
         target = newTarget.transform;
+        Debug.Log("Pathing target is now: " + target.name);
+
         reachedEndOfPath = false;
         UpdatePath();
     }

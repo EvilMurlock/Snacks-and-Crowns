@@ -28,6 +28,7 @@ public class AgentBelieveState : MonoBehaviour
             //Debug.Log("TEST: Key: " + pair.Key + " Value: " + pair.Value);
             agentBelieves.ModifyState(pair.Key, pair.Value);
         }
+        agentBelieves.ModifyState("MyPosition", transform.position);
     }
     void InventoryUpdate(List<Item> inventory)
     {

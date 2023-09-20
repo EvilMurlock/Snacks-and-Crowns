@@ -11,7 +11,7 @@ namespace GOAP
             List<Node> leaves = new List<Node>();
             Node start = new Node(null, 0, states, null, null);
 
-            bool success = BuildGraph(start, leaves, actions, goal);
+            bool success = BuildGraph(start, leaves, actions, goal,0);
 
             if (!success)
             {
@@ -31,6 +31,7 @@ namespace GOAP
             {
                 if(n.action != null)
                 {
+                    //result.Add(n);
                     result.Insert(0, n);
                 }
                 n = n.parent;
@@ -40,24 +41,34 @@ namespace GOAP
             {
                 queue.Enqueue(a);
             }
+
+            //Plan Debuging
+            //Debug.Log("Leaves number: " + leaves.Count);
+            /*
+            Debug.Log("Last action: "+ cheapest.action.actionName);
+            Debug.Log("Result Lenght: " + result.Count);
+
+            Debug.Log("Plan Lenght: "+queue.Count);
+            */
             string planDebug = "The plan is:";
             int actionNumber = 0;
+            float costLast = 0;
             foreach (Node a in queue)
             {
                 //planDebug += "\n"; 
-                planDebug += " -> "+actionNumber + " - " + a.action.actionName;
+                planDebug += " -> "+actionNumber + " - " + a.action.actionName + " (" + (a.cost - costLast)+")";
                 actionNumber++;
-
+                costLast = a.cost;
             }
-            planDebug += " | Cost: " + cheapest.cost;
+            planDebug += " | Total Cost: " + cheapest.cost;
             Debug.Log(planDebug);
             return queue;
         }
-        bool BuildGraph(Node parent, List<Node> leaves, List<Action> usableActions, Goal goal)
+        bool BuildGraph(Node parent, List<Node> leaves, List<Action> usableActions, Goal goal, int depth)
         {
+            //if (depth > 5) return false;
             //Plans can use each action only ONCE!!!
             //Actions are valid as long as required KEY exists, it ignores goal values!
-            WorldState currentState = new WorldState(parent.state);
             bool foundPath = false;
             foreach(Action action in usableActions)
             {
@@ -78,7 +89,7 @@ namespace GOAP
                         else
                         {
                             List<Action> subset = ActionSubset(usableActions, action); //REMOVES USED ACTIONS - PREVENTS LOOPS - ALSO PREVENTS REUSING ACTIONS
-                            bool found = BuildGraph(node, leaves, subset, goal);
+                            bool found = BuildGraph(node, leaves, subset, goal, depth+1);
                             if (found)
                                 foundPath = true;
                         }

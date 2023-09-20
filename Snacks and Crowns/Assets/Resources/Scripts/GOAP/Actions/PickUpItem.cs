@@ -8,7 +8,8 @@ namespace GOAP
     {
         public override void Tick()
         {
-
+            if (target == null) Deactivate();
+            if (npcAi.reachedEndOfPath) Complete();
         }
         public override float GetCost(WorldState worldState)
         {
@@ -22,63 +23,85 @@ namespace GOAP
         public override bool IsAchievableGiven(WorldState worldState)//For the planner
         {
             bool achievable = true;
-            List<Item> controlers = (List<Item>)worldState.GetStates()["Inventory"];
-            if (controlers.Count == 0) achievable = false;
-            List<(Interactible_Chest, List<Item>)> chests = (List<(Interactible_Chest, List<Item>)>)worldState.GetStates()["ChestList"];
-            if (controlers.Count == 0) achievable = false;
+            List<Item> items = (List<Item>)worldState.GetStates()["Inventory"];
+            if (items.Count >= GetComponent<Inventory>().capacity) achievable = false;//Full inventory = false
+
+            List<(Item item, Vector3 position)> itemDrops = (List<(Item, Vector3)>)worldState.GetStates()["ItemDropList"];
+            if (itemDrops.Count == 0) achievable = false;//any items to pick up
 
             return achievable;
         }
-        public override bool IsAchievable()//Checs curent condition + world state
+        public override void Activate(object arg)
         {
-            return true;
-        }
-        public override void Activate()
-        {
-            target = FindTarget();
-            Debug.Log("Target is now: " + target.name);
+            (Item, Vector3) pair = ((Item, Vector3)) arg;
+
+
+            Item item = pair.Item1;
+            Vector2 position = pair.Item2;
+
+            //Debug.Log("Going to pick up " + item+" at position: "+position);
+
+
+            Item_Controler[] itemControlers = GameObject.FindObjectsByType<Item_Controler>(FindObjectsSortMode.None);
+            float distance = -1;
+            Item_Controler chosenItem = null;
+            foreach (Item_Controler itemControler in itemControlers)
+            {
+                if((distance == -1 ||  GetDistanceBetween(itemControler.transform.position, position) < distance) && itemControler.item == item)
+                {
+                    distance = GetDistanceBetween(itemControler.transform.position, position);
+                    chosenItem = itemControler;
+                }
+            }
+            target = chosenItem.gameObject;
             running = true;
             completed = false;
-            Debug.Log("Switching path to " + target.name);
-            gameObject.GetComponent<NpcAi>().ChangeTarget(target);
+            npcAi.ChangeTarget(target);
         }
         public override void Deactivate()
         {
             running = false;
+            npcAi.ChangeTarget(null);
         }
         public override void Complete()
         {
+            if(GetComponent<Inventory>().AddItem(target.GetComponent<Item_Controler>().item))
+                Destroy(target);
+
             running = false;
             completed = true;
         }
         public override List<Node> OnActionCompleteWorldStates(Node parent)//Tells the planer how the world state will change on completion
         {
-
-
-
             List<Node> possibleNodes = new List<Node>();
-            /*
-            foreach (Item item in (List<Item>)parent.state.GetStates()["Inventory"])
+
+            List<Item> inventory = (List<Item>)parent.state.GetStates()["Inventory"];
+            foreach((Item item, Vector3 position) iPpair in (List<(Item, Vector3)>)parent.state.GetStates()["ItemDropList"])
             {
-                foreach ((Interactible_Chest, List<Item>) chestInventoryPair in (List<(Interactible_Chest, List<Item>)>)parent.state.GetStates()["ChestList"])
+                WorldState possibleWorldState = new WorldState(parent.state);
+
+                List<Item> newInventory = new List<Item>(inventory);
+                List<(Item item, Vector3 position)> newItemDropList = new List<(Item, Vector3)>(((List<(Item, Vector3)>) parent.state.GetStates()["ItemDropList"]));
+
+                newInventory.Add(iPpair.item);
+                newItemDropList.Remove(iPpair);
+
+                possibleWorldState.ModifyState("Inventory", newInventory);
+                possibleWorldState.ModifyState("ItemDropList", newItemDropList);
+                possibleWorldState.ModifyState("MyPosition", iPpair.position);
+                Vector3 myPosition = (Vector3)parent.state.GetStates()["MyPosition"];
+
+                /*Debuging
+                string invStr = "";
+                foreach(Item i in newInventory)
                 {
-                    WorldState possibleWorldState = new WorldState(parent.state);
-
-                    List<Item> inventory = new List<Item>((List<Item>)parent.state.GetStates()["Inventory"]);
-                    List<(Interactible_Chest, List<Item>)> chestInventoryPairList = new List<(Interactible_Chest, List<Item>)>((List<(Interactible_Chest, List<Item>)>)parent.state.GetStates()["ChestList"]);
-
-                    inventory.Remove(item);
-                    (Interactible_Chest, List<Item>) pair = chestInventoryPairList.Find(x => x == chestInventoryPair);
-                    if (pair.Item2.Count < pair.Item1.chest_inventory.Length) pair.Item2.Add(item);
-                    else break;
-
-                    possibleWorldState.ModifyState("Inventory", inventory);
-                    possibleWorldState.ModifyState("ChestList", chestInventoryPairList);
-                    GameObject tempTarget = chestInventoryPair.Item1.gameObject;
-                    possibleNodes.Add(new Node(parent, parent.cost + GetDistanceFromObject(tempTarget), possibleWorldState, this, tempTarget));
+                    invStr += i.item_name+" | ";
                 }
+                Debug.Log("Pick up item Inventory plan: "+invStr);
+                */
+                possibleNodes.Add(new Node(parent, 1 + parent.cost + GetDistanceBetween(myPosition, iPpair.position), possibleWorldState, this, iPpair));
             }
-            */
+            
 
             return possibleNodes;
         }

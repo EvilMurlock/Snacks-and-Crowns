@@ -7,8 +7,6 @@ namespace GOAP
 {
     public class Agent : MonoBehaviour
     {
-        NpcAi npcAi;
-
         public List<Action> actions = new List<Action>();
         public List<Goal> goals = new List<Goal>();
 
@@ -18,12 +16,10 @@ namespace GOAP
         public Action currentAction;
         Goal currentGoal;
         AgentBelieveState agentBelieveState;
-        bool invoked = false;
 
         // Start is called before the first frame update
         protected virtual void Start()
         {
-            npcAi = gameObject.GetComponent<NpcAi>();
             planner = new Planner();
             agentBelieveState = gameObject.GetComponent<AgentBelieveState>();
 
@@ -58,6 +54,12 @@ namespace GOAP
             foreach (Goal g in sortedGoals)
             {
                 //Debug.Log("Planing for: "+g.name);
+                /*
+                Debug.Log(g.name);
+                Debug.Log(actions);
+                Debug.Log(GetAgentBelieveState());
+                Debug.Log(planner);
+                */
                 Queue<Node> queue = planner.Plan(actions, g, GetAgentBelieveState());
                 if (queue != null)
                 {
@@ -77,7 +79,8 @@ namespace GOAP
 
             (Queue<Node> nodeQueue, Goal goal) planGoal = FindBestPlan();
 
-            if (planGoal.goal != null && planGoal.goal.CalculatePriority() > 0 && (currentGoal == null || planGoal.goal.CalculatePriority() > currentGoal.CalculatePriority()))//Switch plans when plan with a higher priority goal is found
+            if (planGoal.goal != null && planGoal.goal.CalculatePriority() > 0 && (currentGoal == null 
+                || planGoal.goal.CalculatePriority() > currentGoal.CalculatePriority()))//Switch plans when plan with a higher priority goal is found
             {
                 if(currentGoal != null) currentGoal.Deactivate();
                 if(currentAction != null) currentAction.Deactivate();
@@ -106,15 +109,7 @@ namespace GOAP
                     {
                         currentNode = nodeQueue.Dequeue();
                         currentAction = currentNode.action;
-
-                        if (currentAction.IsAchievable())
-                            currentAction.Activate(currentNode.data);
-                        else
-                        {
-                            currentAction = null;
-                            currentGoal = null;
-                            nodeQueue = null;
-                        }
+                        currentAction.Activate(currentNode.data);
                     }
                 }
                 else if(currentAction.running == false)//action failed -> purge current action,goal,plan

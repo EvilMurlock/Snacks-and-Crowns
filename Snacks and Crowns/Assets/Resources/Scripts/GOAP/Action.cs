@@ -19,10 +19,12 @@ namespace GOAP
         public virtual void Awake()
         {
             actionName = this.GetType().Name;
+
         }
         protected void Start()
         {
             npcAi = GetComponent<NpcAi>();
+
         }
         public virtual void Tick()
         {
@@ -43,10 +45,6 @@ namespace GOAP
             if (!worldState.CompletesGoal(preconditions) || FindTarget() == null) return false;
             return true;
         }
-        public virtual bool IsAchievable()//Checs curent condition + world state
-        {
-            return true;
-        }
         public virtual void Activate()
         {
             Activate(FindTarget());
@@ -55,11 +53,9 @@ namespace GOAP
         {
             if (newTarget == null) target = FindTarget();
             else this.target = (GameObject)newTarget;
-            Debug.Log("Target is now: " + target.name);
             running = true;
             completed = false;
-            Debug.Log("Switching path to " + target.name);
-            gameObject.GetComponent<NpcAi>().ChangeTarget(target);
+            npcAi.ChangeTarget(target);
 
         }
         public virtual void Deactivate()
@@ -77,7 +73,7 @@ namespace GOAP
             WorldState newWorldstate = new WorldState(parent.state);
             newWorldstate.AddStates(effects);
             List<Node> possibleNodes = new List<Node>();
-
+            target = FindTarget();
             possibleNodes.Add(new Node(parent, parent.cost + GetDistanceFromTarget(), newWorldstate, this, null));
             return possibleNodes;
         }
@@ -86,10 +82,19 @@ namespace GOAP
             if (target != null) return (gameObject.transform.position - target.transform.position).magnitude;
             return 0;
         }
+        protected float GetDistanceFromVector(Vector2 vector)
+        {
+            return (gameObject.transform.position - (Vector3)vector).magnitude;
+        }
+
         protected float GetDistanceFromObject(GameObject distanceTarget)
         {
             if (distanceTarget != null) return (gameObject.transform.position - distanceTarget.transform.position).magnitude;
             return 0;
+        }
+        protected float GetDistanceBetween(Vector3 a, Vector3 b)
+        {
+            return (a - b).magnitude;
         }
         protected GameObject FindTarget()
         {

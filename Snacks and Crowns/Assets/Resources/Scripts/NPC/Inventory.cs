@@ -5,7 +5,7 @@ using GOAP;
 using UnityEngine.Events;
 public class Inventory : MonoBehaviour
 {
-    public int maxSize = 9;
+    public int capacity = 9;
     [SerializeField]
     List<Item> inventory = new List<Item>();
     public List<Item> GetInventory { get { return inventory; } }
@@ -17,7 +17,7 @@ public class Inventory : MonoBehaviour
     }
     public bool AddItem(Item item)
     {
-        if (inventory.Count >= maxSize) return false;
+        if (inventory.Count >= capacity) return false;
         inventory.Add(item);
         onChangeInventory.Invoke(inventory);
         return true;

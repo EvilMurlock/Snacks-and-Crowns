@@ -14,9 +14,12 @@ public class Item_Slot : Menu_Slot
     {
         item = new_item;
         //panel.GetComponent<Image>().color = new Color(255, 255, 255, 255);
-        panel.GetComponentsInChildren<Image>()[1].color = new Color(255, 255, 255, 255);
-        if (Is_Not_Empty()) panel.GetComponentsInChildren<Image>()[1].sprite = item.icon;//panel.GetComponent<Image>().sprite = item.icon;
-        else Remove_Item();//panel.GetComponentsInChildren<Image>()[1].sprite = null;//panel.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+
+        if(panel != null) { //For npc interaction - panel not initialized for them
+            panel.GetComponentsInChildren<Image>()[1].color = new Color(255, 255, 255, 255);
+            if (Is_Not_Empty()) panel.GetComponentsInChildren<Image>()[1].sprite = item.icon;//panel.GetComponent<Image>().sprite = item.icon;
+            else Remove_Item();//panel.GetComponentsInChildren<Image>()[1].sprite = null;//panel.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+        }
     }
     public void Remove_Item()
     {

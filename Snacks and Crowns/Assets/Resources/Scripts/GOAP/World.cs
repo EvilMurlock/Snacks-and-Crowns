@@ -27,10 +27,10 @@ namespace GOAP
         void UpdateWorld()
         {
 
-            List<Item_Controler> itemDrops = new List<Item_Controler>();
+            List<(Item item, Vector3 position)> itemDrops = new List<(Item, Vector3)>();
             foreach (Item_Controler itemControler in GameObject.FindObjectsByType<Item_Controler>(FindObjectsSortMode.None))
             {
-                itemDrops.Add(itemControler);
+                itemDrops.Add((itemControler.item, itemControler.transform.position));
             }
             worldState.ModifyState("ItemDropList",itemDrops);
 

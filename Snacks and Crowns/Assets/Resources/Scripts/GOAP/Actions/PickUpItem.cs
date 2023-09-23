@@ -13,8 +13,9 @@ namespace GOAP
         }
         public override void Tick()
         {
+            Debug.Log("Reached end: " + npcAi.reachedEndOfPath);
             if (target == null) Deactivate();
-            if (npcAi.reachedEndOfPath) Complete();
+            if (npcAi.reachedEndOfPath) {  Complete(); }
         }
         public override float GetCost(WorldState worldState)
         {
@@ -62,6 +63,7 @@ namespace GOAP
             running = true;
             completed = false;
             npcAi.ChangeTarget(target);
+            Debug.Log("NPC at target value: " + npcAi.reachedEndOfPath);
         }
         public override void Deactivate()
         {
@@ -70,6 +72,8 @@ namespace GOAP
         }
         public override void Complete()
         {
+            Debug.Log("Distance from target: " + GetDistanceFromTarget());
+            Debug.Log("NPC AI Target is: " + npcAi.target.name + " | Action target: " + target.name);
             if(GetComponent<Inventory>().AddItem(target.GetComponent<Item_Controler>().item))
                 Destroy(target);
 

@@ -6,12 +6,11 @@ using Pathfinding;
 public class NpcAi : MonoBehaviour
 {
     // Start is called before the first frame update
-    List<Item> inventory;
-    int invetorySize = 9;
-
     public Transform target;
     public float nextWaypointDistance = 0.1f;
-    public float lastWaypointDistance = 1f;
+    public float lastWaypointDistanceDefault = 1f;
+
+    public float lastWaypointDistance;
     Path path;
     int currentWaypoint = 0;
     public bool reachedEndOfPath = false;
@@ -21,6 +20,7 @@ public class NpcAi : MonoBehaviour
     Player_Movement movementScript;
     void Start()
     {
+        lastWaypointDistance = lastWaypointDistanceDefault;
         movementScript = GetComponent<Player_Movement>();
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
@@ -48,6 +48,7 @@ public class NpcAi : MonoBehaviour
 
         if (currentWaypoint >= path.vectorPath.Count)
         {
+            Debug.Log("reached end 1: "+target.name);
             ReachedEnd();
             return;
         }
@@ -67,6 +68,7 @@ public class NpcAi : MonoBehaviour
         }
         else if(distanceFromEnd < lastWaypointDistance)
         {
+            Debug.Log("reached end 2: "+target.name);
             ReachedEnd();
         }
     }
@@ -81,12 +83,19 @@ public class NpcAi : MonoBehaviour
         movementScript.ChangeMovementDirection(Vector2.zero);
         //Debug.Log("reached End of path");
     }
-    public void ChangeTarget(GameObject newTarget)
+    public void ChangeTarget(GameObject newTarget, float distanceFromTarget)
     {
+        lastWaypointDistance = distanceFromTarget;
         target = newTarget.transform;
         Debug.Log("Pathing target is now: " + target.name);
 
         reachedEndOfPath = false;
+        path = null;
         UpdatePath();
+    }
+
+    public void ChangeTarget(GameObject newTarget)
+    {
+        ChangeTarget(newTarget, lastWaypointDistanceDefault);
     }
 }

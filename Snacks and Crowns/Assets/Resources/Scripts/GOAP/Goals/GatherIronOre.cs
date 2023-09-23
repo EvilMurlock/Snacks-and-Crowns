@@ -4,17 +4,19 @@ using UnityEngine;
 
 namespace GOAP 
 {
-    public class GatherLogs : GatherItemsInChest
+    public class GatherIronOre : GatherItemsInChest
     {
-        Item log;
+        Item iron;
         // Start is called before the first frame update
         protected override void Start()
         {
             base.Start();
-            log = (Item)Resources.Load("Items/Log");
+            iron = (Item)Resources.Load("Items/Iron Ore");
+            Debug.Log("Chest size: "+chest.chest_inventory.Length);
             for (int i = 0; i<= chest.chest_inventory.Length; i++)
             {
-                desiredItems.Add(log);
+                Debug.Log("Fired");
+                desiredItems.Add(iron);
             }
         }
         public override bool CanRun()
@@ -23,13 +25,13 @@ namespace GOAP
             List<(int, Vector3)> itemDrops = (List<(int, Vector3)>)state.GetStates()["ItemDropList"];
             foreach((int, Vector3) pair in itemDrops)
             {
-                if (pair.Item1 == World.GetIdFromItem(log)) return true;
+                if (pair.Item1 == World.GetIdFromItem(iron)) return true;
             }
 
             TagSystem[] tagSystems = FindObjectsOfType<TagSystem>();
             foreach (TagSystem tagSys in tagSystems)
             {
-                if (tagSys.HasTag("Tree")) return true;
+                if (tagSys.HasTag("Iron Ore Mine")) return true;
             }
             return false;
         }

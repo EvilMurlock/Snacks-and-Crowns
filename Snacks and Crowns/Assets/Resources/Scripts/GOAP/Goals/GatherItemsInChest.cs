@@ -74,18 +74,36 @@ namespace GOAP {
         public override float CalculatePriority()
         {
             float priority = defaultPriority;
-            if (chest != null)
-            {
-                bool full = true;
-                foreach(Item_Slot slot in chest.chest_inventory)
-                {
-                    if (slot.item == null) full = false;
-                }
-                if (full) priority = 0;
-            }
-            else priority = 0;
+
+
+            if (chest == null) return -1;
+
+            priority = HowCloseToFillingTheChest();
+
+
             if (active) priority *= 2;
+
+
             return priority;
+        }
+
+        protected int HowCloseToFillingTheChest()
+        {
+            int similarityCount = desiredItems.Count;
+
+            List<Item> tempDesiredItems1 = new List<Item>(desiredItems);
+            foreach (Item_Slot itemSlot in chest.chest_inventory)
+            {
+                Item item = itemSlot.item;
+                if (tempDesiredItems1.Contains(item))
+                {
+                    similarityCount--;
+                    tempDesiredItems1.Remove(item);
+                }
+            }
+
+            //Debug.Log("Priority is: "+similarityCount);
+            return similarityCount;
         }
     }
 }

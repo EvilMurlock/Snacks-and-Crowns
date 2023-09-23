@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8705610468198374414}
   - component: {fileID: 4428766099340554896}
   - component: {fileID: 8267405026468492122}
+  - component: {fileID: -6743637638139255007}
   m_Layer: 3
   m_Name: Iron Ore Deposit
   m_TagString: Untagged
@@ -185,3 +186,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &-6743637638139255007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7679825583728535749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca139e25d7227a946947204c5c8ef0c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tags:
+  - Iron Ore Mine

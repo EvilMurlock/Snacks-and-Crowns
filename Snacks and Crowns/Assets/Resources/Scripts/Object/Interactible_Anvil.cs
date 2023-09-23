@@ -24,6 +24,8 @@ public class Interactible_Anvil : Interactible_Object
     
     public void Start()
     {
+        if (GetComponent<TagSystem>() == null) gameObject.AddComponent<TagSystem>();
+        GetComponent<TagSystem>().AddTag(crafting_objekt.ToString());
         craftable = false;
         Load_Recepies();
     }

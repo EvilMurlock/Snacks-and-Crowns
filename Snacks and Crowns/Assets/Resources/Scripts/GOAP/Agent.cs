@@ -62,13 +62,6 @@ namespace GOAP
             }
             foreach (Goal g in sortedGoals)
             {
-                //Debug.Log("Planing for: "+g.name);
-                /*
-                Debug.Log(g.name);
-                Debug.Log(actions);
-                Debug.Log(GetAgentBelieveState());
-                Debug.Log(planner);
-                */
                 Queue<Node> queue = null;
                 if(g.CanRun()) queue = planner.Plan(actions, g, GetAgentBelieveState());
 

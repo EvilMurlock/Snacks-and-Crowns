@@ -28,7 +28,7 @@ public class Damagable : MonoBehaviour
         if (resistances.ContainsKey(attack.damage_type))
         { resistance = resistances[attack.damage_type]; }
         float damageTaken = attack.damage * Mathf.Clamp(1 - resistance, 0, 1);
-        Debug.Log("Damage taken: " + damageTaken);
+        //Debug.Log("Damage taken: " + damageTaken);
         Changehealth(hp-damageTaken);
         if (hp < 0) Die();
     }
@@ -43,15 +43,15 @@ public class Damagable : MonoBehaviour
     }
     void Die()
     {
-        Debug.Log(gameObject.name + " is DEAD");
+        //Debug.Log(gameObject.name + " is DEAD");
         death.Invoke();
         Destroy(gameObject);
     }
     public void ChangeResistance(Damage_Type type, float amount)
     {
         resistances[type] += amount;
-        Debug.Log("Resistance changed: " + type.ToString());
-        Debug.Log("New resistance value: "+ resistances[type]);
+        //Debug.Log("Resistance changed: " + type.ToString());
+        //Debug.Log("New resistance value: "+ resistances[type]);
     }
 }
 public enum Damage_Type

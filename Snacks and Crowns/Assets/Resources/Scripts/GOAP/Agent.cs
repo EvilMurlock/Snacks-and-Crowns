@@ -17,9 +17,14 @@ namespace GOAP
         Goal currentGoal;
         AgentBelieveState agentBelieveState;
 
+        
+        float planingDelayAfterFail = 1;
+        float planingDelayNow = 1;
+
         // Start is called before the first frame update
         protected virtual void Start()
         {
+
             planner = new Planner();
             agentBelieveState = gameObject.GetComponent<AgentBelieveState>();
 
@@ -50,7 +55,11 @@ namespace GOAP
         (Queue<Node>, Goal) FindBestPlan() //Returns a plan for the most important goal posible
         {
             var sortedGoals = from entry in goals orderby entry.CalculatePriority() descending select entry;
-
+            if(planingDelayNow < planingDelayAfterFail)
+            {
+                planingDelayNow += Time.deltaTime;
+                return (null, null);
+            }
             foreach (Goal g in sortedGoals)
             {
                 //Debug.Log("Planing for: "+g.name);
@@ -60,39 +69,44 @@ namespace GOAP
                 Debug.Log(GetAgentBelieveState());
                 Debug.Log(planner);
                 */
-                Queue<Node> queue = planner.Plan(actions, g, GetAgentBelieveState());
+                Queue<Node> queue = null;
+                if(g.CanRun()) queue = planner.Plan(actions, g, GetAgentBelieveState());
+
                 if (queue != null)
                 {
                     return (queue, g);
                 }
             }
+            planingDelayNow = 0;
             return (null, null);
         }
         // Update is called once per frame
         void LateUpdate()
         {
-            if (goals.Count() == 0) 
+            if (goals.Count() == 0)
             {
-                Debug.Log("No goals"); 
-                return; 
+                Debug.Log("No goals");
+                return;
             }
 
-            (Queue<Node> nodeQueue, Goal goal) planGoal = FindBestPlan();
-
-            if (planGoal.goal != null && planGoal.goal.CalculatePriority() > 0 && (currentGoal == null 
-                || planGoal.goal.CalculatePriority() > currentGoal.CalculatePriority()))//Switch plans when plan with a higher priority goal is found
+            if (nodeQueue == null)
             {
-                if(currentGoal != null) currentGoal.Deactivate();
-                if(currentAction != null) currentAction.Deactivate();
+                (Queue<Node> nodeQueue, Goal goal) planGoal = FindBestPlan();
 
-                currentGoal = planGoal.goal;
-                nodeQueue = planGoal.nodeQueue;
-                currentNode = nodeQueue.Dequeue();
-                currentAction = currentNode.action;
-                currentAction.Activate(currentNode.data);
-                currentGoal.Activate();
+                if (planGoal.goal != null && planGoal.goal.CalculatePriority() > 0 
+                    && (currentGoal == null || planGoal.goal.CalculatePriority() > currentGoal.CalculatePriority()))//Switch plans when plan with a higher priority goal is found
+                {
+                    if (currentGoal != null) currentGoal.Deactivate();
+                    if (currentAction != null) currentAction.Deactivate();
+
+                    currentGoal = planGoal.goal;
+                    nodeQueue = planGoal.nodeQueue;
+                    currentNode = nodeQueue.Dequeue();
+                    currentAction = currentNode.action;
+                    currentAction.Activate(currentNode.data);
+                    currentGoal.Activate();
+                }
             }
-
             if (currentAction != null && currentAction.running)
             {
                 currentAction.Tick();

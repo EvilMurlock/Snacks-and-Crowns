@@ -6,6 +6,11 @@ namespace GOAP
 {
     public class PickUpItem : Action
     {
+        public override void Start()
+        {
+            reusable = true;
+            base.Start();
+        }
         public override void Tick()
         {
             if (target == null) Deactivate();
@@ -23,20 +28,20 @@ namespace GOAP
         public override bool IsAchievableGiven(WorldState worldState)//For the planner
         {
             bool achievable = true;
-            List<Item> items = (List<Item>)worldState.GetStates()["Inventory"];
+            List<int> items = (List<int>)worldState.GetStates()["Inventory"];
             if (items.Count >= GetComponent<Inventory>().capacity) achievable = false;//Full inventory = false
 
-            List<(Item item, Vector3 position)> itemDrops = (List<(Item, Vector3)>)worldState.GetStates()["ItemDropList"];
+            List<(int itemID, Vector3 position)> itemDrops = (List<(int, Vector3)>)worldState.GetStates()["ItemDropList"];
             if (itemDrops.Count == 0) achievable = false;//any items to pick up
 
             return achievable;
         }
         public override void Activate(object arg)
         {
-            (Item, Vector3) pair = ((Item, Vector3)) arg;
+            (int, Vector3) pair = ((int, Vector3)) arg;
 
 
-            Item item = pair.Item1;
+            Item item = World.GetItemFromId(pair.Item1);
             Vector2 position = pair.Item2;
 
             //Debug.Log("Going to pick up " + item+" at position: "+position);
@@ -75,13 +80,18 @@ namespace GOAP
         {
             List<Node> possibleNodes = new List<Node>();
 
-            List<Item> inventory = (List<Item>)parent.state.GetStates()["Inventory"];
-            foreach((Item item, Vector3 position) iPpair in (List<(Item, Vector3)>)parent.state.GetStates()["ItemDropList"])
-            {
-                WorldState possibleWorldState = new WorldState(parent.state);
+            List<int> inventory = (List<int>)parent.state.GetStates()["Inventory"];
+            List<(int itemId, Vector3 position)> itemDropList = (List<(int, Vector3)>)parent.state.GetStates()["ItemDropList"];
 
-                List<Item> newInventory = new List<Item>(inventory);
-                List<(Item item, Vector3 position)> newItemDropList = new List<(Item, Vector3)>(((List<(Item, Vector3)>) parent.state.GetStates()["ItemDropList"]));
+            foreach ((int item, Vector3 position) iPpair in itemDropList)
+            {
+                //WorldState possibleWorldState = parent.state;//DEBUG LINE
+                //Vector3 myPosition = (Vector3)parent.state.GetStates()["MyPosition"];//DEBUG LINE
+
+                WorldState possibleWorldState = parent.state.MakeReferencialDuplicate();
+
+                List<int> newInventory = new List<int>(inventory);
+                List<(int itemId, Vector3 position)> newItemDropList = new List<(int, Vector3)>(itemDropList);
 
                 newInventory.Add(iPpair.item);
                 newItemDropList.Remove(iPpair);
@@ -90,7 +100,7 @@ namespace GOAP
                 possibleWorldState.ModifyState("ItemDropList", newItemDropList);
                 possibleWorldState.ModifyState("MyPosition", iPpair.position);
                 Vector3 myPosition = (Vector3)parent.state.GetStates()["MyPosition"];
-
+                
                 /*Debuging
                 string invStr = "";
                 foreach(Item i in newInventory)

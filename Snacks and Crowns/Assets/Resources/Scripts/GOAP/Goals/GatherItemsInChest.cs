@@ -5,38 +5,54 @@ using UnityEngine;
 namespace GOAP {
     public class GatherItemsInChest : Goal
     {
+        public GameObject chestOb;
         public Interactible_Chest chest;
-        public Item item;
+        public List<Item> desiredItems;
         float defaultPriority = 5;
         bool active = false;
         AgentBelieveState agentBelieves;
-        private void Start()
+        protected virtual void Start()
         {
+            chest = chestOb.GetComponent<Interactible_Chest>();
+
         }
         public override bool CompletedByState(WorldState state) //If more of desired item in chest then there is curently, then returns true
         {
-            List<(Interactible_Chest, List<Item>)> chests = (List<(Interactible_Chest, List<Item>)>)state.GetStates()["ChestList"];
+            return CloserToGoalCheck(state);
+        }
+        public bool CloserToGoalCheck(WorldState state)
+        {
+            List<(Interactible_Chest, List<int>)> chests = (List<(Interactible_Chest, List<int>)>)state.GetStates()["ChestList"];
 
-            (Interactible_Chest, List<Item>) pair = chests.Find(x => x.Item1 == chest);
+            (Interactible_Chest, List<int>) pair = chests.Find(x => x.Item1 == chest);
             if (pair.Item1 == null) return false;
 
             int originalItemCount = 0;
             int newItemCount = 0;
-            string planInv = "";
 
-            foreach (Item item in pair.Item2)
+            List<Item> tempDesiredItems1 = new List<Item>(desiredItems);
+            foreach (int itemId in pair.Item2)
             {
-                if (item == this.item) {newItemCount++; planInv += item.item_name+"|"; }
+                Item item = World.GetItemFromId(itemId);
+                if (tempDesiredItems1.Contains(item))
+                {   
+                    newItemCount++;
+                    tempDesiredItems1.Remove(item);
+                }
             }
+            List<Item> tempDesiredItems2 = new List<Item>(desiredItems);
             foreach (Item_Slot item in chest.chest_inventory)
             {
-                if (item.item == this.item) originalItemCount++;
+                if (tempDesiredItems2.Contains(item.item))
+                {
+                    originalItemCount++;
+                    tempDesiredItems2.Remove(item.item);
+                }
             }
-            
-            Debug.Log("Complete Goal Check:    | Number of Logs in Chest: " + originalItemCount+"    | Number of Logs in Plan: " + newItemCount + " Plan inventory: "+planInv);
-            return originalItemCount < newItemCount;
-        }
 
+            return originalItemCount < newItemCount;
+
+        }
         public override void Tick()
         {
 

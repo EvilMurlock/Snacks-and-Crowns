@@ -14,7 +14,7 @@ namespace GOAP
         {
             this.parent = parent;
             this.cost = cost;
-            this.state = new WorldState(worldState);
+            this.state = worldState;
             this.action = action;
             this.data = data;
         }

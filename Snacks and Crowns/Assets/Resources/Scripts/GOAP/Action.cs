@@ -6,6 +6,7 @@ namespace GOAP
 {
     public abstract class Action : MonoBehaviour
     {
+        public bool reusable = false; //can this action be used multiple times in the planner?
         public string actionName = "Action";
         public GameObject target;
         public List<string> targetTags = new List<string>();
@@ -21,7 +22,7 @@ namespace GOAP
             actionName = this.GetType().Name;
 
         }
-        protected void Start()
+        public virtual void Start()
         {
             npcAi = GetComponent<NpcAi>();
 
@@ -70,7 +71,7 @@ namespace GOAP
         public virtual List<Node> OnActionCompleteWorldStates(Node parent)
         {
             //Tells the planer how the world state will change on completion
-            WorldState newWorldstate = new WorldState(parent.state);
+            WorldState newWorldstate = parent.state.MakeReferencialDuplicate();
             newWorldstate.AddStates(effects);
             List<Node> possibleNodes = new List<Node>();
             target = FindTarget();

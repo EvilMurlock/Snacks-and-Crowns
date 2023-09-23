@@ -6,30 +6,50 @@ namespace GOAP
 {
     public class Planner
     {
+        int maxDepth = 4;
+        float maxCost = 20;
+        bool breathFirst = true;
         public Queue<Node> Plan(List<Action> actions, Goal goal, WorldState states)
         {            
             List<Node> leaves = new List<Node>();
             Node start = new Node(null, 0, states, null, null);
 
-            bool success = BuildGraph(start, leaves, actions, goal,0);
-
-            if (!success)
+            Node lastPlanNode = null;
+            if (breathFirst)
             {
-                Debug.Log("No GOAP plan!");
-                return null;
-            }
-            Node cheapest = null;
-            foreach(Node leaf in leaves)
-            {
-                if (cheapest == null) cheapest = leaf;
-                else if (leaf.cost < cheapest.cost) cheapest = leaf;
-            }
+                List<Node> leavesPlan = new List<Node>();
+                leavesPlan.Add(start);
 
+                lastPlanNode = BuildGraphBreathFirst(leavesPlan, actions, goal, 1);
+                if (lastPlanNode == null)
+                {
+                    Debug.Log("No GOAP plan!");
+                    return null;
+                }
+                Debug.Log(lastPlanNode.action.actionName);
+            }
+            else
+            {
+                bool success = BuildGraph(start, leaves, actions, goal, 1);
+
+                if (!success)
+                {
+                    Debug.Log("No GOAP plan!");
+                    return null;
+                }
+                Node cheapest = null;
+                foreach (Node leaf in leaves)
+                {
+                    if (cheapest == null) cheapest = leaf;
+                    else if (leaf.cost < cheapest.cost) cheapest = leaf;
+                }
+                lastPlanNode = cheapest;
+            }
             List<Node> result = new List<Node>();
-            Node n = cheapest;
-            while(n != null)
+            Node n = lastPlanNode;
+            while (n != null)
             {
-                if(n.action != null)
+                if (n.action != null)
                 {
                     //result.Add(n);
                     result.Insert(0, n);
@@ -60,13 +80,53 @@ namespace GOAP
                 actionNumber++;
                 costLast = a.cost;
             }
-            planDebug += " | Total Cost: " + cheapest.cost;
+            planDebug += " | Total Cost: " + lastPlanNode.cost;
             Debug.Log(planDebug);
             return queue;
         }
-        bool BuildGraph(Node parent, List<Node> leaves, List<Action> usableActions, Goal goal, int depth)
+        Node BuildGraphBreathFirst(List<Node> leaves, List<Action> usableActions, Goal goal, int depth)
         {
-            //if (depth > 5) return false;
+            if (depth > maxDepth) return null;
+            if (leaves.Count == 0) return null;
+
+            List<Node> newLeaves = new List<Node>();
+            foreach(Node parent in leaves)
+            {
+                foreach (Action action in usableActions)
+                {
+                    if (action.IsAchievableGiven(parent.state))
+                    {
+                        List<Node> possibleNewStates = new List<Node>();
+                        possibleNewStates = action.OnActionCompleteWorldStates(parent);
+                        //currentState = action.OnActionCompleteWorldStates(currentState);
+                        foreach (Node node in possibleNewStates)
+                        {
+                            if (node.cost <= maxCost) newLeaves.Add(node);
+                            //Node node = new Node(parent, parent.cost + newStateCostPair.cost, newStateCostPair.state, action);
+
+                            if (goal.CompletedByState(node.state))
+                            {
+                                Debug.Log("Plan Found");
+                                return node;
+                            }
+                        }
+
+                    }
+                }
+            }
+            //This code only fires when no action could furfill the goal
+            List<Action> subset = new List<Action>(usableActions);
+
+            //if (!action.reusable)
+            //    subset = ActionSubset(usableActions, action); //REMOVES USED ACTIONS - PREVENTS LOOPS - ALSO PREVENTS REUSING ACTIONS
+
+            return BuildGraphBreathFirst(newLeaves, subset, goal, depth + 1);
+        }
+
+        bool BuildGraph(Node parent, List<Node> leavesCompleteGoal, List<Action> usableActions, Goal goal, int depth)
+        {
+            if (depth > maxDepth) return false;
+            if (parent.cost > maxCost) return false; 
             //Plans can use each action only ONCE!!!
             //Actions are valid as long as required KEY exists, it ignores goal values!
             bool foundPath = false;
@@ -83,13 +143,16 @@ namespace GOAP
 
                         if (goal.CompletedByState(node.state))
                         {
-                            leaves.Add(node);
+                            leavesCompleteGoal.Add(node);
                             foundPath = true;
                         }
                         else
                         {
-                            List<Action> subset = ActionSubset(usableActions, action); //REMOVES USED ACTIONS - PREVENTS LOOPS - ALSO PREVENTS REUSING ACTIONS
-                            bool found = BuildGraph(node, leaves, subset, goal, depth+1);
+                            List<Action> subset = new List<Action>(usableActions);
+
+                            if(!action.reusable)
+                                subset = ActionSubset(usableActions, action); //REMOVES USED ACTIONS - PREVENTS LOOPS - ALSO PREVENTS REUSING ACTIONS
+                            bool found = BuildGraph(node, leavesCompleteGoal, subset, goal, depth+1);
                             if (found)
                                 foundPath = true;
                         }

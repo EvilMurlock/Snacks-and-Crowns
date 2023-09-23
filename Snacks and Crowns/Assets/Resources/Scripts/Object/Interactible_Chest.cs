@@ -8,7 +8,7 @@ public class Interactible_Chest : Interactible_Object
     public GameObject prefab_chest_ui;
     public GameObject instance_chest_ui;
     public Item_Slot[] chest_inventory;
-    public void Start()
+    public void Awake()
     {
         int inventory_size = (prefab_chest_ui.GetComponentsInChildren<Image>().Length -1)/2;
         chest_inventory = new Item_Slot[inventory_size];

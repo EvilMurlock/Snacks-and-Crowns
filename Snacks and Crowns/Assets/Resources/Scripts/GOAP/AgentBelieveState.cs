@@ -32,6 +32,11 @@ public class AgentBelieveState : MonoBehaviour
     }
     void InventoryUpdate(List<Item> inventory)
     {
-        ModifyAgentBelieves("Inventory", inventory);
+        List<int> inventoryId = new List<int>();
+        foreach(Item item in inventory)
+        {
+            inventoryId.Add(World.GetIdFromItem(item));
+        }
+        ModifyAgentBelieves("Inventory", inventoryId);
     }
 }

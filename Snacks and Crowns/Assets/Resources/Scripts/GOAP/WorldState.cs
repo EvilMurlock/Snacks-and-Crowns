@@ -11,7 +11,21 @@ namespace GOAP
         {
             states = new Dictionary<string, object>();
         }
-        public WorldState(WorldState copyStates)
+        public WorldState MakeCopy()
+        {
+            return new WorldState(this);
+        }
+        public WorldState MakeReferencialDuplicate()
+        {
+            WorldState newWorldState = new WorldState();
+            foreach(KeyValuePair<string, object> pair in states)
+            {
+                newWorldState.ModifyState(pair.Key, pair.Value);
+            }
+            return newWorldState;
+        }
+
+        WorldState(WorldState copyStates)
         {
             states = new Dictionary<string, object>(copyStates.states);
         }

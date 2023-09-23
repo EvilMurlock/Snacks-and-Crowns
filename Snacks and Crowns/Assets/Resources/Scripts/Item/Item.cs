@@ -15,7 +15,7 @@ public class Item : ScriptableObject
     public bool singleUse = false;
     [SerializeReference] private List<ComponentDataGeneric> componentDataUse;
     [SerializeReference] List<string> tags;
-
+    
     public List<string> Tags
     {
         get { return tags; }

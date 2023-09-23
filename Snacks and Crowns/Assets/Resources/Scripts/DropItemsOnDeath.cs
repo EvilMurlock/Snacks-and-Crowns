@@ -14,7 +14,7 @@ public class DropItemsOnDeath : MonoBehaviour
         }
         foreach(Item i in itemsToDrop)
         {
-            gameObject.GetComponent<TagSystem>().AddTag(i.name);
+            gameObject.GetComponent<TagSystem>().AddTag(i.name+"Drop");
         }
     }
     void DropItems()

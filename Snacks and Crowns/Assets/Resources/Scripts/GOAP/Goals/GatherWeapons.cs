@@ -4,22 +4,27 @@ using UnityEngine;
 
 namespace GOAP 
 {
-    public class GatherIronOre : GatherItemsInChest
+    public class GatherWeapons : GatherItemsInChest
     {
-        Item iron;
+        Item sword;
+        Item hammer;
+        Item spear;
+
         // Start is called before the first frame update
         protected override void Start()
         {
             base.Start();
-            iron = (Item)Resources.Load("Items/Iron Ore");
-            Debug.Log("Chest size: "+chest.chest_inventory.Length);
-            for (int i = 0; i<= chest.chest_inventory.Length; i++)
-            {
-                desiredItems.Add(iron);
-            }
+            sword = (Item)Resources.Load("Items/Equipment/Sword");
+            hammer = (Item)Resources.Load("Items/Equipment/Hammer");
+            spear = (Item)Resources.Load("Items/Equipment/Spear");
+
+            desiredItems.Add(sword);
+            desiredItems.Add(hammer);
+            desiredItems.Add(spear);
         }
         public override bool CanRun()
         {
+            /*
             WorldState state = World.Instance.GetWorld();
             List<(int, Vector3)> itemDrops = (List<(int, Vector3)>)state.GetStates()["ItemDropList"];
             foreach((int, Vector3) pair in itemDrops)
@@ -32,7 +37,8 @@ namespace GOAP
             {
                 if (tagSys.HasTag("Iron Ore Mine")) return true;
             }
-            return false;
+            */
+            return true;
         }
     }
 }

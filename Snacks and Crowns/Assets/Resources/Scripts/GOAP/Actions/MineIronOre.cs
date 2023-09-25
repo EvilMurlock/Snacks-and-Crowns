@@ -6,13 +6,13 @@ namespace GOAP
 {
     public class MineIronOre : Action
     {
-        Equipment axe;
+        Equipment Pickaxe;
         public override void Tick()
         {
             if (target == null) Complete();
             else if (npcAi.reachedEndOfPath)
             {
-                axe.instance.GetComponent<Hand_Item_Controler>().Use();
+                Pickaxe.instance.GetComponent<Hand_Item_Controler>().Use();
                 //Take a swing at it
             }
         }
@@ -24,7 +24,15 @@ namespace GOAP
             List<Item> items = (List<Item>)GetComponent<Inventory>().GetInventory;
             foreach (Item item in items)
             {
-                if (item.name == "Axe") { GetComponent<EquipmentManager>().EquipItem(item);axe =(Equipment) item ; break;}
+                if (item.name == "Pickaxe") 
+                {
+                    if (GetComponent<EquipmentManager>().EquipItem(item))
+                    {
+                        Pickaxe = (Equipment)item;
+                        break;
+                    }
+                    else Deactivate();
+                }
                 
             }
 
@@ -36,13 +44,13 @@ namespace GOAP
         public override void Deactivate()
         {
             //Unequip axe
-            GetComponent<EquipmentManager>().UnEquipItem(axe);
+            GetComponent<EquipmentManager>().UnEquipItem(Pickaxe);
             running = false;
             npcAi.ChangeTarget(null);
         }
         public override void Complete()
         {
-            GetComponent<EquipmentManager>().UnEquipItem(axe);
+            GetComponent<EquipmentManager>().UnEquipItem(Pickaxe);
 
             running = false;
             completed = true;
@@ -55,7 +63,7 @@ namespace GOAP
             foreach (int itemId in items)
             {
 
-                if (World.GetItemFromId(itemId).name == "Axe") { haveAxe = true; break; }
+                if (World.GetItemFromId(itemId).name == "Pickaxe") { haveAxe = true; break; }
             }
             if (!haveAxe) achievable = false;
 

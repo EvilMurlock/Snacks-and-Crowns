@@ -57,6 +57,22 @@ namespace GOAP {
         {
 
         }
+
+        protected bool IsCompleted()
+        {
+            List<Item> chestItems = new List<Item>();
+            foreach (Item_Slot itemSlot in chest.chest_inventory)
+            {
+                chestItems.Add(itemSlot.item);
+            }
+            bool goalDone = true;
+            foreach (Item item in desiredItems)
+            {
+                if (chestItems.Contains(item)) chestItems.Remove(item);
+                else goalDone = false;
+            }
+            return goalDone;
+        }
         public override void Activate()
         {
             active = true;
@@ -73,6 +89,7 @@ namespace GOAP {
         }
         public override float CalculatePriority()
         {
+            if (IsCompleted()) return -1;
             float priority = defaultPriority;
 
 

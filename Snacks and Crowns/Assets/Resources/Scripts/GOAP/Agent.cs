@@ -62,6 +62,7 @@ namespace GOAP
             }
             foreach (Goal g in sortedGoals)
             {
+                if (g.CalculatePriority() < 0) continue;
                 Queue<Node> queue = null;
                 if(g.CanRun()) queue = planner.Plan(actions, g, GetAgentBelieveState());
 

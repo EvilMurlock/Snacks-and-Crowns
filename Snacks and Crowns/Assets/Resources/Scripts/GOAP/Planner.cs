@@ -123,6 +123,62 @@ namespace GOAP
             return BuildGraphBreathFirst(newLeaves, subset, goal, depth + 1);
         }
 
+        bool EqualStates(WorldState a, WorldState b)
+        {
+
+            //Invnetory similarity
+            List<int> aInventory = (List<int>)a.GetStates()["Inventory"];
+            List<int> bInventory = (List<int>)b.GetStates()["Inventory"];
+            foreach(int i in aInventory)
+            {
+                if (bInventory.Contains(i)) bInventory.Remove(i);
+                else return false;
+            }
+            //Item Drop similarity
+            List<(int itemId, Vector3 position)> aItemDrops = new List<(int itemId, Vector3 position)>( (List<(int itemId, Vector3 position)>)a.GetStates()["ItemDropList"]);
+            List<(int itemId, Vector3 position)> bItemDrops = new List<(int itemId, Vector3 position)>( (List<(int itemId, Vector3 position)>)b.GetStates()["ItemDropList"]);
+            foreach ((int itemId, Vector3 position) aPair in aItemDrops)
+            {
+                if (bItemDrops.Contains(aPair)) bItemDrops.Remove(aPair);
+                else return false;
+            }
+
+            //Chest Inventory similarity
+            List<(Interactible_Chest, List<int>)> aChestList = new List<(Interactible_Chest, List<int>)>((List<(Interactible_Chest, List<int>)>)a.GetStates()["ChestList"]);
+            List<(Interactible_Chest, List<int>)> bChestList = new List<(Interactible_Chest, List<int>)>((List<(Interactible_Chest, List<int>)>)b.GetStates()["ChestList"]);
+            List<List<int>> aChestInventoryList = new List<List<int>>();
+            List<List<int>> bChestInventoryList = new List<List<int>>();
+
+            foreach ((Interactible_Chest, List<int>) pair in aChestList)
+            {
+                List<int> tempList = new List<int>();
+                foreach(int i in pair.Item2)
+                {
+                    tempList.Add(i);
+                }
+                aChestInventoryList.Add(tempList);
+            }
+            foreach ((Interactible_Chest, List<int>) pair in aChestList)
+            {
+                List<int> tempList = new List<int>();
+                foreach (int i in pair.Item2)
+                {
+                    tempList.Add(i);
+                }
+                bChestInventoryList.Add(tempList);
+            }
+
+            //COMPARE EACH INVENTORY IN EACH CHEST
+            foreach (List<> i in aInventory)
+            {
+                if (bInventory.Contains(i)) bInventory.Remove(i);
+                else return false;
+            }
+
+
+            return true;
+
+        }
         bool BuildGraph(Node parent, List<Node> leavesCompleteGoal, List<Action> usableActions, Goal goal, int depth)
         {
             if (depth > maxDepth) return false;

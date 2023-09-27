@@ -8,7 +8,7 @@ namespace GOAP
     {
         public override void Start()
         {
-            reusable = true;
+            reusable = false;
             base.Start();
         }
         public override void Tick()
@@ -84,10 +84,28 @@ namespace GOAP
         {
             List<Node> possibleNodes = new List<Node>();
 
+            List<(int itemId, Vector3 position)> processedItems = new List<(int itemId, Vector3 position)>();
+
+            Vector3 myPosition = (Vector3)parent.state.GetStates()["MyPosition"];
+
             List<int> inventory = (List<int>)parent.state.GetStates()["Inventory"];
             List<(int itemId, Vector3 position)> itemDropList = (List<(int, Vector3)>)parent.state.GetStates()["ItemDropList"];
 
             foreach ((int item, Vector3 position) iPpair in itemDropList)
+            {
+                if (processedItems.Exists(x => x.itemId == iPpair.item))
+                {
+                    //Debug.Log("Duplicate item found: " + iPpair.item);
+                    if (GetDistanceBetween(myPosition, iPpair.position) < GetDistanceBetween(myPosition, processedItems.Find(x => x.itemId == iPpair.item).position))
+                    {
+                        processedItems.Remove(processedItems.Find(x => x.itemId == iPpair.item));
+                    }
+                    else continue;
+                }
+                processedItems.Add(iPpair);
+            }
+
+            foreach ((int item, Vector3 position) iPpair in processedItems)
             {
                 //WorldState possibleWorldState = parent.state;//DEBUG LINE
                 //Vector3 myPosition = (Vector3)parent.state.GetStates()["MyPosition"];//DEBUG LINE
@@ -103,8 +121,7 @@ namespace GOAP
                 possibleWorldState.ModifyState("Inventory", newInventory);
                 possibleWorldState.ModifyState("ItemDropList", newItemDropList);
                 possibleWorldState.ModifyState("MyPosition", iPpair.position);
-                Vector3 myPosition = (Vector3)parent.state.GetStates()["MyPosition"];
-                
+
                 /*Debuging
                 string invStr = "";
                 foreach(Item i in newInventory)

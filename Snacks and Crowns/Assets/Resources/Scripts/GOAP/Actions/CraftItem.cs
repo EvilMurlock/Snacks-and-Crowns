@@ -60,11 +60,11 @@ namespace GOAP
             return achievable;
         }
 
-        public override List<Node> OnActionCompleteWorldStates(Node parent)//Tells the planer how the world state will change on completion
+        public override List<Node> OnActionCompleteWorldStates(Node parent_)//Tells the planer how the world state will change on completion
         {
             List<Node> possibleNodes = new List<Node>();
-            Vector3 myPosition = (Vector3)parent.state.GetStates()["MyPosition"];
-            List<int> inventory = (List<int>)parent.state.GetStates()["Inventory"];
+            Vector3 myPosition = (Vector3)parent_.state.GetStates()["MyPosition"];
+            List<int> inventory = (List<int>)parent_.state.GetStates()["Inventory"];
 
             List<Item> inventoryItems = new List<Item>();
             foreach( int i in inventory)
@@ -74,27 +74,38 @@ namespace GOAP
 
             foreach(Crafting_Recepy craftingRecepy in craftingRecepyList)
             {
+                Node parent = parent_;
                 if (GetClosestCraftingObject(craftingRecepy ,myPosition) == null) continue;
 
-                if (craftingRecepy.CanCraftFrom(inventoryItems))
+                if (!craftingRecepy.CanCraftFrom(inventoryItems))
                 {
-                    WorldState possibleWorldState = parent.state.MakeReferencialDuplicate();
-                    List<int> newInventory = new List<int>(inventory);
-                    foreach(Item item in craftingRecepy.ingredients)
+                    List<Item> requiredItems = new List<Item>(craftingRecepy.ingredients);
+                    foreach(int i in inventory)
                     {
-                        newInventory.Remove(World.GetIdFromItem(item));
+                        Item item = World.GetItemFromId(i);
+                        if (requiredItems.Contains(item)) requiredItems.Remove(item);
                     }
-                    newInventory.Add(World.GetIdFromItem(craftingRecepy.result));
-
-                    GameObject craftingPiece = GetClosestCraftingObject(craftingRecepy, myPosition);
-                    Vector3 craftingPosition = craftingPiece.transform.position;
-                    float distance = GetDistanceBetween(craftingPosition, myPosition);
-
-                    possibleWorldState.ModifyState("Inventory", newInventory);
-                    possibleWorldState.ModifyState("MyPosition", craftingPosition);
-                    Node newNode = new Node(parent, 15 + parent.cost + distance, possibleWorldState, this, (craftingRecepy, craftingPiece));
-                    possibleNodes.Add(newNode);
+                    Node newParent = GetRequiredItems(parent, requiredItems);
+                    if (newParent == null) continue;
+                    parent = newParent;
                 }
+
+                WorldState possibleWorldState = parent.state.MakeReferencialDuplicate();
+                List<int> newInventory = new List<int>(inventory);
+                foreach(Item item in craftingRecepy.ingredients)
+                {
+                    newInventory.Remove(World.GetIdFromItem(item));
+                }
+                newInventory.Add(World.GetIdFromItem(craftingRecepy.result));
+
+                GameObject craftingPiece = GetClosestCraftingObject(craftingRecepy, myPosition);
+                Vector3 craftingPosition = craftingPiece.transform.position;
+                float distance = GetDistanceBetween(craftingPosition, myPosition);
+
+                possibleWorldState.ModifyState("Inventory", newInventory);
+                possibleWorldState.ModifyState("MyPosition", craftingPosition);
+                Node newNode = new Node(parent, 15 + parent.cost + distance, possibleWorldState, this, (craftingRecepy, craftingPiece));
+                possibleNodes.Add(newNode);
             }            
 
             return possibleNodes;

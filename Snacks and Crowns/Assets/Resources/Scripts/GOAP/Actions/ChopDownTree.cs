@@ -50,15 +50,6 @@ namespace GOAP
         public override bool IsAchievableGiven(WorldState worldState)//For the planner
         {
             bool achievable = true;
-            bool haveAxe = false;
-            List<int> items = (List<int>)worldState.GetStates()["Inventory"];
-            foreach (int itemId in items)
-            {
-
-                if (World.GetItemFromId(itemId).name == "Axe") { haveAxe = true; break; }
-            }
-            if (!haveAxe) achievable = false;
-
             bool treeExists = false;
             foreach (TagSystem tagSys in GameObject.FindObjectsByType<TagSystem>(FindObjectsSortMode.None))
             {
@@ -69,10 +60,30 @@ namespace GOAP
             return achievable;
         }
 
-        public override List<Node> OnActionCompleteWorldStates(Node parent)//Tells the planer how the world state will change on completion
+        public override List<Node> OnActionCompleteWorldStates(Node parent_)//Tells the planer how the world state will change on completion
         {
+            Node parent = parent_;
+
             List<Node> possibleNodes = new List<Node>();
+
+            bool haveAxe = false;
+            List<int> items = (List<int>)parent.state.GetStates()["Inventory"];
+            foreach (int itemId in items)
+            {
+
+                if (World.GetItemFromId(itemId).name == "Axe") { haveAxe = true; break; }
+            }
+            if (!haveAxe)
+            {
+                Node newNode = GetRequiredItem(parent, (Item)axe);
+                if (newNode == null) return possibleNodes;
+                parent = newNode;
+            }
+
+
+
             Vector3 myPosition = (Vector3)parent.state.GetStates()["MyPosition"];
+
 
             List<TagSystem> trees = new List<TagSystem>(); 
             foreach (TagSystem tagSys in GameObject.FindObjectsByType<TagSystem>(FindObjectsSortMode.None))

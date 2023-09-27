@@ -29,6 +29,19 @@ public class Interactible_Chest : Interactible_Object
         }
         return false;
     }
+    public bool RemoveItem(Item item)
+    {
+        for(int i = 0; i < chest_inventory.Length; i++) 
+        {
+            if(item == chest_inventory[i].item)
+            {
+                chest_inventory[i].Remove_Item();
+                return true;
+            }
+        }
+        return false;
+    }
+
     public override void Interact(GameObject player)
     {
         Generate_Ui(player);

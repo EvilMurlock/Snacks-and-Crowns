@@ -129,5 +129,30 @@ namespace GOAP
             */
             return foundTarget;
         }
+        protected Node GetRequiredItem(Node parent, Item requiredItem) //Returns a plan that will colect the required items, returns null if no such plan exists
+        {
+            GetItem getItem = GetComponent<GetItem>();
+            Node currentNode = parent;
+
+            Node newNode = getItem.OnActionCompleteWorldStates(currentNode, requiredItem);
+            if (newNode == null) return null;
+            currentNode = newNode;
+
+            return currentNode;
+        }
+
+        protected Node GetRequiredItems(Node parent, List<Item> requiredItems) //Returns a plan that will colect the required items, returns null if no such plan exists
+        {
+            GetItem getItem = GetComponent<GetItem>();
+            Node currentNode = parent;
+
+            foreach (Item item in requiredItems)
+            {
+                Node newNode = getItem.OnActionCompleteWorldStates(currentNode, item);
+                if (newNode == null) return null;
+                currentNode = newNode;
+            }
+            return currentNode;
+        }
     }
 }

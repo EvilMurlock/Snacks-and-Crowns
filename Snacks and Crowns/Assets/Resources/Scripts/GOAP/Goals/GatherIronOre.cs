@@ -12,7 +12,6 @@ namespace GOAP
         {
             base.Start();
             iron = (Item)Resources.Load("Items/Iron Ore");
-            Debug.Log("Chest size: "+chest.chest_inventory.Length);
             for (int i = 0; i<= chest.chest_inventory.Length; i++)
             {
                 desiredItems.Add(iron);

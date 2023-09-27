@@ -20,7 +20,7 @@ namespace GOAP
                 List<Node> leavesPlan = new List<Node>();
                 leavesPlan.Add(start);
 
-                lastPlanNode = BuildGraphBreathFirst(leavesPlan, actions, goal, 1);
+                lastPlanNode = BuildGraphBreathFirst(leavesPlan, actions, goal, 1, new List<WorldState>());
                 if (lastPlanNode == null)
                 {
                     Debug.Log("No GOAP plan!");
@@ -84,16 +84,27 @@ namespace GOAP
             Debug.Log(planDebug);
             return queue;
         }
-        Node BuildGraphBreathFirst(List<Node> leaves, List<Action> usableActions, Goal goal, int depth)
+        bool ActionAlreadyUsed(Node node, Action action)
+        {
+            Node currentNode = node;
+            while(currentNode != null)
+            {
+                if (currentNode.action == action) return true;
+                currentNode = currentNode.parent;
+            }
+            return false;
+        }
+        Node BuildGraphBreathFirst(List<Node> leaves, List<Action> usableActions, Goal goal, int depth, List<WorldState> achievedStates)
         {
             if (depth > maxDepth) return null;
             if (leaves.Count == 0) return null;
 
             List<Node> newLeaves = new List<Node>();
-            foreach(Node parent in leaves)
+            foreach(Node parent in leaves)//Does a whole graph level at once
             {
                 foreach (Action action in usableActions)
                 {
+                    if (!action.reusable && ActionAlreadyUsed(parent, action)) continue;
                     if (action.IsAchievableGiven(parent.state))
                     {
                         List<Node> possibleNewStates = new List<Node>();
@@ -101,14 +112,17 @@ namespace GOAP
                         //currentState = action.OnActionCompleteWorldStates(currentState);
                         foreach (Node node in possibleNewStates)
                         {
-                            if (node.cost <= maxCost) newLeaves.Add(node);
-                            //Node node = new Node(parent, parent.cost + newStateCostPair.cost, newStateCostPair.state, action);
-
                             if (goal.CompletedByState(node.state))
                             {
                                 Debug.Log("Plan Found");
                                 return node;
                             }
+
+                            //if (node.cost <= maxCost)// && UniqueState(achievedStates, node.state))
+                            //{
+                            achievedStates.Add(node.state);
+                            newLeaves.Add(node);
+                            //}
                         }
 
                     }
@@ -120,15 +134,22 @@ namespace GOAP
             //if (!action.reusable)
             //    subset = ActionSubset(usableActions, action); //REMOVES USED ACTIONS - PREVENTS LOOPS - ALSO PREVENTS REUSING ACTIONS
 
-            return BuildGraphBreathFirst(newLeaves, subset, goal, depth + 1);
+            return BuildGraphBreathFirst(newLeaves, subset, goal, depth + 1, achievedStates);
         }
-
+        bool UniqueState(List<WorldState> achievedStates, WorldState newState) //This is WAY WORSE than just letting the planner run
+        {
+            foreach(WorldState state in achievedStates)
+            {
+                if (EqualStates(state, newState)) return false;
+            }
+            return true;
+        }
         bool EqualStates(WorldState a, WorldState b)
         {
 
             //Invnetory similarity
-            List<int> aInventory = (List<int>)a.GetStates()["Inventory"];
-            List<int> bInventory = (List<int>)b.GetStates()["Inventory"];
+            List<int> aInventory = new List<int> ((List<int>)a.GetStates()["Inventory"]);
+            List<int> bInventory = new List<int> ((List<int>)b.GetStates()["Inventory"]);
             foreach(int i in aInventory)
             {
                 if (bInventory.Contains(i)) bInventory.Remove(i);
@@ -169,10 +190,13 @@ namespace GOAP
             }
 
             //COMPARE EACH INVENTORY IN EACH CHEST
-            foreach (List<> i in aInventory)
+            for (int i = 0; i < aChestInventoryList.Count; i++)
             {
-                if (bInventory.Contains(i)) bInventory.Remove(i);
-                else return false;
+                foreach(int item in aChestInventoryList[i])
+                {
+                    if (bChestInventoryList[i].Contains(item)) bChestInventoryList[i].Remove(item);
+                    else return false;
+                }
             }
 
 

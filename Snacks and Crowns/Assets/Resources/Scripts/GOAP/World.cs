@@ -38,6 +38,15 @@ namespace GOAP
         {
             return ItemIdList.IndexOf(item);
         }
+        public static Item GetItemFromName(string itemName)
+        {
+            foreach(Item item in ItemIdList)
+            {
+                if (item.item_name == itemName) return item;
+            }
+            return null;
+        }
+
 
         void UpdateWorld()
         {

@@ -6,6 +6,11 @@ namespace GOAP
     public class PickItemFromChest : Action
     {
         (Interactible_Chest chest, Item item) planingData;
+        public override void Start()
+        {
+            reusable = true; //This is a subaction
+            base.Start();
+        }
         public override void Tick()
         {
             if (target == null)

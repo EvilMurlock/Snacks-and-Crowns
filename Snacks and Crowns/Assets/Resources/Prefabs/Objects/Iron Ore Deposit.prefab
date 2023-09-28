@@ -121,9 +121,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemsToDrop:
-  - {fileID: 11400000, guid: 6f30aa4034a30ec4e8f24151c05c9c5f, type: 2}
-  - {fileID: 11400000, guid: 6f30aa4034a30ec4e8f24151c05c9c5f, type: 2}
-  - {fileID: 11400000, guid: 6f30aa4034a30ec4e8f24151c05c9c5f, type: 2}
+  - {fileID: 11400000, guid: d5a4236e2d44faa4087585bdd6dfcaeb, type: 2}
+  - {fileID: 11400000, guid: d5a4236e2d44faa4087585bdd6dfcaeb, type: 2}
+  - {fileID: 11400000, guid: d5a4236e2d44faa4087585bdd6dfcaeb, type: 2}
 --- !u!58 &4428766099340554896
 CircleCollider2D:
   m_ObjectHideFlags: 0

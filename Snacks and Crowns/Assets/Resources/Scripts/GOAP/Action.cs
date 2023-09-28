@@ -6,7 +6,9 @@ namespace GOAP
 {
     public abstract class Action : MonoBehaviour
     {
-        public bool reusable = false; //can this action be used multiple times in the planner?
+        public bool reusable = false; //can this action be used multiple times in the planner?, often set true for subactions
+        
+
         public string actionName = "Action";
         public GameObject target;
         public List<string> targetTags = new List<string>();
@@ -129,12 +131,24 @@ namespace GOAP
             */
             return foundTarget;
         }
+        protected Node GetRequiredItemNoChest(Node parent, Item requiredItem) //Returns a plan that will colect the required items, returns null if no such plan exists
+        {
+            GetItem getItem = GetComponent<GetItem>();
+            Node currentNode = parent;
+
+            Node newNode = getItem.GetItemPlanNoChest(currentNode, requiredItem);
+            if (newNode == null) return null;
+            currentNode = newNode;
+
+            return currentNode;
+        }
+
         protected Node GetRequiredItem(Node parent, Item requiredItem) //Returns a plan that will colect the required items, returns null if no such plan exists
         {
             GetItem getItem = GetComponent<GetItem>();
             Node currentNode = parent;
 
-            Node newNode = getItem.OnActionCompleteWorldStates(currentNode, requiredItem);
+            Node newNode = getItem.GetItemPlan(currentNode, requiredItem);
             if (newNode == null) return null;
             currentNode = newNode;
 
@@ -148,7 +162,7 @@ namespace GOAP
 
             foreach (Item item in requiredItems)
             {
-                Node newNode = getItem.OnActionCompleteWorldStates(currentNode, item);
+                Node newNode = getItem.GetItemPlan(currentNode, item);
                 if (newNode == null) return null;
                 currentNode = newNode;
             }

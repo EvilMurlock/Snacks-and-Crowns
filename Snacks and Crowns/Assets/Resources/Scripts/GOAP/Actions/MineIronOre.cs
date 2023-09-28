@@ -7,6 +7,12 @@ namespace GOAP
     public class MineIronOre : Action
     {
         Equipment Pickaxe;
+        Item requiredItem;
+        public override void Start()
+        {
+            requiredItem = World.GetItemFromName("Pickaxe");
+            base.Start();
+        }
         public override void Tick()
         {
             if (target == null) Complete();
@@ -79,11 +85,11 @@ namespace GOAP
             foreach (int itemId in items)
             {
 
-                if (World.GetItemFromId(itemId).name == "Pickaxe") { haveAxe = true; break; }
+                if (World.GetItemFromId(itemId) == requiredItem) { haveAxe = true; break; }
             }
             if (!haveAxe)
             {
-                Node newNode = GetRequiredItem(parent, (Item)Pickaxe);
+                Node newNode = GetRequiredItem(parent, requiredItem);
                 if (newNode == null) return possibleNodes;
                 parent = newNode;
             }

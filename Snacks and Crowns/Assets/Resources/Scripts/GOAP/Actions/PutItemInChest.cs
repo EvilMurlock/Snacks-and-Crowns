@@ -29,8 +29,8 @@ namespace GOAP
         public override bool IsAchievableGiven(WorldState worldState)//For the planner
         {
             bool achievable = true;
-            List<int> items = (List<int>)worldState.GetStates()["Inventory"];
-            if (items.Count == 0) achievable = false;
+            //List<int> items = (List<int>)worldState.GetStates()["Inventory"];
+            //if (items.Count == 0) achievable = false;
             List<(Interactible_Chest, List<int>)> chests = (List<(Interactible_Chest, List<int>)>)worldState.GetStates()["ChestList"];
             if (chests.Count == 0) achievable = false;
             return achievable;
@@ -65,15 +65,36 @@ namespace GOAP
             running = false;
             completed = true;
         }
-        public override List<Node> OnActionCompleteWorldStates(Node parent)//Tells the planer how the world state will change on completion
-
+        public override List<Node> OnActionCompleteWorldStates(Node parent_)//Tells the planer how the world state will change on completion
         {
+            Node parent = parent_;
             List<Node> possibleNodes = new List<Node>();
             List<int> inventory = (List<int>)parent.state.GetStates()["Inventory"];
             List < (Interactible_Chest, List<int>)> ChestList = (List<(Interactible_Chest, List<int>)>)parent.state.GetStates()["ChestList"];
-            foreach (int itemId in inventory)
+            List<(int item, Vector3 position)> itemDropList = (List < (int item, Vector3 position) >)parent.state.GetStates()["ItemDropList"];
+
+            List<int> itemsToProcess = new List<int>();
+            
+            foreach(int item in inventory)//DOESNT WORK, WILL CHOOSE THE ITEM FROM A CHEST
             {
+                if (!itemsToProcess.Contains(item)) itemsToProcess.Add(item);
+            }
+            foreach((int item, Vector3 position) pair in itemDropList)
+            {
+                if (!itemsToProcess.Contains(pair.item)) itemsToProcess.Add(pair.item);
+            }
+
+            foreach (int itemId in itemsToProcess)
+            {
+                parent = parent_;
                 Item item = World.GetItemFromId(itemId);
+
+                if (!inventory.Contains(itemId))
+                {
+                    parent = GetRequiredItemNoChest(parent, item);
+                }
+
+
                 foreach ((Interactible_Chest, List<int>) chestInventoryPair in ChestList)
                 {
 

@@ -8,12 +8,11 @@ namespace GOAP
     {
         public override void Start()
         {
-            reusable = false;
+            reusable = true; //this is a subaction
             base.Start();
         }
         public override void Tick()
         {
-            Debug.Log("Reached end: " + npcAi.reachedEndOfPath);
             if (target == null) Deactivate();
             if (npcAi.reachedEndOfPath) {  Complete(); }
         }
@@ -28,6 +27,9 @@ namespace GOAP
         }
         public override bool IsAchievableGiven(WorldState worldState)//For the planner
         {
+            //Is subaction
+            return false;
+
             bool achievable = true;
             List<int> items = (List<int>)worldState.GetStates()["Inventory"];
             if (items.Count >= GetComponent<Inventory>().capacity) achievable = false;//Full inventory = false

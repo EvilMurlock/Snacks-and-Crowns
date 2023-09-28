@@ -21,7 +21,7 @@ namespace GOAP
         {
             return false;
         }
-        public Node OnActionCompleteWorldStates(Node parent, Item requestedItem) //Gets a specific Item
+        Node GetItemFromDrop(Node parent, Item requestedItem)
         {
             int item = World.GetIdFromItem(requestedItem);
 
@@ -36,14 +36,14 @@ namespace GOAP
             foreach ((int item, Vector3 position) iPpair in itemDropList)
             {
                 if (iPpair.item != item) continue;
-                if(chosenPair.item == -1 || distance > GetDistanceBetween(myPosition, iPpair.position))
+                if (chosenPair.item == -1 || distance > GetDistanceBetween(myPosition, iPpair.position))
                 {
                     chosenPair = iPpair;
                     distance = GetDistanceBetween(myPosition, iPpair.position);
                 }
             }
 
-            if(chosenPair.item != -1)
+            if (chosenPair.item != -1)
             {
                 WorldState possibleWorldState = parent.state.MakeReferencialDuplicate();
 
@@ -60,8 +60,16 @@ namespace GOAP
                 Node node = new Node(parent, 1 + parent.cost + distance, possibleWorldState, GetComponent<PickUpItem>(), chosenPair);
                 return node;
             }
+            return null;
+        }
+        Node GetItemFromChest(Node parent, Item requestedItem)
+        {
+            //SEARCHING FOR ITEMS IN CHESTS2
+            int item = World.GetIdFromItem(requestedItem);
+            List<int> inventory = (List<int>)parent.state.GetStates()["Inventory"];
+            Vector3 myPosition = (Vector3)parent.state.GetStates()["MyPosition"];
 
-            //SEARCHING FOR ITEMS IN CHESTS
+            float distance = -1;
             List<(Interactible_Chest, List<int>)> ChestList = (List<(Interactible_Chest, List<int>)>)parent.state.GetStates()["ChestList"];
 
             (Interactible_Chest chest, List<int> inventory) closestChest = (null, null);
@@ -105,6 +113,23 @@ namespace GOAP
 
             return null;
         }
+        public Node GetItemPlan(Node parent, Item requestedItem) //Gets a specific Item
+        {
+            
+            Node node = GetItemFromDrop(parent, requestedItem);
+            if (node != null) return node;
+            node = GetItemFromChest(parent, requestedItem);
+            if (node != null) return node;
+            return null;
+            
+        }
+        public Node GetItemPlanNoChest(Node parent, Item requestedItem) //Gets a specific Item
+        {
+            Node node = GetItemFromDrop(parent, requestedItem);
+            if (node != null) return node;
+            return null;
+        }
+
         public override List<Node> OnActionCompleteWorldStates(Node parent)//Tells the planer how the world state will change on completion
         {
             List<Node> possibleNodes = new List<Node>();

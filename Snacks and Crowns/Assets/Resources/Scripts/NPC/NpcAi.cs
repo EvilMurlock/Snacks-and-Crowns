@@ -48,7 +48,6 @@ public class NpcAi : MonoBehaviour
 
         if (currentWaypoint >= path.vectorPath.Count)
         {
-            Debug.Log("reached end 1: "+target.name);
             ReachedEnd();
             return;
         }
@@ -68,7 +67,6 @@ public class NpcAi : MonoBehaviour
         }
         else if(distanceFromEnd < lastWaypointDistance)
         {
-            Debug.Log("reached end 2: "+target.name);
             ReachedEnd();
         }
     }

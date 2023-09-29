@@ -5,9 +5,9 @@ using UnityEngine;
 public class Interactible_Object : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-
+        if (GetComponent<FactionMembership>() == null) gameObject.AddComponent<FactionMembership>();
     }
     public virtual void Interact(GameObject player)
     {

@@ -100,7 +100,7 @@ namespace GOAP
             if (leaves.Count == 0) return null;
 
             List<Node> newLeaves = new List<Node>();
-            foreach(Node parent in leaves)//Does a whole graph level at once
+            foreach(Node parent in leaves)  // Does a whole graph level at once
             {
                 foreach (Action action in usableActions)
                 {
@@ -109,7 +109,7 @@ namespace GOAP
                     {
                         List<Node> possibleNewStates = new List<Node>();
                         possibleNewStates = action.OnActionCompleteWorldStates(parent);
-                        //currentState = action.OnActionCompleteWorldStates(currentState);
+                        // currentState = action.OnActionCompleteWorldStates(currentState);
                         foreach (Node node in possibleNewStates)
                         {
                             if (goal.CompletedByState(node.state))
@@ -118,7 +118,7 @@ namespace GOAP
                                 return node;
                             }
 
-                            //if (node.cost <= maxCost)// && UniqueState(achievedStates, node.state))
+                            // if (node.cost <= maxCost)// && UniqueState(achievedStates, node.state))
                             //{
                             achievedStates.Add(node.state);
                             newLeaves.Add(node);

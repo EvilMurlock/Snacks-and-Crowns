@@ -42,7 +42,7 @@ namespace GOAP
         {
             foreach(Item item in ItemIdList)
             {
-                if (item.item_name == itemName) return item;
+                if (item.itemName == itemName) return item;
             }
             return null;
         }

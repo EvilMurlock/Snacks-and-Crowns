@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 
-public class Interactible_Anvil : Interactible_Object
+public class Anvil : InteractibleObject
 {
     public GameObject prefab_anvil_ui;
     public GameObject instance_anvil_ui;
@@ -81,7 +81,7 @@ public class Interactible_Anvil : Interactible_Object
             
             foreach(Item p_item in player_items)
             {
-                if (item.item_name == p_item.item_name)
+                if (item.itemName == p_item.itemName)
                 {
                     item_found = true;
                     break;
@@ -109,7 +109,7 @@ public class Interactible_Anvil : Interactible_Object
             {
                 foreach(Item_Slot item_slot in player.GetComponent<Player_Inventory>().inventory_items)
                 {
-                    if (item_slot.Is_Not_Empty() && item.item_name == item_slot.item.item_name)
+                    if (item_slot.Is_Not_Empty() && item.itemName == item_slot.item.itemName)
                     {
                         item_slot.Remove_Item();
                         break;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
-public class InteractibleDoor : Interactible_Object
+public class Door : InteractibleObject
 {
     public bool open = false;
     public AnimationClip closeAnim;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GOAP;
-public class Item_Controler : MonoBehaviour
+public class ItemPickup : InteractibleObject
 {
     public Item item;
     // Start is called before the first frame update

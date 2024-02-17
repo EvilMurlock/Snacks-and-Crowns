@@ -28,4 +28,16 @@ public class Inventory : MonoBehaviour
         onChangeInventory.Invoke(inventory);
         return result;
     }
+    public void UseItem(int index)
+    {
+        if (inventory[index] != null)
+        {
+            inventory[index].Use(this.gameObject);
+            if (inventory[index].singleUse)
+            {
+                RemoveItem(inventory[index]);
+            }
+        }
+    }
+
 }

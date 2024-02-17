@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Interactible_Object : MonoBehaviour
+public class InteractibleObject : MonoBehaviour
 {
     // Start is called before the first frame update
     void Awake()
@@ -13,7 +13,7 @@ public class Interactible_Object : MonoBehaviour
     {
 
     }
-    public virtual void Un_Interact(GameObject player)
+    public virtual void UnInteract(GameObject player)
     {
 
     }

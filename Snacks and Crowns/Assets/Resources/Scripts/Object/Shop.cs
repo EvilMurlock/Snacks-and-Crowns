@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem.UI;
 
-public class Shop : Interactible_Object
+public class Shop : InteractibleObject
 {
     public GameObject shopUiPrefab;
     public GameObject shopUiInstance;
@@ -36,7 +36,7 @@ public class Shop : Interactible_Object
     public override void Interact(GameObject newPlayer)
     {
         player = newPlayer;
-        player.GetComponent<Player_State_Manager>().Change_State(Player_State.in_ui_menu);
+        player.GetComponent<Player_State_Manager>().Change_State(CharakterState.in_ui_menu);
 
         shopUiInstance.transform.SetParent(player.GetComponent<Player_Inventory>().canvas.transform, false);
         shopUiInstance.SetActive(true);
@@ -62,7 +62,7 @@ public class Shop : Interactible_Object
             shopSlot.button.GetComponent<Button>().onClick.RemoveAllListeners();
         }
         shopUiInstance.SetActive(false);
-        player.GetComponent<Player_State_Manager>().Change_State(Player_State.normal);
+        player.GetComponent<Player_State_Manager>().Change_State(CharakterState.normal);
     }
 
     void Generate_Ui()

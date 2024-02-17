@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Objekt_Controler : MonoBehaviour
+public class ObjektControler : MonoBehaviour
 {
 
     

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public Sprite icon;
-    public string item_name;
+    public string itemName;
     public string description;
     public int cost;
     [HideInInspector]
@@ -22,22 +22,22 @@ public class Item : ScriptableObject
     }
     public virtual void Use(GameObject player)
     {
-        Debug.Log("Using " + item_name);
+        Debug.Log("Using " + itemName);
         GameObject corutiner = Instantiate((GameObject)Resources.Load("Prefabs/ScriptibleCorutiner"));
         corutiner.GetComponent<ScriptibleCorutiner>().StartCoroutine(UsingItem(player, corutiner));
         //ScriptibleCorutiner.instance.StartCoroutine(UsingItem(useDuration, player));
     }
-    IEnumerator UsingItem(GameObject player, GameObject corutiner)
+    IEnumerator UsingItem(GameObject user, GameObject corutiner)
     {
-        player.GetComponent<Player_Movement>().Stun(useDuration);
+        user.GetComponent<Movement>().Stun(useDuration);
         foreach (ComponentDataGeneric comData in componentDataUse)
         {
-            if (comData.activateAtUse) comData.InicializeComponent(player, this);
+            if (comData.activateAtUse) comData.InicializeComponent(user, this);
         }
         yield return new WaitForSeconds(useDuration);
         foreach (ComponentDataGeneric comData in componentDataUse)
         {
-            if(!comData.activateAtUse) comData.InicializeComponent(player, this);
+            if(!comData.activateAtUse) comData.InicializeComponent(user, this);
         }
         Destroy(corutiner);
     }

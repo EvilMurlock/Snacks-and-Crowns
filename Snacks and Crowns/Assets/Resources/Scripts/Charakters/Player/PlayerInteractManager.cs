@@ -1,0 +1,87 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+public class PlayerInteractManager : MonoBehaviour
+{
+    List<GameObject> interactiblesInRange;
+    GameObject interactedObjekt;
+
+    void Awake()
+    {
+        interactiblesInRange = new List<GameObject>();
+    }
+    private void Update()
+    {
+        if (interactiblesInRange.Count > 0)
+
+        {
+            if (interactiblesInRange[0] == null) interactiblesInRange.Remove(interactiblesInRange[0]);
+            UnHighlight(interactiblesInRange[0]);
+            interactiblesInRange.Sort(delegate (GameObject a, GameObject b)
+            {
+                return Vector2.Distance(this.transform.position, a.transform.position)
+                .CompareTo(
+                  Vector2.Distance(this.transform.position, b.transform.position));
+            });
+            Highlight(interactiblesInRange[0]);
+        }
+    }
+    void Highlight(GameObject g)
+    {
+        if(g != null && g.GetComponent<SpriteRenderer>() != null)
+        {
+            g.GetComponent<SpriteRenderer>().color = Color.green;
+        }
+    }
+    void UnHighlight(GameObject g)
+    {
+        if (g != null && g.GetComponent<SpriteRenderer>() != null)
+        {
+            g.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+    }
+    public void Interact(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if(interactiblesInRange.Count > 0)
+            {
+                GameObject interactible = interactiblesInRange[0];
+                if (interactible == null)
+                {
+                    interactiblesInRange.RemoveAt(0);
+                    Interact(context);
+                }
+
+                interactible.GetComponent<InteractibleObject>().Interact(gameObject);
+                interactedObjekt = interactible;
+
+            }
+        }
+    }
+    public void UnInteract(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (interactedObjekt == null) return;
+
+            GameObject thing = interactedObjekt;
+            thing.GetComponent<InteractibleObject>().UnInteract(gameObject);
+            interactedObjekt = null;
+        }
+
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<InteractibleObject>())
+        {
+            interactiblesInRange.Add(collision.gameObject);
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        UnHighlight(collision.gameObject);
+        interactiblesInRange.Remove(collision.gameObject);
+    }
+}

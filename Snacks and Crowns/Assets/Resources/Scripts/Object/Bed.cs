@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bed : Interactible_Object
+public class Bed : InteractibleObject
 {
     GameObject sleepPoint;
     GameObject sleeper;

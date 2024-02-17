@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-public class ShopSlot : MonoBehaviour
+public class ShopSlot : MenuItemSlot
 {
-    public GameObject button;
-    public GameObject image;
     public GameObject priceText;
-    public Item item;
     private void Start()//this firies when cahnging canvases
     {
         UpdateItem();
@@ -37,13 +34,13 @@ public class ShopSlot : MonoBehaviour
     public void BuyItem(GameObject player, ShopSlot ShopSlot)
     {
         if (ShopSlot.item == null) return;
-        Player_Inventory pi = player.GetComponent<Player_Inventory>();
-        if(pi.gold >= ShopSlot.item.cost)
+        GoldTracker goldTracker = player.GetComponent<GoldTracker>();
+        if(goldTracker.Gold >= ShopSlot.item.cost)
         {
-            if (pi.FindEmptyInventorySlot())
+            Inventory playerInventory = player.GetComponent<Inventory>();
+            if (playerInventory.AddItem(item))
             {
-                pi.ChangeGold(-ShopSlot.item.cost);
-                pi.AddItemToInventory(ShopSlot.item);
+                goldTracker.AddGold(-ShopSlot.item.cost);
                 ShopSlot.RemoveItem();
             }
             else

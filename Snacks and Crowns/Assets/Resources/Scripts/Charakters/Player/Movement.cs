@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Events;
-public class Player_Movement : MonoBehaviour
+public class Movement : MonoBehaviour
 {
     [SerializeField]
     public float movementSpeed;
@@ -53,7 +53,7 @@ public class Player_Movement : MonoBehaviour
         movementSpeed = charakter.GetSpeed();
         turningSpeed = charakter.GetTurningSpeed();
     }
-    public void On_Move(InputAction.CallbackContext context)
+    public void OnMove(InputAction.CallbackContext context)
     {
         movement_direction = context.ReadValue<Vector2>().normalized;
     }
@@ -61,7 +61,7 @@ public class Player_Movement : MonoBehaviour
     {
         movement_direction = newMovementDirection;
     }
-    public void Move_Stop()
+    public void MoveStop()
     {
         movement_direction = Vector2.zero;
     }

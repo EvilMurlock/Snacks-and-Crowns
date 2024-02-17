@@ -24,7 +24,7 @@ namespace GOAP
 
             target = pair.craftingPiece;
             currentRecepy = pair.recepy;
-            Debug.Log("Going to craft a: " +pair.recepy.result.item_name);
+            Debug.Log("Going to craft a: " +pair.recepy.result.itemName);
 
             running = true;
             completed = false;

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem.UI;
 
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : InteractibleObject
 {
     public GameObject uiTemplate;
 	public GameObject buttonTemplate;
@@ -22,11 +22,11 @@ public class DialogueManager : MonoBehaviour
 	{
 	}
 
-	public void StartDialogue(GameObject new_player)
+	public override void Interact(GameObject new_player)
 	{
 		dialogue = start_dialogue;
 		player = new_player;
-		player.GetComponent<Player_State_Manager>().Change_State(Player_State.in_ui_menu);
+		player.GetComponent<Player_State_Manager>().Change_State(CharakterState.in_ui_menu);
 		uiInstance = Instantiate(uiTemplate,player.GetComponent<Player_Inventory>().canvas.transform);
 		
 		
@@ -78,7 +78,7 @@ public class DialogueManager : MonoBehaviour
 
 			foreach (Item p_item in player_items)
 			{
-				if (item.item_name == p_item.item_name)
+				if (item.itemName == p_item.itemName)
 				{
 					item_found = true;
 					break;
@@ -122,9 +122,9 @@ public class DialogueManager : MonoBehaviour
 		}
 	}
 
-	public void EndDialogue()
+	public override void UnInteract(GameObject player)
 	{
-		player.GetComponent<Player_State_Manager>().Change_State(Player_State.normal);
+		player.GetComponent<Player_State_Manager>().Change_State(CharakterState.normal);
 		Destroy(uiInstance);
 	}
 }

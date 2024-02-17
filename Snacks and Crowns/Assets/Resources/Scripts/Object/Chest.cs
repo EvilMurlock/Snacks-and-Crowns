@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Interactible_Chest : Interactible_Object
+public class Chest : InteractibleObject
 {
     public GameObject prefab_chest_ui;
     public GameObject instance_chest_ui;

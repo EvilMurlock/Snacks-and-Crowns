@@ -70,10 +70,10 @@ namespace GOAP
             Vector3 myPosition = (Vector3)parent.state.GetStates()["MyPosition"];
 
             float distance = -1;
-            List<(Interactible_Chest, List<int>)> ChestList = (List<(Interactible_Chest, List<int>)>)parent.state.GetStates()["ChestList"];
+            List<(Chest, List<int>)> ChestList = (List<(Chest, List<int>)>)parent.state.GetStates()["ChestList"];
 
-            (Interactible_Chest chest, List<int> inventory) closestChest = (null, null);
-            foreach ((Interactible_Chest, List<int> chestInventory) chestInventoryPair in ChestList)
+            (Chest chest, List<int> inventory) closestChest = (null, null);
+            foreach ((Chest, List<int> chestInventory) chestInventoryPair in ChestList)
             {
                 if (!chestInventoryPair.chestInventory.Contains(item)) continue;
                 if (closestChest.chest == null || distance > GetDistanceBetween(myPosition, closestChest.chest.transform.position))
@@ -88,14 +88,14 @@ namespace GOAP
 
                 List<int> newInventory = new List<int>(inventory);
 
-                List<(Interactible_Chest, List<int>)> tempList = new List<(Interactible_Chest, List<int>)>(ChestList);
-                List<(Interactible_Chest, List<int>)> chestInventoryPairList = new List<(Interactible_Chest, List<int>)>();
-                foreach ((Interactible_Chest, List<int>) temp in tempList)
+                List<(Chest, List<int>)> tempList = new List<(Chest, List<int>)>(ChestList);
+                List<(Chest, List<int>)> chestInventoryPairList = new List<(Chest, List<int>)>();
+                foreach ((Chest, List<int>) temp in tempList)
                 {
                     List<int> itemList = new List<int>(temp.Item2);
                     chestInventoryPairList.Add((temp.Item1, itemList));
                 }
-                (Interactible_Chest chest, List<int> chestInventory) pair = chestInventoryPairList.Find(x => x.Item1 == closestChest.Item1); //Perfectly coppied pair, ready to be modified into the next worldstate
+                (Chest chest, List<int> chestInventory) pair = chestInventoryPairList.Find(x => x.Item1 == closestChest.Item1); //Perfectly coppied pair, ready to be modified into the next worldstate
 
                 //World state modification
                 newInventory.Add(item);

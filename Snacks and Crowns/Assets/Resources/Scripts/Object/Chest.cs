@@ -7,23 +7,23 @@ public class Chest : InteractibleObject
 {
     public GameObject prefab_chest_ui;
     public GameObject instance_chest_ui;
-    public Item_Slot[] chest_inventory;
+    public ItemSlot[] chest_inventory;
     public void Awake()
     {
         int inventory_size = (prefab_chest_ui.GetComponentsInChildren<Image>().Length -1)/2;
-        chest_inventory = new Item_Slot[inventory_size];
+        chest_inventory = new ItemSlot[inventory_size];
         for (int i = 0; i< inventory_size; i++)
         {
-            chest_inventory[i] = new Item_Slot();
+            chest_inventory[i] = new ItemSlot();
         }
     }
     public bool AddItem(Item item)
     {
-        foreach (Item_Slot slot in chest_inventory)
+        foreach (ItemSlot slot in chest_inventory)
         {
-            if (slot.Is_Empty())
+            if (slot.IsEmpty())
             { 
-                slot.Add_Item(item);
+                slot.AddItem(item);
                 return true;
             }
         }
@@ -33,9 +33,9 @@ public class Chest : InteractibleObject
     {
         for(int i = 0; i < chest_inventory.Length; i++) 
         {
-            if(item == chest_inventory[i].item)
+            if(item == chest_inventory[i].GetItem())
             {
-                chest_inventory[i].Remove_Item();
+                chest_inventory[i].RemoveItem();
                 return true;
             }
         }
@@ -45,33 +45,15 @@ public class Chest : InteractibleObject
     public override void Interact(GameObject player)
     {
         Generate_Ui(player);
-        Player_Inventory player_inventory = player.GetComponent<Player_Inventory>();
-        player_inventory.Set_UI_With_Inventory(instance_chest_ui, chest_inventory, 4);
-        player_inventory.Activate_Menus();
-        player_inventory.Add_Interacted_Object(this);
+        Inventory player_inventory = player.GetComponent<Inventory>();
     }
-    public override void Un_Interact(GameObject player)
+    public override void UnInteract(GameObject player)
     {
         Delete_Ui();
     }
 
     void Generate_Ui(GameObject player)
     {
-        Player_Inventory p_inventory = player.GetComponent<Player_Inventory>();
-        instance_chest_ui = Instantiate(prefab_chest_ui);
-
-        instance_chest_ui.transform.SetParent(p_inventory.canvas.transform, false);
-
-        int index = 0;
-        foreach (Transform child in instance_chest_ui.transform)
-        {
-            Item item = chest_inventory[index].item;
-            chest_inventory[index] = new Item_Slot();
-            chest_inventory[index].panel = child.gameObject;
-            chest_inventory[index].Add_Item(item);
-            index++;
-        }
-        instance_chest_ui.SetActive(false);
     }
 
     void Delete_Ui()

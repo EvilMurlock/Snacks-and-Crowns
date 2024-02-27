@@ -7,6 +7,6 @@ public class SelfStun : ItemComponentData<WeaponKnockback>
     public float stunDuration;
     public override void InicializeComponent(GameObject self, Item item)
     {
-        if(self.GetComponent<Player_Movement>() != null ) self.GetComponent<Player_Movement>().Stun(stunDuration);
+        if(self.GetComponent<Movement>() != null ) self.GetComponent<Movement>().Stun(stunDuration);
     }
 }

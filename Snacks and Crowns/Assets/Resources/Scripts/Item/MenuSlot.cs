@@ -4,13 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
-public class MenuItemSlot : MonoBehaviour
+public class MenuSlot : MonoBehaviour
 {
-    public GameObject button;
-    public GameObject image;
-    public Item item;
+    protected GameObject button;
+    protected GameObject image;
+    protected Item item;
     public void ChangeColour(Color color)
     {
         button.GetComponent<SpriteRenderer>().color = color;
     }
+    public void ChangeBackground(Sprite sprite)
+    {
+        image.GetComponent<Image>().sprite = sprite;
+    }
+
 }

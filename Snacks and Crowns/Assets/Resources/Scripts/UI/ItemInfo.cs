@@ -5,13 +5,13 @@ using UnityEngine.UI;
 using TMPro;
 public class ItemInfo : MonoBehaviour
 {
-    Item_Slot itemSlot;
+    ItemSlot itemSlot;
     TextMeshProUGUI itemName;
     TextMeshProUGUI itemDescription;
     private void Awake()
     {
-        itemSlot = new Item_Slot();
-        itemSlot.panel = this.transform.Find("Item_Icon").gameObject;
+        itemSlot = new ItemSlot();
+        //itemSlot.panel = this.transform.Find("Item_Icon").gameObject;
         itemName = this.transform.Find("Name").gameObject.GetComponent<TextMeshProUGUI>();
         itemDescription = this.transform.Find("Description").gameObject.GetComponent<TextMeshProUGUI>();
 
@@ -20,13 +20,13 @@ public class ItemInfo : MonoBehaviour
     {
         if (item != null) 
         {
-            itemSlot.Add_Item(item);
+            itemSlot.AddItem(item);
             itemName.text = item.name;
             itemDescription.text = item.description; 
         }
         else
         {
-            itemSlot.Remove_Item();
+            itemSlot.RemoveItem();
             itemName.text = "";
             itemDescription.text = "";
 

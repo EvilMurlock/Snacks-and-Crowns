@@ -52,19 +52,19 @@ namespace GOAP
         {
 
             List<(int itemId, Vector3 position)> itemDrops = new List<(int, Vector3)>();
-            foreach (Item_Controler itemControler in GameObject.FindObjectsByType<Item_Controler>(FindObjectsSortMode.None))
+            foreach (ItemPickup itemControler in GameObject.FindObjectsByType<ItemPickup>(FindObjectsSortMode.None))
             {
                 itemDrops.Add((GetIdFromItem(itemControler.item), itemControler.transform.position));
             }
             worldState.ModifyState("ItemDropList",itemDrops);
 
-            List<(Interactible_Chest, List<int>)> chests = new List<(Interactible_Chest, List<int>)>();
-            foreach (Interactible_Chest chest in GameObject.FindObjectsByType<Interactible_Chest>(FindObjectsSortMode.None))
+            List<(Chest, List<int>)> chests = new List<(Chest, List<int>)>();
+            foreach (Chest chest in GameObject.FindObjectsByType<Chest>(FindObjectsSortMode.None))
             {
                 List<int> chestInventory = new List<int>();
-                foreach(Item_Slot item in chest.chest_inventory)
+                foreach(ItemSlot item in chest.chest_inventory)
                 {
-                    if(item.Is_Not_Empty())chestInventory.Add(World.GetIdFromItem(item.item));
+                    if(item.IsNotEmpty())chestInventory.Add(World.GetIdFromItem(item.GetItem()));
                 }
                 chests.Add((chest, chestInventory));
             }

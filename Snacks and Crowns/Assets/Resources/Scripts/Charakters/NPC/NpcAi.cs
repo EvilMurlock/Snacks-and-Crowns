@@ -17,11 +17,11 @@ public class NpcAi : MonoBehaviour
 
     Seeker seeker;
     Rigidbody2D rb;
-    Player_Movement movementScript;
+    Movement movement;
     void Start()
     {
         lastWaypointDistance = lastWaypointDistanceDefault;
-        movementScript = GetComponent<Player_Movement>();
+        movement = GetComponent<Movement>();
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
 
@@ -55,7 +55,7 @@ public class NpcAi : MonoBehaviour
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
 
-        movementScript.ChangeMovementDirection(direction);
+        movement.ChangeMovementDirection(direction);
 
         float distanceFromWaypoint = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
         float distanceFromEnd = Vector2.Distance(rb.position, path.vectorPath[path.vectorPath.Count-1]);//HERE READ LAST WAIPOINT!!!!
@@ -74,11 +74,11 @@ public class NpcAi : MonoBehaviour
     {
         if (target != null) {
             Vector2 direction = ((Vector2)target.position - rb.position).normalized;
-            movementScript.RotateTowars(direction);//End of path not nececeraly insode of the actual object, use diferent end point
+            movement.RotateTowars(direction);//End of path not nececeraly insode of the actual object, use diferent end point
         }
         else target = null;
         reachedEndOfPath = true;
-        movementScript.ChangeMovementDirection(Vector2.zero);
+        movement.ChangeMovementDirection(Vector2.zero);
         //Debug.Log("reached End of path");
     }
     public void ChangeTarget(GameObject newTarget, float distanceFromTarget)

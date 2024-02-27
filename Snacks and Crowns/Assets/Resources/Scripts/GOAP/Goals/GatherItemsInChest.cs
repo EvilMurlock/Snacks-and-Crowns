@@ -6,14 +6,14 @@ namespace GOAP {
     public class GatherItemsInChest : Goal
     {
         public GameObject chestOb;
-        public Interactible_Chest chest;
+        public Chest chest;
         public List<Item> desiredItems;
         float defaultPriority = 5;
         bool active = false;
         AgentBelieveState agentBelieves;
         protected virtual void Start()
         {
-            chest = chestOb.GetComponent<Interactible_Chest>();
+            chest = chestOb.GetComponent<Chest>();
 
         }
         public override bool CompletedByState(WorldState state) //If more of desired item in chest then there is curently, then returns true
@@ -22,9 +22,9 @@ namespace GOAP {
         }
         public bool CloserToGoalCheck(WorldState state)
         {
-            List<(Interactible_Chest, List<int>)> chests = (List<(Interactible_Chest, List<int>)>)state.GetStates()["ChestList"];
+            List<(Chest, List<int>)> chests = (List<(Chest, List<int>)>)state.GetStates()["ChestList"];
 
-            (Interactible_Chest, List<int>) pair = chests.Find(x => x.Item1 == chest);
+            (Chest, List<int>) pair = chests.Find(x => x.Item1 == chest);
             if (pair.Item1 == null) return false;
 
             int originalItemCount = 0;
@@ -41,12 +41,12 @@ namespace GOAP {
                 }
             }
             List<Item> tempDesiredItems2 = new List<Item>(desiredItems);
-            foreach (Item_Slot item in chest.chest_inventory)
+            foreach (ItemSlot item in chest.chest_inventory)
             {
-                if (tempDesiredItems2.Contains(item.item))
+                if (tempDesiredItems2.Contains(item.GetItem()))
                 {
                     originalItemCount++;
-                    tempDesiredItems2.Remove(item.item);
+                    tempDesiredItems2.Remove(item.GetItem());
                 }
             }
 
@@ -61,9 +61,9 @@ namespace GOAP {
         protected bool IsCompleted()
         {
             List<Item> chestItems = new List<Item>();
-            foreach (Item_Slot itemSlot in chest.chest_inventory)
+            foreach (ItemSlot itemSlot in chest.chest_inventory)
             {
-                chestItems.Add(itemSlot.item);
+                chestItems.Add(itemSlot.GetItem());
             }
             bool goalDone = true;
             foreach (Item item in desiredItems)
@@ -109,9 +109,9 @@ namespace GOAP {
             int similarityCount = desiredItems.Count;
 
             List<Item> tempDesiredItems1 = new List<Item>(desiredItems);
-            foreach (Item_Slot itemSlot in chest.chest_inventory)
+            foreach (ItemSlot itemSlot in chest.chest_inventory)
             {
-                Item item = itemSlot.item;
+                Item item = itemSlot.GetItem();
                 if (tempDesiredItems1.Contains(item))
                 {
                     similarityCount--;

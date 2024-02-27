@@ -6,8 +6,8 @@ public class DoorOpener : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        InteractibleDoor door = collision.gameObject.GetComponent<InteractibleDoor>();
-        if (collision.gameObject.GetComponent<InteractibleDoor>() != null)
+        Door door = collision.gameObject.GetComponent<Door>();
+        if (collision.gameObject.GetComponent<Door>() != null)
         {
             //Debug.Log("Door entered range");
             if(!door.open) door.Interact(this.gameObject);
@@ -15,8 +15,8 @@ public class DoorOpener : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        InteractibleDoor door = collision.gameObject.GetComponent<InteractibleDoor>();
-        if (collision.gameObject.GetComponent<InteractibleDoor>() != null)
+        Door door = collision.gameObject.GetComponent<Door>();
+        if (collision.gameObject.GetComponent<Door>() != null)
         {
             //Debug.Log("Door entered range");
             if (!door.open) door.Interact(this.gameObject);
@@ -24,8 +24,8 @@ public class DoorOpener : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        InteractibleDoor door = collision.gameObject.GetComponent<InteractibleDoor>();
-        if (collision.gameObject.GetComponent<InteractibleDoor>() != null)
+        Door door = collision.gameObject.GetComponent<Door>();
+        if (collision.gameObject.GetComponent<Door>() != null)
         {
             if(door.open)door.Interact(this.gameObject);
         }

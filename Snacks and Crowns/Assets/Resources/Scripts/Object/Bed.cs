@@ -21,14 +21,14 @@ public class Bed : InteractibleObject
             sleeper.transform.position = sleepPoint.transform.position;
             sleeper.transform.rotation = sleepPoint.transform.rotation;
             sleeper.layer = LayerMask.NameToLayer("Sleeper");
-            sleeper.GetComponent<Player_State_Manager>().Change_State(Player_State.in_ui_menu);
+            sleeper.GetComponent<PlayerStateManager>().Change_State(CharakterState.in_menu);
         }
     }
-    public override void Un_Interact(GameObject newSleeper)
+    public override void UnInteract(GameObject newSleeper)
     {
         sleeper.transform.position = lastSleeperPosition;
         sleeper.layer = LayerMask.NameToLayer("Default");
-        sleeper.GetComponent<Player_State_Manager>().Change_State(Player_State.normal);
+        sleeper.GetComponent<PlayerStateManager>().Change_State(CharakterState.normal);
         sleeper = null;
     }
 

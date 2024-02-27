@@ -50,10 +50,10 @@ namespace GOAP
             //Debug.Log("Going to pick up " + item+" at position: "+position);
 
 
-            Item_Controler[] itemControlers = GameObject.FindObjectsByType<Item_Controler>(FindObjectsSortMode.None);
+            ItemPickup[] itemControlers = GameObject.FindObjectsByType<ItemPickup>(FindObjectsSortMode.None);
             float distance = -1;
-            Item_Controler chosenItem = null;
-            foreach (Item_Controler itemControler in itemControlers)
+            ItemPickup chosenItem = null;
+            foreach (ItemPickup itemControler in itemControlers)
             {
                 if((distance == -1 ||  GetDistanceBetween(itemControler.transform.position, position) < distance) && itemControler.item == item)
                 {
@@ -76,7 +76,7 @@ namespace GOAP
         {
             Debug.Log("Distance from target: " + GetDistanceFromTarget());
             Debug.Log("NPC AI Target is: " + npcAi.target.name + " | Action target: " + target.name);
-            if(GetComponent<Inventory>().AddItem(target.GetComponent<Item_Controler>().item))
+            if(GetComponent<Inventory>().AddItem(target.GetComponent<ItemPickup>().item))
                 Destroy(target);
 
             running = false;

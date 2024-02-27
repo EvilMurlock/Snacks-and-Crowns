@@ -45,5 +45,13 @@ public class EquipmentManager : MonoBehaviour
         equipmenInstances.Remove(eq);
         eq.Destroy_Eq();
     }
+    public void UseLeftHand()
+    {
+
+    }
+    public void UseRightHand()
+    {
+
+    }
 
 }

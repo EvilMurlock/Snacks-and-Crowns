@@ -26,8 +26,8 @@ public class DialogueManager : InteractibleObject
 	{
 		dialogue = start_dialogue;
 		player = new_player;
-		player.GetComponent<Player_State_Manager>().Change_State(CharakterState.in_ui_menu);
-		uiInstance = Instantiate(uiTemplate,player.GetComponent<Player_Inventory>().canvas.transform);
+		player.GetComponent<PlayerStateManager>().Change_State(CharakterState.in_menu);
+		//uiInstance = Instantiate(uiTemplate,player.GetComponent<Inventory>().canvas.transform);
 		
 		
 		Transform tr = uiInstance.transform.Find("Dialogue Box");
@@ -59,15 +59,15 @@ public class DialogueManager : InteractibleObject
 			else button.GetComponent<Image>().color = Color.red;
 			buttonIndex++;
 		}
-
-		Player_Inventory player_inventory = player.GetComponent<Player_Inventory>();
-		player_inventory.event_system.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(buttons[0]);
+		/*
+		Inventory player_inventory = player.GetComponent<Inventory>();
+		player_inventory.event_system.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(buttons[0]);*/
 	}
 	public bool CheckDialogueRequirements(int dialogueIndex)
     {
 		if (dialogue.next_dialogues[dialogueIndex] == null) return true;
-		List<Item> player_items = new List<Item>();
-		foreach (Item_Slot item_slot in player.GetComponent<Player_Inventory>().inventory_items)
+		List<Item> player_items = new List<Item>();/*
+		foreach (ItemSlot item_slot in player.GetComponent<Inventory>().items)
 		{
 			if (item_slot.item != null) player_items.Add(item_slot.item);
 		}
@@ -94,7 +94,7 @@ public class DialogueManager : InteractibleObject
 				return false;
 			};
 
-		}
+		}*/
 		return true;
 	}
 	public void DisplayNextDialogue(Dialogue newDialogue)
@@ -102,7 +102,7 @@ public class DialogueManager : InteractibleObject
 		dialogue = newDialogue;
 		if (dialogue == null)
 		{
-			EndDialogue();
+			UnInteract(player);
 			return;
 		}
 
@@ -124,7 +124,7 @@ public class DialogueManager : InteractibleObject
 
 	public override void UnInteract(GameObject player)
 	{
-		player.GetComponent<Player_State_Manager>().Change_State(CharakterState.normal);
+		player.GetComponent<PlayerStateManager>().Change_State(CharakterState.normal);
 		Destroy(uiInstance);
 	}
 }

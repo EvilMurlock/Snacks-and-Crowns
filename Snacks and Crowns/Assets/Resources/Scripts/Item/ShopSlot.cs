@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-public class ShopSlot : MenuItemSlot
+public class ShopSlot : MenuSlot
 {
     public GameObject priceText;
     private void Start()//this firies when cahnging canvases

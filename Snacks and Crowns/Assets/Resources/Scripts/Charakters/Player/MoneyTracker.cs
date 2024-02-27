@@ -12,8 +12,6 @@ public class MoneyTracker : MonoBehaviour
     }
     public void CoupleToPlayer(GameObject player, int money)
     {
-        player.GetComponent<Player_Inventory>().moneyChange.AddListener(UpdateMoneyCounter);
-        UpdateMoneyCounter(money);
     }
     void UpdateMoneyCounter(int money)
     {

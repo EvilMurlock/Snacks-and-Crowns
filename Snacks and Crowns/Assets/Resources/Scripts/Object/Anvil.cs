@@ -14,7 +14,8 @@ public class Anvil : InteractibleObject
     List<Crafting_Recepy> recepies;
 
     public GameObject item_panel_prefab;
-    Item_Slot crafted_item;
+    
+    ItemSlot crafted_item;
     TMPro.TMP_Dropdown dropdown;
     GameObject ingredients_panel;
     ItemInfo itemInfo;
@@ -57,25 +58,26 @@ public class Anvil : InteractibleObject
     {
         craftable = true;
 
-        crafted_item.Add_Item(recepies[index].result);
+        crafted_item.AddItem(recepies[index].result);
 
         itemInfo = instance_anvil_ui.transform.Find("Item_Info").GetComponent<ItemInfo>();
         itemInfo.LoadNewItem(recepies[index].result);
 
         List<Item> player_items = new List<Item>();
-        foreach (Item_Slot item_slot in player.GetComponent<Player_Inventory>().inventory_items)
+        /*REWERITE THIS
+        foreach (Item_Slot item_slot in player.GetComponent<Inventory>().items)
         {
             if(item_slot.item != null) player_items.Add(item_slot.item);
-        }
+        }*/
 
         foreach (Item item in recepies[index].ingredients)
         {
-            
+            /* REWERITE REWERITE THIS
             Item_Slot item_slot = new Item_Slot();
             GameObject item_slot_panel = Instantiate(item_panel_prefab, ingredients_panel.transform);
             item_slot.panel = item_slot_panel;
             item_slot.Add_Item(item);
-
+            
             int item_index = 0;
             bool item_found = false;
             
@@ -98,7 +100,7 @@ public class Anvil : InteractibleObject
             {
                 item_slot.Change_Colour(Color.red);
                 craftable = false;
-            };
+            };*/
         }
     }
     public void Craft()
@@ -106,7 +108,7 @@ public class Anvil : InteractibleObject
         if (craftable)
         {
             foreach(Item item in recepies[dropdown.value].ingredients)
-            {
+            {/* REWERITE REWERITE THIS
                 foreach(Item_Slot item_slot in player.GetComponent<Player_Inventory>().inventory_items)
                 {
                     if (item_slot.Is_Not_Empty() && item.itemName == item_slot.item.itemName)
@@ -114,9 +116,9 @@ public class Anvil : InteractibleObject
                         item_slot.Remove_Item();
                         break;
                     }
-                }
-            }
-            player.GetComponent<Player_Inventory>().AddItemToInventory(recepies[dropdown.value].result);
+                }*/
+            }/* REWERITE REWERITE THIS
+            player.GetComponent<Player_Inventory>().AddItemToInventory(recepies[dropdown.value].result);*/
             /*
             foreach (Item_Slot item_slot in player.GetComponent<Player_Inventory>().inventory_items)
             {
@@ -133,25 +135,20 @@ public class Anvil : InteractibleObject
     public override void Interact(GameObject new_player)
     {
         player = new_player;
-        player.GetComponent<Player_State_Manager>().Change_State(Player_State.in_ui_menu);
+        player.GetComponent<PlayerStateManager>().Change_State(CharakterState.in_menu);
 
         Generate_Ui(player);
-
-        Player_Inventory player_inventory = player.GetComponent<Player_Inventory>();
-        player_inventory.Add_Interacted_Object(this);
-
-
-        player_inventory.event_system.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(first_selected_button);
     }
-    public override void Un_Interact(GameObject player)
+    public override void UnInteract(GameObject player)
     {
         Destroy(instance_anvil_ui);
-        player.GetComponent<Player_State_Manager>().Change_State(Player_State.normal);
+        player.GetComponent<PlayerStateManager>().Change_State(CharakterState.normal);
     }
 
     void Generate_Ui(GameObject player)
     {
-        Player_Inventory player_inventory = player.GetComponent<Player_Inventory>();
+        /* REWERITE REWERITE THIS
+        Inventory player_inventory = player.GetComponent<Inventory>();
 
         instance_anvil_ui = Instantiate(prefab_anvil_ui);
         instance_anvil_ui.transform.SetParent(player_inventory.canvas.transform, false);
@@ -170,6 +167,6 @@ public class Anvil : InteractibleObject
         crafted_item.panel = instance_anvil_ui.transform.Find("Craft_Item").gameObject;
         instance_anvil_ui.transform.Find("Craft_Button").gameObject.GetComponent<Button>().onClick.AddListener(delegate { Craft(); });
 
-        Load_Recepy(0);
+        Load_Recepy(0);*/
     }
 }

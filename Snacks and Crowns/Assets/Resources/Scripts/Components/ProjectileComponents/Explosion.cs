@@ -31,11 +31,11 @@ public class Explosion : MonoBehaviour
             float force = (maxKnockback - minKnockback) * forceRatio;
             collision.gameObject.GetComponent<Rigidbody2D>().AddForce(force* collision.transform.position - this.transform.position);
         }
-        if (collision.GetComponent<Player_Movement>())
+        if (collision.GetComponent<Movement>())
         {
             float forceRatio = 1 - ((collision.transform.position - this.transform.position).magnitude / radius);
             float force = (maxKnockback - minKnockback) * forceRatio;
-            collision.GetComponent<Player_Movement>().Stun(force / 200);
+            collision.GetComponent<Movement>().Stun(force / 200);
         }
 
     }

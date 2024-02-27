@@ -54,7 +54,7 @@ public class PlayerStateManager : MonoBehaviour
         switch (playerState)
         {
             case CharakterState.normal:
-                equipmentManager.UseLeftHand(context);
+                equipmentManager.UseLeftHand();
                 break;
             case CharakterState.in_menu:
                 break;
@@ -68,7 +68,7 @@ public class PlayerStateManager : MonoBehaviour
         switch (playerState)
         {
             case CharakterState.normal:
-                equipmentManager.UseRightHand(context);
+                equipmentManager.UseRightHand();
                 break;
             case CharakterState.in_menu:
                 break;
@@ -83,7 +83,7 @@ public class PlayerStateManager : MonoBehaviour
         switch (playerState)
         {
             case CharakterState.normal:
-                inventory.UseItem(context);
+                inventory.UseItem(0);//change this
                 break;
             case CharakterState.in_menu:
                 break;
@@ -115,7 +115,7 @@ public class PlayerStateManager : MonoBehaviour
         switch (playerState)
         {
             case CharakterState.normal:
-                inventory.ScrollHotbar(context);
+                //inventory.ScrollHotbar(context);
                 break;
             case CharakterState.in_menu:
                 break;
@@ -130,10 +130,10 @@ public class PlayerStateManager : MonoBehaviour
         switch (playerState)
         {
             case CharakterState.normal:
-                inventory.TogleInventory(context);
+                //inventory.TogleInventory(context);
                 break;
             case CharakterState.in_menu:
-                inventory.TogleInventory(context);
+                //inventory.TogleInventory(context);
                 break;
             case CharakterState.stun:
                 break;

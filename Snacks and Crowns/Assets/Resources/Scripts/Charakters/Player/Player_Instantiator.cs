@@ -28,8 +28,9 @@ public class Player_Instantiator : MonoBehaviour
         player_camera.GetComponent<Camera_Follow_Player>().player = player_input.transform.gameObject;
 
         player_input.uiInputModule = player_event_system.GetComponent<InputSystemUIInputModule>();
-        player_input.gameObject.GetComponent<Player_Inventory>().canvas = player_canvas;
-        player_input.gameObject.GetComponent<Player_Inventory>().event_system = player_event_system;
+        /*
+        player_input.gameObject.GetComponent<Inventory>().canvas = player_canvas;
+        player_input.gameObject.GetComponent<Inventory>().event_system = player_event_system;*/
 
         Destroy(this.gameObject);
     }

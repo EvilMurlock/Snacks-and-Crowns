@@ -78,7 +78,7 @@ namespace GOAP
         {
             Node parent = parent_;
             List<Node> possibleNodes = new List<Node>();
-
+            /*
             bool haveAxe = false;
             List<int> items = (List<int>)parent.state.GetStates()["Inventory"];
 
@@ -131,7 +131,7 @@ namespace GOAP
 
             possibleNodes.Add(new Node(parent, 1 + parent.cost + GetDistanceBetween(myPosition, closestTree.transform.position), possibleWorldState, this, closestTree.gameObject));
             
-
+            */
             return possibleNodes;
         }
     }

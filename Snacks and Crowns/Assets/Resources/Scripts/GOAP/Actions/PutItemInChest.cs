@@ -59,6 +59,7 @@ namespace GOAP
         {
             Node parent = parent_;
             List<Node> possibleNodes = new List<Node>();
+            /*
             List<int> inventory = (List<int>)parent.state.GetStates()["Inventory"];
             List<(int item, Vector3 position)> itemDropList = (List < (int item, Vector3 position) >)parent.state.GetStates()["ItemDropList"];
 
@@ -86,7 +87,7 @@ namespace GOAP
 
             }
 
-
+            */
             return possibleNodes;
         }
     }

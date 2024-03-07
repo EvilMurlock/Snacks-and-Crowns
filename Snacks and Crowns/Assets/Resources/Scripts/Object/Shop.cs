@@ -12,6 +12,8 @@ public class Shop : InteractibleObject
     GameObject player;
     ItemInfo itemInfo;
 
+    // list<Menu> menus --- call update when inventory changes, they hold their own player to which they belong
+
     public ShopSlot[] shopInventory;
     public void Start()
     {

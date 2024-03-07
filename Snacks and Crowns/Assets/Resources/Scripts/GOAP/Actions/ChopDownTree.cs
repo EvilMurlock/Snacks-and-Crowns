@@ -68,10 +68,11 @@ namespace GOAP
 
         public override List<Node> OnActionCompleteWorldStates(Node parent_)//Tells the planer how the world state will change on completion
         {
+            
             Node parent = parent_;
 
             List<Node> possibleNodes = new List<Node>();
-
+            /*
             bool haveAxe = false;
             List<int> items = (List<int>)parent.state.GetStates()["Inventory"];
             foreach (int itemId in items)
@@ -124,7 +125,7 @@ namespace GOAP
 
             possibleNodes.Add(new Node(parent, 1 + parent.cost + GetDistanceBetween(myPosition, closestTree.transform.position), possibleWorldState, this, closestTree.gameObject));
             
-
+            */
             return possibleNodes;
         }
     }

@@ -63,6 +63,7 @@ namespace GOAP
         public override List<Node> OnActionCompleteWorldStates(Node parent_)//Tells the planer how the world state will change on completion
         {
             List<Node> possibleNodes = new List<Node>();
+            /*
             Vector3 myPosition = (Vector3)parent_.state.GetStates()["MyPosition"];
             List<int> inventory = (List<int>)parent_.state.GetStates()["Inventory"];
 
@@ -107,7 +108,7 @@ namespace GOAP
                 Node newNode = new Node(parent, 15 + parent.cost + distance, possibleWorldState, this, (craftingRecepy, craftingPiece));
                 possibleNodes.Add(newNode);
             }            
-
+            */
             return possibleNodes;
         }
         GameObject GetClosestCraftingObject(Crafting_Recepy recepy, Vector3 myPosition)

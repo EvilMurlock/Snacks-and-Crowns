@@ -54,7 +54,7 @@ public class PlayerStateManager : MonoBehaviour
         switch (playerState)
         {
             case CharakterState.normal:
-                equipmentManager.UseLeftHand();
+                //equipmentManager.UseLeftHand();
                 break;
             case CharakterState.in_menu:
                 break;
@@ -68,7 +68,7 @@ public class PlayerStateManager : MonoBehaviour
         switch (playerState)
         {
             case CharakterState.normal:
-                equipmentManager.UseRightHand();
+                //equipmentManager.UseRightHand();
                 break;
             case CharakterState.in_menu:
                 break;
@@ -83,7 +83,7 @@ public class PlayerStateManager : MonoBehaviour
         switch (playerState)
         {
             case CharakterState.normal:
-                inventory.UseItem(0);//change this
+                //inventory.UseItem(0);//change this
                 break;
             case CharakterState.in_menu:
                 break;

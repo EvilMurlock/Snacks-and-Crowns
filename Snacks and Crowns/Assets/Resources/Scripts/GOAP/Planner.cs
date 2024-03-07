@@ -23,7 +23,7 @@ namespace GOAP
                 lastPlanNode = BuildGraphBreathFirst(leavesPlan, actions, goal, 1, new List<WorldState>());
                 if (lastPlanNode == null)
                 {
-                    Debug.Log("No GOAP plan!");
+                    //Debug.Log("No GOAP plan!");
                     return null;
                 }
                 Debug.Log(lastPlanNode.action.actionName);

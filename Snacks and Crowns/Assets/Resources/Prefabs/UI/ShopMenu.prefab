@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 1654891180394501865}
   - component: {fileID: 4237160486317135721}
   - component: {fileID: 7185044464967938088}
+  - component: {fileID: 3444142943982529983}
   m_Layer: 5
-  m_Name: Shop
+  m_Name: ShopMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,6 +119,18 @@ MonoBehaviour:
   m_Spacing: {x: 50, y: 50}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &3444142943982529983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7778092899054552554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c2b5d53c0c24454382dda01c3fb1a7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &225416048360745681
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,37 +7,47 @@ public class Inventory : MonoBehaviour
 {
     public int capacity = 9;
     [SerializeField]
-    List<Item> inventory = new List<Item>();
-    public List<Item> GetInventory { get { return inventory; } }
+    List<Item> items = new List<Item>();
+    public List<Item> GetInventory { get { return items; } }
     [HideInInspector]
     public UnityEvent<List<Item>> onChangeInventory;
     public void Start()
     {
-        onChangeInventory.Invoke(inventory);
+        onChangeInventory.Invoke(items);
     }
     public bool AddItem(Item item)
     {
-        if (inventory.Count >= capacity) return false;
-        inventory.Add(item);
-        onChangeInventory.Invoke(inventory);
+        if (items.Count >= capacity) return false;
+        items.Add(item);
+        onChangeInventory.Invoke(items);
         return true;
     }
     public bool RemoveItem(Item item)
     {
-        bool result = inventory.Remove(item);
-        onChangeInventory.Invoke(inventory);
+        bool result = items.Remove(item);
+        onChangeInventory.Invoke(items);
         return result;
+    }
+    public Item GetItem(int index)
+    {
+        return items[index];
     }
     public void UseItem(int index)
     {
-        if (inventory[index] != null)
+        if (items[index] != null)
         {
-            inventory[index].Use(this.gameObject);
-            if (inventory[index].singleUse)
+            items[index].Use(this.gameObject);
+            if (items[index].singleUse)
             {
-                RemoveItem(inventory[index]);
+                RemoveItem(items[index]);
             }
         }
     }
 
+    public bool HasEmptySpace(int i)
+    {
+        // return true if we have atleast i empty space
+        int emptySpaceCount = capacity - items.Count;
+        return i <= emptySpaceCount;
+    }
 }

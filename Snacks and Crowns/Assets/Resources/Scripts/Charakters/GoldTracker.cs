@@ -12,4 +12,8 @@ public class GoldTracker : MonoBehaviour
         gold += difference;
         goldChange.Invoke(gold);
     }
+    public bool HasGold(int atleastGold)
+    {
+        return gold >= atleastGold;
+    }
 }

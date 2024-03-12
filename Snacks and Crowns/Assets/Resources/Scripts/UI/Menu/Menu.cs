@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Menu : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // menu is how a player interacts with an interactible object, its the medium between them
     void Start()
     {
 
@@ -25,15 +25,19 @@ public class Menu : MonoBehaviour
     }
     public virtual void SlotSelect(MenuSlot slot)
     {
-        Debug.Log("Slot selected: " + slot.ToString());
+        Debug.Log("Menu slot select not implemented!");
     }
     public virtual void SlotSubmit(MenuSlot slot)
     {
-        Debug.Log("Slot submited: " + slot.ToString());
+        Debug.Log("Menu slot submit not implemented!");
     }
     public virtual void SlotCancel(MenuSlot slot)
     {
-        Debug.Log("Slot canceled: " + slot.ToString());
+        Debug.Log("Menu slot cancel not implemented!");
     }
-
+    public virtual void Refresh()
+    {
+        Debug.Log("Menu refresh not implemented!");
+        // read inventory and refresh all shop slots and the item description
+    }
 }

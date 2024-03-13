@@ -6,11 +6,11 @@ namespace GOAP
 {
     public class CraftItem : Action
     {
-        List<Crafting_Recepy> craftingRecepyList;
-        Crafting_Recepy currentRecepy;
+        List<CraftingRecepy> craftingRecepyList;
+        CraftingRecepy currentRecepy;
         public override void Start()
         {
-            craftingRecepyList = GameObject.Find("Crafting_Recepies").GetComponent<Crafting_Recepies>().crafting_recepies;
+            craftingRecepyList = GameObject.Find("Crafting Recepies").GetComponent<CraftingRecepies>().craftingRecepies;
             base.Start();
         }
         public override void Tick()
@@ -20,7 +20,7 @@ namespace GOAP
         }
         public override void Activate(object arg)
         {
-            (Crafting_Recepy recepy, GameObject craftingPiece) pair = ((Crafting_Recepy, GameObject)) arg;
+            (CraftingRecepy recepy, GameObject craftingPiece) pair = ((CraftingRecepy, GameObject)) arg;
 
             target = pair.craftingPiece;
             currentRecepy = pair.recepy;
@@ -111,7 +111,7 @@ namespace GOAP
             */
             return possibleNodes;
         }
-        GameObject GetClosestCraftingObject(Crafting_Recepy recepy, Vector3 myPosition)
+        GameObject GetClosestCraftingObject(CraftingRecepy recepy, Vector3 myPosition)
         {
             GameObject closestForge = null;
             GameObject closestWorkshop = null;
@@ -132,8 +132,8 @@ namespace GOAP
                     closestAnvil = tagSys.gameObject;
                 }
             }
-            if (recepy.crafting_objekt == Crafting_Objekt.anvil) return closestAnvil;
-            else if (recepy.crafting_objekt == Crafting_Objekt.workshop) return closestWorkshop;
+            if (recepy.craftingObjekt == CraftingObjekt.anvil) return closestAnvil;
+            else if (recepy.craftingObjekt == CraftingObjekt.workshop) return closestWorkshop;
             else return closestForge;
 
         }

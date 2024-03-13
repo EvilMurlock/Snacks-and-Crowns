@@ -7,43 +7,33 @@ using UnityEngine.InputSystem.UI;
 public class Shop : InteractibleObject
 {
     public GameObject shopUiPrefab;
-    public GameObject shopUiInstance;
-    public GameObject firstSelectedButton;
-    GameObject player;
-    ItemInfo itemInfo; // shoudl be aprt of the shop menu? Maybe?
-
-    // list<Menu> menus --- call update when inventory changes, they hold their own player to which they belong
-
     List<Menu> menus;
     Inventory inventory;
     public void Start()
     {
-        Generate_Ui();
-        //firstSelectedButton = shopInventory[0].SelectThisButton();
         //Testing items
-        /*
         Item axe = (Item)Resources.Load("Items/Equipment/Axe");
         Item hpPotion = (Item)Resources.Load("Items/Potions/Health Potion");
-        foreach(ShopSlot shopSlot in shopInventory)
-        {
-            shopSlot.UpdateItem();
-        }
         for (int i = 0; i<8; i++)
         {
-            shopInventory[i].AddItem(axe);
+            inventory.AddItem(axe);
         }
         for (int i = 8; i < 14; i++)
         {
-            shopInventory[i].AddItem(hpPotion);
-        }*/
+            inventory.AddItem(hpPotion);
+        }
     }
-    public override void Interact(GameObject newPlayer)
+    public override void Interact(GameObject player)
     {
-        player = newPlayer;
+        GameObject menuUi = Instantiate(shopUiPrefab);
+        // set corect canvas parent
+        // instantiate with this shop and player
+
+        // THIS SHOULD MAYBE HAPPEN IN PLAYER INTERACT??? PROBABLY NOT, THERE ARE MANY THINGS TO ITNERACT WITH, MANY ARENT MENUS
         player.GetComponent<PlayerStateManager>().Change_State(CharakterState.in_menu);
 
+
         //shopUiInstance.transform.SetParent(player.GetComponent<Inventory>().canvas.transform, false);
-        shopUiInstance.SetActive(true);
 
         //player_inventory.event_system.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(firstSelectedButton);
         /*
@@ -67,16 +57,14 @@ public class Shop : InteractibleObject
 
     void Generate_Ui()
     {
-        shopUiInstance = Instantiate(shopUiPrefab);
         //shopInventory = shopUiInstance.GetComponentsInChildren<ShopSlot>();
-        shopUiInstance.SetActive(false);
-        itemInfo = shopUiInstance.transform.Find("Item_Info").GetComponent<ItemInfo>();
     }
     public void TryToBuyItem(GameObject player, int itemIndex)
     {
         Inventory playerInventory = player.GetComponent<Inventory>();
         GoldTracker playerGoldTracker = player.GetComponent<GoldTracker>();
         Item itemToBeSold = inventory.GetItem(itemIndex);
+        if (itemToBeSold == null) return;
         if (playerInventory.HasEmptySpace(1) && playerGoldTracker.HasGold(itemToBeSold.cost))
         {
             playerInventory.AddItem(itemToBeSold);
@@ -85,6 +73,7 @@ public class Shop : InteractibleObject
         }
 
         // dont forget to call refresh on all menus so they show the corect avvailible items
+        RefreshMenus();
     }
     void RefreshMenus()
     {
@@ -92,11 +81,5 @@ public class Shop : InteractibleObject
         {
             menu.Refresh();
         }
-    }
-    public void UpdateItemInfo(Item item)
-    {
-        if (item != null)
-            itemInfo.LoadNewItem(item);
-        else itemInfo.LoadNewItem(null);
     }
 }

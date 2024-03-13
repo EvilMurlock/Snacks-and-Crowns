@@ -7,13 +7,13 @@ using UnityEngine.InputSystem.UI;
 
 public class Anvil : InteractibleObject
 {
-    public GameObject prefab_anvil_ui;
-    public GameObject instance_anvil_ui;
-    public GameObject first_selected_button;
-    public Crafting_Objekt crafting_objekt;
-    List<Crafting_Recepy> recepies;
+    public GameObject prefabAnvilUi;
+    public GameObject instanceAnvilUi;
+    public GameObject firstSelectedButton;
+    public CraftingObjekt craftingObjekt;
+    List<CraftingRecepy> recepies;
 
-    public GameObject item_panel_prefab;
+    public GameObject itemPanelPrefab;
     
     ItemSlot crafted_item;
     TMPro.TMP_Dropdown dropdown;
@@ -26,19 +26,19 @@ public class Anvil : InteractibleObject
     public void Start()
     {
         if (GetComponent<TagSystem>() == null) gameObject.AddComponent<TagSystem>();
-        GetComponent<TagSystem>().AddTag(crafting_objekt.ToString());
+        GetComponent<TagSystem>().AddTag(craftingObjekt.ToString());
         craftable = false;
         Load_Recepies();
     }
     void Load_Recepies()
     {
-        recepies = new List<Crafting_Recepy>();
-        Crafting_Recepies crafting_recepies = GameObject.Find("Crafting_Recepies").GetComponent<Crafting_Recepies>();
-        foreach(Crafting_Recepy crafting_recepy in crafting_recepies.crafting_recepies)
+        recepies = new List<CraftingRecepy>();
+        CraftingRecepies craftingRecepies = GameObject.Find("Crafting Recepies").GetComponent<CraftingRecepies>();
+        foreach(CraftingRecepy craftingRecepy in craftingRecepies.craftingRecepies)
         {
-            if(crafting_recepy.crafting_objekt == crafting_objekt)
+            if(craftingRecepy.craftingObjekt == craftingObjekt)
             {
-                recepies.Add(crafting_recepy);
+                recepies.Add(craftingRecepy);
             }
         }
     }
@@ -60,7 +60,7 @@ public class Anvil : InteractibleObject
 
         crafted_item.AddItem(recepies[index].result);
 
-        itemInfo = instance_anvil_ui.transform.Find("Item_Info").GetComponent<ItemInfo>();
+        itemInfo = instanceAnvilUi.transform.Find("Item_Info").GetComponent<ItemInfo>();
         itemInfo.LoadNewItem(recepies[index].result);
 
         List<Item> player_items = new List<Item>();
@@ -141,7 +141,7 @@ public class Anvil : InteractibleObject
     }
     public override void UnInteract(GameObject player)
     {
-        Destroy(instance_anvil_ui);
+        Destroy(instanceAnvilUi);
         player.GetComponent<PlayerStateManager>().Change_State(CharakterState.normal);
     }
 

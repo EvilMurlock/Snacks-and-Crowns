@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Crafting_Recepy
+public class CraftingRecepy
 {
     public List<Item> ingredients;
     public Item result;
-    public Crafting_Objekt crafting_objekt;
+    public CraftingObjekt craftingObjekt;
 
     public bool CanCraftFrom(List<Item> givenItems)
     {
@@ -22,11 +22,4 @@ public class Crafting_Recepy
         }
         return true;
     }
-}
-
-public enum Crafting_Objekt
-{
-    workshop,
-    forge,
-    anvil
 }

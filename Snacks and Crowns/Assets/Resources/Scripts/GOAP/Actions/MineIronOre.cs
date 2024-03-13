@@ -27,7 +27,7 @@ namespace GOAP
             target = (GameObject)arg;
 
             //Equip axe
-            List<Item> items = (List<Item>)GetComponent<Inventory>().GetInventory;
+            List<Item> items = (List<Item>)GetComponent<Inventory>().Items;
             foreach (Item item in items)
             {
                 if (item.name == "Pickaxe") 

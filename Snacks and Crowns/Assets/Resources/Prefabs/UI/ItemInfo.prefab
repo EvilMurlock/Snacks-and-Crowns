@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2584032712387448325}
   - component: {fileID: 6046159535997781129}
   m_Layer: 5
-  m_Name: Item_Info
+  m_Name: ItemInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,6 +113,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b52a2434cec9742a253af6bd7d0efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemIcon: {fileID: 7666444593957601903}
+  itemName: {fileID: 1395814185858574705}
+  itemDescription: {fileID: 8434474435983420537}
 --- !u!1 &7541517249122162361
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,7 +396,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2531274137922553880, guid: 34f36af908efc834da0b3f6bd5414d0d, type: 3}
       propertyPath: m_Name
-      value: Item_Icon
+      value: IconParent
       objectReference: {fileID: 0}
     - target: {fileID: 8793760067933673909, guid: 34f36af908efc834da0b3f6bd5414d0d, type: 3}
       propertyPath: m_Pivot.x
@@ -489,3 +492,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8793760067933673909, guid: 34f36af908efc834da0b3f6bd5414d0d, type: 3}
   m_PrefabInstance: {fileID: 1320536880616538229}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7666444593957601903 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8662625464889442842, guid: 34f36af908efc834da0b3f6bd5414d0d, type: 3}
+  m_PrefabInstance: {fileID: 1320536880616538229}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

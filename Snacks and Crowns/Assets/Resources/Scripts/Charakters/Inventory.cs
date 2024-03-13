@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour
     public int capacity = 9;
     [SerializeField]
     List<Item> items = new List<Item>();
-    public List<Item> GetInventory { get { return items; } }
+    public List<Item> Items { get { return items; } }
     [HideInInspector]
     public UnityEvent<List<Item>> onChangeInventory;
     public void Start()

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4553552698872696881}
   - component: {fileID: 234499132862210459}
   m_Layer: 5
-  m_Name: BuyButton
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -273,7 +273,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 813d5ff981cd9454497a01971f8b3e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  priceText: {fileID: 1787770076984512608}
+  button: {fileID: 3320940790415861086}
+  icon: {fileID: 2046252135044590924}
+  priceText: {fileID: 8687814972128768184}
 --- !u!1 &1787770076984512608
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,7 +425,7 @@ GameObject:
   - component: {fileID: 4530742432616134869}
   - component: {fileID: 2046252135044590924}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

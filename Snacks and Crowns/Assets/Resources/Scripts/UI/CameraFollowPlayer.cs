@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera_Follow_Player : MonoBehaviour
+public class CameraFollowPlayer : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject player;

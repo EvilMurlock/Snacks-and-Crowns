@@ -5,30 +5,30 @@ using UnityEngine.UI;
 using TMPro;
 public class ItemInfo : MonoBehaviour
 {
-    MenuSlot itemDisplaySlot;
+    [SerializeField]
+    Image itemIcon;
+    [SerializeField]
     TextMeshProUGUI itemName;
+    [SerializeField]
     TextMeshProUGUI itemDescription;
     private void Awake()
     {
         //itemSlot.panel = this.transform.Find("Item_Icon").gameObject;
-        itemName = this.transform.Find("Name").gameObject.GetComponent<TextMeshProUGUI>();
-        itemDescription = this.transform.Find("Description").gameObject.GetComponent<TextMeshProUGUI>();
-
+        itemIcon.sprite = null;
     }
     public void LoadNewItem(Item item)
     {
         if (item != null) 
         {
-            itemDisplaySlot.AddItem(item);
             itemName.text = item.name;
-            itemDescription.text = item.description; 
+            itemDescription.text = item.description;
+            itemIcon.sprite = item.icon;
         }
         else
         {
-            itemDisplaySlot.RemoveItem();
             itemName.text = "";
             itemDescription.text = "";
-
+            itemIcon.sprite = null;
         }
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bed : InteractibleObject
+public class Bed : Interactible
 {
     GameObject sleepPoint;
     GameObject sleeper;
@@ -21,14 +21,12 @@ public class Bed : InteractibleObject
             sleeper.transform.position = sleepPoint.transform.position;
             sleeper.transform.rotation = sleepPoint.transform.rotation;
             sleeper.layer = LayerMask.NameToLayer("Sleeper");
-            sleeper.GetComponent<PlayerStateManager>().Change_State(CharakterState.in_menu);
         }
     }
     public override void UnInteract(GameObject newSleeper)
     {
         sleeper.transform.position = lastSleeperPosition;
         sleeper.layer = LayerMask.NameToLayer("Default");
-        sleeper.GetComponent<PlayerStateManager>().Change_State(CharakterState.normal);
         sleeper = null;
     }
 

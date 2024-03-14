@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class ShopMenu : Menu
 {
     Shop shop;
-    GameObject player;
     int lastSelectedSlotIndex; // just used to refresh the item description after sale
     ItemInfo itemInfo;
     private void Start()
@@ -18,14 +17,16 @@ public class ShopMenu : Menu
     {
         this.shop = shop;
         this.player = player;
+        // select first button
+        player.GetComponent<MenuManager>().eventSystem.SetSelectedGameObject(GetComponentInChildren<Button>().gameObject);
+        AttachToCanvas();
     }
     public override void SlotSelect(MenuSlot slot)
     {
         int index = slot.transform.GetSiblingIndex();
         lastSelectedSlotIndex = index;
-        Debug.Log("Index is:" + index);
+        // Debug.Log("Index is:" + index);
         itemInfo.LoadNewItem(slot.GetItem());
-        // refresh item description
     }
     public override void SlotSubmit(MenuSlot slot)
     {

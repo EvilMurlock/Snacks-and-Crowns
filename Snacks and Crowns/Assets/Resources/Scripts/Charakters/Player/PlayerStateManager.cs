@@ -20,6 +20,7 @@ public class PlayerStateManager : MonoBehaviour
     CharakterState preStunState;
     void Start()
     {
+        interactManager = GetComponent<PlayerInteractManager>();
         playerState = CharakterState.normal;
         movement.stun.AddListener(ManageStun);
     }
@@ -28,9 +29,9 @@ public class PlayerStateManager : MonoBehaviour
         if (value)
         {
             preStunState = playerState;
-            Change_State(CharakterState.stun);
+            ChangeState(CharakterState.stun);
         }
-        else Change_State(preStunState);
+        else ChangeState(preStunState);
     }
 
     public void Movement(InputAction.CallbackContext context)
@@ -40,7 +41,7 @@ public class PlayerStateManager : MonoBehaviour
             case CharakterState.normal:
                 movement.OnMove(context);
                 break;
-            case CharakterState.in_menu:
+            case CharakterState.inMenu:
                 break;
             case CharakterState.stun:
                 movement.OnMove(context);
@@ -49,28 +50,28 @@ public class PlayerStateManager : MonoBehaviour
 
         }
     }
-    public void Left_Hand(InputAction.CallbackContext context)
+    public void LeftHand(InputAction.CallbackContext context)
     {
         switch (playerState)
         {
             case CharakterState.normal:
                 //equipmentManager.UseLeftHand();
                 break;
-            case CharakterState.in_menu:
+            case CharakterState.inMenu:
                 break;
             case CharakterState.stun:
                 break;
 
         }
     }
-    public void Right_Hand(InputAction.CallbackContext context)
+    public void RightHand(InputAction.CallbackContext context)
     {
         switch (playerState)
         {
             case CharakterState.normal:
                 //equipmentManager.UseRightHand();
                 break;
-            case CharakterState.in_menu:
+            case CharakterState.inMenu:
                 break;
             case CharakterState.stun:
                 break;
@@ -78,14 +79,14 @@ public class PlayerStateManager : MonoBehaviour
 
         }
     }
-    public void Use_Item(InputAction.CallbackContext context)
+    public void UseItem(InputAction.CallbackContext context)
     {
         switch (playerState)
         {
             case CharakterState.normal:
                 //inventory.UseItem(0);//change this
                 break;
-            case CharakterState.in_menu:
+            case CharakterState.inMenu:
                 break;
             case CharakterState.stun:
                 break;
@@ -95,13 +96,13 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void Interact(InputAction.CallbackContext context)
     {
-        Debug.Log("Interacting");
+        // Debug.Log("Interacting");
         switch (playerState)
         {
             case CharakterState.normal:
                 interactManager.Interact(context);
                 break;
-            case CharakterState.in_menu:
+            case CharakterState.inMenu:
                 interactManager.UnInteract(context);
                 break;
             case CharakterState.stun:
@@ -117,7 +118,7 @@ public class PlayerStateManager : MonoBehaviour
             case CharakterState.normal:
                 //inventory.ScrollHotbar(context);
                 break;
-            case CharakterState.in_menu:
+            case CharakterState.inMenu:
                 break;
             case CharakterState.stun:
                 break;
@@ -132,7 +133,7 @@ public class PlayerStateManager : MonoBehaviour
             case CharakterState.normal:
                 //inventory.TogleInventory(context);
                 break;
-            case CharakterState.in_menu:
+            case CharakterState.inMenu:
                 //inventory.TogleInventory(context);
                 break;
             case CharakterState.stun:
@@ -141,13 +142,13 @@ public class PlayerStateManager : MonoBehaviour
         }
     }
 
-    public void Change_State(CharakterState newState)
+    public void ChangeState(CharakterState newState)
     {
         switch (newState)
         {
             case CharakterState.normal:
                 break;
-            case CharakterState.in_menu:
+            case CharakterState.inMenu:
                 movement.MoveStop();
                 break;
             case CharakterState.stun:

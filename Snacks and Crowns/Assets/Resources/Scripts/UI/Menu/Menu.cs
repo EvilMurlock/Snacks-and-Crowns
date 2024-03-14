@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Menu : MonoBehaviour
 {
+    protected GameObject player;
     // menu is how a player interacts with an interactible object, its the medium between them
     void Start()
     {
 
     }
+    protected void AttachToCanvas()
+    {
+        transform.SetParent(player.GetComponent<MenuManager>().canvas.transform, false);
+    }
     protected void SubscribeToSlotEvents()
     {
-        Debug.Log("Subbing to slots");
+        // Debug.Log("Subbing to slots");
         MenuSlot[] slots = GetComponentsInChildren<MenuSlot>();
         foreach(MenuSlot slot in slots)
         {
@@ -21,7 +25,7 @@ public class Menu : MonoBehaviour
                 handler.Register(this);
             }
         }
-        Debug.Log("Subscribed to " + slots.Length + " slots");
+        // Debug.Log("Subscribed to " + slots.Length + " slots");
     }
     public virtual void SlotSelect(MenuSlot slot)
     {
@@ -39,5 +43,16 @@ public class Menu : MonoBehaviour
     {
         Debug.Log("Menu refresh not implemented!");
         // read inventory and refresh all shop slots and the item description
+    }
+    public void DeleteSelf(GameObject player)
+    {
+        Debug.Log("destroying self check");
+
+        if (this.player == player)
+        {
+            Debug.Log("destroying self ui");
+
+            Destroy(this.gameObject);
+        }
     }
 }

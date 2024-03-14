@@ -50,4 +50,8 @@ public class Inventory : MonoBehaviour
         int emptySpaceCount = capacity - items.Count;
         return i <= emptySpaceCount;
     }
+    public void SetCapacity(int newCapacity)
+    {
+        capacity = newCapacity;
+    }
 }

@@ -5,6 +5,6 @@ using UnityEngine;
 public enum CharakterState
 {
     normal,
-    in_menu,
+    inMenu,
     stun
 }

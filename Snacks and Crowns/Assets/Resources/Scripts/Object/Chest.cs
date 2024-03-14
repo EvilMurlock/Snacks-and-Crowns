@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Chest : InteractibleObject
+public class Chest : Interactible
 {
     public GameObject prefab_chest_ui;
     public GameObject instance_chest_ui;
@@ -44,20 +44,20 @@ public class Chest : InteractibleObject
 
     public override void Interact(GameObject player)
     {
-        Generate_Ui(player);
-        Inventory player_inventory = player.GetComponent<Inventory>();
+        GenerateUi(player);
     }
     public override void UnInteract(GameObject player)
     {
-        Delete_Ui();
+        DeleteUi(player);
     }
 
-    void Generate_Ui(GameObject player)
+    void GenerateUi(GameObject player)
     {
+        
     }
 
-    void Delete_Ui()
+    void DeleteUi(GameObject player)
     {
-        Destroy(instance_chest_ui);
+
     }
 }

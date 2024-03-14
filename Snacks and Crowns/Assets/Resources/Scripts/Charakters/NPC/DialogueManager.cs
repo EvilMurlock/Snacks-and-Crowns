@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem.UI;
 
-public class DialogueManager : InteractibleObject
+public class DialogueManager : Interactible
 {
     public GameObject uiTemplate;
 	public GameObject buttonTemplate;
@@ -26,7 +26,6 @@ public class DialogueManager : InteractibleObject
 	{
 		dialogue = start_dialogue;
 		player = new_player;
-		player.GetComponent<PlayerStateManager>().Change_State(CharakterState.in_menu);
 		//uiInstance = Instantiate(uiTemplate,player.GetComponent<Inventory>().canvas.transform);
 		
 		
@@ -124,7 +123,6 @@ public class DialogueManager : InteractibleObject
 
 	public override void UnInteract(GameObject player)
 	{
-		player.GetComponent<PlayerStateManager>().Change_State(CharakterState.normal);
 		Destroy(uiInstance);
 	}
 }

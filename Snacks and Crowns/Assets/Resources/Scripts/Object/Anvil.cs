@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 
-public class Anvil : InteractibleObject
+public class Anvil : Interactible
 {
     public GameObject prefabAnvilUi;
     public GameObject instanceAnvilUi;
@@ -135,14 +135,12 @@ public class Anvil : InteractibleObject
     public override void Interact(GameObject new_player)
     {
         player = new_player;
-        player.GetComponent<PlayerStateManager>().Change_State(CharakterState.in_menu);
 
         Generate_Ui(player);
     }
     public override void UnInteract(GameObject player)
     {
         Destroy(instanceAnvilUi);
-        player.GetComponent<PlayerStateManager>().Change_State(CharakterState.normal);
     }
 
     void Generate_Ui(GameObject player)

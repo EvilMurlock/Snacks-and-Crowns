@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1583434661633873850}
   - component: {fileID: 1616411752393079465}
   - component: {fileID: -8261056025881476221}
+  - component: {fileID: -5587698348800739623}
   m_Layer: 3
   m_Name: Chest
   m_TagString: Untagged
@@ -207,3 +208,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &-5587698348800739623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548664686518509655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edf0141cfca642d438f6eea68a93682c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capacity: 9
+  items: []
+  onChangeInventory:
+    m_PersistentCalls:
+      m_Calls: []

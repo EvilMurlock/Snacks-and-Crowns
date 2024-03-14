@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 781379820281804322}
   - component: {fileID: 8365996860332740583}
   - component: {fileID: 5103230373840184529}
+  - component: {fileID: 842151552758625485}
   m_Layer: 3
   m_Name: Shop
   m_TagString: Untagged
@@ -178,9 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shopUiPrefab: {fileID: 7778092899054552554, guid: af77c17786c92bf44bbe13b433a9d6a6, type: 3}
-  shopUiInstance: {fileID: 0}
-  firstSelectedButton: {fileID: 0}
-  shopInventory: []
+  inventory: {fileID: 0}
 --- !u!50 &5103230373840184529
 Rigidbody2D:
   serializedVersion: 4
@@ -208,3 +207,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &842151552758625485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7614303839123966125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edf0141cfca642d438f6eea68a93682c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capacity: 9
+  items: []
+  onChangeInventory:
+    m_PersistentCalls:
+      m_Calls: []

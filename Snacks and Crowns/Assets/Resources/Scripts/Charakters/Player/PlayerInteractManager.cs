@@ -5,11 +5,15 @@ using UnityEngine.InputSystem;
 public class PlayerInteractManager : MonoBehaviour
 {
     List<GameObject> interactiblesInRange;
-    GameObject interactedObjekt;
-
+    Interactible interactedObjekt;
+    PlayerStateManager playerStateManager;
     void Awake()
     {
         interactiblesInRange = new List<GameObject>();
+    }
+    private void Start()
+    {
+        playerStateManager = GetComponent<PlayerStateManager>();
     }
     private void Update()
     {
@@ -47,14 +51,18 @@ public class PlayerInteractManager : MonoBehaviour
         {
             if(interactiblesInRange.Count > 0)
             {
-                GameObject interactible = interactiblesInRange[0];
-                if (interactible == null)
+                GameObject thing = interactiblesInRange[0];
+                if (thing == null)
                 {
                     interactiblesInRange.RemoveAt(0);
                     Interact(context);
                 }
 
-                interactible.GetComponent<InteractibleObject>().Interact(gameObject);
+                Interactible interactible = thing.GetComponent<Interactible>();
+                interactible.Interact(gameObject);
+
+                if (interactible.LockMove)
+                    playerStateManager.ChangeState(CharakterState.inMenu);
                 interactedObjekt = interactible;
 
             }
@@ -65,16 +73,16 @@ public class PlayerInteractManager : MonoBehaviour
         if (context.started)
         {
             if (interactedObjekt == null) return;
-
-            GameObject thing = interactedObjekt;
-            thing.GetComponent<InteractibleObject>().UnInteract(gameObject);
+            interactedObjekt.UnInteract(gameObject);
+            if (interactedObjekt.LockMove)
+                playerStateManager.ChangeState(CharakterState.normal);
             interactedObjekt = null;
         }
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<InteractibleObject>())
+        if (collision.GetComponent<Interactible>())
         {
             interactiblesInRange.Add(collision.gameObject);
         }

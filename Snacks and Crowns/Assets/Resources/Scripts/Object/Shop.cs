@@ -4,16 +4,22 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem.UI;
 
-public class Shop : InteractibleObject
+public class Shop : Interactible
 {
     public GameObject shopUiPrefab;
     List<Menu> menus;
+    [SerializeField]
     Inventory inventory;
+    int maxCapacity = 16;
     public void Start()
     {
+        menus = new List<Menu>();
+        inventory = GetComponent<Inventory>();
+        inventory.SetCapacity(maxCapacity);
+
         //Testing items
-        Item axe = (Item)Resources.Load("Items/Equipment/Axe");
-        Item hpPotion = (Item)Resources.Load("Items/Potions/Health Potion");
+        Item axe = (Item)Resources.Load("Resources/Items/Equipment/Axe");
+        Item hpPotion = (Item)Resources.Load("Resources/Items/Potions/Health Potion");
         for (int i = 0; i<8; i++)
         {
             inventory.AddItem(axe);
@@ -25,39 +31,28 @@ public class Shop : InteractibleObject
     }
     public override void Interact(GameObject player)
     {
-        GameObject menuUi = Instantiate(shopUiPrefab);
-        // set corect canvas parent
         // instantiate with this shop and player
-
-        // THIS SHOULD MAYBE HAPPEN IN PLAYER INTERACT??? PROBABLY NOT, THERE ARE MANY THINGS TO ITNERACT WITH, MANY ARENT MENUS
-        player.GetComponent<PlayerStateManager>().Change_State(CharakterState.in_menu);
-
-
-        //shopUiInstance.transform.SetParent(player.GetComponent<Inventory>().canvas.transform, false);
-
-        //player_inventory.event_system.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(firstSelectedButton);
-        /*
-        foreach(ShopSlot shopSlot in shopInventory)
-        {
-            shopSlot.button.GetComponent<ButtonOnSelectEvent>().onSelect.AddListener(delegate { UpdateItemInfo(shopSlot.item); });
-            shopSlot.button.GetComponent<Button>().onClick.AddListener(delegate { shopSlot.BuyItem(player, shopSlot); });
-            shopSlot.button.GetComponent<Button>().onClick.AddListener(delegate { UpdateItemInfo(shopSlot.item); });
-
-        }*/
+        GenerateUi(player);
     }
-    public override void UnInteract(GameObject player)
-    {/*
-        foreach(ShopSlot shopSlot in shopInventory)
-        {
-            shopSlot.button.GetComponent<Button>().onClick.RemoveAllListeners();
-        }
-        shopUiInstance.SetActive(false);
-        player.GetComponent<PlayerStateManager>().Change_State(CharakterState.normal);*/
-    }
-
-    void Generate_Ui()
+    void GenerateUi(GameObject player)
     {
-        //shopInventory = shopUiInstance.GetComponentsInChildren<ShopSlot>();
+        ShopMenu menuUi = Instantiate(shopUiPrefab).GetComponent<ShopMenu>();
+        menuUi.Initialize(this, player);
+        menus.Add(menuUi);
+    }
+
+    public override void UnInteract(GameObject player)
+    {
+        DeleteUi(player);
+    }
+    void DeleteUi(GameObject player)
+    {
+        foreach(Menu menu in menus)
+        {
+            Debug.Log("yep deleting ui");
+
+            menu.DeleteSelf(player);
+        }
     }
     public void TryToBuyItem(GameObject player, int itemIndex)
     {

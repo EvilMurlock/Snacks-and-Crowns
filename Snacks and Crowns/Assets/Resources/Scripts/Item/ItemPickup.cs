@@ -4,6 +4,7 @@ using UnityEngine;
 using GOAP;
 public class ItemPickup : Interactible
 {
+    public override bool LockMove { get { return false; } }
     public Item item;
     // Start is called before the first frame update
     void Start()

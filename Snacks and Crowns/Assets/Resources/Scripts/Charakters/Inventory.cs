@@ -5,32 +5,53 @@ using GOAP;
 using UnityEngine.Events;
 public class Inventory : MonoBehaviour
 {
-    public int capacity = 9;
     [SerializeField]
-    List<Item> items = new List<Item>();
-    public List<Item> Items { get { return items; } }
+    Item[] items = new Item[0];
+    public Item[] Items { get { return items; } }
     [HideInInspector]
-    public UnityEvent<List<Item>> onChangeInventory;
+    public UnityEvent<Inventory> onChangeInventory;
     public void Start()
     {
-        onChangeInventory.Invoke(items);
+        onChangeInventory.Invoke(this);
     }
     public bool AddItem(Item item)
     {
-        if (items.Count >= capacity) return false;
-        items.Add(item);
-        onChangeInventory.Invoke(items);
-        return true;
+        if (item == null) return false;
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i] == null)
+            {
+                items[i] = item;
+                onChangeInventory.Invoke(this);
+                return true;
+            }
+        }
+        return false;
     }
     public bool RemoveItem(Item item)
     {
-        bool result = items.Remove(item);
-        onChangeInventory.Invoke(items);
-        return result;
+        for (int i = 0; i<items.Length; i++)
+        {
+            if (items[i] == item)
+            {
+                items[i] = null;
+                onChangeInventory.Invoke(this);
+                return true;
+            }
+        }
+        return false;
     }
     public Item GetItem(int index)
     {
         return items[index];
+    }
+    public bool HasItem(Item item)
+    {
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i] == item) return true;
+        }
+        return false;
     }
     public void UseItem(int index)
     {
@@ -44,14 +65,18 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public bool HasEmptySpace(int i)
+    public bool HasEmptySpace(int requiredSpace)
     {
         // return true if we have atleast i empty space
-        int emptySpaceCount = capacity - items.Count;
-        return i <= emptySpaceCount;
+        int emptySpaceCount = 0;
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i] == null) emptySpaceCount++;
+        }
+        return requiredSpace <= emptySpaceCount;
     }
     public void SetCapacity(int newCapacity)
     {
-        capacity = newCapacity;
+        items = new Item[newCapacity];
     }
 }

@@ -15,15 +15,25 @@ public class MenuSlot : MonoBehaviour
     private void Start()
     {
     }
-    public virtual void AddItem(Item newItem)
+    public void AddItem(Item newItem)
     {
-        icon.color = new Color(255, 255, 255, 255);
-        item = newItem;
-        icon.sprite = item.icon;
+        if (newItem == null) item = null;
+        else item = newItem;
+        UpdateItem();
     }
-    public virtual void RemoveItem()
+    public void RemoveItem()
     {
-        icon.color = new Color(0, 0, 0, 0);
+        item = null;
+        UpdateItem();
+    }
+    public virtual void UpdateItem()
+    {
+        if (item == null) icon.color = new Color(0, 0, 0, 0);
+        else
+        {
+            icon.color = new Color(255, 255, 255, 255);
+            icon.sprite = item.icon;
+        }
     }
     public bool IsEmpty()
     {

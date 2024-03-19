@@ -6616,6 +6616,7 @@ MonoBehaviour:
   playerCamera: {fileID: 1776622090}
   playerEventSystem: {fileID: 1828447884}
   playerCanvas: {fileID: 399529744}
+  goldDisplayPrefab: {fileID: 1521334342370810237, guid: c7d2dfe158e8b174da6deaceaabe5e8f, type: 3}
 --- !u!4 &494951126
 Transform:
   m_ObjectHideFlags: 0
@@ -6924,6 +6925,7 @@ MonoBehaviour:
   playerCamera: {fileID: 519420028}
   playerEventSystem: {fileID: 1375061656}
   playerCanvas: {fileID: 1262293619}
+  goldDisplayPrefab: {fileID: 1521334342370810237, guid: c7d2dfe158e8b174da6deaceaabe5e8f, type: 3}
 --- !u!4 &574754991
 Transform:
   m_ObjectHideFlags: 0

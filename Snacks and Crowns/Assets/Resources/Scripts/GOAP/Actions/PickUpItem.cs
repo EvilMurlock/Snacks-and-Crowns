@@ -32,7 +32,7 @@ namespace GOAP
 
             bool achievable = true;
             List<int> items = (List<int>)worldState.GetStates()["Inventory"];
-            if (items.Count >= GetComponent<Inventory>().capacity) achievable = false;//Full inventory = false
+            if (items.Count >= GetComponent<Inventory>().Items.Length) achievable = false;//Full inventory = false
 
             List<(int itemID, Vector3 position)> itemDrops = (List<(int, Vector3)>)worldState.GetStates()["ItemDropList"];
             if (itemDrops.Count == 0) achievable = false;//any items to pick up

@@ -23,8 +23,4 @@ public class MenuManager : MonoBehaviour
         this.canvas = canvas;
         this.eventSystem = eventSystem;
     }
-    public void SetSelectedGameObject(GameObject gameObject)
-    {
-        //eventSystem.SetSelectedGameObject()
-    }
 }

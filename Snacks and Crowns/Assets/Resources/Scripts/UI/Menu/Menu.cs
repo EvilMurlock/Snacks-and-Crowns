@@ -4,6 +4,7 @@ using UnityEngine;
 public class Menu : MonoBehaviour
 {
     protected GameObject player;
+    protected ShopSlot[] shopSlots;
     // menu is how a player interacts with an interactible object, its the medium between them
     void Start()
     {
@@ -17,14 +18,15 @@ public class Menu : MonoBehaviour
     {
         // Debug.Log("Subbing to slots");
         MenuSlot[] slots = GetComponentsInChildren<MenuSlot>();
-        foreach(MenuSlot slot in slots)
+        foreach (MenuSlot slot in slots)
         {
             ButtonHandler[] handlers = slot.GetComponentsInChildren<ButtonHandler>();
-            foreach(var handler in handlers)
+            foreach (var handler in handlers)
             {
                 handler.Register(this);
             }
         }
+        shopSlots = GetComponentsInChildren<ShopSlot>();
         // Debug.Log("Subscribed to " + slots.Length + " slots");
     }
     public virtual void SlotSelect(MenuSlot slot)
@@ -44,6 +46,9 @@ public class Menu : MonoBehaviour
         Debug.Log("Menu refresh not implemented!");
         // read inventory and refresh all shop slots and the item description
     }
+    public bool BelongsToPlayer(GameObject playerToCompare) { return this.player == playerToCompare;}
+
+    /*
     public void DeleteSelf(GameObject player)
     {
         Debug.Log("destroying self check");
@@ -51,8 +56,7 @@ public class Menu : MonoBehaviour
         if (this.player == player)
         {
             Debug.Log("destroying self ui");
-
             Destroy(this.gameObject);
         }
-    }
+    }*/
 }

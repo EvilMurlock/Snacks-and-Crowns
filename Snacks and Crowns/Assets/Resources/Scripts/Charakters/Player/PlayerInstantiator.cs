@@ -17,19 +17,24 @@ public class Player_Instantiator : MonoBehaviour
     MultiplayerEventSystem playerEventSystem;
     [SerializeField]
     Canvas playerCanvas;
-
+    [SerializeField]
+    GameObject goldDisplayPrefab;
 
     private void Awake()
     {
         //PlayerInput player_input = gameObject.GetComponent<PlayerInput>();
         PlayerInput playerInput = PlayerInput.Instantiate(playerPrefab, controlScheme: controlSheme, pairWithDevice: Keyboard.current);
-        playerInput.gameObject.transform.SetPositionAndRotation(this.transform.position,this.transform.rotation);
+        GameObject player = playerInput.gameObject;
+        player.transform.SetPositionAndRotation(this.transform.position,this.transform.rotation);
 
-        playerCamera.GetComponent<CameraFollowPlayer>().player = playerInput.transform.gameObject;
+        playerCamera.GetComponent<CameraFollowPlayer>().player = player;
 
         playerInput.uiInputModule = playerEventSystem.GetComponent<InputSystemUIInputModule>();
 
-        playerInput.gameObject.GetComponent<MenuManager>().Innitialize(playerCanvas, playerEventSystem);
+        player.GetComponent<MenuManager>().Innitialize(playerCanvas, playerEventSystem);
+
+        GameObject goldDisplay = Instantiate(goldDisplayPrefab, playerCanvas.transform);
+        goldDisplay.GetComponent<GoldDisplay>().CoupleToPlayer(player);
         Destroy(this.gameObject);
     }
 }

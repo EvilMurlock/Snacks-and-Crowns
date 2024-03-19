@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bed : Interactible
 {
+    public override bool LockMove { get { return true; } }
     GameObject sleepPoint;
     GameObject sleeper;
     Vector3 lastSleeperPosition;

@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 public class GoldTracker : MonoBehaviour
 {
-    int gold;
-    UnityEvent<int> goldChange;
+    int gold = 100;
+    public UnityEvent<int> goldChange;
     public int Gold { get { return gold; } }
     public void AddGold(int difference)
     {

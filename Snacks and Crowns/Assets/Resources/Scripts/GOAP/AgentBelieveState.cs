@@ -30,10 +30,10 @@ public class AgentBelieveState : MonoBehaviour
         }
         agentBelieves.ModifyState("MyPosition", transform.position);
     }
-    void InventoryUpdate(List<Item> inventory)
+    void InventoryUpdate(Inventory inventory)
     {
         List<int> inventoryId = new List<int>();
-        foreach(Item item in inventory)
+        foreach(Item item in inventory.Items)
         {
             inventoryId.Add(World.GetIdFromItem(item));
         }

@@ -7,7 +7,9 @@ using UnityEngine.InputSystem.UI;
 
 public class DialogueManager : Interactible
 {
-    public GameObject uiTemplate;
+	public override bool LockMove { get { return true; } }
+
+	public GameObject uiTemplate;
 	public GameObject buttonTemplate;
 	GameObject uiInstance;
 	public Dialogue start_dialogue;

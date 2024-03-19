@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-public class MoneyTracker : MonoBehaviour
+public class GoldDisplay : MonoBehaviour
 {
     TextMeshProUGUI text;
     // Start is called before the first frame update
@@ -10,8 +10,9 @@ public class MoneyTracker : MonoBehaviour
     {
         text = gameObject.GetComponent<TextMeshProUGUI>();
     }
-    public void CoupleToPlayer(GameObject player, int money)
+    public void CoupleToPlayer(GameObject player)
     {
+        player.GetComponent<GoldTracker>().goldChange.AddListener(UpdateMoneyCounter);
     }
     void UpdateMoneyCounter(int money)
     {

@@ -16,11 +16,11 @@ public class EquipmentManager : MonoBehaviour
 
         GetComponent<Inventory>().onChangeInventory.AddListener(InventoryUpdateUnequipCheck);
     }
-    void InventoryUpdateUnequipCheck(List<Item> inventory)
+    void InventoryUpdateUnequipCheck(Inventory inventory)
     {
         foreach(Equipment eq in equipmenInstances)
         {
-            if (!inventory.Contains(eq))
+            if (!inventory.HasItem(eq))
             {
                 UnEquipItem(eq);
             }

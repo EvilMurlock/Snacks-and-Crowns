@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4599701087864173615}
   - component: {fileID: 1289964042083643351}
   m_Layer: 5
-  m_Name: Money
+  m_Name: GoldDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 2480788047439262407}
   - component: {fileID: 8667209268702788574}
   - component: {fileID: 3990172751670160606}
-  - component: {fileID: 6728180285625513764}
+  - component: {fileID: 3295950375235747260}
   m_Layer: 5
   m_Name: MoneyValue
   m_TagString: Untagged
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &6728180285625513764
+--- !u!114 &3295950375235747260
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,6 +222,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8418192112005942578}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3979ef4f8fcaf848818bd250500c701, type: 3}
+  m_Script: {fileID: 11500000, guid: b9e74f78e749b5d488281fdd8a900551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

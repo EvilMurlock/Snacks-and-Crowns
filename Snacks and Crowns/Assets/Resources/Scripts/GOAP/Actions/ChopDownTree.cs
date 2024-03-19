@@ -27,7 +27,7 @@ namespace GOAP
             target = (GameObject)arg;
 
             //Equip axe
-            List<Item> items = (List<Item>)GetComponent<Inventory>().Items;
+            Item[] items = (Item[])GetComponent<Inventory>().Items;
             foreach (Item item in items)
             {
                 if (item.name == "Axe") { GetComponent<EquipmentManager>().EquipItem(item);axe =(Equipment) item ; break;}

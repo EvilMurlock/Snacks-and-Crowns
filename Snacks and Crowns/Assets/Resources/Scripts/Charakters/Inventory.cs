@@ -5,8 +5,8 @@ using GOAP;
 using UnityEngine.Events;
 public class Inventory : MonoBehaviour
 {
-    [SerializeField]
-    Item[] items = new Item[0];
+    //[SerializeField]
+    Item[] items = new Item[9];
     public Item[] Items { get { return items; } }
     [HideInInspector]
     public UnityEvent<Inventory> onChangeInventory;
@@ -14,21 +14,21 @@ public class Inventory : MonoBehaviour
     {
         onChangeInventory.Invoke(this);
     }
-    public bool AddItem(Item item)
+    public void AddItem(Item item)
     {
-        if (item == null) return false;
+        if (item == null) throw new System.Exception("Add Item to inventory failed, item to be added is null");
         for (int i = 0; i < items.Length; i++)
         {
             if (items[i] == null)
             {
                 items[i] = item;
                 onChangeInventory.Invoke(this);
-                return true;
+                return;
             }
         }
-        return false;
+        throw new System.Exception("Inventory is full, AddItem failed");
     }
-    public bool RemoveItem(Item item)
+    public void RemoveItem(Item item)
     {
         for (int i = 0; i<items.Length; i++)
         {
@@ -36,10 +36,19 @@ public class Inventory : MonoBehaviour
             {
                 items[i] = null;
                 onChangeInventory.Invoke(this);
-                return true;
+                return;
             }
         }
-        return false;
+        throw new System.Exception("Remove item from inventory failed, item not contained in inventory: " + item.name);
+    }
+    public void RemoveItem(int itemIndex)
+    {
+        if (items[itemIndex] == null)
+        {
+            throw new System.Exception("Remove item from inventory failed, item is null on index: " + itemIndex);
+        }
+        items[itemIndex] = null;
+        onChangeInventory.Invoke(this);
     }
     public Item GetItem(int index)
     {

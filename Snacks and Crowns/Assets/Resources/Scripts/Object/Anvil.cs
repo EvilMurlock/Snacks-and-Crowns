@@ -5,9 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 
-public class Anvil : Interactible
+public class Anvil : InteractibleInMenu
 {
-    public override bool LockMove { get { return true; } }
     public GameObject prefabAnvilUi;
     public GameObject instanceAnvilUi;
     public GameObject firstSelectedButton;

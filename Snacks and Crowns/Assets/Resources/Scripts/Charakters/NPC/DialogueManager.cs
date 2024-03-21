@@ -5,10 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem.UI;
 
-public class DialogueManager : Interactible
+public class DialogueManager : InteractibleInMenu
 {
-	public override bool LockMove { get { return true; } }
-
 	public GameObject uiTemplate;
 	public GameObject buttonTemplate;
 	GameObject uiInstance;

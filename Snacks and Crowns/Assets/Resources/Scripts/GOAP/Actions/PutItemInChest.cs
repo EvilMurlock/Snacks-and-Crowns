@@ -39,7 +39,7 @@ namespace GOAP
             running = false;
         }
         public override void Complete()
-        {
+        {/*
             if (!GetComponent<Inventory>().RemoveItem(planingData.item)) 
             { 
                 Deactivate();
@@ -51,7 +51,7 @@ namespace GOAP
                 Deactivate(); 
                 return;
             }
-
+            */
             running = false;
             completed = true;
         }

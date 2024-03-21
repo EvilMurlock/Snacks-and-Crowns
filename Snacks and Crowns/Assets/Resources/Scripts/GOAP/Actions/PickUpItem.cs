@@ -76,8 +76,11 @@ namespace GOAP
         {
             Debug.Log("Distance from target: " + GetDistanceFromTarget());
             Debug.Log("NPC AI Target is: " + npcAi.target.name + " | Action target: " + target.name);
-            if(GetComponent<Inventory>().AddItem(target.GetComponent<ItemPickup>().item))
+            if (GetComponent<Inventory>().HasEmptySpace(1))
+            {
+                GetComponent<Inventory>().AddItem(target.GetComponent<ItemPickup>().item);
                 Destroy(target);
+            }
 
             running = false;
             completed = true;

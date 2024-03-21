@@ -32,9 +32,8 @@ public class Player_Instantiator : MonoBehaviour
         playerInput.uiInputModule = playerEventSystem.GetComponent<InputSystemUIInputModule>();
 
         player.GetComponent<MenuManager>().Innitialize(playerCanvas, playerEventSystem);
-
         GameObject goldDisplay = Instantiate(goldDisplayPrefab, playerCanvas.transform);
-        goldDisplay.GetComponent<GoldDisplay>().CoupleToPlayer(player);
+        goldDisplay.GetComponentInChildren<GoldDisplay>().CoupleToPlayer(player);
         Destroy(this.gameObject);
     }
 }

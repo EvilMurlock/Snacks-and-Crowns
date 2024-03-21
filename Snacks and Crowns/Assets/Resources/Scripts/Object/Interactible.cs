@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Interactible : MonoBehaviour
 {
-    public abstract bool LockMove { get; }
+    public virtual bool LockMove { get { return false; } }
     // Start is called before the first frame update
     void Awake()
     {

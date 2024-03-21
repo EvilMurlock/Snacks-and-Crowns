@@ -37,8 +37,6 @@ public class ShopMenu : Menu
 
         int index = shopSlots.GetIndex(slot);
         lastSelectedSlotIndex = index;
-        Debug.Log("Index of shop slot: " + index);
-        Debug.Log("BuySellDivide: " + buySellDivideIndex);
         if (index < buySellDivideIndex)
             shop.TryToBuyItem(player, index);
         else

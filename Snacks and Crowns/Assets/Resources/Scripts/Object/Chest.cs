@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Chest : Interactible
+public class Chest : InteractibleInMenu
 {
-    public override bool LockMove { get { return true; } }
     public GameObject prefab_chest_ui;
     public GameObject instance_chest_ui;
     public ItemSlot[] chest_inventory;

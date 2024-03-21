@@ -50,13 +50,13 @@ namespace GOAP
                 Deactivate(); 
                 return;
             }
-            
+            /*
             if (!GetComponent<Inventory>().AddItem(planingData.item))
             {
                 planingData.chest.AddItem(planingData.item);
                 Deactivate(); 
                 return;
-            }
+            }*/
 
             running = false;
             completed = true;

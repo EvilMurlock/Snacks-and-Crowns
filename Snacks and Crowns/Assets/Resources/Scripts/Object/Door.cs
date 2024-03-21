@@ -4,7 +4,6 @@ using UnityEngine;
 using Pathfinding;
 public class Door : Interactible
 {
-    public override bool LockMove { get { return false; } }
     public bool open = false;
     public AnimationClip closeAnim;
     public AnimationClip openAnim;

@@ -21,7 +21,7 @@ public class ShopMenu : Menu
         this.player = player;
         buySellDivideIndex = shop.MaxCapacity;
         // select first button
-        player.GetComponent<MenuManager>().eventSystem.SetSelectedGameObject(GetComponentInChildren<Button>().gameObject);
+        player.GetComponent<MenuManager>().SelectObject(GetComponentInChildren<Button>().gameObject);
         AttachToCanvas();
     }
     public override void SlotSelect(MenuSlot slot)

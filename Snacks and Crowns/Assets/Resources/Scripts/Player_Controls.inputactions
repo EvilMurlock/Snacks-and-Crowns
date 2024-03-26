@@ -212,81 +212,10 @@
                     "action": "Use_Item",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Player1",
-            "id": "5a715f0f-ad26-4f45-a181-13a1e42a1655",
-            "actions": [
-                {
-                    "name": "Movement",
-                    "type": "Value",
-                    "id": "724a7734-4056-4e5b-80af-15d56ca8b605",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 },
-                {
-                    "name": "Inventory",
-                    "type": "Button",
-                    "id": "1a344e5b-529b-4167-a370-2e8c38b09067",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Left_Hand",
-                    "type": "Button",
-                    "id": "419da6b2-6704-4a33-af24-e1ce85cd3689",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Right_Hand",
-                    "type": "Button",
-                    "id": "cf65e22b-9aa7-48f9-99b5-a2c67e4c4d22",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Use_Item",
-                    "type": "Button",
-                    "id": "77c1be69-8364-4a25-9250-9d67a81fdcea",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Interact",
-                    "type": "Value",
-                    "id": "93a4b900-0989-4c07-b778-5a86c3493f3a",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Scroll",
-                    "type": "Value",
-                    "id": "431aa461-945d-4fec-b888-d35448bd3328",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                }
-            ],
-            "bindings": [
                 {
                     "name": "WASD",
-                    "id": "1e50096e-5b2f-469a-9367-91d4e68b50fb",
+                    "id": "aefca7a0-e247-4d31-81dc-74de148eb21e",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -297,95 +226,106 @@
                 },
                 {
                     "name": "up",
-                    "id": "ed0c87f7-2b07-4354-a8bc-bbe89f151453",
+                    "id": "e4c69cd1-a21c-4cf0-96d9-a3feca9fa980",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player2;Player1",
+                    "groups": "Player2",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "down",
-                    "id": "55ee62a0-2128-4522-bd85-f9c56704e40b",
+                    "id": "15aedf8a-a69d-42e2-a091-5a3c9fb381b4",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player2;Player1",
+                    "groups": "Player2",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "left",
-                    "id": "8547417b-dd8f-4466-9278-2c5b9a7c81af",
+                    "id": "e79d9eaa-583b-4382-a2ef-e02bc8803606",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player2;Player1",
+                    "groups": "Player2",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "right",
-                    "id": "ba29cb15-7f72-493e-8058-edc098a34a4f",
+                    "id": "cf3681ec-aeb1-45cd-a58e-3377e651b6ac",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player2;Player1",
+                    "groups": "Player2",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "",
-                    "id": "9d6c87dd-27e8-46ea-b518-ce7214db93b6",
+                    "id": "86a0ced2-cf8c-444b-a744-b9b5830f77cb",
                     "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player2;Player1",
+                    "groups": "Player2",
                     "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "ec1f5dde-0787-4fd5-a2b7-47c8b9cb1ead",
+                    "id": "9ca9c554-40cd-4d24-a3af-f7d59c442cf4",
                     "path": "<Keyboard>/h",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player2;Player1",
+                    "groups": "Player2",
                     "action": "Left_Hand",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "7b3175b9-57b2-4e17-9526-fcdce856abe5",
+                    "id": "92a2c6e6-c3b7-4c85-9e11-12bd01c4a2f3",
                     "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player2;Player1",
+                    "groups": "Player2",
                     "action": "Right_Hand",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "3be566e5-e95b-4c03-8231-736709b5bc3a",
+                    "id": "ac887f7b-d558-4033-b27d-43e5da1c313e",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Player2",
+                    "action": "Use_Item",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "61ceeeb2-f965-4dc2-aac0-30432a95ddaf",
                     "path": "<Keyboard>/u",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player2;Player1",
+                    "groups": "Player2",
                     "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "P2",
-                    "id": "6951287a-adf1-498b-817d-931e82829a3c",
+                    "id": "b13ff0aa-376d-4f39-b345-a89953eb6fa7",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
@@ -396,36 +336,25 @@
                 },
                 {
                     "name": "negative",
-                    "id": "58fe529c-ec6c-480c-be67-acde0660b38b",
+                    "id": "fcb0d075-5995-4e26-848a-d5fc8d7d6ec1",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player2;Player1",
+                    "groups": "Player2",
                     "action": "Scroll",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "positive",
-                    "id": "0e4e15c6-aebf-4f5a-b150-90b47b9149a8",
+                    "id": "09fc77bf-ed1a-401f-8ff6-4272f22441fd",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Player2;Player1",
+                    "groups": "Player2",
                     "action": "Scroll",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "7e8df08a-9338-45e8-b71c-da6cb7d34b34",
-                    "path": "<Keyboard>/k",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Player2;Player1",
-                    "action": "Use_Item",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         }

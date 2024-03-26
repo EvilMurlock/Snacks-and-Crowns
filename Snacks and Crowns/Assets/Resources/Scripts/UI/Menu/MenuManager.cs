@@ -10,17 +10,22 @@ using UnityEngine.EventSystems;
 public class MenuManager : MonoBehaviour
 {
     public Canvas canvas;
-    public MultiplayerEventSystem eventSystem;
+    public MultiplayerEventSystem multiplayerEventSystem;
 
 
 
     void Start()
     {
-
+        canvas = transform.parent.GetComponentInChildren<Canvas>();
+        multiplayerEventSystem = transform.parent.GetComponentInChildren<MultiplayerEventSystem>();
     }
-    public void Innitialize(Canvas canvas, MultiplayerEventSystem eventSystem)
+    public void Innitialize(Canvas canvas, MultiplayerEventSystem multiplayerEventSystem)
     {
         this.canvas = canvas;
-        this.eventSystem = eventSystem;
+        this.multiplayerEventSystem = multiplayerEventSystem;
+    }
+    public void SelectObject(GameObject gameObjecct)
+    {
+        multiplayerEventSystem.SetSelectedGameObject(gameObjecct);
     }
 }

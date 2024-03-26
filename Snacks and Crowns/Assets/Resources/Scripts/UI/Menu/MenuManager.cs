@@ -16,8 +16,6 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
-        canvas = transform.parent.GetComponentInChildren<Canvas>();
-        multiplayerEventSystem = transform.parent.GetComponentInChildren<MultiplayerEventSystem>();
     }
     public void Innitialize(Canvas canvas, MultiplayerEventSystem multiplayerEventSystem)
     {

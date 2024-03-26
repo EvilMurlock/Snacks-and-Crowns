@@ -6,6 +6,8 @@ using UnityEngine.InputSystem.UI;
 
 public class PlayerStateManager : MonoBehaviour
 {
+    bool debug = true;
+
     [SerializeField]
     Inventory inventory;
 
@@ -36,6 +38,7 @@ public class PlayerStateManager : MonoBehaviour
 
     public void Movement(InputAction.CallbackContext context)
     {
+        if(debug) Debug.Log("MOVIGN'''");
         switch (playerState)
         {
             case CharakterState.normal:
@@ -52,6 +55,7 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void LeftHand(InputAction.CallbackContext context)
     {
+        if (debug) Debug.Log("Left hand");
         switch (playerState)
         {
             case CharakterState.normal:
@@ -66,6 +70,7 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void RightHand(InputAction.CallbackContext context)
     {
+        if (debug) Debug.Log("Right hand");
         switch (playerState)
         {
             case CharakterState.normal:
@@ -81,6 +86,7 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void UseItem(InputAction.CallbackContext context)
     {
+        if (debug) Debug.Log("Use item");
         switch (playerState)
         {
             case CharakterState.normal:
@@ -96,6 +102,7 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void Interact(InputAction.CallbackContext context)
     {
+        if (debug) Debug.Log("Interact");
         // Debug.Log("Interacting");
         switch (playerState)
         {
@@ -113,6 +120,7 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void Scroll(InputAction.CallbackContext context)
     {
+        if (debug) Debug.Log("Scroll");
         switch (playerState)
         {
             case CharakterState.normal:
@@ -128,6 +136,7 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void Inventory(InputAction.CallbackContext context)
     {
+        if (debug) Debug.Log("Inventory");
         switch (playerState)
         {
             case CharakterState.normal:

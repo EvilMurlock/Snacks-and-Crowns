@@ -4,11 +4,15 @@ using UnityEngine;
 using TMPro;
 public class GoldDisplay : MonoBehaviour
 {
+    [SerializeField]
     TextMeshProUGUI text;
+    [SerializeField]
+    GameObject player;
     // Start is called before the first frame update
     void Awake()
     {
         text = gameObject.GetComponent<TextMeshProUGUI>();
+        CoupleToPlayer(player);
     }
     public void CoupleToPlayer(GameObject player)
     {

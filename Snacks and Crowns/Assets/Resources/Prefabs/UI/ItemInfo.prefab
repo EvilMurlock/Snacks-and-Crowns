@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b52a2434cec9742a253af6bd7d0efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 7666444593957601903}
+  icon: {fileID: 7666444593957601903}
   itemName: {fileID: 1395814185858574705}
   itemDescription: {fileID: 8434474435983420537}
 --- !u!1 &7541517249122162361
@@ -397,6 +397,22 @@ PrefabInstance:
     - target: {fileID: 2531274137922553880, guid: 34f36af908efc834da0b3f6bd5414d0d, type: 3}
       propertyPath: m_Name
       value: IconParent
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662625464889442842, guid: 34f36af908efc834da0b3f6bd5414d0d, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662625464889442842, guid: 34f36af908efc834da0b3f6bd5414d0d, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662625464889442842, guid: 34f36af908efc834da0b3f6bd5414d0d, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8662625464889442842, guid: 34f36af908efc834da0b3f6bd5414d0d, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8793760067933673909, guid: 34f36af908efc834da0b3f6bd5414d0d, type: 3}
       propertyPath: m_Pivot.x

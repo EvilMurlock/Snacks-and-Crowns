@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.UI;
 
 public class PlayerStateManager : MonoBehaviour
 {
-    bool debug = true;
+    bool debug = false;
 
     [SerializeField]
     Inventory inventory;

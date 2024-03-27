@@ -17,4 +17,13 @@ public class ItemPickup : Interactible
         }
         gameObject.GetComponent<TagSystem>().AddTags(item.Tags);
     }
+    public override void Interact(GameObject player)
+    {
+        Inventory inventory = player.GetComponent<Inventory>();
+        if (inventory.HasEmptySpace(1))
+        {
+            inventory.AddItem(item);
+            Destroy(gameObject);
+        }
+    }
 }

@@ -6,7 +6,7 @@ using TMPro;
 public class ItemInfo : MonoBehaviour
 {
     [SerializeField]
-    Image itemIcon;
+    Image icon;
     [SerializeField]
     TextMeshProUGUI itemName;
     [SerializeField]
@@ -14,7 +14,7 @@ public class ItemInfo : MonoBehaviour
     private void Awake()
     {
         //itemSlot.panel = this.transform.Find("Item_Icon").gameObject;
-        itemIcon.sprite = null;
+        icon.sprite = null;
     }
     public void LoadNewItem(Item item)
     {
@@ -22,13 +22,16 @@ public class ItemInfo : MonoBehaviour
         {
             itemName.text = item.name;
             itemDescription.text = item.description;
-            itemIcon.sprite = item.icon;
+            icon.color = new Color(255, 255, 255, 255);
+            icon.sprite = item.icon;
         }
         else
         {
             itemName.text = "";
             itemDescription.text = "";
-            itemIcon.sprite = null;
+            icon.color = new Color(255,255,255,0);
+                 
+            icon.sprite = null;
         }
     }
 }

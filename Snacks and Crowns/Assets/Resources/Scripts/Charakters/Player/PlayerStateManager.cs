@@ -17,12 +17,14 @@ public class PlayerStateManager : MonoBehaviour
     Movement movement;
     [SerializeField]
     PlayerInteractManager interactManager;
+    MenuManager menuManager;
     public CharakterState playerState;
     // Start is called before the first frame update
     CharakterState preStunState;
     void Start()
     {
         interactManager = GetComponent<PlayerInteractManager>();
+        menuManager = GetComponent<MenuManager>();
         playerState = CharakterState.normal;
         movement.stun.AddListener(ManageStun);
     }
@@ -140,10 +142,10 @@ public class PlayerStateManager : MonoBehaviour
         switch (playerState)
         {
             case CharakterState.normal:
-                //inventory.TogleInventory(context);
+                menuManager.OpenInventory();
                 break;
             case CharakterState.inMenu:
-                //inventory.TogleInventory(context);
+                menuManager.CloseInventory();
                 break;
             case CharakterState.stun:
                 break;

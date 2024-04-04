@@ -6,7 +6,7 @@ using UnityEngine;
 public class Equipment : Item
 {
     [SerializeReference] private List<ComponentDataGeneric> componentDataEquipment;
-    public Equipment_Slot equipment_slot;
+    public EquipmentSlot equipment_slot;
     public GameObject prefab_eq;
     [HideInInspector]
     public GameObject instance;
@@ -34,4 +34,4 @@ public class Equipment : Item
     }
 
 }
-public enum Equipment_Slot {none, hand, body, miscelanious}
+public enum EquipmentSlot {none, hand, body, miscelanious}

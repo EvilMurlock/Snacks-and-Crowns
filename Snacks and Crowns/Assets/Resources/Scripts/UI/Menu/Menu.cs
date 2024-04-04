@@ -4,7 +4,7 @@ using UnityEngine;
 public class Menu : MonoBehaviour
 {
     protected GameObject player;
-    protected ShopSlot[] shopSlots;
+    protected MenuSlot[] menuSlots;
     // menu is how a player interacts with an interactible object, its the medium between them
     void Start()
     {
@@ -26,7 +26,7 @@ public class Menu : MonoBehaviour
                 handler.Register(this);
             }
         }
-        shopSlots = GetComponentsInChildren<ShopSlot>();
+        menuSlots = GetComponentsInChildren<ShopSlot>();
         // Debug.Log("Subscribed to " + slots.Length + " slots");
     }
     public virtual void SlotSelect(MenuSlot slot)

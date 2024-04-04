@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class ShopMenu : Menu
+public class InventoryMenu : Menu
 {
-    Shop shop;
     int lastSelectedSlotIndex; // just used to refresh the item description after sale
     ItemInfo itemInfo;
-    int buySellDivideIndex;
+    int inventoryEquipmentDivideIndex;
+    int? submitedSlotIndex = null; // submited slot 
     private void Start()
     {
         SubscribeToSlotEvents();
@@ -15,11 +15,10 @@ public class ShopMenu : Menu
         lastSelectedSlotIndex = 0;
         Refresh();
     }
-    public void Initialize(Shop shop, GameObject player)
+    public void Initialize(GameObject player)
     {
-        this.shop = shop;
         this.player = player;
-        buySellDivideIndex = shop.MaxCapacity;
+        inventoryEquipmentDivideIndex = player.GetComponent<Inventory>().Items.Length;
         // select first button
         player.GetComponent<MenuManager>().SelectObject(GetComponentInChildren<Button>().gameObject);
         AttachToCanvas();
@@ -33,38 +32,48 @@ public class ShopMenu : Menu
     }
     public override void SlotSubmit(MenuSlot slot)
     {
-        // try to buy item
+        if(submitedSlotIndex == null)
+        {
+            submitedSlotIndex = menuSlots.GetIndex(slot);
+        }
 
+        else
+        {
+            int newIndex = menuSlots.GetIndex(slot);
+            SwapItems((int)submitedSlotIndex, newIndex);
+            submitedSlotIndex = null;
+        }
         int index = menuSlots.GetIndex(slot);
         lastSelectedSlotIndex = index;
-        if (index < buySellDivideIndex)
-            shop.TryToBuyItem(player, index);
-        else
-            shop.TryToSellItem(player, index-buySellDivideIndex);
     }
     
     public override void SlotCancel(MenuSlot slot)
     {
         // do nothing
     }
-
+    void SwapItems(int index1, int index2)
+    {
+        if (index1 == index2) return;
+        // swap them and also equip/unequip them
+    }
     public override void Refresh()
     {
-        ShopSlot selectedSlot = (ShopSlot)menuSlots[lastSelectedSlotIndex];
+        ShopSlot selectedSlot = shopSlots[lastSelectedSlotIndex];
         Inventory playerInventory = player.GetComponent<Inventory>();
         // updating buy page
         int index = 0;
-        Item[] menuInventory = shop.GetComponent<Inventory>().Items;
-        foreach(Item item in menuInventory)
-        {
-            menuSlots[index].AddItem(item);
-            index++;
-        }
 
         // updating sell page
         foreach (Item item in playerInventory.Items)
         {
             menuSlots[index].AddItem(item);
+            index++;
+        }
+
+        Item[] menuInventory = shop.GetComponent<Inventory>().Items;
+        foreach (Item item in menuInventory)
+        {
+            shopSlots[index].AddItem(item);
             index++;
         }
 

@@ -10,13 +10,6 @@ public abstract class Interactible : MonoBehaviour
     {
         if (GetComponent<FactionMembership>() == null) gameObject.AddComponent<FactionMembership>();
     }
-    public virtual void Interact(GameObject player)
-    {
-
-    }
-    public virtual void UnInteract(GameObject player)
-    {
-
-    }
-
+    public abstract void Interact(GameObject player);
+    public virtual void UnInteract(GameObject player) { throw new System.Exception("UnInteract method not implemented in object: " + this.name); }
 }

@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractibleInMenu : Interactible
+public abstract class InteractibleInMenu : Interactible
 {
     public override bool LockMove { get { return true; } }
     protected List<Menu> menus;
+    public new abstract void UnInteract(GameObject player);
 
     protected void RefreshMenus()
     {

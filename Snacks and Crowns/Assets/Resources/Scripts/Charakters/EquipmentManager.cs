@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class EquipmentManager : MonoBehaviour
 {
-    List<Equipment> equipmenInstances = new List<Equipment>();
-    List<GameObject> equipmentLocations = new List<GameObject>();
+    Equipment[] equipmenInstances = new Equipment[5];
+    EquipmentLocation[] equipmentLocations = new EquipmentLocation[5];
     // Start is called before the first frame update
     void Start()
     {
-        equipmentLocations.Add(transform.Find("RightHand").gameObject);
-        equipmentLocations.Add(transform.Find("LeftHand").gameObject);
-        equipmentLocations.Add(transform.Find("Body").gameObject);
-        equipmentLocations.Add(transform.Find("Miscelanious").gameObject);
-
+        equipmentLocations = GetComponentsInChildren<EquipmentLocation>();
         GetComponent<Inventory>().onChangeInventory.AddListener(InventoryUpdateUnequipCheck);
     }
     void InventoryUpdateUnequipCheck(Inventory inventory)

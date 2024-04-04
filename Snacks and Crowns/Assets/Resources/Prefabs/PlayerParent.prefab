@@ -142,6 +142,7 @@ Transform:
   - {fileID: 4343810950593966800}
   - {fileID: 8592586695789026761}
   - {fileID: 5365096319253140735}
+  - {fileID: 7572209741449384145}
   m_Father: {fileID: 661621100735972663}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -442,6 +443,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 3436652287823421989}
   multiplayerEventSystem: {fileID: 6035817960798125896}
+  inventoryMenuPrefab: {fileID: 0}
 --- !u!114 &4555316762405885909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -857,6 +859,37 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+--- !u!1 &7824433419238351955
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7572209741449384145}
+  m_Layer: 0
+  m_Name: miscelanious2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7572209741449384145
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7824433419238351955}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5971795369672716386}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7972278092614949849
 GameObject:
   m_ObjectHideFlags: 0
@@ -933,7 +966,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5365096319253140735}
   m_Layer: 0
-  m_Name: miscelanious
+  m_Name: miscelanious1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

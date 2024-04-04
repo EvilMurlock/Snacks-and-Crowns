@@ -25,15 +25,15 @@ public class MyJoinPlayer : MonoBehaviour
                                 InputSystem.devices[2]); // pairWithDevice
         */
         inputManager.joinBehavior = PlayerJoinBehavior.JoinPlayersWhenButtonIsPressed;
-        
+        /*
         Debug.Log("Contorlers detected: " + InputSystem.devices.Count);
         Debug.Log("Contorlers detected: " + InputSystem.devices[0].name);
-        Debug.Log("Contorlers detected: " + InputSystem.devices[2].name);
+        Debug.Log("Contorlers detected: " + InputSystem.devices[2].name);*/
     }
 
     void PlayerJoined(PlayerInput input)
     {
-        Debug.Log("Player scheme: " + input.currentControlScheme);
+        //Debug.Log("Player scheme: " + input.currentControlScheme);
     }
 
     // Update is called once per frame

@@ -6,24 +6,24 @@ using UnityEngine;
 public class Equipment : Item
 {
     [SerializeReference] private List<ComponentDataGeneric> componentDataEquipment;
-    public EquipmentSlot equipment_slot;
-    public GameObject prefab_eq;
+    public EquipmentSlot equipmentSlot;
+    public GameObject equipmentPrefab;
     [HideInInspector]
     public GameObject instance;
     public void UseEquipment()
     {
         instance.GetComponent<Hand_Item_Controler>().Use();
     }
-    public virtual void Instantiate_Eq(Transform parent)
+    public virtual void InstantiateEquipment(Transform parent)
     {
-        instance = Instantiate(prefab_eq, parent);
+        instance = Instantiate(equipmentPrefab, parent);
         instance.GetComponent<SpriteRenderer>().sprite = icon;
         foreach(ComponentDataGeneric comData in componentDataEquipment)
         {
             comData.InicializeComponent(instance, (Item) this);
         }
     }
-    public virtual void Destroy_Eq()
+    public virtual void DestroyEquipmentInstance()
     {
         Destroy(instance);
         instance = null;

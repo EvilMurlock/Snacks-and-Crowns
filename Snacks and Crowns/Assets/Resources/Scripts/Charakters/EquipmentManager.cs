@@ -4,50 +4,57 @@ using UnityEngine;
 
 public class EquipmentManager : MonoBehaviour
 {
-    Equipment[] equipmenInstances = new Equipment[5];
+    Equipment[] equipments = new Equipment[5];
+    public Equipment[] Equipments { get { return equipments; } }
     EquipmentLocation[] equipmentLocations = new EquipmentLocation[5];
     // Start is called before the first frame update
     void Start()
     {
         equipmentLocations = GetComponentsInChildren<EquipmentLocation>();
-        GetComponent<Inventory>().onChangeInventory.AddListener(InventoryUpdateUnequipCheck);
+        //GetComponent<Inventory>().onChangeInventory.AddListener(InventoryUpdateUnequipCheck);
     }
+    /*
     void InventoryUpdateUnequipCheck(Inventory inventory)
     {
-        foreach(Equipment eq in equipmenInstances)
+        // i dont know what this function is suposed to do
+        throw new System.Exception("FUCNTIO  NOT IMPLEMENTED IN EQUIPMENT MANAGER");
+    }*/
+    public bool CanEquipItem(Item item, int index)
+    {
+        if (item == null) return false;
+        if (equipments[index] != null) return false;
+        if (item is Equipment equipment)
         {
-            if (!inventory.HasItem(eq))
-            {
-                UnEquipItem(eq);
-            }
+            if (equipment.equipmentSlot != equipmentLocations[index].equipmentSlot) return false;
         }
+        else return false;
+        return true;
     }
-    
-    public bool EquipItem(Item item)
+    public void EquipItem(Item item, int index)
     {
-        Equipment eq = (Equipment)item;
-        bool succes = false;
-        if (eq == null || eq.instance != null) return false; //item doesnt exist, or already equiped
-        if (eq.equipment_slot == Equipment_Slot.body && equipmentLocations[2].transform.childCount == 0) {eq.Instantiate_Eq(equipmentLocations[2].transform); succes= true; }
-        if (eq.equipment_slot == Equipment_Slot.hand && equipmentLocations[1].transform.childCount == 0) { eq.Instantiate_Eq(equipmentLocations[1].transform); succes= true; }
-        if (eq.equipment_slot == Equipment_Slot.hand && equipmentLocations[0].transform.childCount == 0 && eq.instance == null) { eq.Instantiate_Eq(equipmentLocations[0].transform); succes= true; }
-        if (eq.equipment_slot == Equipment_Slot.miscelanious && equipmentLocations[3].transform.childCount < 2) { eq.Instantiate_Eq(equipmentLocations[3].transform); succes= true; }
-        if (succes) equipmenInstances.Add(eq);
-        return succes;
+        if (!CanEquipItem(item, index)) throw new System.Exception("Failed to equip item: " + item);
+        if(item is Equipment equipment)
+        {
+            equipment.InstantiateEquipment(equipmentLocations[index].transform);
+            equipments[index] = equipment;
+        }
+        return;
     }
-    public void UnEquipItem(Item item)
+    public void UnEquipItem(int index)
     {
-        Equipment eq = (Equipment)item;
-        equipmenInstances.Remove(eq);
-        eq.Destroy_Eq();
+        if (equipments[index] == null) return;
+
+        Equipment equipment = equipments[index];
+        equipments[index] = null;
+        equipment.DestroyEquipmentInstance();
     }
     public void UseLeftHand()
     {
-
+        equipments[0].UseEquipment();
     }
     public void UseRightHand()
     {
-
+        equipments[1].UseEquipment();
     }
 
 }

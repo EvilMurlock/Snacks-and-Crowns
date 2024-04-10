@@ -32,12 +32,13 @@ namespace GOAP
             {
                 if (item.name == "Pickaxe") 
                 {
+                    /*
                     if (GetComponent<EquipmentManager>().EquipItem(item))
                     {
                         Pickaxe = (Equipment)item;
                         break;
                     }
-                    else Deactivate();
+                    else Deactivate();*/
                 }
                 
             }
@@ -50,13 +51,13 @@ namespace GOAP
         public override void Deactivate()
         {
             //Unequip axe
-            GetComponent<EquipmentManager>().UnEquipItem(Pickaxe);
+            //GetComponent<EquipmentManager>().UnEquipItem(Pickaxe);
             running = false;
             npcAi.ChangeTarget(null);
         }
         public override void Complete()
         {
-            GetComponent<EquipmentManager>().UnEquipItem(Pickaxe);
+            //GetComponent<EquipmentManager>().UnEquipItem(Pickaxe);
 
             running = false;
             completed = true;

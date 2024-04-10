@@ -28,6 +28,13 @@ public class Inventory : MonoBehaviour
         }
         throw new System.Exception("Inventory is full, AddItem failed");
     }
+    public void AddItem(Item item, int index)
+    {
+        if (item == null) throw new System.Exception("Add Item to inventory failed, item to be added is null");
+        if(items[index] == null) items[index] = item;
+        throw new System.Exception("Inventory space already ocupied, AddItem failed");
+    }
+
     public void RemoveItem(Item item)
     {
         for (int i = 0; i<items.Length; i++)

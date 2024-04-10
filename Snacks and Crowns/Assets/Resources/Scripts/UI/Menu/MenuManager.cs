@@ -22,6 +22,7 @@ public class MenuManager : MonoBehaviour
     public void OpenInventory()
     {
         inventoryMenu = Instantiate(inventoryMenuPrefab);
+        Debug.Log("Inventroy Menu compornent is null: " + this.gameObject == null);
         inventoryMenu.GetComponent<InventoryMenu>().Initialize(this.gameObject);
         //inventoryMenu.transform.SetParent(canvas.transform);
         GetComponent<PlayerStateManager>().ChangeState(CharakterState.inMenu);

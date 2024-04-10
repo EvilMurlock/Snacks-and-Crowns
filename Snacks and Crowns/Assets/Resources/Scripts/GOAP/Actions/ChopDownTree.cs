@@ -30,7 +30,7 @@ namespace GOAP
             Item[] items = (Item[])GetComponent<Inventory>().Items;
             foreach (Item item in items)
             {
-                if (item.name == "Axe") { GetComponent<EquipmentManager>().EquipItem(item);axe =(Equipment) item ; break;}
+                //if (item.name == "Axe") { GetComponent<EquipmentManager>().EquipItem(item);axe =(Equipment) item ; break;}
                 
             }
 
@@ -42,13 +42,15 @@ namespace GOAP
         public override void Deactivate()
         {
             //Unequip axe
+
+            /*
             GetComponent<EquipmentManager>().UnEquipItem(axe);
             running = false;
-            npcAi.ChangeTarget(null);
+            npcAi.ChangeTarget(null);*/
         }
         public override void Complete()
         {
-            GetComponent<EquipmentManager>().UnEquipItem(axe);
+            //GetComponent<EquipmentManager>().UnEquipItem(axe);
 
             running = false;
             completed = true;

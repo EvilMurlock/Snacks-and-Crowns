@@ -8,6 +8,13 @@ public class InventoryMenu : Menu
     ItemInfo itemInfo;
     int inventoryEquipmentDivideIndex;
     int? submitedSlotIndex = null; // submited slot 
+    int lastSubmitedSlotIndex = 0; // submited slot 
+
+    [SerializeField]
+    Color submitedButtonColour = new Color(50,50,50);
+         
+    [SerializeField]
+    GameObject itemDropPrefab;
     private void Start()
     {
         SubscribeToSlotEvents();
@@ -49,17 +56,43 @@ public class InventoryMenu : Menu
     
     public override void SlotCancel(MenuSlot slot)
     {
-        // do nothing
+        // drop the item
     }
     void SwapItems(int index1, int index2)
     {
+        Item item1 = menuSlots[index1].GetItem();
+        Item item2 = menuSlots[index2].GetItem();
+        EquipmentManager equipmentManager = player.GetComponent<EquipmentManager>();
+        Inventory inventory = player.GetComponent<Inventory>();
+        // swap legality checks
+
         if (index1 == index2) return;
-        // swap them and also equip/unequip them
+        if (index1 > inventoryEquipmentDivideIndex && equipmentManager.CanEquipItem(item2, index2)) return;
+        if (index2 > inventoryEquipmentDivideIndex && equipmentManager.CanEquipItem(item1, index1)) return;
+
+        // swap is legal
+
+        if (index1 > inventoryEquipmentDivideIndex)
+        {
+            equipmentManager.UnEquipItem(index1 - inventoryEquipmentDivideIndex);
+            equipmentManager.EquipItem(item2, index1 - inventoryEquipmentDivideIndex);
+        }
+        else inventory.AddItem(item2, index1);
+
+
+        if (index2 > inventoryEquipmentDivideIndex)
+        {
+            equipmentManager.UnEquipItem(index2 - inventoryEquipmentDivideIndex);
+            equipmentManager.EquipItem(item1, index2 - inventoryEquipmentDivideIndex);
+        }
+        else inventory.AddItem(item1, index2);
     }
     public override void Refresh()
     {
-        ShopSlot selectedSlot = shopSlots[lastSelectedSlotIndex];
+        MenuSlot selectedSlot = menuSlots[lastSelectedSlotIndex];
+
         Inventory playerInventory = player.GetComponent<Inventory>();
+        EquipmentManager equipmentManager = player.GetComponent<EquipmentManager>();
         // updating buy page
         int index = 0;
 
@@ -69,16 +102,24 @@ public class InventoryMenu : Menu
             menuSlots[index].AddItem(item);
             index++;
         }
-
-        Item[] menuInventory = shop.GetComponent<Inventory>().Items;
-        foreach (Item item in menuInventory)
+        foreach (Item item in equipmentManager.Equipments)
         {
-            shopSlots[index].AddItem(item);
+            menuSlots[index].AddItem(item);
             index++;
         }
 
         // updaing item info
         itemInfo.LoadNewItem(selectedSlot.GetItem());
+
+        // change colour of submited slot
+
+        if (submitedSlotIndex != null)
+        {
+            MenuSlot submitedSlot = menuSlots[(int)submitedSlotIndex];
+            submitedSlot.ChangeColour(submitedButtonColour);
+            lastSubmitedSlotIndex = (int)submitedSlotIndex;
+        }
+        else menuSlots[lastSubmitedSlotIndex].ChangeColour(Color.white);
     }
 
 }

@@ -31,7 +31,7 @@ public class MenuSlot : MonoBehaviour
         if (item == null) icon.color = new Color(0, 0, 0, 0);
         else
         {
-            icon.color = new Color(255, 255, 255, 255);
+            icon.color = new Color(1, 1, 1, 1);
             icon.sprite = item.icon;
         }
     }
@@ -51,7 +51,8 @@ public class MenuSlot : MonoBehaviour
 
     public void ChangeColour(Color color)
     {
-        button.GetComponent<SpriteRenderer>().color = color;
+        //color.a = 1;
+        button.color = color;
     }
     public void ChangeBackground(Sprite sprite)
     {

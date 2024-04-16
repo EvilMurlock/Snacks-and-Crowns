@@ -13,18 +13,19 @@ MonoBehaviour:
   m_Name: Spear
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 803604e5ea38b41479094e023d77fcb5, type: 3}
-  item_name: Spear
+  itemName: 
   description: Used to hit enemies from just out of their reach.
   cost: 40
   prefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
   useDuration: 0
   singleUse: 0
   componentDataUse: []
+  tags: []
   componentDataEquipment:
   - rid: 6825547853902118912
   - rid: 6825547854325481472
-  equipment_slot: 1
-  prefab_eq: {fileID: 2449238230562422413, guid: aeb04da02ee54494eac2eba8df3faa36, type: 3}
+  equipmentSlot: 1
+  equipmentPrefab: {fileID: 2449238230562422413, guid: aeb04da02ee54494eac2eba8df3faa36, type: 3}
   instance: {fileID: 0}
   references:
     version: 2
@@ -33,12 +34,14 @@ MonoBehaviour:
       type: {class: KnockbackComponentData, ns: , asm: Assembly-CSharp}
       data:
         name: 
+        activateAtUse: 0
         knockback: 50
         stunTime: 0.2
     - rid: 6825547854325481472
       type: {class: AttackComponentData, ns: , asm: Assembly-CSharp}
       data:
         name: 
+        activateAtUse: 0
         attack:
           damage: 40
           damage_type: 1

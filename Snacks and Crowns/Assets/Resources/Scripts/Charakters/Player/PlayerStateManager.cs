@@ -57,11 +57,12 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void LeftHand(InputAction.CallbackContext context)
     {
+        if (!context.started) return;
         if (debug) Debug.Log("Left hand");
         switch (playerState)
         {
             case CharakterState.normal:
-                //equipmentManager.UseLeftHand();
+                equipmentManager.UseLeftHand();
                 break;
             case CharakterState.inMenu:
                 break;
@@ -72,11 +73,13 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void RightHand(InputAction.CallbackContext context)
     {
+        if (!context.started) return;
+
         if (debug) Debug.Log("Right hand");
         switch (playerState)
         {
             case CharakterState.normal:
-                //equipmentManager.UseRightHand();
+                equipmentManager.UseRightHand();
                 break;
             case CharakterState.inMenu:
                 break;
@@ -88,6 +91,8 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void UseItem(InputAction.CallbackContext context)
     {
+        if (!context.started) return;
+
         if (debug) Debug.Log("Use item");
         switch (playerState)
         {
@@ -122,6 +127,8 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void Scroll(InputAction.CallbackContext context)
     {
+        if (!context.started) return;
+
         if (debug) Debug.Log("Scroll");
         switch (playerState)
         {
@@ -138,6 +145,7 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void Inventory(InputAction.CallbackContext context)
     {
+        if (!context.started) return;
         if (debug) Debug.Log("Inventory");
         switch (playerState)
         {

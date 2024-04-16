@@ -17,8 +17,8 @@ public class Menu : MonoBehaviour
     protected void SubscribeToSlotEvents()
     {
         // Debug.Log("Subbing to slots");
-        MenuSlot[] slots = GetComponentsInChildren<MenuSlot>();
-        foreach (MenuSlot slot in slots)
+        menuSlots = GetComponentsInChildren<MenuSlot>();
+        foreach (MenuSlot slot in menuSlots)
         {
             ButtonHandler[] handlers = slot.GetComponentsInChildren<ButtonHandler>();
             foreach (var handler in handlers)
@@ -26,8 +26,6 @@ public class Menu : MonoBehaviour
                 handler.Register(this);
             }
         }
-        menuSlots = GetComponentsInChildren<ShopSlot>();
-        // Debug.Log("Subscribed to " + slots.Length + " slots");
     }
     public virtual void SlotSelect(MenuSlot slot)
     {

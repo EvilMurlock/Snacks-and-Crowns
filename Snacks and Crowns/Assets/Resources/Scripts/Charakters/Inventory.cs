@@ -30,11 +30,9 @@ public class Inventory : MonoBehaviour
     }
     public void AddItem(Item item, int index)
     {
-        if (item == null) throw new System.Exception("Add Item to inventory failed, item to be added is null");
-        if(items[index] == null) items[index] = item;
-        throw new System.Exception("Inventory space already ocupied, AddItem failed");
+        items[index] = item;
+        onChangeInventory.Invoke(this);
     }
-
     public void RemoveItem(Item item)
     {
         for (int i = 0; i<items.Length; i++)
@@ -50,10 +48,6 @@ public class Inventory : MonoBehaviour
     }
     public void RemoveItem(int itemIndex)
     {
-        if (items[itemIndex] == null)
-        {
-            throw new System.Exception("Remove item from inventory failed, item is null on index: " + itemIndex);
-        }
         items[itemIndex] = null;
         onChangeInventory.Invoke(this);
     }

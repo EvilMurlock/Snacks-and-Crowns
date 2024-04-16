@@ -10,8 +10,8 @@ public class InventoryMenu : Menu
     int? submitedSlotIndex = null; // submited slot 
     int lastSubmitedSlotIndex = 0; // submited slot 
 
-    [SerializeField]
-    Color submitedButtonColour = new Color(50,50,50);
+    //[SerializeField]
+    Color submitedButtonColour = new Color(0,0,1);
          
     [SerializeField]
     GameObject itemDropPrefab;
@@ -36,6 +36,7 @@ public class InventoryMenu : Menu
         lastSelectedSlotIndex = index;
         // Debug.Log("Index is:" + index);
         itemInfo.LoadNewItem(slot.GetItem());
+        Refresh();
     }
     public override void SlotSubmit(MenuSlot slot)
     {
@@ -52,11 +53,34 @@ public class InventoryMenu : Menu
         }
         int index = menuSlots.GetIndex(slot);
         lastSelectedSlotIndex = index;
+        Refresh();
     }
     
     public override void SlotCancel(MenuSlot slot)
     {
-        // drop the item
+        int index = menuSlots.GetIndex(slot);
+        Item item;
+
+        // removing the item from self
+        if (index >= inventoryEquipmentDivideIndex)
+        {
+            EquipmentManager equipmentManager = player.GetComponent<EquipmentManager>();
+            item = equipmentManager.Equipments[index];
+            equipmentManager.UnEquipItem(index - inventoryEquipmentDivideIndex);
+        }
+        else
+        {
+            Inventory inventory = player.GetComponent<Inventory>();
+            item = inventory.Items[index];
+            inventory.RemoveItem(index);
+        }
+
+
+        // creation of item pickup
+        GameObject drop = Instantiate(itemDropPrefab);
+        drop.transform.position = transform.position;
+        drop.GetComponent<ItemPickup>().item = item;
+        Refresh();
     }
     void SwapItems(int index1, int index2)
     {
@@ -67,25 +91,27 @@ public class InventoryMenu : Menu
         // swap legality checks
 
         if (index1 == index2) return;
-        if (index1 > inventoryEquipmentDivideIndex && equipmentManager.CanEquipItem(item2, index2)) return;
-        if (index2 > inventoryEquipmentDivideIndex && equipmentManager.CanEquipItem(item1, index1)) return;
+        if (index1 >= inventoryEquipmentDivideIndex && !equipmentManager.CanEquipItem(item2, index2)) return;
+        if (index2 >= inventoryEquipmentDivideIndex && !equipmentManager.CanEquipItem(item1, index1)) return;
 
         // swap is legal
 
-        if (index1 > inventoryEquipmentDivideIndex)
+        if (index1 >= inventoryEquipmentDivideIndex)
         {
             equipmentManager.UnEquipItem(index1 - inventoryEquipmentDivideIndex);
             equipmentManager.EquipItem(item2, index1 - inventoryEquipmentDivideIndex);
         }
-        else inventory.AddItem(item2, index1);
+        else
+            inventory.AddItem(item2, index1);
 
 
-        if (index2 > inventoryEquipmentDivideIndex)
+        if (index2 >= inventoryEquipmentDivideIndex)
         {
             equipmentManager.UnEquipItem(index2 - inventoryEquipmentDivideIndex);
             equipmentManager.EquipItem(item1, index2 - inventoryEquipmentDivideIndex);
         }
-        else inventory.AddItem(item1, index2);
+        else
+            inventory.AddItem(item1, index2);
     }
     public override void Refresh()
     {

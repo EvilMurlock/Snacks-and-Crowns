@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pickaxe
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 17ce87a0d24200d4d8f7b07e3b09b01e, type: 3}
-  item_name: Pickaxe
+  itemName: 
   description: Used to chop down trees
   cost: 50
   prefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
@@ -25,8 +25,8 @@ MonoBehaviour:
   componentDataEquipment:
   - rid: 6825547853902118912
   - rid: 8153713742510555141
-  equipment_slot: 1
-  prefab_eq: {fileID: 2449238230562422413, guid: 2799bf3df38966e47ad6c400b9536193, type: 3}
+  equipmentSlot: 1
+  equipmentPrefab: {fileID: 2449238230562422413, guid: 2799bf3df38966e47ad6c400b9536193, type: 3}
   instance: {fileID: 0}
   references:
     version: 2

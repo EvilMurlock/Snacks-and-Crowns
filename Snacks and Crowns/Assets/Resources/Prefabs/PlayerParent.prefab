@@ -470,7 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 1113105939290363535}
-  equipmentManager: {fileID: 0}
+  equipmentManager: {fileID: 8260036102599678464}
   movement: {fileID: 626139007868611296}
   interactManager: {fileID: 4555316762405885909}
   playerState: 0

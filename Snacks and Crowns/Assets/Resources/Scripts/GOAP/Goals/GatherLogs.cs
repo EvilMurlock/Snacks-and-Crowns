@@ -10,12 +10,13 @@ namespace GOAP
         // Start is called before the first frame update
         protected override void Start()
         {
+            /*
             base.Start();
             log = (Item)Resources.Load("Items/Log");
             for (int i = 0; i<= chest.chest_inventory.Length; i++)
             {
                 desiredItems.Add(log);
-            }
+            }*/
         }
         public override bool CanRun()
         {

@@ -39,7 +39,7 @@ namespace GOAP {
                     newItemCount++;
                     tempDesiredItems1.Remove(item);
                 }
-            }
+            }/*
             List<Item> tempDesiredItems2 = new List<Item>(desiredItems);
             foreach (ItemSlot item in chest.chest_inventory)
             {
@@ -48,7 +48,7 @@ namespace GOAP {
                     originalItemCount++;
                     tempDesiredItems2.Remove(item.GetItem());
                 }
-            }
+            }*/
 
             return originalItemCount < newItemCount;
 
@@ -60,11 +60,13 @@ namespace GOAP {
 
         protected bool IsCompleted()
         {
+            
             List<Item> chestItems = new List<Item>();
+            /*
             foreach (ItemSlot itemSlot in chest.chest_inventory)
             {
                 chestItems.Add(itemSlot.GetItem());
-            }
+            }*/
             bool goalDone = true;
             foreach (Item item in desiredItems)
             {
@@ -107,7 +109,7 @@ namespace GOAP {
         protected int HowCloseToFillingTheChest()
         {
             int similarityCount = desiredItems.Count;
-
+            /*
             List<Item> tempDesiredItems1 = new List<Item>(desiredItems);
             foreach (ItemSlot itemSlot in chest.chest_inventory)
             {
@@ -117,7 +119,7 @@ namespace GOAP {
                     similarityCount--;
                     tempDesiredItems1.Remove(item);
                 }
-            }
+            }*/
 
             //Debug.Log("Priority is: "+similarityCount);
             return similarityCount;

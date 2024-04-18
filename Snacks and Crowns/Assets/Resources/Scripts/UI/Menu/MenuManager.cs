@@ -27,6 +27,7 @@ public class MenuManager : MonoBehaviour
     }
     public void CloseInventory()
     {
+        if (inventoryMenu == null) return;
         Destroy(inventoryMenu);
         GetComponent<PlayerStateManager>().ChangeState(CharakterState.normal);
     }

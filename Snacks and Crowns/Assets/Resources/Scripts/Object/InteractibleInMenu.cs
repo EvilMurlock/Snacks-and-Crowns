@@ -6,7 +6,7 @@ public abstract class InteractibleInMenu : Interactible
 {
     public override bool LockMove { get { return true; } }
     protected List<Menu> menus;
-    public new abstract void UnInteract(GameObject player);
+    public override abstract void UnInteract(GameObject player);
 
     protected void RefreshMenus()
     {

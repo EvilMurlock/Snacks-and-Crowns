@@ -45,16 +45,4 @@ public class Menu : MonoBehaviour
         // read inventory and refresh all shop slots and the item description
     }
     public bool BelongsToPlayer(GameObject playerToCompare) { return this.player == playerToCompare;}
-
-    /*
-    public void DeleteSelf(GameObject player)
-    {
-        Debug.Log("destroying self check");
-
-        if (this.player == player)
-        {
-            Debug.Log("destroying self ui");
-            Destroy(this.gameObject);
-        }
-    }*/
 }

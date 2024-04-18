@@ -348,8 +348,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7644193110412156459}
-        m_TargetAssemblyTypeName: Player_State_Manager, Assembly-CSharp
-        m_MethodName: Left_Hand
+        m_TargetAssemblyTypeName: PlayerStateManager, Assembly-CSharp
+        m_MethodName: LeftHand
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -364,8 +364,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7644193110412156459}
-        m_TargetAssemblyTypeName: Player_State_Manager, Assembly-CSharp
-        m_MethodName: Right_Hand
+        m_TargetAssemblyTypeName: PlayerStateManager, Assembly-CSharp
+        m_MethodName: RightHand
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -412,8 +412,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7644193110412156459}
-        m_TargetAssemblyTypeName: Player_State_Manager, Assembly-CSharp
-        m_MethodName: Use_Item
+        m_TargetAssemblyTypeName: PlayerStateManager, Assembly-CSharp
+        m_MethodName: UseItem
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -45,11 +45,12 @@ namespace GOAP
         }
         public override void Complete()
         {
+            /*
             if (!planingData.chest.RemoveItem(planingData.item))
             {
                 Deactivate(); 
                 return;
-            }
+            }*/
             /*
             if (!GetComponent<Inventory>().AddItem(planingData.item))
             {

@@ -21,18 +21,13 @@ public class EquipmentManager : MonoBehaviour
     }*/
     public bool CanEquipItem(Item item, int index)
     {
-        Debug.Log("Is null?");
-        if (item == null) return false;
-        Debug.Log("Free space?");
+        if (item == null) return true;
         if (equipments[index] != null) return false;
-        Debug.Log("Is equipment?");
         if (item is Equipment equipment)
         {
-            Debug.Log("Has correct slot position?");
             if (equipment.equipmentSlot != equipmentLocations[index].equipmentSlot) return false;
         }
         else return false;
-        Debug.Log("Item is equipable!");
         return true;
     }
     public void EquipItem(Item item, int index)
@@ -42,7 +37,7 @@ public class EquipmentManager : MonoBehaviour
         {
             equipment.InstantiateEquipment(equipmentLocations[index].transform);
             equipments[index] = equipment;
-            Debug.Log("Item " + equipment.name + " equiped");
+            //Debug.Log("Item " + equipment.name + " equiped");
         }
         return;
     }
@@ -56,10 +51,12 @@ public class EquipmentManager : MonoBehaviour
     }
     public void UseLeftHand()
     {
+        Debug.Log("Using Left hand");
         equipments[0].UseEquipment();
     }
     public void UseRightHand()
     {
+        Debug.Log("Using Right hand");
         equipments[1].UseEquipment();
     }
 

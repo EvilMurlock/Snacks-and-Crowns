@@ -57,7 +57,7 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void LeftHand(InputAction.CallbackContext context)
     {
-        if (!context.started) return;
+        //if (!context.started) return;
         if (debug) Debug.Log("Left hand");
         switch (playerState)
         {
@@ -73,7 +73,7 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void RightHand(InputAction.CallbackContext context)
     {
-        if (!context.started) return;
+        //if (!context.started) return;
 
         if (debug) Debug.Log("Right hand");
         switch (playerState)

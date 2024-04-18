@@ -133,9 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b67b63ae9c7266f4da9361e55a32d9ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab_chest_ui: {fileID: 7470949887272524258, guid: 6cccb9f879ca41a49bfa603defb8b704, type: 3}
-  instance_chest_ui: {fileID: 0}
-  chest_inventory: []
+  chestUiPrefab: {fileID: 7470949887272524258, guid: 6cccb9f879ca41a49bfa603defb8b704, type: 3}
+  inventory: {fileID: 0}
 --- !u!61 &1616411752393079465
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -220,8 +219,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf0141cfca642d438f6eea68a93682c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  capacity: 9
-  items: []
   onChangeInventory:
     m_PersistentCalls:
       m_Calls: []

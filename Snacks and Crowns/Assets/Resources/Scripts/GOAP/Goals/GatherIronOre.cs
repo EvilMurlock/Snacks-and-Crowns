@@ -9,13 +9,13 @@ namespace GOAP
         Item iron;
         // Start is called before the first frame update
         protected override void Start()
-        {
+        {/*
             base.Start();
             iron = (Item)Resources.Load("Items/Iron Ore");
             for (int i = 0; i<= chest.chest_inventory.Length; i++)
             {
                 desiredItems.Add(iron);
-            }
+            }*/
         }
         public override bool CanRun()
         {

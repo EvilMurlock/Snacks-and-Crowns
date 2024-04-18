@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class InventoryMenu : Menu
+public class ChestMenu : Menu
 {
     int lastSelectedSlotIndex; // just used to refresh the item description after sale
     ItemInfo itemInfo;
-    int inventoryEquipmentDivideIndex;
+    int inventoryChestDivideIndex;
     int? submitedSlotIndex = null; // submited slot 
     int lastSubmitedSlotIndex = 0; // submited slot 
-
+    Chest chest;
     //[SerializeField]
     Color submitedButtonColour = new Color(0,0,1);
          
@@ -22,10 +22,11 @@ public class InventoryMenu : Menu
         lastSelectedSlotIndex = 0;
         Refresh();
     }
-    public void Initialize(GameObject player)
+    public void Initialize(Chest chest, GameObject player)
     {
+        this.chest = chest;
         this.player = player;
-        inventoryEquipmentDivideIndex = player.GetComponent<Inventory>().Items.Length;
+        inventoryChestDivideIndex = player.GetComponent<Inventory>().Items.Length;
         // select first button
         player.GetComponent<MenuManager>().SelectObject(GetComponentInChildren<Button>().gameObject);
         AttachToCanvas();
@@ -60,13 +61,12 @@ public class InventoryMenu : Menu
     {
         int index = menuSlots.GetIndex(slot);
         Item item;
-
         // removing the item from self
-        if (index >= inventoryEquipmentDivideIndex)
+        if (index >= inventoryChestDivideIndex)
         {
-            EquipmentManager equipmentManager = player.GetComponent<EquipmentManager>();
-            item = equipmentManager.Equipments[index];
-            equipmentManager.UnEquipItem(index - inventoryEquipmentDivideIndex);
+            Inventory chestInventory = chest.GetComponent<Inventory>();
+            item = chestInventory.Items[index - inventoryChestDivideIndex];
+            chestInventory.RemoveItem(index - inventoryChestDivideIndex);
         }
         else
         {
@@ -87,39 +87,28 @@ public class InventoryMenu : Menu
     {
         Item item1 = menuSlots[index1].GetItem();
         Item item2 = menuSlots[index2].GetItem();
-        EquipmentManager equipmentManager = player.GetComponent<EquipmentManager>();
-        Inventory inventory = player.GetComponent<Inventory>();
+        Inventory chestInventory = chest.GetComponent<Inventory>();
+        Inventory playerInventory = player.GetComponent<Inventory>();
         // swap legality checks
 
         if (index1 == index2) return;
-        if (index1 >= inventoryEquipmentDivideIndex && !equipmentManager.CanEquipItem(item2, index1 - inventoryEquipmentDivideIndex)) return;
-        if (index2 >= inventoryEquipmentDivideIndex && !equipmentManager.CanEquipItem(item1, index2 - inventoryEquipmentDivideIndex)) return;
-
         // swap is legal
-
-        if (index1 >= inventoryEquipmentDivideIndex)
-        {
-            equipmentManager.UnEquipItem(index1 - inventoryEquipmentDivideIndex);
-            equipmentManager.EquipItem(item2, index1 - inventoryEquipmentDivideIndex);
-        }
+        if (index1 >= inventoryChestDivideIndex)
+            chestInventory.AddItem(item2, index1 - inventoryChestDivideIndex);
         else
-            inventory.AddItem(item2, index1);
+            playerInventory.AddItem(item2, index1);
 
-
-        if (index2 >= inventoryEquipmentDivideIndex)
-        {
-            equipmentManager.UnEquipItem(index2 - inventoryEquipmentDivideIndex);
-            equipmentManager.EquipItem(item1, index2 - inventoryEquipmentDivideIndex);
-        }
+        if (index2 >= inventoryChestDivideIndex)
+            chestInventory.AddItem(item1, index2 - inventoryChestDivideIndex);
         else
-            inventory.AddItem(item1, index2);
+            playerInventory.AddItem(item1, index2);
     }
     public override void Refresh()
     {
         MenuSlot selectedSlot = menuSlots[lastSelectedSlotIndex];
 
         Inventory playerInventory = player.GetComponent<Inventory>();
-        EquipmentManager equipmentManager = player.GetComponent<EquipmentManager>();
+        Inventory chestInventory = chest.GetComponent<Inventory>();
         // updating buy page
         int index = 0;
 
@@ -129,7 +118,7 @@ public class InventoryMenu : Menu
             menuSlots[index].AddItem(item);
             index++;
         }
-        foreach (Item item in equipmentManager.Equipments)
+        foreach (Item item in chestInventory.Items)
         {
             menuSlots[index].AddItem(item);
             index++;

@@ -41,7 +41,6 @@ public class Shop : InteractibleInMenu
         menuUi.Initialize(this, player);
         menus.Add(menuUi);
     }
-
     public override void UnInteract(GameObject player)
     {
         DeleteUi(player);

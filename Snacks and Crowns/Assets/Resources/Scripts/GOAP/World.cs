@@ -50,7 +50,7 @@ namespace GOAP
 
         void UpdateWorld()
         {
-
+            /*
             List<(int itemId, Vector3 position)> itemDrops = new List<(int, Vector3)>();
             foreach (ItemPickup itemControler in GameObject.FindObjectsByType<ItemPickup>(FindObjectsSortMode.None))
             {
@@ -68,7 +68,7 @@ namespace GOAP
                 }
                 chests.Add((chest, chestInventory));
             }
-            worldState.ModifyState("ChestList", chests);
+            worldState.ModifyState("ChestList", chests);*/
 
         }
     }

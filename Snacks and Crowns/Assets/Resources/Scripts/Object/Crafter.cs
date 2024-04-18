@@ -5,19 +5,22 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 
-public class Anvil : InteractibleInMenu
+public class Crafter : InteractibleInMenu
 {
-    public GameObject prefabAnvilUi;
-    public GameObject instanceAnvilUi;
-    public GameObject firstSelectedButton;
-    public CraftingObjekt craftingObjekt;
+    [SerializeField]
+    GameObject prefabAnvilUi;
+    [SerializeField]
+    GameObject firstSelectedButton;
+    [SerializeField]
+    CraftingObjekt craftingObjekt;
+
     List<CraftingRecepy> recepies;
 
     public GameObject itemPanelPrefab;
     
-    ItemSlot crafted_item;
+    ItemSlot craftedItem;
     TMPro.TMP_Dropdown dropdown;
-    GameObject ingredients_panel;
+    GameObject ingredientsPanel;
     ItemInfo itemInfo;
 
     GameObject player;

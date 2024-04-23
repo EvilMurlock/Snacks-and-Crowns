@@ -5,31 +5,126 @@ using UnityEngine.UI;
 public class CrafterMenu : Menu
 {
     int lastSelectedSlotIndex; // just used to refresh the item description after sale
+
+    List<CraftingRecepy> recepies;
+    bool craftable;
+
     ItemInfo itemInfo;
-    int inventoryChestDivideIndex;
-    int? submitedSlotIndex = null; // submited slot 
-    int lastSubmitedSlotIndex = 0; // submited slot 
-    Chest chest;
-    //[SerializeField]
-    Color submitedButtonColour = new Color(0,0,1);
-         
     [SerializeField]
-    GameObject itemDropPrefab;
+    GameObject prefabMenuSlot;
+    Crafter crafter;
+    [SerializeField]
+    MenuSlot craftedItem;
+    [SerializeField]
+    TMPro.TMP_Dropdown dropdown;
+    GameObject ingredientsPanel;
     private void Start()
     {
-        SubscribeToSlotEvents();
         itemInfo = GetComponentInChildren<ItemInfo>();
         lastSelectedSlotIndex = 0;
+        
         Refresh();
     }
-    public void Initialize(Chest chest, GameObject player)
+    public void Initialize(Crafter crafter, GameObject player)
     {
-        this.chest = chest;
+        this.crafter = crafter;
         this.player = player;
-        inventoryChestDivideIndex = player.GetComponent<Inventory>().Items.Length;
         // select first button
         player.GetComponent<MenuManager>().SelectObject(GetComponentInChildren<Button>().gameObject);
         AttachToCanvas();
+
+
+        
+        Inventory playerInventory = player.GetComponent<Inventory>();
+        dropdown = gameObject.GetComponentInChildren<TMPro.TMP_Dropdown>();
+
+        LoadRecepies();
+        foreach (CraftingRecepy recepy in recepies)
+        {
+            Item result = recepy.result;
+            dropdown.options.Add(new TMPro.TMP_Dropdown.OptionData(result.name,result.icon));
+        }
+        dropdown.onValueChanged.AddListener(delegate{ SwitchRecepy(); });
+        LoadRecepy(0);
+    }
+    void LoadRecepies()
+    {
+        recepies = new List<CraftingRecepy>();
+        CraftingRecepies craftingRecepies = GameObject.Find("Crafting Recepies").GetComponent<CraftingRecepies>();
+        foreach (CraftingRecepy craftingRecepy in craftingRecepies.craftingRecepies)
+        {
+            if (craftingRecepy.craftingObjekt == crafter.CraftingObjekt)
+            {
+                recepies.Add(craftingRecepy);
+            }
+        }
+    }
+
+    public void SwitchRecepy()
+    {
+        EraseRecepy();
+        LoadRecepy(dropdown.value);
+    }
+    void EraseRecepy()
+    {
+        foreach (Transform child in ingredientsPanel.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+    void LoadRecepy(int index)
+    {
+        craftable = true;
+
+        craftedItem.AddItem(recepies[index].result);
+                itemInfo.LoadNewItem(recepies[index].result);
+        
+        List<Item> playerItems = new List<Item>();
+        foreach (Item item in player.GetComponent<Inventory>().Items)
+        {
+            if(item != null) playerItems.Add(item);
+        }
+
+        foreach (Item item in recepies[index].ingredients)
+        {
+            MenuSlot menuSlot = Instantiate(prefabMenuSlot, ingredientsPanel.transform).GetComponent<MenuSlot>();
+            
+            int itemIndex = 0;
+            bool itemFound = false;
+            
+            foreach(Item playerItem in playerItems)
+            {
+                if (item.itemName == playerItem.itemName)
+                {
+                    itemFound = true;
+                    break;
+                }
+                itemIndex++;
+            }
+            if (itemFound && playerItems.Count > 0)
+            {
+                playerItems.RemoveAt(itemIndex);
+                menuSlot.ChangeColour(Color.green);
+            }
+            else
+            {
+                menuSlot.ChangeColour(Color.red);
+                craftable = false;
+            };
+        }
+    }
+    public void Craft()
+    {
+        if (craftable)
+        {
+            Inventory playerInventory = player.GetComponent<Inventory>();
+            foreach (Item item in recepies[dropdown.value].ingredients)
+                playerInventory.RemoveItem(item);
+
+            playerInventory.AddItem(recepies[dropdown.value].result);
+
+        }
+        SwitchRecepy();
     }
     public override void SlotSelect(MenuSlot slot)
     {
@@ -41,101 +136,19 @@ public class CrafterMenu : Menu
     }
     public override void SlotSubmit(MenuSlot slot)
     {
-        if(submitedSlotIndex == null)
-        {
-            submitedSlotIndex = menuSlots.GetIndex(slot);
-        }
-
-        else
-        {
-            int newIndex = menuSlots.GetIndex(slot);
-            SwapItems((int)submitedSlotIndex, newIndex);
-            submitedSlotIndex = null;
-        }
-        int index = menuSlots.GetIndex(slot);
-        lastSelectedSlotIndex = index;
-        Refresh();
     }
     
     public override void SlotCancel(MenuSlot slot)
     {
-        int index = menuSlots.GetIndex(slot);
-        Item item;
-        // removing the item from self
-        if (index >= inventoryChestDivideIndex)
-        {
-            Inventory chestInventory = chest.GetComponent<Inventory>();
-            item = chestInventory.Items[index - inventoryChestDivideIndex];
-            chestInventory.RemoveItem(index - inventoryChestDivideIndex);
-        }
-        else
-        {
-            Inventory inventory = player.GetComponent<Inventory>();
-            item = inventory.Items[index];
-            inventory.RemoveItem(index);
-        }
 
-        if (item == null) return;
-
-        // creation of item pickup
-        GameObject drop = Instantiate(itemDropPrefab);
-        drop.transform.position = transform.position;
-        drop.GetComponent<ItemPickup>().item = item;
-        Refresh();
-    }
-    void SwapItems(int index1, int index2)
-    {
-        Item item1 = menuSlots[index1].GetItem();
-        Item item2 = menuSlots[index2].GetItem();
-        Inventory chestInventory = chest.GetComponent<Inventory>();
-        Inventory playerInventory = player.GetComponent<Inventory>();
-        // swap legality checks
-
-        if (index1 == index2) return;
-        // swap is legal
-        if (index1 >= inventoryChestDivideIndex)
-            chestInventory.AddItem(item2, index1 - inventoryChestDivideIndex);
-        else
-            playerInventory.AddItem(item2, index1);
-
-        if (index2 >= inventoryChestDivideIndex)
-            chestInventory.AddItem(item1, index2 - inventoryChestDivideIndex);
-        else
-            playerInventory.AddItem(item1, index2);
     }
     public override void Refresh()
     {
         MenuSlot selectedSlot = menuSlots[lastSelectedSlotIndex];
 
-        Inventory playerInventory = player.GetComponent<Inventory>();
-        Inventory chestInventory = chest.GetComponent<Inventory>();
-        // updating buy page
-        int index = 0;
-
-        // updating sell page
-        foreach (Item item in playerInventory.Items)
-        {
-            menuSlots[index].AddItem(item);
-            index++;
-        }
-        foreach (Item item in chestInventory.Items)
-        {
-            menuSlots[index].AddItem(item);
-            index++;
-        }
-
         // updaing item info
         itemInfo.LoadNewItem(selectedSlot.GetItem());
 
-        // change colour of submited slot
-
-        if (submitedSlotIndex != null)
-        {
-            MenuSlot submitedSlot = menuSlots[(int)submitedSlotIndex];
-            submitedSlot.ChangeColour(submitedButtonColour);
-            lastSubmitedSlotIndex = (int)submitedSlotIndex;
-        }
-        else menuSlots[lastSubmitedSlotIndex].ChangeColour(Color.white);
     }
 
 }

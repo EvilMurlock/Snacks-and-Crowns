@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1535242024038109817
 SpriteRenderer:
@@ -132,11 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62de8609b8c9e3f4498353731bb78660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab_anvil_ui: {fileID: 2505771725439359731, guid: 659127abf6710174a928e0cf130f895d, type: 3}
-  instance_anvil_ui: {fileID: 0}
-  first_selected_button: {fileID: 0}
-  crafting_objekt: 0
-  item_panel_prefab: {fileID: 2531274137922553880, guid: 34f36af908efc834da0b3f6bd5414d0d, type: 3}
+  prefabCrafterlUi: {fileID: 5487211627693879025, guid: 0020423adc0509f409cafe8ebf316698, type: 3}
+  craftingObjekt: 0
 --- !u!61 &7489767793986582369
 BoxCollider2D:
   m_ObjectHideFlags: 0

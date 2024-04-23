@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4917660701022286679}
   - component: {fileID: 7418821811734188256}
   - component: {fileID: 8903951217120809554}
+  - component: {fileID: 4854334064883673468}
   m_Layer: 5
   m_Name: CrafterMenu
   m_TagString: Untagged
@@ -78,6 +79,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4854334064883673468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5487211627693879025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef1a7655f6a87ab41887f038b01eac85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabMenuSlot: {fileID: 4384189870506051938, guid: 81556a9845c3bc34a9600fe68189e3b7, type: 3}
+  craftedItem: {fileID: 6500417307216425949}
+  dropdown: {fileID: 7758549477460548139}
 --- !u!1001 &3303770254785814310
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -194,6 +210,34 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8810611184739331874, guid: 659127abf6710174a928e0cf130f895d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8810611184739331874, guid: 659127abf6710174a928e0cf130f895d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8810611184739331874, guid: 659127abf6710174a928e0cf130f895d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4854334064883673468}
+    - target: {fileID: 8810611184739331874, guid: 659127abf6710174a928e0cf130f895d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8810611184739331874, guid: 659127abf6710174a928e0cf130f895d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Craft
+      objectReference: {fileID: 0}
+    - target: {fileID: 8810611184739331874, guid: 659127abf6710174a928e0cf130f895d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CrafterMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8810611184739331874, guid: 659127abf6710174a928e0cf130f895d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8982808129755783191, guid: 659127abf6710174a928e0cf130f895d, type: 3}
       propertyPath: m_Size
       value: 1
@@ -212,6 +256,28 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1936421627394623223, guid: 659127abf6710174a928e0cf130f895d, type: 3}
   m_PrefabInstance: {fileID: 3303770254785814310}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6500417307216425949 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8642203808202304763, guid: 659127abf6710174a928e0cf130f895d, type: 3}
+  m_PrefabInstance: {fileID: 3303770254785814310}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 595c29c8ae0d55c4c9fe38bc876a403b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7758549477460548139 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5076328835857155341, guid: 659127abf6710174a928e0cf130f895d, type: 3}
+  m_PrefabInstance: {fileID: 3303770254785814310}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8017973610458364744
 PrefabInstance:
   m_ObjectHideFlags: 0

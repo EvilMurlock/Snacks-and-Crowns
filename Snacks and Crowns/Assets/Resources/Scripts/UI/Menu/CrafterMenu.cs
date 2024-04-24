@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 public class CrafterMenu : Menu
 {
-    int lastSelectedSlotIndex; // just used to refresh the item description after sale
+    int recepyIndex; // just used to refresh the item description after sale
 
-    List<CraftingRecepy> recepies;
+    List<CraftingRecipe> recipes;
     bool craftable;
-
+    [SerializeField]
     ItemInfo itemInfo;
     [SerializeField]
     GameObject prefabMenuSlot;
@@ -17,11 +17,11 @@ public class CrafterMenu : Menu
     MenuSlot craftedItem;
     [SerializeField]
     TMPro.TMP_Dropdown dropdown;
+    [SerializeField]
     GameObject ingredientsPanel;
     private void Start()
     {
-        itemInfo = GetComponentInChildren<ItemInfo>();
-        lastSelectedSlotIndex = 0;
+        recepyIndex = 0;
         
         Refresh();
     }
@@ -39,9 +39,9 @@ public class CrafterMenu : Menu
         dropdown = gameObject.GetComponentInChildren<TMPro.TMP_Dropdown>();
 
         LoadRecepies();
-        foreach (CraftingRecepy recepy in recepies)
+        foreach (CraftingRecipe recipy in recipes)
         {
-            Item result = recepy.result;
+            Item result = recipy.result;
             dropdown.options.Add(new TMPro.TMP_Dropdown.OptionData(result.name,result.icon));
         }
         dropdown.onValueChanged.AddListener(delegate{ SwitchRecepy(); });
@@ -49,13 +49,13 @@ public class CrafterMenu : Menu
     }
     void LoadRecepies()
     {
-        recepies = new List<CraftingRecepy>();
-        CraftingRecepies craftingRecepies = GameObject.Find("Crafting Recepies").GetComponent<CraftingRecepies>();
-        foreach (CraftingRecepy craftingRecepy in craftingRecepies.craftingRecepies)
+        recipes = new List<CraftingRecipe>();
+        CraftingRecipes craftingRecepies = GameObject.Find("Crafting Recipes").GetComponent<CraftingRecipes>();
+        foreach (CraftingRecipe craftingRecepy in craftingRecepies.craftingRecipes)
         {
             if (craftingRecepy.craftingObjekt == crafter.CraftingObjekt)
             {
-                recepies.Add(craftingRecepy);
+                recipes.Add(craftingRecepy);
             }
         }
     }
@@ -74,10 +74,11 @@ public class CrafterMenu : Menu
     }
     void LoadRecepy(int index)
     {
+        recepyIndex = index;
         craftable = true;
 
-        craftedItem.AddItem(recepies[index].result);
-                itemInfo.LoadNewItem(recepies[index].result);
+        craftedItem.AddItem(recipes[recepyIndex].result);
+        itemInfo.LoadNewItem(recipes[recepyIndex].result);
         
         List<Item> playerItems = new List<Item>();
         foreach (Item item in player.GetComponent<Inventory>().Items)
@@ -85,16 +86,16 @@ public class CrafterMenu : Menu
             if(item != null) playerItems.Add(item);
         }
 
-        foreach (Item item in recepies[index].ingredients)
+        foreach (Item item in recipes[recepyIndex].ingredients)
         {
             MenuSlot menuSlot = Instantiate(prefabMenuSlot, ingredientsPanel.transform).GetComponent<MenuSlot>();
-            
+            menuSlot.AddItem(item);
             int itemIndex = 0;
             bool itemFound = false;
             
             foreach(Item playerItem in playerItems)
             {
-                if (item.itemName == playerItem.itemName)
+                if (item == playerItem)
                 {
                     itemFound = true;
                     break;
@@ -112,43 +113,20 @@ public class CrafterMenu : Menu
                 craftable = false;
             };
         }
+        itemInfo.LoadNewItem(recipes[recepyIndex].result);
     }
     public void Craft()
     {
         if (craftable)
         {
             Inventory playerInventory = player.GetComponent<Inventory>();
-            foreach (Item item in recepies[dropdown.value].ingredients)
+            foreach (Item item in recipes[dropdown.value].ingredients)
                 playerInventory.RemoveItem(item);
 
-            playerInventory.AddItem(recepies[dropdown.value].result);
+            playerInventory.AddItem(recipes[dropdown.value].result);
 
         }
         SwitchRecepy();
-    }
-    public override void SlotSelect(MenuSlot slot)
-    {
-        int index = menuSlots.GetIndex(slot);
-        lastSelectedSlotIndex = index;
-        // Debug.Log("Index is:" + index);
-        itemInfo.LoadNewItem(slot.GetItem());
-        Refresh();
-    }
-    public override void SlotSubmit(MenuSlot slot)
-    {
-    }
-    
-    public override void SlotCancel(MenuSlot slot)
-    {
-
-    }
-    public override void Refresh()
-    {
-        MenuSlot selectedSlot = menuSlots[lastSelectedSlotIndex];
-
-        // updaing item info
-        itemInfo.LoadNewItem(selectedSlot.GetItem());
-
     }
 
 }

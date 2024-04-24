@@ -15,7 +15,15 @@ public class Item : ScriptableObject
     public bool singleUse = false;
     [SerializeReference] private List<ComponentDataGeneric> componentDataUse;
     [SerializeReference] List<string> tags;
-    
+
+    [SerializeField]
+    CraftingRecipe recipe;
+    public CraftingRecipe Recipe { 
+        get {
+            if (recipe.ingredients == null || recipe.ingredients.Count == 0) return null;
+            recipe.result = this;
+            return recipe;       
+        } }
     public List<string> Tags
     {
         get { return tags; }

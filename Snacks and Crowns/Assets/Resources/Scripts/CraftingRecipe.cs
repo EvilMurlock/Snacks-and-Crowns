@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class CraftingRecepy
+public class CraftingRecipe
 {
+    
     public List<Item> ingredients;
+    [HideInInspector]
     public Item result;
     public CraftingObjekt craftingObjekt;
 

@@ -13,13 +13,20 @@ MonoBehaviour:
   m_Name: Iron Bar
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: f5b47667331da474faf690bfe203c39a, type: 3}
-  item_name: Iron Bar
+  itemName: Iron bar
   description: It's a bar of iron
   cost: 10
   prefab: {fileID: 5236949791698959159, guid: ff323cf0037bddd4db75c03ecf76b5ce, type: 3}
   useDuration: 0
   singleUse: 0
   componentDataUse: []
+  tags: []
+  recipe:
+    ingredients:
+    - {fileID: 11400000, guid: d5a4236e2d44faa4087585bdd6dfcaeb, type: 2}
+    - {fileID: 11400000, guid: 6f30aa4034a30ec4e8f24151c05c9c5f, type: 2}
+    result: {fileID: 11400000}
+    craftingObjekt: 1
   references:
     version: 2
     RefIds: []

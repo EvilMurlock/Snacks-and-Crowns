@@ -21,6 +21,11 @@ MonoBehaviour:
   singleUse: 0
   componentDataUse: []
   tags: []
+  recipe:
+    ingredients:
+    - {fileID: 11400000, guid: 23fa81a0adcf84c419907f8c701838be, type: 2}
+    result: {fileID: 11400000}
+    craftingObjekt: 0
   componentDataEquipment:
   - rid: 8153713674250354728
   equipmentSlot: 2

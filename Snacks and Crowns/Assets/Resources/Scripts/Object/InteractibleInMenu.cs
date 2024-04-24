@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class InteractibleInMenu : Interactible
 {
     public override bool LockMove { get { return true; } }
-    protected List<Menu> menus;
+    protected List<Menu> menus = new List<Menu>();
     public override abstract void UnInteract(GameObject player);
 
     protected void RefreshMenus()

@@ -6,11 +6,11 @@ namespace GOAP
 {
     public class CraftItem : Action
     {
-        List<CraftingRecepy> craftingRecepyList;
-        CraftingRecepy currentRecepy;
+        List<CraftingRecipe> craftingRecipyList;
+        CraftingRecipe currentRecepy;
         public override void Start()
         {
-            craftingRecepyList = GameObject.Find("Crafting Recepies").GetComponent<CraftingRecepies>().craftingRecepies;
+            craftingRecipyList = GameObject.Find("Crafting Recipes").GetComponent<CraftingRecipes>().craftingRecipes;
             base.Start();
         }
         public override void Tick()
@@ -20,11 +20,11 @@ namespace GOAP
         }
         public override void Activate(object arg)
         {
-            (CraftingRecepy recepy, GameObject craftingPiece) pair = ((CraftingRecepy, GameObject)) arg;
+            (CraftingRecipe recipe, GameObject craftingPiece) pair = ((CraftingRecipe, GameObject)) arg;
 
             target = pair.craftingPiece;
-            currentRecepy = pair.recepy;
-            Debug.Log("Going to craft a: " +pair.recepy.result.itemName);
+            currentRecepy = pair.recipe;
+            Debug.Log("Going to craft a: " +pair.recipe.result.itemName);
 
             running = true;
             completed = false;
@@ -111,7 +111,7 @@ namespace GOAP
             */
             return possibleNodes;
         }
-        GameObject GetClosestCraftingObject(CraftingRecepy recepy, Vector3 myPosition)
+        GameObject GetClosestCraftingObject(CraftingRecipe recipe, Vector3 myPosition)
         {
             GameObject closestForge = null;
             GameObject closestWorkshop = null;
@@ -132,8 +132,8 @@ namespace GOAP
                     closestAnvil = tagSys.gameObject;
                 }
             }
-            if (recepy.craftingObjekt == CraftingObjekt.anvil) return closestAnvil;
-            else if (recepy.craftingObjekt == CraftingObjekt.workshop) return closestWorkshop;
+            if (recipe.craftingObjekt == CraftingObjekt.anvil) return closestAnvil;
+            else if (recipe.craftingObjekt == CraftingObjekt.workshop) return closestWorkshop;
             else return closestForge;
 
         }

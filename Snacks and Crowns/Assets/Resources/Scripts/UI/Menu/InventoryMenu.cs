@@ -65,7 +65,7 @@ public class InventoryMenu : Menu
         if (index >= inventoryEquipmentDivideIndex)
         {
             EquipmentManager equipmentManager = player.GetComponent<EquipmentManager>();
-            item = equipmentManager.Equipments[index];
+            item = equipmentManager.Equipments[index - inventoryEquipmentDivideIndex];
             equipmentManager.UnEquipItem(index - inventoryEquipmentDivideIndex);
         }
         else

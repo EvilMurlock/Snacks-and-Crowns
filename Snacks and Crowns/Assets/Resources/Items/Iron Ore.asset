@@ -13,7 +13,18 @@ MonoBehaviour:
   m_Name: Iron Ore
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 1117d71013ada1e4ea9cb17ada6b03fb, type: 3}
-  item_name: Iron Ore
+  itemName: Iron ore
   description: It's iron ore
   cost: 5
-  prefab: {fileID: 5236949791698959159, guid: ff323cf0037bddd4db75c03ecf76b5ce, type: 3}
+  prefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
+  useDuration: 0
+  singleUse: 0
+  componentDataUse: []
+  tags: []
+  recipe:
+    ingredients: []
+    result: {fileID: 0}
+    craftingObjekt: 0
+  references:
+    version: 2
+    RefIds: []

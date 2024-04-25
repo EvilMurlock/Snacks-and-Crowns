@@ -18,6 +18,8 @@ public class PlayerStateManager : MonoBehaviour
     [SerializeField]
     PlayerInteractManager interactManager;
     MenuManager menuManager;
+    [SerializeField]
+    HotbarMenu hotbarMenu;
     public CharakterState playerState;
     // Start is called before the first frame update
     CharakterState preStunState;
@@ -91,13 +93,14 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void UseItem(InputAction.CallbackContext context)
     {
+        
         if (!context.started) return;
 
         if (debug) Debug.Log("Use item");
         switch (playerState)
         {
             case CharakterState.normal:
-                //inventory.UseItem(0);//change this
+                hotbarMenu.UseItem();
                 break;
             case CharakterState.inMenu:
                 break;
@@ -127,13 +130,15 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void Scroll(InputAction.CallbackContext context)
     {
+        if (context.started) Debug.Log("STARTED");
+        if (context.performed) Debug.Log("PERFORMING");
         if (!context.started) return;
 
         if (debug) Debug.Log("Scroll");
         switch (playerState)
         {
             case CharakterState.normal:
-                //inventory.ScrollHotbar(context);
+                hotbarMenu.Scroll(context);
                 break;
             case CharakterState.inMenu:
                 break;
@@ -142,6 +147,7 @@ public class PlayerStateManager : MonoBehaviour
 
 
         }
+        Debug.Log("It hapens on the end for some reason");
     }
     public void Inventory(InputAction.CallbackContext context)
     {

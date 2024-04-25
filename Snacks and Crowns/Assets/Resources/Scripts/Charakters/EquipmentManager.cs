@@ -51,12 +51,10 @@ public class EquipmentManager : MonoBehaviour
     }
     public void UseLeftHand()
     {
-        Debug.Log("Using Left hand");
         equipments[0].UseEquipment();
     }
     public void UseRightHand()
     {
-        Debug.Log("Using Right hand");
         equipments[1].UseEquipment();
     }
 

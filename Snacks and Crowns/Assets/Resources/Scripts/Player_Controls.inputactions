@@ -181,7 +181,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
+                    "name": "Negative",
                     "id": "84d78718-6867-4ee6-aac4-4bd543d9da3f",
                     "path": "<Keyboard>/numpad4",
                     "interactions": "",
@@ -192,7 +192,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
+                    "name": "Positive",
                     "id": "45e32bac-b221-478f-a399-73ddcf181c25",
                     "path": "<Keyboard>/numpad5",
                     "interactions": "",

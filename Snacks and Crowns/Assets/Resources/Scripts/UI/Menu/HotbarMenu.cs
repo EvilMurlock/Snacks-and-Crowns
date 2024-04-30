@@ -15,7 +15,7 @@ public class HotbarMenu : Menu
         player = Player;
         SubscribeToSlotEvents();
         player.GetComponent<Inventory>().onChangeInventory.AddListener(UpdateHotbar);
-        UpdateColor();
+        UpdateHotbar(player.GetComponent<Inventory>());
     }
 
     void UpdateHotbar(Inventory inventory)
@@ -29,8 +29,8 @@ public class HotbarMenu : Menu
     }
     public void UseItem()
     {
-
         Item item = menuSlots[selectedSlotIndex].GetItem();
+        if (item == null) return;
         item.Use(player);
         if (item.singleUse)
         {

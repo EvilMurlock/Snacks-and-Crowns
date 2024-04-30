@@ -51,11 +51,16 @@ public class EquipmentManager : MonoBehaviour
     }
     public void UseLeftHand()
     {
-        equipments[0].UseEquipment();
+        UseHand(0);
     }
     public void UseRightHand()
     {
-        equipments[1].UseEquipment();
+        UseHand(1);
     }
-
+    public void UseHand(int index)
+    {
+        if (equipmentLocations[index].equipmentSlot != EquipmentSlot.hand) return;
+        if (equipments[index] == null) return;
+        equipments[index].UseEquipment();
+    }
 }

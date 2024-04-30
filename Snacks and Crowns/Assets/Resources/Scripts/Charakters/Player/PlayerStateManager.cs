@@ -42,7 +42,7 @@ public class PlayerStateManager : MonoBehaviour
 
     public void Movement(InputAction.CallbackContext context)
     {
-        if(debug) Debug.Log("MOVIGN'''");
+        if(debug) Debug.Log("MOVIGN");
         switch (playerState)
         {
             case CharakterState.normal:
@@ -59,7 +59,7 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void LeftHand(InputAction.CallbackContext context)
     {
-        //if (!context.started) return;
+        if (!context.started) return;
         if (debug) Debug.Log("Left hand");
         switch (playerState)
         {
@@ -76,7 +76,7 @@ public class PlayerStateManager : MonoBehaviour
     public void RightHand(InputAction.CallbackContext context)
     {
         //if (!context.started) return;
-
+        if (!context.started) return;
         if (debug) Debug.Log("Right hand");
         switch (playerState)
         {
@@ -112,8 +112,7 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void Interact(InputAction.CallbackContext context)
     {
-        if (debug) Debug.Log("Interact");
-        // Debug.Log("Interacting");
+        if (debug) Debug.Log("Interacting");
         switch (playerState)
         {
             case CharakterState.normal:
@@ -130,8 +129,9 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void Scroll(InputAction.CallbackContext context)
     {
+        /*
         if (context.started) Debug.Log("STARTED");
-        if (context.performed) Debug.Log("PERFORMING");
+        if (context.performed) Debug.Log("PERFORMING");*/
         if (!context.started) return;
 
         if (debug) Debug.Log("Scroll");
@@ -147,7 +147,6 @@ public class PlayerStateManager : MonoBehaviour
 
 
         }
-        Debug.Log("It hapens on the end for some reason");
     }
     public void Inventory(InputAction.CallbackContext context)
     {

@@ -28,7 +28,7 @@ namespace GOAP
             planner = new Planner();
             agentBelieveState = gameObject.GetComponent<AgentBelieveState>();
 
-            object[] action_scripts = Resources.LoadAll("Scripts/GOAP/Actions");
+            object[] action_scripts = Resources.LoadAll("Scripts/GOAP/Actions"); // adds all actions avalible to this agent
             foreach(object o in action_scripts)
             {
                 MonoScript a = (MonoScript)o;
@@ -36,10 +36,24 @@ namespace GOAP
                 
                 gameObject.AddComponent(a.GetClass());
             }
+            LoadActionsAndGoals();
+        }
+        
+        void LoadActionsAndGoals()
+        {
+            LoadActions();
+            LoadGoals();
+        }
+        
+        void LoadActions()
+        {
             Action[] acts = this.GetComponents<Action>();
             foreach (Action a in acts)
-                if(a.IsUsableBy(gameObject))actions.Add(a);
-
+                if (a.IsUsableBy(gameObject)) 
+                    actions.Add(a);
+        }
+        void LoadGoals()
+        {
             Goal[] gs = this.GetComponents<Goal>();
             foreach (Goal g in gs)
                 goals.Add(g);
@@ -52,6 +66,9 @@ namespace GOAP
         {
             return agentBelieveState.AgentBelieves;
         }
+
+
+        // !!!! PUT THIS IN THE PLANNER, BUT CYCLE THROU PLANS IN THE AGNTT!!!!!!!!
         (Queue<Node>, Goal) FindBestPlan() //Returns a plan for the most important goal posible
         {
             var sortedGoals = from entry in goals orderby entry.CalculatePriority() descending select entry;

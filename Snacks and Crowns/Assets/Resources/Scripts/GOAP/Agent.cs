@@ -67,30 +67,6 @@ namespace GOAP
             return agentBelieveState.AgentBelieves;
         }
 
-
-        // !!!! PUT THIS IN THE PLANNER, BUT CYCLE THROU PLANS IN THE AGNTT!!!!!!!!
-        (Queue<Node>, Goal) FindBestPlan() //Returns a plan for the most important goal posible
-        {
-            var sortedGoals = from entry in goals orderby entry.CalculatePriority() descending select entry;
-            if(planingDelayNow < planingDelayAfterFail)
-            {
-                planingDelayNow += Time.deltaTime;
-                return (null, null);
-            }
-            foreach (Goal g in sortedGoals)
-            {
-                if (g.CalculatePriority() < 0) continue;
-                Queue<Node> queue = null;
-                if(g.CanRun()) queue = planner.Plan(actions, g, GetAgentBelieveState());
-
-                if (queue != null)
-                {
-                    return (queue, g);
-                }
-            }
-            planingDelayNow = 0;
-            return (null, null);
-        }
         // Update is called once per frame
         void LateUpdate()
         {
@@ -107,16 +83,43 @@ namespace GOAP
 
             if (nodeQueue == null)
             {
-                (Queue<Node> nodeQueue, Goal goal) planGoal = FindBestPlan();
-
-                if (planGoal.goal != null && planGoal.goal.CalculatePriority() > 0 
-                    && (currentGoal == null || planGoal.goal.CalculatePriority() > currentGoal.CalculatePriority()))//Switch plans when plan with a higher priority goal is found
+                // we try to find a plan that fulfils one of our goals, in order of priority
+                var sortedGoals = from entry in goals orderby entry.CalculatePriority() descending select entry;
+                Goal newGoal = null;
+                Queue<Node> newNodeQueue = null;
+                if (planingDelayNow < planingDelayAfterFail)
+                    planingDelayNow += Time.deltaTime;
+                else
                 {
+                    WorldState agentBelives = GetAgentBelieveState();
+                    foreach (Goal g in sortedGoals)
+                    {
+                        if (g.CalculatePriority() < 0) continue;
+                        Queue<Node> queue = null;
+                        if (g.CanRun())
+                            queue = planner.CreatePlan(actions, g, agentBelives);
+
+                        if (queue != null)
+                        {
+                            newGoal = g;
+                            newNodeQueue = queue;
+                            break;
+                        }
+                    }
+                    planingDelayNow = 0;
+                }
+
+                // we swap into the new plan if we found a plan and our old goal has a lesser priority
+                if (newGoal != null && newGoal.CalculatePriority() > 0 
+                    && (currentGoal == null || newGoal.CalculatePriority() > currentGoal.CalculatePriority()))//Switch plans when plan with a higher priority goal is found
+                {
+                    // we cancel what we were doing
                     if (currentGoal != null) currentGoal.Deactivate();
                     if (currentAction != null) currentAction.Deactivate();
 
-                    currentGoal = planGoal.goal;
-                    nodeQueue = planGoal.nodeQueue;
+                    // we initialize our new plan
+                    currentGoal = newGoal;
+                    nodeQueue = newNodeQueue;
                     currentNode = nodeQueue.Dequeue();
                     currentAction = currentNode.action;
                     currentAction.Activate(currentNode.data);
@@ -125,11 +128,12 @@ namespace GOAP
             }
             if (currentAction != null && currentAction.running)
             {
-                currentAction.Tick();
+                currentAction.Tick(); // actions step
                 if (currentAction.completed)//if action done
                 {
                     if(nodeQueue.Count == 0)//if end of plan
                     {
+                       
                         currentGoal.Complete();
                         currentAction = null;
                         currentGoal = null;
@@ -137,6 +141,7 @@ namespace GOAP
                     }
                     else//if not end of plan
                     {
+                        // we load the next node from our plan queue
                         currentNode = nodeQueue.Dequeue();
                         currentAction = currentNode.action;
                         currentAction.Activate(currentNode.data);

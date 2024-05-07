@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GOAP
 {
-    public class Goal : MonoBehaviour
+    public abstract class Goal : MonoBehaviour
     {
         protected WorldState desiredState = new WorldState();
         private void Update()
@@ -41,24 +41,6 @@ namespace GOAP
         {
             return desiredState;
         }
-        public virtual bool CompletedByState(WorldState state)
-        {
-            return state.CompletesGoal(desiredState);
-        }
+        public abstract bool CompletedByState(WorldState state);
     }
-
-    /*
-    public class SubGoal
-    {
-        public Dictionary<string, object> sgoals;
-        public bool remove;
-
-        public SubGoal(string key, object value, bool remove)
-        {
-            sgoals = new Dictionary<string, object>();
-            sgoals.Add(key, value);
-            this.remove = remove;
-        }
-    }
-    */
 }

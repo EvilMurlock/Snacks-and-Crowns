@@ -5,6 +5,11 @@ using GOAP;
 public class AgentBelieveState : MonoBehaviour
 {
     WorldState agentBelieves = new WorldState();
+    Vector2 myPosition;
+    List<int> myInventory;
+    List<int> myEquipment;
+    float myHealth;
+    float myGoald;
     private void Awake()
     {
         GetComponent<Inventory>().onChangeInventory.AddListener(InventoryUpdate);
@@ -15,10 +20,6 @@ public class AgentBelieveState : MonoBehaviour
         get {
             UpdateGeneralBelieves();
             return agentBelieves; }
-    }
-    public void ModifyAgentBelieves(string key, object value)
-    {
-        agentBelieves.ModifyState(key, value);
     }
     void UpdateGeneralBelieves()
     {

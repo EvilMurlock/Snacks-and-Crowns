@@ -13,9 +13,6 @@ namespace GOAP
         public GameObject target;
         public List<string> targetTags = new List<string>();
 
-        public WorldState preconditions = new WorldState();
-        public WorldState effects = new WorldState();
-
         public bool running = false;
         public bool completed = false;
         protected NpcAi npcAi;
@@ -43,11 +40,6 @@ namespace GOAP
         {
             return true;
         }
-        public virtual bool IsAchievableGiven(WorldState worldState)//For the planer
-        {
-            if (!worldState.CompletesGoal(preconditions) || FindTarget() == null) return false;
-            return true;
-        }
         public virtual void Activate()
         {
             Activate(FindTarget());
@@ -70,16 +62,7 @@ namespace GOAP
             running = false;
             completed = true;
         }
-        public virtual List<Node> OnActionCompleteWorldStates(Node parent)
-        {
-            //Tells the planer how the world state will change on completion
-            WorldState newWorldstate = parent.state.MakeReferencialDuplicate();
-            newWorldstate.AddStates(effects);
-            List<Node> possibleNodes = new List<Node>();
-            target = FindTarget();
-            possibleNodes.Add(new Node(parent, parent.cost + GetDistanceFromTarget(), newWorldstate, this, null));
-            return possibleNodes;
-        }
+        public abstract List<Node> OnActionCompleteWorldStates(Node parent);
         protected float GetDistanceFromTarget()
         {
             if (target != null) return (gameObject.transform.position - target.transform.position).magnitude;
@@ -131,6 +114,9 @@ namespace GOAP
             */
             return foundTarget;
         }
+
+        public abstract bool IsAchievableGiven(WorldState worldState);//For the planner
+
         protected Node GetRequiredItemNoChest(Node parent, Item requiredItem) //Returns a plan that will colect the required items, returns null if no such plan exists
         {
             GetItem getItem = GetComponent<GetItem>();

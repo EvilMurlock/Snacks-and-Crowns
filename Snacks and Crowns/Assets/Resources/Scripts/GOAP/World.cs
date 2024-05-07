@@ -50,26 +50,25 @@ namespace GOAP
 
         void UpdateWorld()
         {
-            /*
-            List<(int itemId, Vector3 position)> itemDrops = new List<(int, Vector3)>();
-            foreach (ItemPickup itemControler in GameObject.FindObjectsByType<ItemPickup>(FindObjectsSortMode.None))
-            {
-                itemDrops.Add((GetIdFromItem(itemControler.item), itemControler.transform.position));
-            }
-            worldState.ModifyState("ItemDropList",itemDrops);
 
-            List<(Chest, List<int>)> chests = new List<(Chest, List<int>)>();
+            List<ItemPickup> itemPickups = new List<ItemPickup>();
+            foreach (ItemPickup itemPickup in GameObject.FindObjectsByType<ItemPickup>(FindObjectsSortMode.None))
+            {
+                itemPickups.Add(itemPickup);
+            }
+            worldState.itemPickups = itemPickups;
+
+            Dictionary<Chest, List<int>> chests = new Dictionary<Chest, List<int>>();
             foreach (Chest chest in GameObject.FindObjectsByType<Chest>(FindObjectsSortMode.None))
             {
                 List<int> chestInventory = new List<int>();
-                foreach(ItemSlot item in chest.chest_inventory)
+                foreach(Item item in chest.GetComponent<Inventory>().Items)
                 {
-                    if(item.IsNotEmpty())chestInventory.Add(World.GetIdFromItem(item.GetItem()));
+                    if(item != null)chestInventory.Add(World.GetIdFromItem(item));
                 }
-                chests.Add((chest, chestInventory));
+                chests[chest] = chestInventory;
             }
-            worldState.ModifyState("ChestList", chests);*/
-
+            worldState.chests = chests;
         }
     }
 }

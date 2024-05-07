@@ -70,11 +70,6 @@ namespace GOAP
         // Update is called once per frame
         void LateUpdate()
         {
-            // -----------------------
-            // WARNING TEMPORARILY DISABLED
-            // -----------------------
-            return;
-
             if (goals.Count == 0)
             {
                 Debug.Log("No goals");

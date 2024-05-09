@@ -21,10 +21,10 @@ namespace GOAP
         public override bool CanRun()
         {
             WorldState state = World.Instance.GetWorld();
-            List<(int, Vector3)> itemDrops = (List<(int, Vector3)>)state.GetStates()["ItemDropList"];
-            foreach((int, Vector3) pair in itemDrops)
+            List<ItemPickup> itemPickups = state.itemPickups;
+            foreach (ItemPickup pickUp in itemPickups)
             {
-                if (pair.Item1 == World.GetIdFromItem(log)) return true;
+                if (pickUp.item == log) return true;
             }
 
             TagSystem[] tagSystems = FindObjectsOfType<TagSystem>();

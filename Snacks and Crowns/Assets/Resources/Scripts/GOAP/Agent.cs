@@ -15,7 +15,7 @@ namespace GOAP
         Node currentNode;
         public Action currentAction;
         Goal currentGoal;
-        AgentBelieveState agentBelieveState;
+        WorldState worldState;
 
         
         float planingDelayAfterFail = 1;
@@ -26,7 +26,7 @@ namespace GOAP
         {
 
             planner = new Planner();
-            agentBelieveState = gameObject.GetComponent<AgentBelieveState>();
+            worldState = new WorldState(this.gameObject);
 
             object[] action_scripts = Resources.LoadAll("Scripts/GOAP/Actions"); // adds all actions avalible to this agent
             foreach(object o in action_scripts)
@@ -62,11 +62,6 @@ namespace GOAP
         {
             Debug.Log("GOALS:\n"+goals.ToString());
         }
-        WorldState GetAgentBelieveState()
-        {
-            return agentBelieveState.AgentBelieves;
-        }
-
         // Update is called once per frame
         void LateUpdate()
         {
@@ -86,13 +81,13 @@ namespace GOAP
                     planingDelayNow += Time.deltaTime;
                 else
                 {
-                    WorldState agentBelives = GetAgentBelieveState();
+                    worldState.UpdateBelieves();
                     foreach (Goal g in sortedGoals)
                     {
                         if (g.CalculatePriority() < 0) continue;
                         Queue<Node> queue = null;
                         if (g.CanRun())
-                            queue = planner.CreatePlan(actions, g, agentBelives);
+                            queue = planner.CreatePlan(actions, g, worldState);
 
                         if (queue != null)
                         {

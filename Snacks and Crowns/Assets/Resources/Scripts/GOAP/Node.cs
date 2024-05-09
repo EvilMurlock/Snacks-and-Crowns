@@ -8,9 +8,9 @@ namespace GOAP
         public Node parent;
         public float cost;
         public WorldState state;
-        public Action action;
-        public object data;
-        public Node(Node parent, float cost, WorldState worldState, Action action, object data)
+        public Action<ActionData> action;
+        public ActionData data;
+        public Node(Node parent, float cost, WorldState worldState, Action<ActionData> action, ActionData data)
         {
             this.parent = parent;
             this.cost = cost;

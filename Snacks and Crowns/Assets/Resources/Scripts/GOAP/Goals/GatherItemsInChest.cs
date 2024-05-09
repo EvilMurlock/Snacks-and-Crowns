@@ -10,7 +10,6 @@ namespace GOAP {
         public List<Item> desiredItems;
         float defaultPriority = 5;
         bool active = false;
-        AgentBelieveState agentBelieves;
         protected virtual void Start()
         {
             chest = chestOb.GetComponent<Chest>();
@@ -22,16 +21,16 @@ namespace GOAP {
         }
         public bool CloserToGoalCheck(WorldState state)
         {
-            List<(Chest, List<int>)> chests = (List<(Chest, List<int>)>)state.GetStates()["ChestList"];
+            Dictionary<Chest, List<int>> chests = state.chests;
 
-            (Chest, List<int>) pair = chests.Find(x => x.Item1 == chest);
-            if (pair.Item1 == null) return false;
+            List<int> items = chests[chest];
+            if (chest == null) return false;
 
             int originalItemCount = 0;
             int newItemCount = 0;
 
             List<Item> tempDesiredItems1 = new List<Item>(desiredItems);
-            foreach (int itemId in pair.Item2)
+            foreach (int itemId in items)
             {
                 Item item = World.GetItemFromId(itemId);
                 if (tempDesiredItems1.Contains(item))

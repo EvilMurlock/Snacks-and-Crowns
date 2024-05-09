@@ -4,7 +4,11 @@ using UnityEngine;
 
 namespace GOAP
 {
-    public class PickUpItem : Action
+    public class ActionDataPickUpItem : ActionData
+    {
+        public ItemPickup itemPickup;
+    }
+    public class PickUpItem : Action<ActionDataPickUpItem>
     {
         public override void Start()
         {
@@ -27,25 +31,25 @@ namespace GOAP
         }
         public override bool IsAchievableGiven(WorldState worldState)//For the planner
         {
-            //Is subaction
+            //Is subaction, we call it explicitly
             return false;
-
+            /*
             bool achievable = true;
-            List<int> items = (List<int>)worldState.GetStates()["Inventory"];
+            List<int> items = worldState.myInvetory
             if (items.Count >= GetComponent<Inventory>().Items.Length) achievable = false;//Full inventory = false
 
             List<(int itemID, Vector3 position)> itemDrops = (List<(int, Vector3)>)worldState.GetStates()["ItemDropList"];
             if (itemDrops.Count == 0) achievable = false;//any items to pick up
 
-            return achievable;
+            return achievable;*/
         }
-        public override void Activate(object arg)
+        public override void Activate(ActionDataPickUpItem data)
         {
-            (int, Vector3) pair = ((int, Vector3)) arg;
+            ItemPickup itemPickup = data.itemPickup;
 
 
-            Item item = World.GetItemFromId(pair.Item1);
-            Vector2 position = pair.Item2;
+            Item item = itemPickup.item;
+            Vector3 targetPosition = itemPickup.transform.position;
 
             //Debug.Log("Going to pick up " + item+" at position: "+position);
 
@@ -55,9 +59,9 @@ namespace GOAP
             ItemPickup chosenItem = null;
             foreach (ItemPickup itemControler in itemControlers)
             {
-                if((distance == -1 ||  GetDistanceBetween(itemControler.transform.position, position) < distance) && itemControler.item == item)
+                if((distance == -1 ||  GetDistanceBetween(itemControler.transform.position, targetPosition) < distance) && itemControler.item == item)
                 {
-                    distance = GetDistanceBetween(itemControler.transform.position, position);
+                    distance = GetDistanceBetween(itemControler.transform.position, targetPosition);
                     chosenItem = itemControler;
                 }
             }
@@ -89,43 +93,43 @@ namespace GOAP
         {
             List<Node> possibleNodes = new List<Node>();
 
-            List<(int itemId, Vector3 position)> processedItems = new List<(int itemId, Vector3 position)>();
+            List<ItemPickup> closestItems = new List<ItemPickup>();
 
-            Vector3 myPosition = (Vector3)parent.state.GetStates()["MyPosition"];
+            Vector3 myPosition = parent.state.myPosition;
 
-            List<int> inventory = (List<int>)parent.state.GetStates()["Inventory"];
-            List<(int itemId, Vector3 position)> itemDropList = (List<(int, Vector3)>)parent.state.GetStates()["ItemDropList"];
+            List<int> inventory = parent.state.myInventory;
+            List<ItemPickup> itemPickups = parent.state.itemPickups;
 
-            foreach ((int item, Vector3 position) iPpair in itemDropList)
+            // we find the closest item for each item type
+            foreach (ItemPickup itemPickup in itemPickups)
             {
-                if (processedItems.Exists(x => x.itemId == iPpair.item))
+                int itemId = World.GetIdFromItem(itemPickup.item);
+
+                ItemPickup fartherItemPickup = closestItems.Find(x => World.GetIdFromItem(x.item) == itemId);
+                if (fartherItemPickup != null)
                 {
-                    //Debug.Log("Duplicate item found: " + iPpair.item);
-                    if (GetDistanceBetween(myPosition, iPpair.position) < GetDistanceBetween(myPosition, processedItems.Find(x => x.itemId == iPpair.item).position))
+                    
+                    if (GetDistanceBetween(myPosition, itemPickup.transform.position) < GetDistanceBetween(myPosition, fartherItemPickup.transform.position))
                     {
-                        processedItems.Remove(processedItems.Find(x => x.itemId == iPpair.item));
+                        closestItems.Remove(fartherItemPickup);
                     }
                     else continue;
                 }
-                processedItems.Add(iPpair);
+                closestItems.Add(itemPickup);
             }
 
-            foreach ((int item, Vector3 position) iPpair in processedItems)
+            foreach (ItemPickup itemPickup in closestItems)
             {
                 //WorldState possibleWorldState = parent.state;//DEBUG LINE
                 //Vector3 myPosition = (Vector3)parent.state.GetStates()["MyPosition"];//DEBUG LINE
 
-                WorldState possibleWorldState = parent.state.MakeReferencialDuplicate();
+                WorldState possibleWorldState = new WorldState(parent.state);
+                possibleWorldState.CopyInventory();
+                possibleWorldState.CopyItemPickups();
 
-                List<int> newInventory = new List<int>(inventory);
-                List<(int itemId, Vector3 position)> newItemDropList = new List<(int, Vector3)>(itemDropList);
-
-                newInventory.Add(iPpair.item);
-                newItemDropList.Remove(iPpair);
-
-                possibleWorldState.ModifyState("Inventory", newInventory);
-                possibleWorldState.ModifyState("ItemDropList", newItemDropList);
-                possibleWorldState.ModifyState("MyPosition", iPpair.position);
+                possibleWorldState.myInventory.Add(World.GetIdFromItem(itemPickup.item));
+                possibleWorldState.itemPickups.Remove(itemPickup);
+                possibleWorldState.myPosition = itemPickup.transform.position;
 
                 /*Debuging
                 string invStr = "";
@@ -135,7 +139,8 @@ namespace GOAP
                 }
                 Debug.Log("Pick up item Inventory plan: "+invStr);
                 */
-                possibleNodes.Add(new Node(parent, 1 + parent.cost + GetDistanceBetween(myPosition, iPpair.position), possibleWorldState, this, iPpair));
+                float cost = 1 + parent.cost + GetDistanceBetween(myPosition, itemPickup.transform.position);
+                possibleNodes.Add(new Node(parent, cost, possibleWorldState, this, itemPickup));
             }
             
 

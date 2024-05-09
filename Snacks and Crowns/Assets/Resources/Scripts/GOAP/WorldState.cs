@@ -7,9 +7,58 @@ namespace GOAP
     public class WorldState
     {
         public List<ItemPickup> itemPickups;
-        public Dictionary<Chest, List<int>> chests;
+        public Dictionary<Chest, List<int>> chests; // chest reference, and its inventory
+        public GameObject agent;
+        public Vector3 myPosition;
+        public List<int> myInventory;
+        public List<int> myEquipment;
+        //float myHealth;
+        //float myGold;
+        public void CopyItemPickups()
+        {
+            itemPickups = new List<ItemPickup>(itemPickups);
+        }
+        public void CopyInventory()
+        {
+            myInventory = new List<int>(myInventory);
+        }
         public WorldState()
         {
+        }
+        public WorldState( WorldState worldState)
+        {
+            itemPickups = worldState.itemPickups;
+            chests = worldState.chests;
+            agent = worldState.agent;
+            myPosition = worldState.myPosition;
+            myInventory = worldState.myInventory;
+            myEquipment = worldState.myEquipment;
+        }
+        public WorldState(GameObject agent)
+        {
+            this.agent = agent;
+        }
+
+        public void UpdateBelieves() 
+        {
+            UpdateGeneralBelieves();
+            InventoryUpdate(agent.GetComponent<Inventory>());
+        }
+        void UpdateGeneralBelieves()
+        {
+            WorldState generalBelieves = World.Instance.GetWorld();
+            itemPickups = generalBelieves.itemPickups;
+            chests = generalBelieves.chests;
+            myPosition = agent.transform.position;
+        }
+        void InventoryUpdate(Inventory inventory)
+        {
+            List<int> inventoryItems = new List<int>();
+            foreach (Item item in inventory.Items)
+            {
+                inventoryItems.Add(World.GetIdFromItem(item));
+            }
+            myInventory = inventoryItems;
         }
     }
 }

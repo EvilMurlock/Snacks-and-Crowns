@@ -21,43 +21,44 @@ namespace GOAP
         {
             return false;
         }
+        public override void Activate(ActionData arg)
+        {
+            throw new System.Exception("This function should never be called, we only create nodes for other actions, so we should never activate");
+        }
         Node GetItemFromDrop(Node parent, Item requestedItem)
         {
             int item = World.GetIdFromItem(requestedItem);
 
 
             //SEARCHING FOR ITEM PICKUPS
-            List<int> inventory = (List<int>)parent.state.GetStates()["Inventory"];
-            List<(int itemId, Vector3 position)> itemDropList = (List<(int, Vector3)>)parent.state.GetStates()["ItemDropList"];
-            Vector3 myPosition = (Vector3)parent.state.GetStates()["MyPosition"];
+            List<int> inventory = parent.state.myInventory;
+            List<ItemPickup> itemPickups = parent.state.itemPickups;
+            Vector3 myPosition = parent.state.myPosition;
 
-            (int item, Vector3 position) chosenPair = (-1, new Vector3());
+            ItemPickup chosenPickup = null;
             float distance = -1;
-            foreach ((int item, Vector3 position) iPpair in itemDropList)
+            foreach (ItemPickup pickup in itemPickups)
             {
-                if (iPpair.item != item) continue;
-                if (chosenPair.item == -1 || distance > GetDistanceBetween(myPosition, iPpair.position))
+                if (World.GetIdFromItem(pickup.item) != item) continue;
+                float newDistance = GetDistanceBetween(myPosition, pickup.transform.position);
+                if (chosenPickup == null || distance > newDistance)
                 {
-                    chosenPair = iPpair;
-                    distance = GetDistanceBetween(myPosition, iPpair.position);
+                    chosenPickup = pickup;
+                    distance = newDistance;
                 }
             }
 
-            if (chosenPair.item != -1)
+            if (chosenPickup != null)
             {
-                WorldState possibleWorldState = parent.state.MakeReferencialDuplicate();
+                WorldState possibleWorldState = new WorldState(parent.state);
 
-                List<int> newInventory = new List<int>(inventory);
-                List<(int itemId, Vector3 position)> newItemDropList = new List<(int, Vector3)>(itemDropList);
+                possibleWorldState.CopyInventory();
+                possibleWorldState.CopyItemPickups();
 
-                newInventory.Add(chosenPair.item);
-                newItemDropList.Remove(chosenPair);
+                possibleWorldState.myInventory.Add(World.GetIdFromItem(chosenPickup.item));
+                possibleWorldState.itemPickups.Remove(chosenPickup);
 
-                possibleWorldState.ModifyState("Inventory", newInventory);
-                possibleWorldState.ModifyState("ItemDropList", newItemDropList);
-                possibleWorldState.ModifyState("MyPosition", chosenPair.position);
-
-                Node node = new Node(parent, 1 + parent.cost + distance, possibleWorldState, GetComponent<PickUpItem>(), chosenPair);
+                Node node = new Node(parent, 1 + parent.cost + distance, possibleWorldState, GetComponent<PickUpItem>(), new ActionDataPickUpItem(chosenPickup));
                 return node;
             }
             return null;
@@ -66,48 +67,36 @@ namespace GOAP
         {
             //SEARCHING FOR ITEMS IN CHESTS2
             int item = World.GetIdFromItem(requestedItem);
-            List<int> inventory = (List<int>)parent.state.GetStates()["Inventory"];
-            Vector3 myPosition = (Vector3)parent.state.GetStates()["MyPosition"];
+            List<int> inventory = parent.state.myInventory;
+            Vector3 myPosition = parent.state.myPosition;
 
             float distance = -1;
-            List<(Chest, List<int>)> ChestList = (List<(Chest, List<int>)>)parent.state.GetStates()["ChestList"];
+            Dictionary<Chest, List<int>> chests = parent.state.chests;
 
-            (Chest chest, List<int> inventory) closestChest = (null, null);
-            foreach ((Chest, List<int> chestInventory) chestInventoryPair in ChestList)
+            Chest closestChest = null;
+            foreach (Chest chest in chests.Keys)
             {
-                if (!chestInventoryPair.chestInventory.Contains(item)) continue;
-                if (closestChest.chest == null || distance > GetDistanceBetween(myPosition, closestChest.chest.transform.position))
+                if (!chests[chest].Contains(item)) continue;
+                float newDistance = GetDistanceBetween(myPosition, chest.transform.position);
+                if (closestChest == null || distance > newDistance)
                 {
-                    closestChest = chestInventoryPair;
-                    distance = GetDistanceBetween(myPosition, closestChest.chest.transform.position);
+                    closestChest = chest;
+                    distance = newDistance;
                 }
             }
-            if (closestChest.chest != null)
+            if (closestChest != null)
             {
-                WorldState possibleWorldState = parent.state.MakeReferencialDuplicate();
+                WorldState possibleWorldState = new WorldState(parent.state);
 
-                List<int> newInventory = new List<int>(inventory);
-
-                List<(Chest, List<int>)> tempList = new List<(Chest, List<int>)>(ChestList);
-                List<(Chest, List<int>)> chestInventoryPairList = new List<(Chest, List<int>)>();
-                foreach ((Chest, List<int>) temp in tempList)
-                {
-                    List<int> itemList = new List<int>(temp.Item2);
-                    chestInventoryPairList.Add((temp.Item1, itemList));
-                }
-                (Chest chest, List<int> chestInventory) pair = chestInventoryPairList.Find(x => x.Item1 == closestChest.Item1); //Perfectly coppied pair, ready to be modified into the next worldstate
+                possibleWorldState.CopyInventory();
+                possibleWorldState.CopyChestInventory(closestChest);
 
                 //World state modification
-                newInventory.Add(item);
-                pair.chestInventory.Remove(item);
-                Vector3 myNewPosition = pair.Item1.transform.position;
+                possibleWorldState.myEquipment.Add(item);
+                possibleWorldState.chests[closestChest].Remove(item);
+                possibleWorldState.myPosition = closestChest.transform.position;
 
-                //World state aplication
-                possibleWorldState.ModifyState("Inventory", newInventory);
-                possibleWorldState.ModifyState("ChestList", chestInventoryPairList);
-                possibleWorldState.ModifyState("MyPosition", myNewPosition);
-
-                Node node = new Node(parent, 1 + parent.cost + GetDistanceBetween(pair.chest.transform.position, myPosition), possibleWorldState, GetComponent<PickItemFromChest>(), (closestChest.chest, item));
+                Node node = new Node(parent, 1 + parent.cost + distance, possibleWorldState, GetComponent<PickItemFromChest>(), new ActionDataPickItemFromChest(closestChest,World.GetItemFromId(item)));
                 return node;
             }
 

@@ -4,13 +4,42 @@ using UnityEngine;
 
 namespace GOAP
 {
-    public class ChopDownTree : Action
+    class ActionDataHarvestResource : ActionData
     {
-        Equipment axe;
-        Item requiredItem;
+        public ActionDataHarvestResource(GameObject target, string toolName)
+        {
+            this.target = target;
+            this.toolName = toolName;
+        }
+        public GameObject target;
+        public string toolName;
+    }
+    class HarvestData
+    {
+        public HarvestData(Item requiredTool, string targetTag, Item resourceItem)
+        {
+            if (requiredTool == null || resourceItem == null) throw new System.Exception("Harvest data does not have correct item data - in HarvesResource.cs");
+            this.requiredTool = requiredTool;
+            this.targetTag = targetTag;
+            this.resourceItem = resourceItem;
+        }
+        Item requiredTool;
+        string targetTag;
+        Item resourceItem;
+    }
+    public class HarvestResource : Action
+    {
+        List<HarvestData> harvestDatas = new List<HarvestData>();
+        Equipment tool;
         public override void Start()
         {
-            requiredItem = World.GetItemFromName("Axe");
+            // we initialize harvesting data
+            Item requiredItemAxe = World.GetItemFromName("Axe");
+            Item resourceItemLog = World.GetItemFromName("Log");
+            harvestDatas.Add(new HarvestData(requiredItemAxe, "Tree", resourceItemLog));
+            Item requiredItemPickaxe = World.GetItemFromName("Pickaxe");
+            Item resourceItemIronOre = World.GetItemFromName("Iron Ore");
+            harvestDatas.Add(new HarvestData(requiredItemAxe, "Iron Ore", resourceItemLog));
             base.Start();
         }
         public override void Tick()
@@ -18,13 +47,14 @@ namespace GOAP
             if (target == null) Complete();
             else if (npcAi.reachedEndOfPath)
             {
-                axe.instance.GetComponent<Hand_Item_Controler>().Use();
+                tool.instance.GetComponent<Hand_Item_Controler>().Use();
                 //Take a swing at it
             }
         }
-        public override void Activate(object arg)
+        public override void Activate(ActionData arg)
         {
-            target = (GameObject)arg;
+            ActionDataHarvestResource data = (ActionDataHarvestResource)arg;
+            target = data.target;
 
             //Equip axe
             Item[] items = (Item[])GetComponent<Inventory>().Items;

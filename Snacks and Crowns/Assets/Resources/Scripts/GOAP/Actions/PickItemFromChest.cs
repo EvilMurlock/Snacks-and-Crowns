@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace GOAP
 {
+
+    public class ActionDataPickItemFromChest : ActionData
+    {
+        Chest chest;
+        Item item;
+        public ActionDataPickItemFromChest(Chest chest, Item item)
+        {
+            this.chest = chest;
+            this.item = item;
+        }
+    }
     public class PickItemFromChest : Action
     {
         (Chest chest, Item item) planingData;
@@ -36,7 +47,7 @@ namespace GOAP
             return false;
             //Its a subaction
         }
-        public override void Activate(object newData)
+        public override void Activate(ActionData newData)
         {
         }
         public override void Deactivate()

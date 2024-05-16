@@ -4,6 +4,17 @@ using UnityEngine;
 
 namespace GOAP
 {
+    class ActionDataCraftItem : ActionData
+    {
+        public CraftingRecipe recipe;
+        public GameObject craftingPiece;
+
+        public ActionDataCraftItem(CraftingRecipe recipe, GameObject craftingPiece)
+        {
+            this.recipe = recipe;
+            this.craftingPiece = craftingPiece;
+        }
+    }
     public class CraftItem : Action
     {
         List<CraftingRecipe> craftingRecipyList;
@@ -18,13 +29,13 @@ namespace GOAP
             if (target == null) Deactivate();
             if (npcAi.reachedEndOfPath) Complete();
         }
-        public override void Activate(object arg)
+        public override void Activate(ActionData arg)
         {
-            (CraftingRecipe recipe, GameObject craftingPiece) pair = ((CraftingRecipe, GameObject)) arg;
+            ActionDataCraftItem data = (ActionDataCraftItem)arg;
 
-            target = pair.craftingPiece;
-            currentRecepy = pair.recipe;
-            Debug.Log("Going to craft a: " +pair.recipe.result.itemName);
+            target = data.craftingPiece;
+            currentRecepy = data.recipe;
+            Debug.Log("Going to craft a: " + data.recipe.result.itemName);
 
             running = true;
             completed = false;

@@ -6,9 +6,13 @@ namespace GOAP
 {
     public class ActionDataPickUpItem : ActionData
     {
+        public ActionDataPickUpItem(ItemPickup itemPickup)
+        {
+            this.itemPickup = itemPickup;
+        }
         public ItemPickup itemPickup;
     }
-    public class PickUpItem : Action<ActionDataPickUpItem>
+    public class PickUpItem : Action
     {
         public override void Start()
         {
@@ -43,8 +47,9 @@ namespace GOAP
 
             return achievable;*/
         }
-        public override void Activate(ActionDataPickUpItem data)
+        public override void Activate(ActionData dataArg)
         {
+            ActionDataPickUpItem data = (ActionDataPickUpItem)dataArg; 
             ItemPickup itemPickup = data.itemPickup;
 
 
@@ -140,7 +145,7 @@ namespace GOAP
                 Debug.Log("Pick up item Inventory plan: "+invStr);
                 */
                 float cost = 1 + parent.cost + GetDistanceBetween(myPosition, itemPickup.transform.position);
-                possibleNodes.Add(new Node(parent, cost, possibleWorldState, this, itemPickup));
+                possibleNodes.Add(new Node(parent, cost, possibleWorldState, this, new ActionDataPickUpItem(itemPickup)));
             }
             
 

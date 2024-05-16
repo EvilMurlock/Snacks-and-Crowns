@@ -14,6 +14,9 @@ namespace GOAP
         public List<int> myEquipment;
         //float myHealth;
         //float myGold;
+
+
+        // DEEP COPIES individual items---
         public void CopyItemPickups()
         {
             itemPickups = new List<ItemPickup>(itemPickups);
@@ -22,11 +25,16 @@ namespace GOAP
         {
             myInventory = new List<int>(myInventory);
         }
+        public void CopyChestInventory(Chest chest)
+        {
+            chests[chest] = new List<int>(chests[chest]);
+        }
         public WorldState()
         {
         }
         public WorldState( WorldState worldState)
         {
+            // reference copy - shallow copy
             itemPickups = worldState.itemPickups;
             chests = worldState.chests;
             agent = worldState.agent;

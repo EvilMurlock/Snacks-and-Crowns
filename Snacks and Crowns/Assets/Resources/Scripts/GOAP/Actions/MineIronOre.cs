@@ -22,9 +22,9 @@ namespace GOAP
                 //Take a swing at it
             }
         }
-        public override void Activate(object arg)
+        public override void Activate(ActionData arg)
         {
-            target = (GameObject)arg;
+            // target = (GameObject)arg;
 
             //Equip axe
             Item[] items = (Item[])GetComponent<Inventory>().Items;

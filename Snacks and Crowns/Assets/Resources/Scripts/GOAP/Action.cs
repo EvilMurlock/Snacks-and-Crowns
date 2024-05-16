@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GOAP
 {
-    public abstract class Action<DataType> : MonoBehaviour
+    public abstract class Action : MonoBehaviour
     {
         public bool reusable = false; //can this action be used multiple times in the planner?, often set true for subactions
         
@@ -45,7 +45,7 @@ namespace GOAP
         {
             Activate(FindTarget());
         }*/
-        public abstract void Activate(DataType data);
+        public abstract void Activate(ActionData data);
             /*
         {
             

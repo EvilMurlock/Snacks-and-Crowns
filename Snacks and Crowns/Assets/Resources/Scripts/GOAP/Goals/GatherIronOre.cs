@@ -20,11 +20,11 @@ namespace GOAP
         public override bool CanRun()
         {
             WorldState state = World.Instance.GetWorld();
-            List<(int, Vector3)> itemDrops = (List<(int, Vector3)>)state.GetStates()["ItemDropList"];
+            /*List<(int, Vector3)> itemDrops = (List<(int, Vector3)>)state.GetStates()["ItemDropList"];
             foreach((int, Vector3) pair in itemDrops)
             {
                 if (pair.Item1 == World.GetIdFromItem(iron)) return true;
-            }
+            }*/
 
             TagSystem[] tagSystems = FindObjectsOfType<TagSystem>();
             foreach (TagSystem tagSys in tagSystems)

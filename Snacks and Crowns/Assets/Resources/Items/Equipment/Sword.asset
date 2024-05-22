@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: edf02af0aa593c345b584e540fa72124, type: 3}
-  itemName: 
+  itemName: Sword
   description: You can use this to hurt people
   cost: 50
   prefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}

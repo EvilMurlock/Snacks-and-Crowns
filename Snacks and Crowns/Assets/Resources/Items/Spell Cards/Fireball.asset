@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fireball
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 03c01edbfe698044193b59d5d3559e41, type: 3}
-  item_name: Fireball
+  itemName: Fireball
   description: Spell card that will shoot out a ball of fire.
   cost: 60
   prefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
@@ -23,6 +23,10 @@ MonoBehaviour:
   - rid: 8153713352461778951
   - rid: 8153713630321049601
   tags: []
+  recipe:
+    ingredients: []
+    result: {fileID: 0}
+    craftingObjekt: 0
   references:
     version: 2
     RefIds:

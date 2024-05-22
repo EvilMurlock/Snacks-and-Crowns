@@ -6,13 +6,13 @@ namespace GOAP
 {
     class ActionDataHarvestResource : ActionData
     {
-        public ActionDataHarvestResource(GameObject target, string toolName)
+        public ActionDataHarvestResource(GameObject target, HarvestData harvestData)
         {
             this.target = target;
-            this.toolName = toolName;
+            this.harvestData = harvestData;
         }
         public GameObject target;
-        public string toolName;
+        public HarvestData harvestData;
     }
     class HarvestData
     {
@@ -23,13 +23,14 @@ namespace GOAP
             this.targetTag = targetTag;
             this.resourceItem = resourceItem;
         }
-        Item requiredTool;
-        string targetTag;
-        Item resourceItem;
+        public Item requiredTool;
+        public string targetTag;
+        public Item resourceItem;
     }
     public class HarvestResource : Action
     {
         List<HarvestData> harvestDatas = new List<HarvestData>();
+        ActionDataHarvestResource planingData;
         Equipment tool;
         public override void Start()
         {
@@ -37,6 +38,8 @@ namespace GOAP
             Item requiredItemAxe = World.GetItemFromName("Axe");
             Item resourceItemLog = World.GetItemFromName("Log");
             harvestDatas.Add(new HarvestData(requiredItemAxe, "Tree", resourceItemLog));
+
+
             Item requiredItemPickaxe = World.GetItemFromName("Pickaxe");
             Item resourceItemIronOre = World.GetItemFromName("Iron Ore");
             harvestDatas.Add(new HarvestData(requiredItemAxe, "Iron Ore", resourceItemLog));
@@ -53,17 +56,25 @@ namespace GOAP
         }
         public override void Activate(ActionData arg)
         {
-            ActionDataHarvestResource data = (ActionDataHarvestResource)arg;
-            target = data.target;
+            planingData = (ActionDataHarvestResource)arg;
+            target = planingData.target;
 
-            //Equip axe
-            Item[] items = (Item[])GetComponent<Inventory>().Items;
-            foreach (Item item in items)
+
+            Inventory agentInventory = GetComponent<Inventory>();
+            EquipmentManager agentEquipmentManager = GetComponent<EquipmentManager>();
+            if (!agentInventory.HasItem(planingData.harvestData.requiredTool))
             {
-                //if (item.name == "Axe") { GetComponent<EquipmentManager>().EquipItem(item);axe =(Equipment) item ; break;}
-                
+                Deactivate();
+                return;
             }
 
+
+            // equipts the required tool
+            if(!EquipItem(agentInventory, agentEquipmentManager, planingData.harvestData.requiredTool))
+            {
+                Deactivate();
+                return;
+            }
 
             running = true;
             completed = false;
@@ -72,15 +83,20 @@ namespace GOAP
         public override void Deactivate()
         {
             //Unequip axe
+            Inventory agentInventory = GetComponent<Inventory>();
+            EquipmentManager agentEquipmentManager = GetComponent<EquipmentManager>();
 
-            /*
-            GetComponent<EquipmentManager>().UnEquipItem(axe);
+            Unequip(agentInventory, agentEquipmentManager, planingData.harvestData.requiredTool);
+
             running = false;
-            npcAi.ChangeTarget(null);*/
+            npcAi.ChangeTarget(null);
         }
         public override void Complete()
         {
-            //GetComponent<EquipmentManager>().UnEquipItem(axe);
+            Inventory agentInventory = GetComponent<Inventory>();
+            EquipmentManager agentEquipmentManager = GetComponent<EquipmentManager>();
+
+            Unequip(agentInventory, agentEquipmentManager, planingData.harvestData.requiredTool);
 
             running = false;
             completed = true;

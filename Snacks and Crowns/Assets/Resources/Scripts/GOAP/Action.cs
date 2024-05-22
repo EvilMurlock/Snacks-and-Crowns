@@ -16,6 +16,8 @@ namespace GOAP
         public bool running = false;
         public bool completed = false;
         protected NpcAi npcAi;
+        
+
         public virtual void Awake()
         {
             actionName = this.GetType().Name;
@@ -156,6 +158,59 @@ namespace GOAP
                 currentNode = newNode;
             }
             return currentNode;
+        }
+        protected void TakeItem(Inventory inventory, Item item)
+        {
+            if (!inventory.HasEmptySpace(1))
+            {
+                DropRandomItemFromInventory(inventory);
+            }
+            inventory.AddItem(item);
+        }
+        protected void DropRandomItemFromInventory(Inventory inventory)
+        {
+            int index = Random.Range(0, inventory.GetCapacity());
+            GameObject itemPickUpPrefab = Resources.Load<GameObject>("Prefabs/Items/Item");
+            GameObject itemDrop = Instantiate(itemPickUpPrefab);
+            itemDrop.GetComponent<ItemPickup>().item = inventory.Items[index];
+            inventory.RemoveItem(index);
+            itemDrop.transform.position = this.transform.position;
+        }
+
+        protected bool EquipItem(Inventory inventory, EquipmentManager equipmentManager, Item item)
+        {
+            if (!inventory.HasItem(item))
+            {
+                Debug.Log("Ai: npc doesnt have the item it wants to equip");
+                return false;
+            }
+            for(int i = 0; i < 5; i++)
+            {
+                if(equipmentManager.CanEquipItem(item, i))
+                {
+                    equipmentManager.EquipItem(item, i);
+                    inventory.RemoveItem(item);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        protected void Unequip(Inventory inventory, EquipmentManager equipmentManager, Item item)
+        {
+            Equipment[] equipments = equipmentManager.Equipments;
+
+            int index = 0;
+            foreach(Item equipment in equipments)
+            {
+                if(item == equipment)
+                {
+                    TakeItem(inventory, item);
+                    equipmentManager.UnEquipItem(index);
+                    return;
+                }
+                index++;
+            }
         }
     }
 }

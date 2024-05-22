@@ -6,8 +6,8 @@ namespace GOAP
 
     public class ActionDataPickItemFromChest : ActionData
     {
-        Chest chest;
-        Item item;
+        public Chest chest;
+        public Item item;
         public ActionDataPickItemFromChest(Chest chest, Item item)
         {
             this.chest = chest;
@@ -16,7 +16,7 @@ namespace GOAP
     }
     public class PickItemFromChest : Action
     {
-        (Chest chest, Item item) planingData;
+        ActionDataPickItemFromChest planingData;
         public override void Start()
         {
             reusable = true; //This is a subaction
@@ -49,6 +49,8 @@ namespace GOAP
         }
         public override void Activate(ActionData newData)
         {
+            planingData = (ActionDataPickItemFromChest)newData;
+            target = planingData.chest.gameObject;
         }
         public override void Deactivate()
         {
@@ -56,32 +58,37 @@ namespace GOAP
         }
         public override void Complete()
         {
-            /*
-            if (!planingData.chest.RemoveItem(planingData.item))
-            {
-                Deactivate(); 
-                return;
-            }*/
-            /*
-            if (!GetComponent<Inventory>().AddItem(planingData.item))
-            {
-                planingData.chest.AddItem(planingData.item);
-                Deactivate(); 
-                return;
-            }*/
 
+            Inventory chestInventory = planingData.chest.GetComponent<Inventory>();
+            if (!chestInventory.HasItem(planingData.item))
+            {
+                Deactivate();
+                return;
+            }
+            chestInventory.RemoveItem(planingData.item);
+
+
+            Inventory agentInventory = GetComponent<Inventory>();
+            if (!agentInventory.HasEmptySpace(1))
+            {
+                DropRandomItemFromInventory(agentInventory);
+            }
+            agentInventory.AddItem(planingData.item);
             running = false;
             completed = true;
         }
         public override List<Node> OnActionCompleteWorldStates(Node parent)//Tells the planer how the world state will change on completion
         {
+            // WE DONT DO THIS - PLANNS GENERATED IN DIFFERENT ACTION - THIS ACTION IS HERE ONLY FOR ITS EXECUTION NOT PLANNING PART
+            
             List<Node> possibleNodes = new List<Node>();
-            List<int> inventory = (List<int>)parent.state.GetStates()["Inventory"];
-            Vector3 myPosition = (Vector3)parent.state.GetStates()["MyPosition"];
+            /*
+            //List<int> inventory = (List<int>)parent.state.GetStates()["Inventory"];
+            //Vector3 myPosition = (Vector3)parent.state.GetStates()["MyPosition"];
 
             List<int> chosenItems = new List<int>();
 
-
+            */
             return possibleNodes;
         }
     }

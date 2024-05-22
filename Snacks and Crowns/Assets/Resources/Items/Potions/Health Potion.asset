@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Health Potion
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 43e2fbcb7ff1fbc4194ab7c218588323, type: 3}
-  item_name: Health Potion
+  itemName: Health Potion
   description: Heals your wounds if you drink it
   cost: 30
   prefab: {fileID: 5236949791698959159, guid: ff323cf0037bddd4db75c03ecf76b5ce, type: 3}
@@ -23,6 +23,10 @@ MonoBehaviour:
   - rid: 6825547856982573057
   tags:
   - 
+  recipe:
+    ingredients: []
+    result: {fileID: 0}
+    craftingObjekt: 0
   references:
     version: 2
     RefIds:

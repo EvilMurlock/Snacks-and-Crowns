@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Spear
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 803604e5ea38b41479094e023d77fcb5, type: 3}
-  itemName: 
+  itemName: Spear
   description: Used to hit enemies from just out of their reach.
   cost: 40
   prefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}

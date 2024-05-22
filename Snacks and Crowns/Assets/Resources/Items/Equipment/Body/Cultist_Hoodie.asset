@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cultist_Hoodie
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 3a886846129055b4f916424a832db46a, type: 3}
-  itemName: 
+  itemName: Hoodie
   description: It shows that you are a member of the cult
   cost: 20
   prefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}

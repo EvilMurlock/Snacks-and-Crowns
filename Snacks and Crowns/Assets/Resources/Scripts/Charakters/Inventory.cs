@@ -7,6 +7,7 @@ public class Inventory : MonoBehaviour
 {
     //[SerializeField]
     Item[] items = new Item[9];
+    
     public Item[] Items { get { return items; } }
     [HideInInspector]
     public UnityEvent<Inventory> onChangeInventory;
@@ -88,5 +89,9 @@ public class Inventory : MonoBehaviour
     public void SetCapacity(int newCapacity)
     {
         items = new Item[newCapacity];
+    }
+    public int GetCapacity()
+    {
+        return items.Length;
     }
 }

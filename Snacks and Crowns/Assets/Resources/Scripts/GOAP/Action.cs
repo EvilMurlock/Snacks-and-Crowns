@@ -124,6 +124,7 @@ namespace GOAP
 
         protected Node GetRequiredItemNoChest(Node parent, Item requiredItem) //Returns a plan that will colect the required items, returns null if no such plan exists
         {
+            
             GetItem getItem = GetComponent<GetItem>();
             Node currentNode = parent;
 

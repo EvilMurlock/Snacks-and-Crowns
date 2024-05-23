@@ -70,11 +70,15 @@ namespace GOAP
                 Debug.Log("No goals");
                 return;
             }
-
+            if(currentGoal != null)
+            {
+                Debug.Log("Current goal: " + currentGoal.name);
+            }
             if (nodeQueue == null)
             {
+
                 // we try to find a plan that fulfils one of our goals, in order of priority
-                var sortedGoals = from entry in goals orderby entry.CalculatePriority() descending select entry;
+                var sortedGoals = from goal in goals orderby goal.CalculatePriority() descending select goal;
                 Goal newGoal = null;
                 Queue<Node> newNodeQueue = null;
                 if (planingDelayNow < planingDelayAfterFail)
@@ -86,9 +90,12 @@ namespace GOAP
                     {
                         if (g.CalculatePriority() < 0) continue;
                         Queue<Node> queue = null;
+                        Debug.Log("Current goal can run: " + g.CanRun());
                         if (g.CanRun())
                             queue = planner.CreatePlan(actions, g, worldState);
-
+                        if(queue == null)
+                            Debug.Log("Queue is null!!!!");
+                        planner.DebugPrintPlan(queue);
                         if (queue != null)
                         {
                             newGoal = g;
@@ -103,6 +110,7 @@ namespace GOAP
                 if (newGoal != null && newGoal.CalculatePriority() > 0 
                     && (currentGoal == null || newGoal.CalculatePriority() > currentGoal.CalculatePriority()))//Switch plans when plan with a higher priority goal is found
                 {
+                    Debug.Log("Working on a new goal: " + newGoal.name);
                     // we cancel what we were doing
                     if (currentGoal != null) currentGoal.Deactivate();
                     if (currentAction != null) currentAction.Deactivate();

@@ -16,14 +16,14 @@ public class GoldDisplay : MonoBehaviour
     }
     public void CoupleToPlayer(GameObject player)
     {
-        Debug.Log("Yep, attacking to player");
+        //Debug.Log("Yep, attaching to player");
         GoldTracker goldTracker = player.GetComponent<GoldTracker>();
         goldTracker.goldChange.AddListener(UpdateMoneyCounter);
         UpdateMoneyCounter(goldTracker.Gold);
     }
     void UpdateMoneyCounter(int gold)
     {
-        Debug.Log("Changing gold display to: " + gold);
+        //Debug.Log("Changing gold display to: " + gold);
         text.text = gold.ToString();
     }
 }

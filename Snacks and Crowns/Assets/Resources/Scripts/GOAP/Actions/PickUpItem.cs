@@ -49,7 +49,9 @@ namespace GOAP
         }
         public override void Activate(ActionData dataArg)
         {
-            ActionDataPickUpItem data = (ActionDataPickUpItem)dataArg; 
+            
+            ActionDataPickUpItem data = (ActionDataPickUpItem)dataArg;
+            if (data.itemPickup == null) Deactivate();
             ItemPickup itemPickup = data.itemPickup;
 
 

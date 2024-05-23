@@ -5,15 +5,23 @@ using UnityEngine;
 namespace GOAP {
     public class GatherItemsInChest : Goal
     {
-        public GameObject chestOb;
-        public Chest chest;
+        public GameObject chestObject;
+        Chest chest;
         public List<Item> desiredItems;
         float defaultPriority = 5;
         bool active = false;
         protected virtual void Start()
         {
-            chest = chestOb.GetComponent<Chest>();
+            chest = chestObject.GetComponent<Chest>();
 
+        }
+        public void SetDesiredChest(Chest newChest)
+        {
+            chest = newChest;
+        }
+        public void SetDesiredItems(List<Item> newDesiredItems)
+        {
+            desiredItems = newDesiredItems;
         }
         public override bool CompletedByState(WorldState state) //If more of desired item in chest then there is curently, then returns true
         {
@@ -23,14 +31,14 @@ namespace GOAP {
         {
             Dictionary<Chest, List<int>> chests = state.chests;
 
-            List<int> items = chests[chest];
             if (chest == null) return false;
+            List<int> chestItems = chests[chest];
 
             int originalItemCount = 0;
             int newItemCount = 0;
 
             List<Item> tempDesiredItems1 = new List<Item>(desiredItems);
-            foreach (int itemId in items)
+            foreach (int itemId in chestItems)
             {
                 Item item = World.GetItemFromId(itemId);
                 if (tempDesiredItems1.Contains(item))
@@ -38,16 +46,21 @@ namespace GOAP {
                     newItemCount++;
                     tempDesiredItems1.Remove(item);
                 }
-            }/*
+            }
+
+
+
+
             List<Item> tempDesiredItems2 = new List<Item>(desiredItems);
-            foreach (ItemSlot item in chest.chest_inventory)
+            Inventory currentChestInventory = chest.GetComponent<Inventory>();
+            foreach (Item item in currentChestInventory.Items)
             {
-                if (tempDesiredItems2.Contains(item.GetItem()))
+                if (tempDesiredItems2.Contains(item))
                 {
                     originalItemCount++;
-                    tempDesiredItems2.Remove(item.GetItem());
+                    tempDesiredItems2.Remove(item);
                 }
-            }*/
+            }
 
             return originalItemCount < newItemCount;
 
@@ -59,15 +72,15 @@ namespace GOAP {
 
         protected bool IsCompleted()
         {
-            
-            List<Item> chestItems = new List<Item>();
-            /*
-            foreach (ItemSlot itemSlot in chest.chest_inventory)
-            {
-                chestItems.Add(itemSlot.GetItem());
-            }*/
+
+
+            // we get a copy of chest items
+            Inventory currentChestInventory = chest.GetComponent<Inventory>();
+            List<Item> chestItems = new List<Item>(currentChestInventory.Items);
+
+            // we check if we have all required items
             bool goalDone = true;
-            foreach (Item item in desiredItems)
+            foreach (Item item in desiredItems) 
             {
                 if (chestItems.Contains(item)) chestItems.Remove(item);
                 else goalDone = false;
@@ -108,20 +121,37 @@ namespace GOAP {
         protected int HowCloseToFillingTheChest()
         {
             int similarityCount = desiredItems.Count;
-            /*
+            
             List<Item> tempDesiredItems1 = new List<Item>(desiredItems);
-            foreach (ItemSlot itemSlot in chest.chest_inventory)
+            Inventory currentChestInventory = chest.GetComponent<Inventory>();
+            foreach (Item item in currentChestInventory.Items)
             {
-                Item item = itemSlot.GetItem();
                 if (tempDesiredItems1.Contains(item))
                 {
                     similarityCount--;
                     tempDesiredItems1.Remove(item);
                 }
-            }*/
+            }
 
             //Debug.Log("Priority is: "+similarityCount);
             return similarityCount;
         }
+        /*
+        public override bool CanRun()
+        {
+            WorldState state = World.Instance.GetWorld();
+            //List<(int, Vector3)> itemDrops = (List<(int, Vector3)>)state.GetStates()["ItemDropList"];
+            //foreach((int, Vector3) pair in itemDrops)
+            //{
+            //    if (pair.Item1 == World.GetIdFromItem(iron)) return true;
+            //}
+
+            TagSystem[] tagSystems = FindObjectsOfType<TagSystem>();
+            foreach (TagSystem tagSys in tagSystems)
+            {
+                if (tagSys.HasTag("Iron Ore Mine")) return true;
+            }
+            return false;
+        }*/
     }
 }

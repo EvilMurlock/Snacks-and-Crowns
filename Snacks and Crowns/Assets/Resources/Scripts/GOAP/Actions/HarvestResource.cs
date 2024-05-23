@@ -42,7 +42,7 @@ namespace GOAP
 
             Item requiredItemPickaxe = World.GetItemFromName("Pickaxe");
             Item resourceItemIronOre = World.GetItemFromName("Iron Ore");
-            harvestDatas.Add(new HarvestData(requiredItemAxe, "Iron Ore", resourceItemLog));
+            harvestDatas.Add(new HarvestData(requiredItemAxe, "Iron Ore Mine", resourceItemLog));
             base.Start();
         }
         public override void Tick()
@@ -104,12 +104,21 @@ namespace GOAP
         public override bool IsAchievableGiven(WorldState worldState)//For the planner
         {
             bool achievable = true;
-            bool treeExists = false;
+            bool harvestableExists = false;
             foreach (TagSystem tagSys in GameObject.FindObjectsByType<TagSystem>(FindObjectsSortMode.None))
             {
-                if (tagSys.HasTag("Tree")) { treeExists = true; break; }
+                foreach(HarvestData harvestData in harvestDatas)
+                {
+                    if (tagSys.HasTag(harvestData.targetTag)) 
+                    { 
+                        harvestableExists = true; 
+                        break; 
+                    }
+                }
+                if (harvestableExists) 
+                    break;
             }
-            if (!treeExists) achievable = false;
+            if (!harvestableExists) achievable = false;
 
             return achievable;
         }
@@ -120,60 +129,64 @@ namespace GOAP
             Node parent = parent_;
 
             List<Node> possibleNodes = new List<Node>();
-            /*
-            bool haveAxe = false;
-            List<int> items = (List<int>)parent.state.GetStates()["Inventory"];
-            foreach (int itemId in items)
+            foreach (HarvestData harvestData in harvestDatas)
             {
 
-                if (World.GetItemFromId(itemId) == requiredItem) { haveAxe = true; break; }
-            }
-            if (!haveAxe)
-            {
-                Node newNode = GetRequiredItem(parent, requiredItem);
-                if (newNode == null) return possibleNodes;
-                parent = newNode;
-            }
-
-
-
-            Vector3 myPosition = (Vector3)parent.state.GetStates()["MyPosition"];
-
-
-            List<TagSystem> trees = new List<TagSystem>(); 
-            foreach (TagSystem tagSys in GameObject.FindObjectsByType<TagSystem>(FindObjectsSortMode.None))
-            {
-                if (tagSys.HasTag("Tree")) trees.Add(tagSys);
-            }
-            TagSystem closestTree = null;
-            float distanceToTree = -1;
-            foreach(TagSystem tree in trees)
-            {
-                if(closestTree == null || GetDistanceBetween(tree.transform.position, myPosition) < distanceToTree)
+                bool haveTool = false;
+                List<int> items = parent.state.myInventory;
+                foreach (int itemId in items)
                 {
-                    closestTree = tree;
-                    distanceToTree = GetDistanceBetween(closestTree.transform.position, myPosition);
+                    if (World.GetItemFromId(itemId) == harvestData.requiredTool) { haveTool = true; break; }
                 }
+                if (!haveTool)
+                {
+                    Node newNode = GetRequiredItem(parent, harvestData.requiredTool);
+                    if (newNode == null) continue; // we cant find the needed tool, so we stop planing to harvest this resource
+                    parent = newNode;
+                }
+
+
+
+                Vector3 myPosition = parent.state.myPosition;
+
+
+                List<TagSystem> resourceDeposits = new List<TagSystem>(); 
+                foreach (TagSystem tagSys in GameObject.FindObjectsByType<TagSystem>(FindObjectsSortMode.None))
+                {
+                    if (tagSys.HasTag(harvestData.targetTag)) resourceDeposits.Add(tagSys);
+                }
+                TagSystem closestDeposit = null;
+                float distanceToDeposit = -1;
+                foreach(TagSystem deposit in resourceDeposits)
+                {
+                    if(closestDeposit == null || GetDistanceBetween(deposit.transform.position, myPosition) < distanceToDeposit)
+                    {
+                        closestDeposit = deposit;
+                        distanceToDeposit = GetDistanceBetween(closestDeposit.transform.position, myPosition);
+                    }
+                }
+
+
+                WorldState possibleWorldState = new WorldState(parent.state);
+                possibleWorldState.CopyVirtualItemPickups();
+                    
+                int resource = World.GetIdFromItem(harvestData.resourceItem);
+                
+
+
+
+                string itemName = harvestData.resourceItem.name;
+                foreach(string tag in closestDeposit.GetTags()) // we add item pickups droped from the resource deposit to the plan world state
+                {
+                    if(tag == itemName+"Drop") possibleWorldState.virtualItemPickups.Add(resource);
+                }
+
+                possibleWorldState.myPosition = closestDeposit.transform.position;
+                ActionDataHarvestResource actionData = new ActionDataHarvestResource(closestDeposit.gameObject, harvestData);
+                possibleNodes.Add(new Node(parent, 1 + parent.cost + GetDistanceBetween(myPosition, closestDeposit.transform.position), possibleWorldState, this, actionData));
+
+                
             }
-
-
-            WorldState possibleWorldState = parent.state.MakeReferencialDuplicate();
-
-            int log = World.GetIdFromItem((Item)Resources.Load("Items/Log"));
-            List<(int itemId, Vector3 position)> newItemDropList = new List<(int, Vector3)>(((List<(int, Vector3)>) parent.state.GetStates()["ItemDropList"]));
-            
-            foreach(string tag in closestTree.GetTags())
-            {
-                if(tag == "LogDrop") newItemDropList.Add((log, closestTree.transform.position));
-            }
-            
-
-            possibleWorldState.ModifyState("ItemDropList", newItemDropList);
-            possibleWorldState.ModifyState("MyPosition", closestTree.transform.position);
-
-            possibleNodes.Add(new Node(parent, 1 + parent.cost + GetDistanceBetween(myPosition, closestTree.transform.position), possibleWorldState, this, closestTree.gameObject));
-            
-            */
             return possibleNodes;
         }
     }

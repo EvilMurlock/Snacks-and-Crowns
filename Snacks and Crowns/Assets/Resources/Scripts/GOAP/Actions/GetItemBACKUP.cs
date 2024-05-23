@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GOAP
 {
-    public class GetItem : Action
+    public class GetItemBackup : Action
     {
         public override void Tick()
         {
@@ -25,7 +25,7 @@ namespace GOAP
         {
             throw new System.Exception("This function should never be called, we only create nodes for other actions, so we should never activate");
         }
-
+        
         Node GetItemFromDrop(Node parent, Item requestedItem)
         {
             int item = World.GetIdFromItem(requestedItem);
@@ -64,9 +64,9 @@ namespace GOAP
             }
 
 
-            foreach (int virtualItem in parent.state.virtualItemPickups) // we try to pick up a virtual pickup (the game object doesnt exist, but it will in the real world after we execute the plan)
+            foreach(int virtualItem in parent.state.virtualItemPickups) // we try to pick up a virtual pickup (the game object doesnt exist, but it will in the real world after we execute the plan)
             {
-                if (virtualItem == item)
+                if(virtualItem == item)
                 {
                     WorldState possibleWorldState = new WorldState(parent.state);
 
@@ -79,7 +79,7 @@ namespace GOAP
                     // the null in node.actionData will cause a fail,
                     // but we will probably replan the same thing again, but this time the virtual item will already be instantiated,
                     // so we will be able to pick it up
-                    Node node = new Node(parent, 1, possibleWorldState, GetComponent<PickUpItem>(), new ActionDataPickUpItem(null));
+                    Node node = new Node(parent, 1, possibleWorldState, GetComponent<PickUpItem>(), new ActionDataPickUpItem(null)); 
                     return node;
                 }
             }
@@ -118,7 +118,7 @@ namespace GOAP
                 possibleWorldState.chests[closestChest].Remove(item);
                 possibleWorldState.myPosition = closestChest.transform.position;
 
-                Node node = new Node(parent, 1 + parent.cost + distance, possibleWorldState, GetComponent<PickItemFromChest>(), new ActionDataPickItemFromChest(closestChest, World.GetItemFromId(item)));
+                Node node = new Node(parent, 1 + parent.cost + distance, possibleWorldState, GetComponent<PickItemFromChest>(), new ActionDataPickItemFromChest(closestChest,World.GetItemFromId(item)));
                 return node;
             }
 
@@ -126,13 +126,13 @@ namespace GOAP
         }
         public Node GetItemPlan(Node parent, Item requestedItem) //Gets a specific Item
         {
-
+            
             Node node = GetItemFromDrop(parent, requestedItem);
             if (node != null) return node;
             node = GetItemFromChest(parent, requestedItem);
             if (node != null) return node;
             return null;
-
+            
         }
         public Node GetItemPlanNoChest(Node parent, Item requestedItem) //Gets a specific Item
         {

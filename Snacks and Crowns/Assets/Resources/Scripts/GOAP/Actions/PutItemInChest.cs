@@ -78,7 +78,6 @@ namespace GOAP
             List<Node> possibleNodes = new List<Node>();
 
             List<int> inventory = parent.state.myInventory;
-            List<ItemPickup> itemDropList = parent.state.itemPickups;
 
             List<int> itemsToProcess = new List<int>();
             
@@ -86,10 +85,15 @@ namespace GOAP
             {
                 if (!itemsToProcess.Contains(item)) itemsToProcess.Add(item);
             }
-            foreach(ItemPickup itemPickup in itemDropList)
+            foreach(ItemPickup itemPickup in parent.state.itemPickups)
             {
                 int itemId = World.GetIdFromItem(itemPickup.item);
                 if (!itemsToProcess.Contains(itemId)) 
+                    itemsToProcess.Add(itemId);
+            }
+            foreach (int itemId in parent.state.virtualItemPickups)
+            {
+                if (!itemsToProcess.Contains(itemId))
                     itemsToProcess.Add(itemId);
             }
 

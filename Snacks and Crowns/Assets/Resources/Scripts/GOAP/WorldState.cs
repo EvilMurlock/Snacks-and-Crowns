@@ -7,6 +7,7 @@ namespace GOAP
     public class WorldState
     {
         public List<ItemPickup> itemPickups;
+        public List<int> virtualItemPickups = new List<int>(); // only used for planning, always starts empty
         public Dictionary<Chest, List<int>> chests; // chest reference, and its inventory
         public GameObject agent;
         public Vector3 myPosition;
@@ -20,6 +21,10 @@ namespace GOAP
         public void CopyItemPickups()
         {
             itemPickups = new List<ItemPickup>(itemPickups);
+        }
+        public void CopyVirtualItemPickups()
+        {
+            virtualItemPickups = new List<int>(virtualItemPickups);
         }
         public void CopyInventory()
         {
@@ -41,6 +46,7 @@ namespace GOAP
             myPosition = worldState.myPosition;
             myInventory = worldState.myInventory;
             myEquipment = worldState.myEquipment;
+            virtualItemPickups = worldState.virtualItemPickups;
         }
         public WorldState(GameObject agent)
         {
@@ -64,7 +70,8 @@ namespace GOAP
             List<int> inventoryItems = new List<int>();
             foreach (Item item in inventory.Items)
             {
-                inventoryItems.Add(World.GetIdFromItem(item));
+                if(item!=null)
+                    inventoryItems.Add(World.GetIdFromItem(item));
             }
             myInventory = inventoryItems;
         }

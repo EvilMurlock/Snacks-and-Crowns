@@ -24,7 +24,7 @@ namespace GOAP
             DebugPrintPlan(planQueue);
             return planQueue;
         }
-        void DebugPrintPlan(Queue<Node> planQueue)
+        public void DebugPrintPlan(Queue<Node> planQueue)
         {
             string planDebug = "The plan is:";
             int actionNumber = 0;
@@ -77,9 +77,9 @@ namespace GOAP
             Node start = new Node(null, 0, states, null, null);
             List<Node> leaves = new List<Node>();
             leaves.Add(start);
-            return FindPlanBreathFirstRecursion(leaves, actions, goal, 1, new List<WorldState>());
+            return FindPlanBreathFirstRecursion(leaves, actions, goal, 1);
         }
-        Node FindPlanBreathFirstRecursion(List<Node> leaves, List<Action> usableActions, Goal goal, int depth, List<WorldState> achievedStates)
+        Node FindPlanBreathFirstRecursion(List<Node> leaves, List<Action> usableActions, Goal goal, int depth)
         {
             if (depth > maxDepth) return null;
             if (leaves.Count == 0) return null;
@@ -97,6 +97,8 @@ namespace GOAP
                         // currentState = action.OnActionCompleteWorldStates(currentState);
                         foreach (Node node in possibleNewStates)
                         {
+                            //if (node.action.name == "PutItemInChest")
+                            Debug.Log("Action name in leave: " + node.action.GetType().ToString());
                             if (goal.CompletedByState(node.state))
                             {
                                 Debug.Log("Plan Found");
@@ -105,7 +107,7 @@ namespace GOAP
 
                             // if (node.cost <= maxCost)// && UniqueState(achievedStates, node.state))
                             //{
-                            achievedStates.Add(node.state);
+                            //achievedStates.Add(node.state); // for skipping duplicate states - not doing it, its not worth it
                             newLeaves.Add(node);
                             //}
                         }
@@ -119,7 +121,7 @@ namespace GOAP
             //if (!action.reusable)
             //    subset = ActionSubset(usableActions, action); //REMOVES USED ACTIONS - PREVENTS LOOPS - ALSO PREVENTS REUSING ACTIONS
 
-            return FindPlanBreathFirstRecursion(newLeaves, subset, goal, depth + 1, achievedStates);
+            return FindPlanBreathFirstRecursion(newLeaves, subset, goal, depth + 1);
         }
     }
 }

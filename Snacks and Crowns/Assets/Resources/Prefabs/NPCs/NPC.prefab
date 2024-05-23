@@ -54,9 +54,7 @@ GameObject:
   - component: {fileID: 8469828347127065435}
   - component: {fileID: 5077944387425105403}
   - component: {fileID: 7410072731535228070}
-  - component: {fileID: 8063126737161125050}
   - component: {fileID: 3037989600042772082}
-  - component: {fileID: 7474361794957850201}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -81,7 +79,7 @@ Transform:
   - {fileID: 1259223430258720572}
   - {fileID: 6290013660400938132}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1690622705742801511
 SpriteRenderer:
@@ -234,6 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   nextWaypointDistance: 0.1
+  lastWaypointDistanceDefault: 1
   lastWaypointDistance: 1
   reachedEndOfPath: 0
 --- !u!114 &3701144936241280796
@@ -411,24 +410,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf0141cfca642d438f6eea68a93682c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  capacity: 9
-  inventory:
-  - {fileID: 11400000, guid: 6f30aa4034a30ec4e8f24151c05c9c5f, type: 2}
   onChangeInventory:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8063126737161125050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 109711023632469093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0893fb60ad8c4c54eba9fa89cd3abe9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3037989600042772082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,20 +425,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1e3b96bd15ff7f4f9d3c24dfd355d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7474361794957850201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 109711023632469093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 696445f91a9f7bb49a2691930ab830ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chest: {fileID: 0}
-  desiredItems: []
 --- !u!1 &1410753620379488508
 GameObject:
   m_ObjectHideFlags: 0

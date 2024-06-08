@@ -92,6 +92,8 @@ namespace GOAP
                     if (!action.reusable && ActionAlreadyUsed(parent, action)) continue;
                     if (action.IsAchievableGiven(parent.state))
                     {
+                        Debug.Log("Action name: " + action.GetType().ToString());
+
                         List<Node> possibleNewStates = new List<Node>();
                         possibleNewStates = action.OnActionCompleteWorldStates(parent);
                         // currentState = action.OnActionCompleteWorldStates(currentState);

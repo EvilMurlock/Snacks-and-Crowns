@@ -71,10 +71,10 @@ namespace GOAP
             running = false;
             completed = true;
         }
-        public override List<Node> OnActionCompleteWorldStates(Node parent_)//Tells the planer how the world state will change on completion
+        public override List<Node> OnActionCompleteWorldStates(Node parent)//Tells the planer how the world state will change on completion
         {
+
             // IN THIS ACTION WE DONT JUST PUT AN ITEM FROM OUR INVENTORY, BUT ANY ITEM PICK UP INTO THE CHEST
-            Node parent = parent_;
             List<Node> possibleNodes = new List<Node>();
 
             List<int> inventory = parent.state.myInventory;
@@ -85,11 +85,12 @@ namespace GOAP
             {
                 if (!itemsToProcess.Contains(item)) itemsToProcess.Add(item);
             }
-            foreach(ItemPickup itemPickup in parent.state.itemPickups)
+            foreach (ItemPickup itemPickup in parent.state.itemPickups)
             {
                 int itemId = World.GetIdFromItem(itemPickup.item);
-                if (!itemsToProcess.Contains(itemId)) 
+                if (!itemsToProcess.Contains(itemId))
                     itemsToProcess.Add(itemId);
+                
             }
             foreach (int itemId in parent.state.virtualItemPickups)
             {
@@ -99,18 +100,38 @@ namespace GOAP
 
             foreach (int itemId in itemsToProcess)
             {
-                parent = parent_;
-                Item item = World.GetItemFromId(itemId);
 
+                Item item = World.GetItemFromId(itemId);
+                Node nodeParent = parent;
                 if (!inventory.Contains(itemId))
                 {
-                    parent = GetRequiredItemNoChest(parent, item);
+                    nodeParent = GetRequiredItemNoChest(parent, item); // this will also try to pick up virtual items (future pick-ups)
+
                 }
+                List<Chest> keyList = new List<Chest>(nodeParent.state.chests.Keys);
+                for (int ch = 0; ch < keyList.Count; ch++) 
+                {
+                    Chest chest = keyList[ch];
+                //foreach (Chest chest in nodeParent.state.chests.Keys)
+                //{
+                    if (chest.GetComponent<Inventory>().GetCapacity() < nodeParent.state.chests.Count)
+                        continue;
 
+                    WorldState possibleWorldState = new WorldState(nodeParent.state);
+                    possibleWorldState.CopyChestInventory(chest);
+                    possibleWorldState.CopyInventory();
 
+                    possibleWorldState.myInventory.Remove(itemId);
+                    possibleWorldState.chests[chest].Add(itemId);
+
+                    Node node = new Node(nodeParent, 1, possibleWorldState, GetComponent<PutItemInChest>(), new ActionDataPutItemInChest(chest, item));
+                    possibleNodes.Add(node);
+                    Debug.Log(possibleNodes.Count);
+
+                }
             }
-
-            
+            Debug.Log("Returning with...");
+            Debug.Log(possibleNodes.Count);
             return possibleNodes;
         }
     }

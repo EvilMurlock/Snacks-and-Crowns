@@ -124,15 +124,15 @@ namespace GOAP
 
         protected Node GetRequiredItemNoChest(Node parent, Item requiredItem) //Returns a plan that will colect the required items, returns null if no such plan exists
         {
-            
+            // this will also try to pick up virtual items (future pick-ups)
+
             GetItem getItem = GetComponent<GetItem>();
             Node currentNode = parent;
 
             Node newNode = getItem.GetItemPlanNoChest(currentNode, requiredItem);
             if (newNode == null) return null;
-            currentNode = newNode;
 
-            return currentNode;
+            return newNode;
         }
 
         protected Node GetRequiredItem(Node parent, Item requiredItem) //Returns a plan that will colect the required items, returns null if no such plan exists

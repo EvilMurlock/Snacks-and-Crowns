@@ -28,6 +28,7 @@ namespace GOAP
 
         Node GetItemFromDrop(Node parent, Item requestedItem)
         {
+            // this will also try to pick up virtual items (future pick-ups)
             int item = World.GetIdFromItem(requestedItem);
 
 

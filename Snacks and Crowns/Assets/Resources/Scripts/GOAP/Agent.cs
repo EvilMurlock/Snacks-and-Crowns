@@ -72,7 +72,7 @@ namespace GOAP
             }
             if(currentGoal != null)
             {
-                Debug.Log("Current goal: " + currentGoal.name);
+                Debug.Log("Current goal: " + currentGoal.GetType().ToString());
             }
             if (nodeQueue == null)
             {

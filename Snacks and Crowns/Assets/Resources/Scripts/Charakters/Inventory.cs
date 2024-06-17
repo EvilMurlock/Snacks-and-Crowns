@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour
     //[SerializeField]
     Item[] items = new Item[9];
     
-    public Item[] Items { get { return items; } }
+    public Item[] Items { get { return items; } } // 
     [HideInInspector]
     public UnityEvent<Inventory> onChangeInventory;
     public void Start()
@@ -29,7 +29,7 @@ public class Inventory : MonoBehaviour
         }
         throw new System.Exception("Inventory is full, AddItem failed");
     }
-    public void AddItem(Item item, int index)
+    public void AddItem(Item item, int index) // rename set item
     {
         items[index] = item;
         onChangeInventory.Invoke(this);
@@ -76,9 +76,9 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public bool HasEmptySpace(int requiredSpace)
+    public bool HasEmptySpace(int requiredSpace) // remember free capacity instead of calculating every time
     {
-        // return true if we have atleast i empty space
+        // return true if we have atleast i empty space < dokumentacni komentar
         int emptySpaceCount = 0;
         for (int i = 0; i < items.Length; i++)
         {

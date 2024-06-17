@@ -72,7 +72,7 @@ namespace GOAP
             }
             if(currentGoal != null)
             {
-                Debug.Log("Current goal: " + currentGoal.GetType().ToString());
+                //Debug.Log("Current goal: " + currentGoal.GetType().ToString());
             }
             if (nodeQueue == null)
             {
@@ -90,12 +90,14 @@ namespace GOAP
                     {
                         if (g.CalculatePriority() < 0) continue;
                         Queue<Node> queue = null;
-                        Debug.Log("Current goal can run: " + g.CanRun());
+                        //Debug.Log("Current goal can run: " + g.CanRun());
                         if (g.CanRun())
                             queue = planner.CreatePlan(actions, g, worldState);
-                        if(queue == null)
+                        if (queue == null)
+                        {
                             Debug.Log("Queue is null!!!!");
-                        planner.DebugPrintPlan(queue);
+                            planner.DebugPrintPlan(queue);
+                        }
                         if (queue != null)
                         {
                             newGoal = g;
@@ -110,7 +112,7 @@ namespace GOAP
                 if (newGoal != null && newGoal.CalculatePriority() > 0 
                     && (currentGoal == null || newGoal.CalculatePriority() > currentGoal.CalculatePriority()))//Switch plans when plan with a higher priority goal is found
                 {
-                    Debug.Log("Working on a new goal: " + newGoal.name);
+                    //Debug.Log("Working on a new goal: " + newGoal.GetType().ToString());
                     // we cancel what we were doing
                     if (currentGoal != null) currentGoal.Deactivate();
                     if (currentAction != null) currentAction.Deactivate();
@@ -126,6 +128,7 @@ namespace GOAP
             }
             if (currentAction != null && currentAction.running)
             {
+                //Debug.Log("Actionin runing");
                 currentAction.Tick(); // actions step
                 if (currentAction.completed)//if action done
                 {

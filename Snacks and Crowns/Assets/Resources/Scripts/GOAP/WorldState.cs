@@ -32,6 +32,7 @@ namespace GOAP
         }
         public void CopyChestInventory(Chest chest)
         {
+            chests = new Dictionary<Chest, List<int>>(chests);
             chests[chest] = new List<int>(chests[chest]);
         }
         public WorldState()
@@ -74,6 +75,23 @@ namespace GOAP
                     inventoryItems.Add(World.GetIdFromItem(item));
             }
             myInventory = inventoryItems;
+        }
+
+        public void PrintMyInventory()
+        {
+            Debug.Log("Agent inventory");
+            foreach (int i in myInventory)
+            {
+                Debug.Log("- - - - - " + World.GetItemFromId(i));
+            }
+        }
+        public void PrintChestInventory(Chest chest)
+        {
+            Debug.Log("Chest inventory");
+            foreach (int i in chests[chest])
+            {
+                Debug.Log("- - - - - " + World.GetItemFromId(i));
+            }
         }
     }
 }

@@ -80,7 +80,7 @@ namespace GOAP
                     // the null in node.actionData will cause a fail,
                     // but we will probably replan the same thing again, but this time the virtual item will already be instantiated,
                     // so we will be able to pick it up
-                    Node node = new Node(parent, 1, possibleWorldState, GetComponent<PickUpItem>(), new ActionDataPickUpItem(null));
+                    Node node = new Node(parent, 1, possibleWorldState, GetComponent<PickUpItem>(), new ActionDataPickUpItem(virtualItem));
                     return node;
                 }
             }
@@ -90,7 +90,6 @@ namespace GOAP
         {
             //SEARCHING FOR ITEMS IN CHESTS2
             int item = World.GetIdFromItem(requestedItem);
-            List<int> inventory = parent.state.myInventory;
             Vector3 myPosition = parent.state.myPosition;
 
             float distance = -1;
@@ -115,7 +114,7 @@ namespace GOAP
                 possibleWorldState.CopyChestInventory(closestChest);
 
                 //World state modification
-                possibleWorldState.myEquipment.Add(item);
+                possibleWorldState.myInventory.Add(item);
                 possibleWorldState.chests[closestChest].Remove(item);
                 possibleWorldState.myPosition = closestChest.transform.position;
 

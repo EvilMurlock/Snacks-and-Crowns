@@ -26,4 +26,13 @@ public class ItemPickup : Interactible
             Destroy(gameObject);
         }
     }
+    public static ItemPickup GetItemPickupWithItem(Item item)
+    {
+        foreach (ItemPickup itemPickup in GameObject.FindObjectsByType<ItemPickup>(FindObjectsSortMode.None))
+        {
+            if (itemPickup.item == item)
+                return itemPickup;
+        }
+        return null;
+    }
 }

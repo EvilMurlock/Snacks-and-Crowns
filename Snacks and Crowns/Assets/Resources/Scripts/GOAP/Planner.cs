@@ -18,7 +18,7 @@ namespace GOAP
                 //Debug.Log("No GOAP plan!");
                 return null;
             }
-            Debug.Log(lastPlanNode.action.actionName);
+            //Debug.Log(lastPlanNode.action.actionName);
             Queue<Node> planQueue = CreatePlanQueue(lastPlanNode);
             
             DebugPrintPlan(planQueue);
@@ -30,10 +30,11 @@ namespace GOAP
             int actionNumber = 0;
             float costLast = 0;
             float totalCost = 0;
+            if (planQueue == null) return;
             foreach (Node a in planQueue)
             {
                 //planDebug += "\n"; 
-                planDebug += " -> " + actionNumber + " - " + a.action.actionName + " (" + (a.cost - costLast) + ")";
+                planDebug += " -> " + actionNumber + " - " + a.action.GetInfo(a.data);//+ a.action.actionName + " (" + (a.cost - costLast) + ")";
                 actionNumber++;
                 costLast = a.cost;
                 totalCost += a.cost;
@@ -92,7 +93,7 @@ namespace GOAP
                     if (!action.reusable && ActionAlreadyUsed(parent, action)) continue;
                     if (action.IsAchievableGiven(parent.state))
                     {
-                        Debug.Log("Action name: " + action.GetType().ToString());
+                        //Debug.Log("Action name: " + action.GetType().ToString());
 
                         List<Node> possibleNewStates = new List<Node>();
                         possibleNewStates = action.OnActionCompleteWorldStates(parent);
@@ -100,9 +101,11 @@ namespace GOAP
                         foreach (Node node in possibleNewStates)
                         {
                             //if (node.action.name == "PutItemInChest")
-                            Debug.Log("Action name in leave: " + node.action.GetType().ToString());
                             if (goal.CompletedByState(node.state))
                             {
+                                //Debug.Log("Action name in plan: " + node.parent.action.GetType().ToString());
+                                //Debug.Log("- - - - Data: " + ((ActionDataPickUpItem)node.parent.data).itemPickup.item.itemName);
+                                
                                 Debug.Log("Plan Found");
                                 return node;
                             }

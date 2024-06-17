@@ -7864,7 +7864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chestObject: {fileID: 515158764}
   desiredItems:
-  - {fileID: 11400000, guid: 65f5fac958baa9942a81182bbce876af, type: 2}
+  - {fileID: 11400000, guid: d5a4236e2d44faa4087585bdd6dfcaeb, type: 2}
 --- !u!1 &1487556594
 GameObject:
   m_ObjectHideFlags: 0

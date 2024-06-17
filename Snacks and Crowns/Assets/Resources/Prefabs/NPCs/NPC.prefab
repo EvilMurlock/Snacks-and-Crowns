@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6716763126417444806}
+  - component: {fileID: 4348160161970872222}
   m_Layer: 0
   m_Name: LeftHand
   m_TagString: Untagged
@@ -31,6 +32,19 @@ Transform:
   m_Father: {fileID: 2955820943536946334}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &4348160161970872222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 93316644980559212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d645b429fbabc9a46b49a5b0bee48534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipmentSlot: 1
 --- !u!1 &109711023632469093
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,6 +92,7 @@ Transform:
   - {fileID: 7784106884742460049}
   - {fileID: 1259223430258720572}
   - {fileID: 6290013660400938132}
+  - {fileID: 8826644672856304570}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -434,8 +449,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6290013660400938132}
+  - component: {fileID: 2626401084237121573}
   m_Layer: 0
-  m_Name: Miscelanious
+  m_Name: Miscelanious1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -456,6 +472,19 @@ Transform:
   m_Father: {fileID: 2955820943536946334}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2626401084237121573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410753620379488508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d645b429fbabc9a46b49a5b0bee48534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipmentSlot: 3
 --- !u!1 &5834018141193563102
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,6 +494,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7784106884742460049}
+  - component: {fileID: 6215080327728638203}
   m_Layer: 0
   m_Name: RightHand
   m_TagString: Untagged
@@ -487,6 +517,64 @@ Transform:
   m_Father: {fileID: 2955820943536946334}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6215080327728638203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5834018141193563102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d645b429fbabc9a46b49a5b0bee48534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipmentSlot: 1
+--- !u!1 &6754612388066297082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8826644672856304570}
+  - component: {fileID: 1510580155056137779}
+  m_Layer: 0
+  m_Name: Miscelanious2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8826644672856304570
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6754612388066297082}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2955820943536946334}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1510580155056137779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6754612388066297082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d645b429fbabc9a46b49a5b0bee48534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipmentSlot: 3
 --- !u!1 &7686904771742408952
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,6 +584,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1259223430258720572}
+  - component: {fileID: 6578456490439132477}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -518,3 +607,16 @@ Transform:
   m_Father: {fileID: 2955820943536946334}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6578456490439132477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7686904771742408952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d645b429fbabc9a46b49a5b0bee48534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipmentSlot: 2

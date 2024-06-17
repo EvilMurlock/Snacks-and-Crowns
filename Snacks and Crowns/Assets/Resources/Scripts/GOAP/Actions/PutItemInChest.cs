@@ -44,7 +44,12 @@ namespace GOAP
         public override void Activate(ActionData newData)
         {
             planingData = (ActionDataPutItemInChest)newData;
+
             target = planingData.chest.gameObject;
+
+            running = true;
+            completed = false;
+            npcAi.ChangeTarget(target);
         }
         public override void Deactivate()
         {
@@ -126,12 +131,8 @@ namespace GOAP
 
                     Node node = new Node(nodeParent, 1, possibleWorldState, GetComponent<PutItemInChest>(), new ActionDataPutItemInChest(chest, item));
                     possibleNodes.Add(node);
-                    Debug.Log(possibleNodes.Count);
-
                 }
             }
-            Debug.Log("Returning with...");
-            Debug.Log(possibleNodes.Count);
             return possibleNodes;
         }
     }

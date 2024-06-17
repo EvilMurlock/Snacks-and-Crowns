@@ -10,7 +10,13 @@ namespace GOAP
         {
             this.itemPickup = itemPickup;
         }
+        public ActionDataPickUpItem(int virtualItemId)
+        {
+            this.itemPickup = null;
+            this.virtualItemId = virtualItemId;
+        }
         public ItemPickup itemPickup;
+        public int virtualItemId;
     }
     public class PickUpItem : Action
     {
@@ -18,6 +24,13 @@ namespace GOAP
         {
             reusable = true; //this is a subaction
             base.Start();
+        }
+        public override string GetInfo(ActionData data)
+        {
+            ActionDataPickUpItem myData = (ActionDataPickUpItem)data;
+            if (myData.itemPickup == null) 
+                return this.GetType().ToString() + " ( virtual item )";
+            return this.GetType().ToString() + " ( item: " + myData.itemPickup.item.name + ")";
         }
         public override void Tick()
         {
@@ -51,8 +64,22 @@ namespace GOAP
         {
             
             ActionDataPickUpItem data = (ActionDataPickUpItem)dataArg;
-            if (data.itemPickup == null) Deactivate();
-            ItemPickup itemPickup = data.itemPickup;
+            ItemPickup itemPickup = null;
+            if (data.itemPickup == null)
+            {
+                if(data.virtualItemId >= 0)
+                {
+                    itemPickup = ItemPickup.GetItemPickupWithItem(World.GetItemFromId(data.virtualItemId));
+                    // find closest item pickup with that item
+                }
+                if(itemPickup == null)
+                {
+                    Deactivate();
+                    return;
+                }
+            }
+            else
+                itemPickup = data.itemPickup;
 
 
             Item item = itemPickup.item;
@@ -76,17 +103,18 @@ namespace GOAP
             running = true;
             completed = false;
             npcAi.ChangeTarget(target);
-            Debug.Log("NPC at target value: " + npcAi.reachedEndOfPath);
+            //Debug.Log("NPC reached end of path: " + npcAi.reachedEndOfPath);
         }
         public override void Deactivate()
         {
             running = false;
+            Debug.Log("npcAI is: " + npcAi);
             npcAi.ChangeTarget(null);
         }
         public override void Complete()
         {
-            Debug.Log("Distance from target: " + GetDistanceFromTarget());
-            Debug.Log("NPC AI Target is: " + npcAi.target.name + " | Action target: " + target.name);
+            //Debug.Log("Distance from target: " + GetDistanceFromTarget());
+            //Debug.Log("NPC AI Target is: " + npcAi.target.name + " | Action target: " + target.name);
             if (GetComponent<Inventory>().HasEmptySpace(1))
             {
                 GetComponent<Inventory>().AddItem(target.GetComponent<ItemPickup>().item);

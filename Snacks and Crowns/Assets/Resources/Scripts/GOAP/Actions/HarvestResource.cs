@@ -18,6 +18,7 @@ namespace GOAP
     {
         public HarvestData(Item requiredTool, string targetTag, Item resourceItem)
         {
+            // use argument null exception
             if (requiredTool == null || resourceItem == null) throw new System.Exception("Harvest data does not have correct item data - in HarvesResource.cs");
             this.requiredTool = requiredTool;
             this.targetTag = targetTag;
@@ -34,7 +35,7 @@ namespace GOAP
         Equipment tool;
         public override void Start()
         {
-            // we initialize harvesting data
+            // we initialize harvesting data - use scriptable objects here
             Item requiredItemAxe = World.GetItemFromName("Axe");
             Item resourceItemLog = World.GetItemFromName("Log");
             harvestDatas.Add(new HarvestData(requiredItemAxe, "Tree", resourceItemLog));
@@ -42,7 +43,7 @@ namespace GOAP
 
             Item requiredItemPickaxe = World.GetItemFromName("Pickaxe");
             Item resourceItemIronOre = World.GetItemFromName("Iron Ore");
-            harvestDatas.Add(new HarvestData(requiredItemAxe, "Iron Ore Mine", resourceItemLog));
+            harvestDatas.Add(new HarvestData(requiredItemPickaxe, "Iron Ore Mine", resourceItemIronOre));
             base.Start();
         }
         public override void Tick()
@@ -67,7 +68,16 @@ namespace GOAP
                 Deactivate();
                 return;
             }
-
+            
+            // we find the item in our inventory to equipt it
+            foreach(Item item in agentInventory.Items)
+            {
+                if (item == planingData.harvestData.requiredTool)
+                {
+                    tool = (Equipment)item;
+                    break;
+                }
+            }
 
             // equipts the required tool
             if(!EquipItem(agentInventory, agentEquipmentManager, planingData.harvestData.requiredTool))
@@ -123,15 +133,15 @@ namespace GOAP
             return achievable;
         }
 
-        public override List<Node> OnActionCompleteWorldStates(Node parent_)//Tells the planer how the world state will change on completion
+        public override List<Node> OnActionCompleteWorldStates(Node parentOriginal)//Tells the planer how the world state will change on completion
         {
             
-            Node parent = parent_;
+            
 
             List<Node> possibleNodes = new List<Node>();
             foreach (HarvestData harvestData in harvestDatas)
             {
-
+                Node parent = parentOriginal;
                 bool haveTool = false;
                 List<int> items = parent.state.myInventory;
                 foreach (int itemId in items)
@@ -149,7 +159,7 @@ namespace GOAP
 
                 Vector3 myPosition = parent.state.myPosition;
 
-
+                // dát do funkce
                 List<TagSystem> resourceDeposits = new List<TagSystem>(); 
                 foreach (TagSystem tagSys in GameObject.FindObjectsByType<TagSystem>(FindObjectsSortMode.None))
                 {

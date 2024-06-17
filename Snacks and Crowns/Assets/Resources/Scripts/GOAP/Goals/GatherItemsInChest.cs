@@ -25,6 +25,7 @@ namespace GOAP {
         }
         public override bool CompletedByState(WorldState state) //If more of desired item in chest then there is curently, then returns true
         {
+            // bug here i think
             return CloserToGoalCheck(state);
         }
         public bool CloserToGoalCheck(WorldState state)
@@ -45,6 +46,7 @@ namespace GOAP {
                 {   
                     newItemCount++;
                     tempDesiredItems1.Remove(item);
+                    //Debug.Log("---- item in plan chest: " + item.name);
                 }
             }
 
@@ -61,7 +63,7 @@ namespace GOAP {
                     tempDesiredItems2.Remove(item);
                 }
             }
-
+            //Debug.Log("Goal closer to completion: " + (originalItemCount < newItemCount));
             return originalItemCount < newItemCount;
 
         }

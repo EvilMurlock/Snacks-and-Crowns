@@ -16,8 +16,11 @@ namespace GOAP
         public bool running = false;
         public bool completed = false;
         protected NpcAi npcAi;
-        
 
+        public virtual string GetInfo(ActionData data)
+        {
+            return this.GetType().ToString();
+        }
         public virtual void Awake()
         {
             actionName = this.GetType().Name;

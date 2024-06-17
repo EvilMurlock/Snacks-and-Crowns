@@ -84,8 +84,11 @@ public class NpcAi : MonoBehaviour
     public void ChangeTarget(GameObject newTarget, float distanceFromTarget)
     {
         lastWaypointDistance = distanceFromTarget;
-        target = newTarget.transform;
-        Debug.Log("Pathing target is now: " + target.name);
+        if (newTarget == null)
+            target = null;
+        else
+            target = newTarget.transform;
+        //Debug.Log("Pathing target is now: " + target.name);
 
         reachedEndOfPath = false;
         path = null;
@@ -94,6 +97,9 @@ public class NpcAi : MonoBehaviour
 
     public void ChangeTarget(GameObject newTarget)
     {
+        
+        Debug.Log("New target is: " + newTarget);
         ChangeTarget(newTarget, lastWaypointDistanceDefault);
+        
     }
 }

@@ -14,7 +14,7 @@ namespace GOAP
             this.item = item;
         }
     }
-    public class PickItemFromChest : Action
+    public class PickItemFromChest : SubAction
     {
         ActionDataPickItemFromChest planingData;
         public override void Start()
@@ -33,20 +33,7 @@ namespace GOAP
                 Complete();
             }
         }
-        public override float GetCost(WorldState worldState)
-        {
 
-            return GetDistanceFromTarget();
-        }
-        public override bool IsUsableBy(GameObject g)
-        {
-            return true;
-        }
-        public override bool IsAchievableGiven(WorldState worldState)//For the planner
-        {
-            return false;
-            //Its a subaction
-        }
         public override void Activate(ActionData newData)
         {
             planingData = (ActionDataPickItemFromChest)newData;
@@ -76,20 +63,6 @@ namespace GOAP
             agentInventory.AddItem(planingData.item);
             running = false;
             completed = true;
-        }
-        public override List<Node> OnActionCompleteWorldStates(Node parent)//Tells the planer how the world state will change on completion
-        {
-            // WE DONT DO THIS - PLANNS GENERATED IN DIFFERENT ACTION - THIS ACTION IS HERE ONLY FOR ITS EXECUTION NOT PLANNING PART
-            
-            List<Node> possibleNodes = new List<Node>();
-            /*
-            //List<int> inventory = (List<int>)parent.state.GetStates()["Inventory"];
-            //Vector3 myPosition = (Vector3)parent.state.GetStates()["MyPosition"];
-
-            List<int> chosenItems = new List<int>();
-
-            */
-            return possibleNodes;
         }
     }
 }

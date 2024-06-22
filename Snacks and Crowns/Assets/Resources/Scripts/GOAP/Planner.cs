@@ -98,6 +98,7 @@ namespace GOAP
                         List<Node> possibleNewStates = new List<Node>();
                         possibleNewStates = action.OnActionCompleteWorldStates(parent);
                         // currentState = action.OnActionCompleteWorldStates(currentState);
+                        //Debug.Log("New Node count: " + possibleNewStates.Count);
                         foreach (Node node in possibleNewStates)
                         {
                             //if (node.action.name == "PutItemInChest")

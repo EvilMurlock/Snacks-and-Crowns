@@ -6,12 +6,11 @@ namespace GOAP
 {
     public class GetItem : Action
     {
-        public override void Tick()
+        CraftingRecipes craftingRecipes;
+        public override void Start()
         {
-        }
-        public override float GetCost(WorldState worldState)
-        {
-            return GetDistanceFromTarget();
+            craftingRecipes = GameObject.Find("Crafting Recipes").GetComponent<CraftingRecipes>();
+            base.Start();
         }
         public override bool IsUsableBy(GameObject g)
         {
@@ -19,7 +18,7 @@ namespace GOAP
         }
         public override bool IsAchievableGiven(WorldState worldState)//For the planner
         {
-            return false;
+            return true;
         }
         public override void Activate(ActionData arg)
         {
@@ -124,19 +123,71 @@ namespace GOAP
 
             return null;
         }
+        Node GetItemFromCrafting(Node parentOriginal, Item requestedItem)
+        {
+            Node parent = parentOriginal;
+            // does a recipe exist?
+            CraftingRecipe recipe = null;
+            foreach(CraftingRecipe thisRecipe in craftingRecipes.craftingRecipes)
+            {
+                if(thisRecipe.result == requestedItem)
+                {
+                    recipe = thisRecipe;
+                }
+            }
+            if (recipe == null) return null;
+
+            GameObject craftingObject = GetClosestCraftingObject(recipe, parent.state.myPosition);
+            if (craftingObject == null) return null;
+
+            List<int> inventory = new List<int>(parent.state.myInventory);
+            List<Item> missingItems = new List<Item>();
+            foreach(Item ingredient in recipe.ingredients)
+            {
+                int ingredientId = World.GetIdFromItem(ingredient);
+                if (inventory.Contains(ingredientId))
+                    inventory.Remove(ingredientId);
+                else
+                {
+                    missingItems.Add(ingredient);
+                }
+            }
+            parent = GetRequiredItems(parent, missingItems);
+            if (parent == null) return null;
+
+
+
+            WorldState possibleWorldState = new WorldState(parent.state);
+
+            possibleWorldState.CopyInventory();
+            foreach (Item ingredient in recipe.ingredients)
+            {
+                int ingredientId = World.GetIdFromItem(ingredient);
+                possibleWorldState.myInventory.Remove(ingredientId);
+            }
+            possibleWorldState.myInventory.Add(World.GetIdFromItem(recipe.result));
+            //World state modification
+            possibleWorldState.myPosition = craftingObject.transform.position;
+            Node node = new Node(parent, 1 + parent.cost, possibleWorldState, GetComponent<CraftItem>(), new ActionDataCraftItem(recipe, craftingObject));
+            return node;
+            // use GetRequiredItems(Node parent, List<Item> requiredItems) to get missing items, returns null if cant get all items
+            //
+        }
         public Node GetItemPlan(Node parent, Item requestedItem) //Gets a specific Item
         {
-
             Node node = GetItemFromDrop(parent, requestedItem);
             if (node != null) return node;
             node = GetItemFromChest(parent, requestedItem);
             if (node != null) return node;
+            node = GetItemFromCrafting(parent, requestedItem);
+            if (node != null) return node;
             return null;
-
         }
         public Node GetItemPlanNoChest(Node parent, Item requestedItem) //Gets a specific Item
         {
             Node node = GetItemFromDrop(parent, requestedItem);
+            if (node != null) return node;
+            node = GetItemFromCrafting(parent, requestedItem);
             if (node != null) return node;
             return null;
         }
@@ -145,6 +196,33 @@ namespace GOAP
         {
             List<Node> possibleNodes = new List<Node>();
             return possibleNodes;
+        }
+        GameObject GetClosestCraftingObject(CraftingRecipe recipe, Vector3 myPosition)
+        {
+            GameObject closestForge = null;
+            GameObject closestWorkshop = null;
+            GameObject closestAnvil = null;
+
+            foreach (Crafter crafter in GameObject.FindObjectsByType<Crafter>(FindObjectsSortMode.None))
+            {
+                if (crafter.CraftingObjekt == CraftingObjekt.forge && (closestForge == null || GetDistanceBetween(myPosition, closestForge.transform.position) > GetDistanceBetween(myPosition, crafter.transform.position)))
+                {
+                    closestForge = crafter.gameObject;
+                }
+                if (crafter.CraftingObjekt == CraftingObjekt.workshop && (closestWorkshop == null || GetDistanceBetween(myPosition, closestWorkshop.transform.position) > GetDistanceBetween(myPosition, crafter.transform.position)))
+                {
+                    closestWorkshop = crafter.gameObject;
+                }
+                if (crafter.CraftingObjekt == CraftingObjekt.anvil && (closestAnvil == null || GetDistanceBetween(myPosition, closestAnvil.transform.position) > GetDistanceBetween(myPosition, crafter.transform.position)))
+                {
+                    closestAnvil = crafter.gameObject;
+                }
+            }
+
+            if (recipe.craftingObjekt == CraftingObjekt.anvil) return closestAnvil;
+            else if (recipe.craftingObjekt == CraftingObjekt.workshop) return closestWorkshop;
+            else return closestForge;
+
         }
     }
 }

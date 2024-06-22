@@ -15,13 +15,11 @@ namespace GOAP
             this.craftingPiece = craftingPiece;
         }
     }
-    public class CraftItem : Action
+    public class CraftItem : SubAction
     {
-        List<CraftingRecipe> craftingRecipyList;
         CraftingRecipe currentRecepy;
         public override void Start()
         {
-            craftingRecipyList = GameObject.Find("Crafting Recipes").GetComponent<CraftingRecipes>().craftingRecipes;
             base.Start();
         }
         public override void Tick()
@@ -118,35 +116,10 @@ namespace GOAP
                 possibleWorldState.ModifyState("MyPosition", craftingPosition);
                 Node newNode = new Node(parent, 15 + parent.cost + distance, possibleWorldState, this, (craftingRecepy, craftingPiece));
                 possibleNodes.Add(newNode);
-            }            
+            }
             */
             return possibleNodes;
         }
-        GameObject GetClosestCraftingObject(CraftingRecipe recipe, Vector3 myPosition)
-        {
-            GameObject closestForge = null;
-            GameObject closestWorkshop = null;
-            GameObject closestAnvil = null;
 
-            foreach (TagSystem tagSys in GameObject.FindObjectsByType<TagSystem>(FindObjectsSortMode.None))
-            {
-                if (tagSys.HasTag("forge") && (closestForge == null || GetDistanceBetween(myPosition, closestForge.transform.position) > GetDistanceBetween(myPosition, tagSys.transform.position)))
-                {
-                    closestForge = tagSys.gameObject;
-                }
-                if (tagSys.HasTag("workshop") && (closestWorkshop == null || GetDistanceBetween(myPosition, closestWorkshop.transform.position) > GetDistanceBetween(myPosition, tagSys.transform.position)))
-                {
-                    closestWorkshop = tagSys.gameObject;
-                }
-                if (tagSys.HasTag("anvil") && (closestAnvil == null || GetDistanceBetween(myPosition, closestAnvil.transform.position) > GetDistanceBetween(myPosition, tagSys.transform.position)))
-                {
-                    closestAnvil = tagSys.gameObject;
-                }
-            }
-            if (recipe.craftingObjekt == CraftingObjekt.anvil) return closestAnvil;
-            else if (recipe.craftingObjekt == CraftingObjekt.workshop) return closestWorkshop;
-            else return closestForge;
-
-        }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 namespace GOAP
 {
     public class ActionDataPutItemInChest : ActionData
@@ -15,7 +16,13 @@ namespace GOAP
     }
     public class PutItemInChest : Action
     {
+        CraftingRecipes craftingRecipes;
         ActionDataPutItemInChest planingData;
+        public override void Start()
+        {
+            craftingRecipes = GameObject.Find("Crafting Recipes").GetComponent<CraftingRecipes>();
+            base.Start();
+        }
         public override void Tick()
         {
             if (target == null)
@@ -85,23 +92,32 @@ namespace GOAP
             List<int> inventory = parent.state.myInventory;
 
             List<int> itemsToProcess = new List<int>();
-            
-            foreach(int item in inventory)//DOESNT WORK, WILL CHOOSE THE ITEM FROM A CHEST
+
+
+            foreach (int item in inventory)//DOESNT WORK, WILL CHOOSE THE ITEM FROM A CHEST
             {
-                if (!itemsToProcess.Contains(item)) itemsToProcess.Add(item);
+                //if (!itemsToProcess.Contains(item)) 
+                    itemsToProcess.Add(item);
             }
             foreach (ItemPickup itemPickup in parent.state.itemPickups)
             {
                 int itemId = World.GetIdFromItem(itemPickup.item);
-                if (!itemsToProcess.Contains(itemId))
+                //if (!itemsToProcess.Contains(itemId))
                     itemsToProcess.Add(itemId);
                 
             }
             foreach (int itemId in parent.state.virtualItemPickups)
             {
-                if (!itemsToProcess.Contains(itemId))
+                //if (!itemsToProcess.Contains(itemId))
                     itemsToProcess.Add(itemId);
             }
+
+            foreach (CraftingRecipe recipe in craftingRecipes.craftingRecipes)
+            {
+                itemsToProcess.Add(World.GetIdFromItem(recipe.result));
+            }
+
+            itemsToProcess = itemsToProcess.Distinct().ToList();
 
             foreach (int itemId in itemsToProcess)
             {
@@ -111,7 +127,8 @@ namespace GOAP
                 if (!inventory.Contains(itemId))
                 {
                     nodeParent = GetRequiredItemNoChest(parent, item); // this will also try to pick up virtual items (future pick-ups)
-
+                    if (nodeParent == null)
+                        continue;
                 }
                 List<Chest> keyList = new List<Chest>(nodeParent.state.chests.Keys);
                 for (int ch = 0; ch < keyList.Count; ch++) 

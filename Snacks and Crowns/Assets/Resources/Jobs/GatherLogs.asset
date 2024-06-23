@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aded6d13a76eb0c4284370ed6648b2e5, type: 3}
+  m_Name: GatherLogs
+  m_EditorClassIdentifier: 
+  bed: {fileID: 0}
+  GatheringPlace: {fileID: 0}
+  itemsToGather:
+  - {fileID: 11400000, guid: 6f30aa4034a30ec4e8f24151c05c9c5f, type: 2}
+  - {fileID: 11400000, guid: 6f30aa4034a30ec4e8f24151c05c9c5f, type: 2}
+  - {fileID: 11400000, guid: 6f30aa4034a30ec4e8f24151c05c9c5f, type: 2}

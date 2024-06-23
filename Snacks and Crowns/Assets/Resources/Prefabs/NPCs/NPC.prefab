@@ -69,6 +69,7 @@ GameObject:
   - component: {fileID: 5077944387425105403}
   - component: {fileID: 7410072731535228070}
   - component: {fileID: 3037989600042772082}
+  - component: {fileID: 6828955362435234669}
   m_Layer: 3
   m_Name: NPC
   m_TagString: Untagged
@@ -438,6 +439,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1e3b96bd15ff7f4f9d3c24dfd355d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6828955362435234669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109711023632469093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be3fd4a2f666554089e616ff7217227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faction: 3
 --- !u!1 &1410753620379488508
 GameObject:
   m_ObjectHideFlags: 0

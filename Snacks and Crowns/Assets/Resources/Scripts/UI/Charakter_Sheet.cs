@@ -6,6 +6,8 @@ public class Charakter_Sheet : MonoBehaviour
 {
     [SerializeField]
     Race race;
+
+    
     //Fyzical Stats
 
     int faction;

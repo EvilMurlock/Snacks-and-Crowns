@@ -67,7 +67,7 @@ namespace GOAP
         {
             if (goals.Count == 0)
             {
-                Debug.Log("No goals");
+                //Debug.Log("No goals");
                 return;
             }
             if(currentGoal != null)

@@ -7,8 +7,8 @@ public class NpcAi : MonoBehaviour
 {
     // Start is called before the first frame update
     public Transform target;
-    public float nextWaypointDistance = 0.1f;
-    public float lastWaypointDistanceDefault = 1f;
+    public float nextWaypointDistance = 0.3f;
+    public float lastWaypointDistanceDefault = 0.8f;
 
     public float lastWaypointDistance;
     Path path;

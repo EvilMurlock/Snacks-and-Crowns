@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class ComponentData<T> : ComponentDataGeneric
 {
+    // T is a component data type that says wich component to generate - only maters for some components, i think
     //public T componentType;
     public ComponentData()
     {
@@ -31,6 +32,8 @@ public class ComponentDataGeneric
     public virtual void SetComponentName() { }
     public virtual void Ping() { }
     public virtual void InicializeComponent(GameObject gameObject) { }
+
+    public virtual void InicializeComponent(GameObject player, GameObject listener) { }
 
     public virtual void InicializeComponent(GameObject gameObject, Item item) { }
 }

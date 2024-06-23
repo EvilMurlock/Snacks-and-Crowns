@@ -12,6 +12,11 @@ namespace GOAP {
         protected virtual void Start()
         {
         }
+        public void Initialize(GameObject targetObject, List<Item> desiredItems)
+        {
+            this.targetObject = targetObject;
+            this.desiredItems = desiredItems;
+        }
         public void SetDesiredChest(GameObject newTarget)
         {
             targetObject = newTarget;

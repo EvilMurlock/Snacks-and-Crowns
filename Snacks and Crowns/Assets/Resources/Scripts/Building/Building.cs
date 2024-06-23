@@ -13,7 +13,8 @@ public class Building : MonoBehaviour
             GameObject child = childTransform.gameObject;
             if (child.GetComponent<FactionMembership>() == null)
                 child.gameObject.AddComponent<FactionMembership>();
-            child.GetComponent<FactionMembership>().Faction = this.GetComponent<FactionMembership>().Faction;
+            Factions myFaction = this.GetComponent<FactionMembership>().Faction;
+            child.GetComponent<FactionMembership>().Faction = myFaction;
         }
         
     }

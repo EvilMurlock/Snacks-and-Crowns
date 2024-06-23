@@ -1,20 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GOAP;
+
+
+[System.Serializable]
 
 public class Job
 {
+    [SerializeField]
+    Bed bed;
     // job loads a set of goals to a newly spawned NPC
 
-    // Start is called before the first frame update
-    void Start()
+    public virtual void SetGoalsOfAnNPC(GameObject npc)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //npc.AddComponent<>
     }
 }

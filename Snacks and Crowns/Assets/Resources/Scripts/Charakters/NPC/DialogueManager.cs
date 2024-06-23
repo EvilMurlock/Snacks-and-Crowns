@@ -7,6 +7,7 @@ using UnityEngine.InputSystem.UI;
 
 public class DialogueManager : InteractibleInMenu
 {
+
 	GameObject uiTemplate;
 	GameObject buttonTemplate;
 	GameObject uiInstance;
@@ -120,6 +121,10 @@ public class DialogueManager : InteractibleInMenu
 			return;
 		}
 
+		foreach(ComponentDataGeneric component in dialogue.componentData)
+        {
+			component.InicializeComponent(player, this.gameObject);
+        }
 		string sentence = dialogue.text;
 		StopAllCoroutines();
 		StartCoroutine(TypeSentence(sentence));

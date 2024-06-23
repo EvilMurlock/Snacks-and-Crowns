@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2700699495435139592
+--- !u!1001 &4852215387505395671
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,23 +10,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 109711023632469093, guid: 53ea0ecb413b17145bcfcb97714aa3f4, type: 3}
       propertyPath: m_Name
-      value: Goblin
+      value: Golem
       objectReference: {fileID: 0}
+    - target: {fileID: 888526479523577112, guid: 53ea0ecb413b17145bcfcb97714aa3f4, type: 3}
+      propertyPath: race
+      value: 
+      objectReference: {fileID: 11400000, guid: 5233d4a53b9ec644f8794bd1a8807e79, type: 2}
     - target: {fileID: 1690622705742801511, guid: 53ea0ecb413b17145bcfcb97714aa3f4, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3b9e43eb3c6560b479e648d458addb9f, type: 3}
+      objectReference: {fileID: 21300000, guid: 0314cb3bb6b202245a8c35f61ab71f50, type: 3}
     - target: {fileID: 2955820943536946334, guid: 53ea0ecb413b17145bcfcb97714aa3f4, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2955820943536946334, guid: 53ea0ecb413b17145bcfcb97714aa3f4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.18
+      value: -0.8250778
       objectReference: {fileID: 0}
     - target: {fileID: 2955820943536946334, guid: 53ea0ecb413b17145bcfcb97714aa3f4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.8566475
+      value: 1.3825433
       objectReference: {fileID: 0}
     - target: {fileID: 2955820943536946334, guid: 53ea0ecb413b17145bcfcb97714aa3f4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -59,10 +63,6 @@ PrefabInstance:
     - target: {fileID: 2955820943536946334, guid: 53ea0ecb413b17145bcfcb97714aa3f4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6828955362435234669, guid: 53ea0ecb413b17145bcfcb97714aa3f4, type: 3}
-      propertyPath: faction
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

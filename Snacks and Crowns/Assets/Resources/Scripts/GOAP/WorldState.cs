@@ -8,7 +8,7 @@ namespace GOAP
     {
         public List<ItemPickup> itemPickups;
         public List<int> virtualItemPickups = new List<int>(); // only used for planning, always starts empty
-        public Dictionary<Chest, List<int>> chests; // chest reference, and its inventory
+        public Dictionary<GameObject, List<int>> inventories; // chest reference, and its inventory
         public GameObject agent;
         public Vector3 myPosition;
         public List<int> myInventory;
@@ -30,10 +30,10 @@ namespace GOAP
         {
             myInventory = new List<int>(myInventory);
         }
-        public void CopyChestInventory(Chest chest)
+        public void CopyChestInventory(GameObject chest)
         {
-            chests = new Dictionary<Chest, List<int>>(chests);
-            chests[chest] = new List<int>(chests[chest]);
+            inventories = new Dictionary<GameObject, List<int>>(inventories);
+            inventories[chest] = new List<int>(inventories[chest]);
         }
         public WorldState()
         {
@@ -42,7 +42,7 @@ namespace GOAP
         {
             // reference copy - shallow copy
             itemPickups = worldState.itemPickups;
-            chests = worldState.chests;
+            inventories = worldState.inventories;
             agent = worldState.agent;
             myPosition = worldState.myPosition;
             myInventory = worldState.myInventory;
@@ -63,7 +63,7 @@ namespace GOAP
         {
             WorldState generalBelieves = World.Instance.GetWorld();
             itemPickups = generalBelieves.itemPickups;
-            chests = generalBelieves.chests;
+            inventories = generalBelieves.inventories;
             myPosition = agent.transform.position;
         }
         void InventoryUpdate(Inventory inventory)
@@ -85,10 +85,10 @@ namespace GOAP
                 Debug.Log("- - - - - " + World.GetItemFromId(i));
             }
         }
-        public void PrintChestInventory(Chest chest)
+        public void PrintChestInventory(GameObject chest)
         {
             Debug.Log("Chest inventory");
-            foreach (int i in chests[chest])
+            foreach (int i in inventories[chest])
             {
                 Debug.Log("- - - - - " + World.GetItemFromId(i));
             }

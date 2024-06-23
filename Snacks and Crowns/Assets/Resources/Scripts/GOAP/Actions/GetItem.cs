@@ -92,10 +92,10 @@ namespace GOAP
             Vector3 myPosition = parent.state.myPosition;
 
             float distance = -1;
-            Dictionary<Chest, List<int>> chests = parent.state.chests;
+            Dictionary<GameObject, List<int>> chests = parent.state.inventories;
 
-            Chest closestChest = null;
-            foreach (Chest chest in chests.Keys)
+            GameObject closestChest = null;
+            foreach (GameObject chest in chests.Keys)
             {
                 if (!chests[chest].Contains(item)) continue;
                 float newDistance = GetDistanceBetween(myPosition, chest.transform.position);
@@ -114,7 +114,7 @@ namespace GOAP
 
                 //World state modification
                 possibleWorldState.myInventory.Add(item);
-                possibleWorldState.chests[closestChest].Remove(item);
+                possibleWorldState.inventories[closestChest].Remove(item);
                 possibleWorldState.myPosition = closestChest.transform.position;
 
                 Node node = new Node(parent, 1 + parent.cost + distance, possibleWorldState, GetComponent<PickItemFromChest>(), new ActionDataPickItemFromChest(closestChest, World.GetItemFromId(item)));

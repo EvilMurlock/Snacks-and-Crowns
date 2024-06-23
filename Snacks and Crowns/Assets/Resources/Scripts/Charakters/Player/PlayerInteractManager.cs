@@ -74,11 +74,15 @@ public class PlayerInteractManager : MonoBehaviour
         {
             if (interactedObjekt == null) return;
             interactedObjekt.UnInteract(gameObject);
-            if (interactedObjekt.LockMove)
-                playerStateManager.ChangeState(CharakterState.normal);
-            interactedObjekt = null;
+            UnInteract();
         }
-
+    }
+    public void UnInteract()
+    {
+        if (interactedObjekt == null) return;
+        if (interactedObjekt.LockMove)
+            playerStateManager.ChangeState(CharakterState.normal);
+        interactedObjekt = null;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

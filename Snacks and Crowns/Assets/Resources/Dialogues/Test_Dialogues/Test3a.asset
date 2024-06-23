@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a9580f3fd8dd3499071ee92263b089, type: 3}
   m_Name: Test3a
   m_EditorClassIdentifier: 
-  required_items: []
+  requiredItems: []
   text: Well, come back if you have some
-  next_dialogues:
+  nextDialogues:
   - {fileID: 0}
-  button_names:
-  - Ok
+  buttonNames:
+  - Bye

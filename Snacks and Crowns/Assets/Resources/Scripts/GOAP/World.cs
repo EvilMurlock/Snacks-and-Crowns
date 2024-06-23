@@ -58,17 +58,28 @@ namespace GOAP
             }
             worldState.itemPickups = itemPickups;
 
-            Dictionary<Chest, List<int>> chests = new Dictionary<Chest, List<int>>();
+            Dictionary<GameObject, List<int>> inventories = new Dictionary<GameObject, List<int>>();
             foreach (Chest chest in GameObject.FindObjectsByType<Chest>(FindObjectsSortMode.None))
             {
+                GameObject gameObject = chest.gameObject;
                 List<int> chestInventory = new List<int>();
                 foreach(Item item in chest.GetComponent<Inventory>().Items)
                 {
                     if(item != null)chestInventory.Add(World.GetIdFromItem(item));
                 }
-                chests[chest] = chestInventory;
+                inventories[gameObject] = chestInventory;
             }
-            worldState.chests = chests;
+            foreach (Shop shop in GameObject.FindObjectsByType<Shop>(FindObjectsSortMode.None))
+            {
+                GameObject gameObject = shop.gameObject;
+                List<int> chestInventory = new List<int>();
+                foreach (Item item in shop.GetComponent<Inventory>().Items)
+                {
+                    if (item != null) chestInventory.Add(World.GetIdFromItem(item));
+                }
+                inventories[gameObject] = chestInventory;
+            }
+            worldState.inventories = inventories;
         }
     }
 }

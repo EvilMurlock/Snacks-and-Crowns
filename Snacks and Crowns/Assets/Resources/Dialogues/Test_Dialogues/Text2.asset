@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a9580f3fd8dd3499071ee92263b089, type: 3}
   m_Name: Text2
   m_EditorClassIdentifier: 
-  required_items: []
+  requiredItems: []
   text: I need 2 logs, can you give me some?
-  next_dialogues:
-  - {fileID: 11400000, guid: 90257703628c9e34281629bf6f8ef250, type: 2}
+  nextDialogues:
   - {fileID: 11400000, guid: 1faa71dbe5a76364dbb9c8c4644b5f08, type: 2}
-  button_names:
-  - No
+  - {fileID: 11400000, guid: 90257703628c9e34281629bf6f8ef250, type: 2}
+  buttonNames:
   - Yes
+  - No

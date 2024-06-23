@@ -33,7 +33,7 @@ namespace GOAP
 
             target = data.craftingPiece;
             currentRecepy = data.recipe;
-            Debug.Log("Going to craft a: " + data.recipe.result.itemName);
+            //Debug.Log("Going to craft a: " + data.recipe.result.itemName);
 
             running = true;
             completed = false;

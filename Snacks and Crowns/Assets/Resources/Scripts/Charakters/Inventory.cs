@@ -7,13 +7,20 @@ public class Inventory : MonoBehaviour
 {
     //[SerializeField]
     Item[] items = new Item[9];
-    
+
     public Item[] Items { get { return items; } } // 
     [HideInInspector]
     public UnityEvent<Inventory> onChangeInventory;
     public void Start()
     {
         onChangeInventory.Invoke(this);
+    }
+    public IEnumerator<Item> GetEnumerator()
+    {
+        foreach(Item item in items)
+        {
+            yield return item;
+        }
     }
     public void AddItem(Item item)
     {

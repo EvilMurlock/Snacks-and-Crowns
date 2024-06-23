@@ -5,12 +5,9 @@ using UnityEngine;
 public class FactionMembership : MonoBehaviour
 {
     [SerializeField]
-    Factions factionDefault = Factions.None;
-    [SerializeField]
     Factions faction;
     private void Start()
     {
-        faction = factionDefault;
     }
     public Factions Faction
     {

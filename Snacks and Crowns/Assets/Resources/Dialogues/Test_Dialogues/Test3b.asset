@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a9580f3fd8dd3499071ee92263b089, type: 3}
   m_Name: Test3b
   m_EditorClassIdentifier: 
-  required_items:
+  requiredItems:
   - {fileID: 11400000, guid: 6f30aa4034a30ec4e8f24151c05c9c5f, type: 2}
   - {fileID: 11400000, guid: 6f30aa4034a30ec4e8f24151c05c9c5f, type: 2}
   text: Wow! Thanks! I really needed those.
-  next_dialogues:
+  nextDialogues:
   - {fileID: 0}
-  button_names:
-  - No problem
+  buttonNames:
+  - Bye

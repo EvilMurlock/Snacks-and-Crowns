@@ -7,34 +7,49 @@ using UnityEngine.InputSystem.UI;
 
 public class DialogueManager : InteractibleInMenu
 {
-	public GameObject uiTemplate;
-	public GameObject buttonTemplate;
+	GameObject uiTemplate;
+	GameObject buttonTemplate;
 	GameObject uiInstance;
-	public Dialogue start_dialogue;
+	public Dialogue startDialogue;
 	Dialogue dialogue;
 	TextMeshProUGUI nameText;
 	TextMeshProUGUI dialogueText;
 
-	GameObject player;
+	GameObject player = null;
 	List<GameObject> buttons = new List<GameObject>();
+
+	bool lockMove = true;
+	public override bool LockMove { get { return lockMove; } }
 	// Use this for initialization
 	void Start()
 	{
+		uiTemplate = (GameObject)Resources.Load("Prefabs/UI/Dialogue UI");
+		buttonTemplate = (GameObject)Resources.Load("Prefabs/UI/Dialogue Button");
 	}
 
-	public override void Interact(GameObject new_player)
+	public override void Interact(GameObject newPlayer)
 	{
-		dialogue = start_dialogue;
-		player = new_player;
-		//uiInstance = Instantiate(uiTemplate,player.GetComponent<Inventory>().canvas.transform);
+		if (player != null)
+		{
+			lockMove = false;
+			return;
+		}
+		else
+			lockMove = true;
+
 		
-		
+		dialogue = startDialogue;
+		player = newPlayer;
+		uiInstance = Instantiate(uiTemplate,player.GetComponent<MenuManager>().canvas.transform);
+
 		Transform tr = uiInstance.transform.Find("Dialogue Box");
 		dialogueText = tr.Find("Dialogue Text").GetComponent<TextMeshProUGUI>();
+		
 		nameText = uiInstance.transform.Find("Dialogue Name").GetComponent<TextMeshProUGUI>();
-
 		nameText.text = gameObject.name;
-		DisplayNextDialogue(dialogue);
+
+		DisplayDialogue(dialogue);
+		Debug.Log("The thingy: " + uiInstance.name);
 	}
 	void DisplayButtons()
     {
@@ -47,35 +62,35 @@ public class DialogueManager : InteractibleInMenu
 		}
 		buttons = new List<GameObject>();
 		int buttonIndex = 0;
-		foreach(string button_name in dialogue.button_names)
+		foreach(string _ in dialogue.buttonNames)
         {
 			GameObject button = Instantiate(buttonTemplate, uiInstance.transform.Find("Dialogue Options"));
 			buttons.Add(button);
-			button.GetComponentInChildren<TextMeshProUGUI>().text = dialogue.button_names[buttonIndex];
+			button.GetComponentInChildren<TextMeshProUGUI>().text = dialogue.buttonNames[buttonIndex];
 			int delegateIndex = buttonIndex;
 			if (CheckDialogueRequirements(buttonIndex))
-				buttons[buttonIndex].GetComponent<Button>().onClick.AddListener(delegate { DisplayNextDialogue(dialogue.next_dialogues[delegateIndex]); });
+				buttons[buttonIndex].GetComponent<Button>().onClick.AddListener(delegate { DisplayDialogue(dialogue.nextDialogues[delegateIndex]); });
 			else button.GetComponent<Image>().color = Color.red;
 			buttonIndex++;
 		}
-		/*
-		Inventory player_inventory = player.GetComponent<Inventory>();
-		player_inventory.event_system.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(buttons[0]);*/
+		
+		player.GetComponent<MenuManager>().SelectObject(buttons[0]);
+		//player_inventory.event_system.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(buttons[0]);
 	}
 	public bool CheckDialogueRequirements(int dialogueIndex)
     {
-		if (dialogue.next_dialogues[dialogueIndex] == null) return true;
-		List<Item> player_items = new List<Item>();/*
-		foreach (ItemSlot item_slot in player.GetComponent<Inventory>().items)
+		if (dialogue.nextDialogues[dialogueIndex] == null) return true;
+		List<Item> playerItems = new List<Item>();
+		foreach (Item item in player.GetComponent<Inventory>())
 		{
-			if (item_slot.item != null) player_items.Add(item_slot.item);
+			if (item != null) playerItems.Add(item);
 		}
-		foreach (Item item in dialogue.next_dialogues[dialogueIndex].required_items)
+		foreach (Item item in dialogue.nextDialogues[dialogueIndex].requiredItems)
         {
 			int item_index = 0;
 			bool item_found = false;
 
-			foreach (Item p_item in player_items)
+			foreach (Item p_item in playerItems)
 			{
 				if (item.itemName == p_item.itemName)
 				{
@@ -84,19 +99,19 @@ public class DialogueManager : InteractibleInMenu
 				}
 				item_index++;
 			}
-			if (item_found && player_items.Count > 0)
+			if (item_found && playerItems.Count > 0)
 			{
-				player_items.RemoveAt(item_index);
+				playerItems.RemoveAt(item_index);
 			}
 			else
 			{
 				return false;
 			};
 
-		}*/
+		}
 		return true;
 	}
-	public void DisplayNextDialogue(Dialogue newDialogue)
+	public void DisplayDialogue(Dialogue newDialogue)
 	{
 		dialogue = newDialogue;
 		if (dialogue == null)
@@ -123,6 +138,11 @@ public class DialogueManager : InteractibleInMenu
 
 	public override void UnInteract(GameObject player)
 	{
+		// THE PROBLEMS IS THAT THIS THING GETS CALLED WHEN WE QUIT, BUT WE HAVE TO CALL UnInteract in player manager to actualy reset stuff corectly i think
+		Debug.Log("Leaveling");
+		player.GetComponent<PlayerInteractManager>().UnInteract();
+		this.player = null;
 		Destroy(uiInstance);
+		lockMove = true;
 	}
 }

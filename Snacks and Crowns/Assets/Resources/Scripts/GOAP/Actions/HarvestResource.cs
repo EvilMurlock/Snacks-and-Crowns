@@ -186,6 +186,8 @@ namespace GOAP
 
 
                 string itemName = harvestData.resourceItem.name;
+                if (closestDeposit == null)
+                    continue;
                 foreach(string tag in closestDeposit.GetTags()) // we add item pickups droped from the resource deposit to the plan world state
                 {
                     if(tag == itemName+"Drop") possibleWorldState.virtualItemPickups.Add(resource);

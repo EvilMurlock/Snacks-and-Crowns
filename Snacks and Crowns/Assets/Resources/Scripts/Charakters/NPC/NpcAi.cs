@@ -98,7 +98,7 @@ public class NpcAi : MonoBehaviour
     public void ChangeTarget(GameObject newTarget)
     {
         
-        Debug.Log("New target is: " + newTarget);
+        //Debug.Log("New target is: " + newTarget);
         ChangeTarget(newTarget, lastWaypointDistanceDefault);
         
     }

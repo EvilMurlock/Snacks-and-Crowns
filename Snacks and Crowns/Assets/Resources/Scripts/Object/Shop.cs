@@ -18,6 +18,7 @@ public class Shop : InteractibleInMenu
         inventory.SetCapacity(maxCapacity);
 
         //Testing initial item inventory
+        /*
         Item axe = (Item)Resources.Load("Items/Equipment/Axe");
         Item hpPotion = (Item)Resources.Load("Items/Potions/Health Potion");
         for (int i = 0; i<8; i++)
@@ -28,6 +29,7 @@ public class Shop : InteractibleInMenu
         {
             inventory.AddItem(hpPotion);
         }
+        */
     }
 
     public override void Interact(GameObject player)

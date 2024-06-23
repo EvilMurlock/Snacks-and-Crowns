@@ -3,21 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace GOAP {
-    public class GatherItemsInChest : Goal
+    public class FillAnInventory : Goal
     {
-        public GameObject chestObject;
-        Chest chest;
+        public GameObject targetObject;
         public List<Item> desiredItems;
         float defaultPriority = 5;
         bool active = false;
         protected virtual void Start()
         {
-            chest = chestObject.GetComponent<Chest>();
-
         }
-        public void SetDesiredChest(Chest newChest)
+        public void SetDesiredChest(GameObject newTarget)
         {
-            chest = newChest;
+            targetObject = newTarget;
         }
         public void SetDesiredItems(List<Item> newDesiredItems)
         {
@@ -30,10 +27,10 @@ namespace GOAP {
         }
         public bool CloserToGoalCheck(WorldState state)
         {
-            Dictionary<Chest, List<int>> chests = state.chests;
+            Dictionary<GameObject, List<int>> inventories = state.inventories;
 
-            if (chest == null) return false;
-            List<int> chestItems = chests[chest];
+            if (targetObject == null) return false;
+            List<int> chestItems = inventories[targetObject];
 
             int originalItemCount = 0;
             int newItemCount = 0;
@@ -54,7 +51,7 @@ namespace GOAP {
 
 
             List<Item> tempDesiredItems2 = new List<Item>(desiredItems);
-            Inventory currentChestInventory = chest.GetComponent<Inventory>();
+            Inventory currentChestInventory = targetObject.GetComponent<Inventory>();
             foreach (Item item in currentChestInventory.Items)
             {
                 if (tempDesiredItems2.Contains(item))
@@ -77,7 +74,7 @@ namespace GOAP {
 
 
             // we get a copy of chest items
-            Inventory currentChestInventory = chest.GetComponent<Inventory>();
+            Inventory currentChestInventory = targetObject.GetComponent<Inventory>();
             List<Item> chestItems = new List<Item>(currentChestInventory.Items);
 
             // we check if we have all required items
@@ -100,7 +97,7 @@ namespace GOAP {
 
         public override void Complete()
         {
-            Debug.Log("Plan " + this.GetType().ToString() + " Completed");
+            //Debug.Log("Plan " + this.GetType().ToString() + " Completed");
             active = false;
         }
         public override float CalculatePriority()
@@ -109,7 +106,7 @@ namespace GOAP {
             float priority = defaultPriority;
 
 
-            if (chest == null) return -1;
+            if (targetObject == null) return -1;
 
             priority = HowCloseToFillingTheChest();
 
@@ -125,7 +122,7 @@ namespace GOAP {
             int similarityCount = desiredItems.Count;
             
             List<Item> tempDesiredItems1 = new List<Item>(desiredItems);
-            Inventory currentChestInventory = chest.GetComponent<Inventory>();
+            Inventory currentChestInventory = targetObject.GetComponent<Inventory>();
             foreach (Item item in currentChestInventory.Items)
             {
                 if (tempDesiredItems1.Contains(item))

@@ -27,7 +27,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 23fa81a0adcf84c419907f8c701838be, type: 2}
     - {fileID: 11400000, guid: 23fa81a0adcf84c419907f8c701838be, type: 2}
     result: {fileID: 11400000}
-    craftingObjekt: 0
+    craftingObjekt: 2
   componentDataEquipment:
   - rid: 6825547853902118912
   - rid: 6825547854325481472

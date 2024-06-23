@@ -6,11 +6,11 @@ namespace GOAP
 {
     public class ActionDataPutItemInChest : ActionData
     {
-        public Chest chest;
+        public GameObject targetObject;
         public Item item;
-        public ActionDataPutItemInChest(Chest chest, Item item)
+        public ActionDataPutItemInChest(GameObject targetObject, Item item)
         {
-            this.chest = chest;
+            this.targetObject = targetObject;
             this.item = item;
         }
     }
@@ -52,7 +52,7 @@ namespace GOAP
         {
             planingData = (ActionDataPutItemInChest)newData;
 
-            target = planingData.chest.gameObject;
+            target = planingData.targetObject.gameObject;
 
             running = true;
             completed = false;
@@ -65,7 +65,7 @@ namespace GOAP
         public override void Complete()
         {
             Inventory agentInventory = GetComponent<Inventory>();
-            Inventory chestInventory = planingData.chest.GetComponent<Inventory>();
+            Inventory chestInventory = planingData.targetObject.GetComponent<Inventory>();
             if (!agentInventory.HasItem(planingData.item)) 
             { 
                 Deactivate();
@@ -130,13 +130,13 @@ namespace GOAP
                     if (nodeParent == null)
                         continue;
                 }
-                List<Chest> keyList = new List<Chest>(nodeParent.state.chests.Keys);
+                List<GameObject> keyList = new List<GameObject>(nodeParent.state.inventories.Keys);
                 for (int ch = 0; ch < keyList.Count; ch++) 
                 {
-                    Chest chest = keyList[ch];
+                    GameObject chest = keyList[ch];
                 //foreach (Chest chest in nodeParent.state.chests.Keys)
                 //{
-                    if (chest.GetComponent<Inventory>().GetCapacity() < nodeParent.state.chests.Count)
+                    if (chest.GetComponent<Inventory>().GetCapacity() < nodeParent.state.inventories.Count)
                         continue;
 
                     WorldState possibleWorldState = new WorldState(nodeParent.state);
@@ -144,7 +144,7 @@ namespace GOAP
                     possibleWorldState.CopyInventory();
 
                     possibleWorldState.myInventory.Remove(itemId);
-                    possibleWorldState.chests[chest].Add(itemId);
+                    possibleWorldState.inventories[chest].Add(itemId);
 
                     Node node = new Node(nodeParent, 1, possibleWorldState, GetComponent<PutItemInChest>(), new ActionDataPutItemInChest(chest, item));
                     possibleNodes.Add(node);

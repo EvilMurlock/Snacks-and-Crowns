@@ -6,11 +6,11 @@ namespace GOAP
 
     public class ActionDataPickItemFromChest : ActionData
     {
-        public Chest chest;
+        public GameObject targetObject;
         public Item item;
-        public ActionDataPickItemFromChest(Chest chest, Item item)
+        public ActionDataPickItemFromChest(GameObject targetObject, Item item)
         {
-            this.chest = chest;
+            this.targetObject = targetObject;
             this.item = item;
         }
     }
@@ -37,7 +37,7 @@ namespace GOAP
         public override void Activate(ActionData newData)
         {
             planingData = (ActionDataPickItemFromChest)newData;
-            target = planingData.chest.gameObject;
+            target = planingData.targetObject.gameObject;
         }
         public override void Deactivate()
         {
@@ -46,7 +46,7 @@ namespace GOAP
         public override void Complete()
         {
 
-            Inventory chestInventory = planingData.chest.GetComponent<Inventory>();
+            Inventory chestInventory = planingData.targetObject.GetComponent<Inventory>();
             if (!chestInventory.HasItem(planingData.item))
             {
                 Deactivate();

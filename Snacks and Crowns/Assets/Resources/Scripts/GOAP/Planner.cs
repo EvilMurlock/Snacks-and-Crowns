@@ -93,21 +93,32 @@ namespace GOAP
                     if (!action.reusable && ActionAlreadyUsed(parent, action)) continue;
                     if (action.IsAchievableGiven(parent.state))
                     {
-                        //Debug.Log("Action name: " + action.GetType().ToString());
-
+                        //if(depth == 1)Debug.Log("Action name: " + action.GetType().ToString());
+                        
                         List<Node> possibleNewStates = new List<Node>();
                         possibleNewStates = action.OnActionCompleteWorldStates(parent);
+                        
                         // currentState = action.OnActionCompleteWorldStates(currentState);
                         //Debug.Log("New Node count: " + possibleNewStates.Count);
                         foreach (Node node in possibleNewStates)
                         {
-                            //if (node.action.name == "PutItemInChest")
+                            /*
+                            if (depth == 2 && parent.action.actionName == "HarvestResource")
+                            {
+                                //Debug.Log("Action name: " + action.GetType().ToString());
+                                if (action.GetType().ToString() == "GOAP.PutItemInChest")
+                                {
+                                    Debug.Log( "Putting this item into a chest: "+((ActionDataPutItemInChest)node.data).item);
+                                }
+                            }
+                            */
+
                             if (goal.CompletedByState(node.state))
                             {
                                 //Debug.Log("Action name in plan: " + node.parent.action.GetType().ToString());
                                 //Debug.Log("- - - - Data: " + ((ActionDataPickUpItem)node.parent.data).itemPickup.item.itemName);
                                 
-                                Debug.Log("Plan Found");
+                                //Debug.Log("Plan Found");
                                 return node;
                             }
 

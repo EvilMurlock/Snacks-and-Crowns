@@ -7,6 +7,7 @@ public class PlayerInteractManager : MonoBehaviour
     List<GameObject> interactiblesInRange;
     Interactible interactedObjekt;
     PlayerStateManager playerStateManager;
+    Color highlightColor = Color.cyan;
     void Awake()
     {
         interactiblesInRange = new List<GameObject>();
@@ -35,7 +36,7 @@ public class PlayerInteractManager : MonoBehaviour
     {
         if(g != null && g.GetComponent<SpriteRenderer>() != null)
         {
-            g.GetComponent<SpriteRenderer>().color = Color.green;
+            g.GetComponent<SpriteRenderer>().color = highlightColor;
         }
     }
     void UnHighlight(GameObject g)

@@ -171,4 +171,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ce7dd636a3172449a5e8256384d0d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startDialogue: {fileID: 0}
+  startDialogue: {fileID: 11400000, guid: e16198c4c66a58f4db8df0e287782101, type: 2}

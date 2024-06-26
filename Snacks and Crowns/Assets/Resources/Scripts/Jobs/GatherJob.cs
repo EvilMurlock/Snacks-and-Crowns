@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using GOAP;
 
-[CreateAssetMenu(fileName = "New_GatherJob", menuName = "Jobs/GatherJob")]
 [System.Serializable]
-public class GatherJob : Job
+public class GatherJob : JobWithSleep
 {
     [SerializeField]
     GameObject GatheringPlace;

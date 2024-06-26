@@ -7,7 +7,7 @@ public class RespawnPoint : MonoBehaviour
     [SerializeField]
     GameObject NPCPrefab;    
     [SerializeField]
-    GatherJob job;
+    Job job;
     [SerializeField]
     float respawnDuration;
 
@@ -21,7 +21,7 @@ public class RespawnPoint : MonoBehaviour
     }
     void Spawn()
     {
-        npc = GameObject.Instantiate(NPCPrefab);
+        npc = Instantiate(NPCPrefab, transform.position, transform.rotation);
         npc.GetComponent<FactionMembership>().Faction = GetComponent<FactionMembership>().Faction;
         job.SetGoalsOfAnNPC(npc);
     }

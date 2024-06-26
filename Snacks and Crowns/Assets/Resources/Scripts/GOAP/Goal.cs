@@ -8,6 +8,9 @@ namespace GOAP
     public abstract class Goal : MonoBehaviour
     {
         protected WorldState desiredState = new WorldState();
+        [SerializeField]
+        protected bool active = false;
+        public bool Active => active;
         private void Update()
         {
             Tick();

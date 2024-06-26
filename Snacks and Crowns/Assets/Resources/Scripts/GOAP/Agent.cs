@@ -95,7 +95,7 @@ namespace GOAP
                             queue = planner.CreatePlan(actions, g, worldState);
                         if (queue == null)
                         {
-                            Debug.Log("Queue is null!!!!");
+                            //Debug.Log("Queue is null!!!!");
                             planner.DebugPrintPlan(queue);
                         }
                         if (queue != null)
@@ -134,7 +134,7 @@ namespace GOAP
                 {
                     if(nodeQueue.Count == 0)//if end of plan
                     {
-                       
+                        Debug.Log("Completed plan: " +currentGoal.ToString());
                         currentGoal.Complete();
                         currentAction = null;
                         currentGoal = null;
@@ -148,8 +148,18 @@ namespace GOAP
                         currentAction.Activate(currentNode.data);
                     }
                 }
-                else if(currentAction.running == false)//action failed -> purge current action,goal,plan
+                else if(currentAction.running == false)//action or goal failed -> purge current action,goal,plan
                 {
+                    //Debug.Log("Plan failed");
+                    currentGoal.Deactivate();
+                    currentAction = null;
+                    currentGoal = null;
+                    nodeQueue = null;
+                }
+                else if(currentGoal.Active == false)
+                {
+                    //Debug.Log("Plan failed");
+                    currentAction.Deactivate();
                     currentAction = null;
                     currentGoal = null;
                     nodeQueue = null;

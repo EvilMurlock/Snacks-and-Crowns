@@ -10,15 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71a9580f3fd8dd3499071ee92263b089, type: 3}
-  m_Name: Dormant2
+  m_Name: Command 1
   m_EditorClassIdentifier: 
   requiredItems: []
   componentData: []
-  text: He is awake!
+  text: What do you ask me my lord?
   nextDialogues:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: a2853c4658326b4499fe78ab8b1e3f06, type: 2}
+  - {fileID: 11400000, guid: be07420ea78a8a044a7c9180dde5d15a, type: 2}
+  - {fileID: 11400000, guid: 05b5e744b95c7b941b4f69a903be21e9, type: 2}
   buttonNames:
-  - Ok
+  - Attack
+  - Follow
+  - Stay
   references:
     version: 2
     RefIds: []

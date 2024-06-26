@@ -125,6 +125,13 @@ public class DialogueManager : InteractibleInMenu
         {
 			component.InicializeComponent(player, this.gameObject);
         }
+
+        if (dialogue.autoEndConversation)
+        {
+			UnInteract(player);
+			return;
+		}
+
 		string sentence = dialogue.text;
 		StopAllCoroutines();
 		StartCoroutine(TypeSentence(sentence));

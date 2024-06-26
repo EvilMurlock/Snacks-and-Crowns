@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New_Dialogue", menuName = "Dialogue")]
 public class Dialogue : ScriptableObject
 {
+	public bool autoEndConversation;
 	public List<Item> requiredItems = new List<Item>();
 	[SerializeReference] public List<ComponentDataGeneric> componentData;
 

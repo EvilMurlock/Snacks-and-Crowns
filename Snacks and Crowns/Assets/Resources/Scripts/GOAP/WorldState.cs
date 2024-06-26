@@ -15,7 +15,7 @@ namespace GOAP
         public List<int> myEquipment;
         //float myHealth;
         //float myGold;
-
+        public HashSet<Goal> completedGoals = new HashSet<Goal>();
 
         // DEEP COPIES individual items---
         public void CopyItemPickups()
@@ -29,6 +29,10 @@ namespace GOAP
         public void CopyInventory()
         {
             myInventory = new List<int>(myInventory);
+        }
+        public void CopyCompletedGoals()
+        {
+            completedGoals = new HashSet<Goal>(completedGoals);
         }
         public void CopyChestInventory(GameObject chest)
         {
@@ -48,6 +52,7 @@ namespace GOAP
             myInventory = worldState.myInventory;
             myEquipment = worldState.myEquipment;
             virtualItemPickups = worldState.virtualItemPickups;
+            completedGoals = worldState.completedGoals;
         }
         public WorldState(GameObject agent)
         {

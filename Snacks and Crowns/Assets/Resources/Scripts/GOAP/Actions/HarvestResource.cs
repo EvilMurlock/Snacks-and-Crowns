@@ -190,7 +190,10 @@ namespace GOAP
                     continue;
                 foreach(string tag in closestDeposit.GetTags()) // we add item pickups droped from the resource deposit to the plan world state
                 {
+                    //Debug.Log("PreCount: " + possibleWorldState.virtualItemPickups.Count);
+                    //Debug.Log("Item name: "+itemName);
                     if(tag == itemName+"Drop") possibleWorldState.virtualItemPickups.Add(resource);
+                    //Debug.Log("PostCount: " + possibleWorldState.virtualItemPickups.Count);
                 }
 
                 possibleWorldState.myPosition = closestDeposit.transform.position;

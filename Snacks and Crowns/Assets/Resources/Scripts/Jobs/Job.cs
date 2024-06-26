@@ -5,11 +5,9 @@ using GOAP;
 
 
 [System.Serializable]
-
-public class Job
+public class Job : MonoBehaviour
 {
-    [SerializeField]
-    Bed bed;
+
     // job loads a set of goals to a newly spawned NPC
 
     public virtual void SetGoalsOfAnNPC(GameObject npc)

@@ -20,7 +20,7 @@ MonoBehaviour:
   useDuration: 0
   singleUse: 0
   componentDataUse: []
-  tags: []
+  tags: 02000000
   recipe:
     ingredients:
     - {fileID: 11400000, guid: 349533a12fdc1d14ca79c02a56931538, type: 2}

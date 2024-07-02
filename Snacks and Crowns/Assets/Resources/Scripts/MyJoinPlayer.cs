@@ -10,14 +10,18 @@ public class MyJoinPlayer : MonoBehaviour
     {
         inputManager.playerJoinedEvent.AddListener(PlayerJoined);
         
-        inputManager.JoinPlayer(-1, // player index
-                                -1, // split-screen index
-                                controlScheme: "Player1", // control scheme
-                                Keyboard.current); // pairWithDevice
-        inputManager.JoinPlayer(-1, // player index
+        PlayerInput player2 = inputManager.JoinPlayer(-1, // player index
                                 -1, // split-screen index
                                 controlScheme: "Player2", // control scheme
                                 Keyboard.current); // pairWithDevice
+        player2.gameObject.GetComponent<FactionMembership>().Faction = Factions.Two;
+
+        PlayerInput player1 = inputManager.JoinPlayer(-1, // player index
+                                -1, // split-screen index
+                                controlScheme: "Player1", // control scheme
+                                Keyboard.current); // pairWithDevice
+        player1.gameObject.GetComponent<FactionMembership>().Faction = Factions.One;
+
         /*
         inputManager.JoinPlayer(-1, // player index
                                 -1, // split-screen index

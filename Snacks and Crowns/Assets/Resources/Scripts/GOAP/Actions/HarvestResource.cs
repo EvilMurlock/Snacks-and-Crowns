@@ -33,6 +33,11 @@ namespace GOAP
         List<HarvestData> harvestDatas = new List<HarvestData>();
         ActionDataHarvestResource planingData;
         Equipment tool;
+        public override void Awake()
+        {
+            speachBubbleType = SpeachBubbleTypes.Gather;
+            base.Awake();
+        }
         public override void Start()
         {
             // we initialize harvesting data - use scriptable objects here
@@ -86,9 +91,9 @@ namespace GOAP
                 return;
             }
 
-            running = true;
-            completed = false;
+
             npcAi.ChangeTarget(target);
+            base.Activate(arg);
         }
         public override void Deactivate()
         {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Charakter_Sheet : MonoBehaviour
+public class CharakterSheet : MonoBehaviour
 {
     [SerializeField]
     Race race;
@@ -10,12 +10,26 @@ public class Charakter_Sheet : MonoBehaviour
     
     //Fyzical Stats
 
-    int faction;
     //Derived Stats
-    void Start()
+    void Awake()
     {
         //Derived Stats
-        gameObject.GetComponent<SpriteRenderer>().sprite = race.sprite;
+        SetFace();
+        
+    }
+    public void SetRace(Race race, int face)
+    {
+        this.race = race;
+        SetFace(face);
+    }
+    void SetFace()
+    {
+        SetFace(Random.Range(0, race.faces.Count - 1));
+    }
+
+    void SetFace(int faceIndex)
+    {
+        gameObject.GetComponent<SpriteRenderer>().sprite = race.faces[faceIndex];
     }
     public float GetSpeed()
     {

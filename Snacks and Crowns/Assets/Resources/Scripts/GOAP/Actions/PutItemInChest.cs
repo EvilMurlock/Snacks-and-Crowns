@@ -18,6 +18,11 @@ namespace GOAP
     {
         CraftingRecipes craftingRecipes;
         ActionDataPutItemInChest planingData;
+        public override void Awake()
+        {
+            speachBubbleType = SpeachBubbleTypes.GetItem;
+            base.Awake();
+        }
         public override void Start()
         {
             craftingRecipes = GameObject.Find("Crafting Recipes").GetComponent<CraftingRecipes>();
@@ -54,9 +59,9 @@ namespace GOAP
 
             target = planingData.targetObject.gameObject;
 
-            running = true;
-            completed = false;
+
             npcAi.ChangeTarget(target);
+            base.Activate(newData);
         }
         public override void Deactivate()
         {

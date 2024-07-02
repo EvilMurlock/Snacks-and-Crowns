@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using System;
+
 namespace GOAP
 {
     public class Agent : MonoBehaviour
@@ -28,6 +30,8 @@ namespace GOAP
             planner = new Planner();
             worldState = new WorldState(this.gameObject);
 
+            AddAllActions();
+            /*
             object[] action_scripts = Resources.LoadAll("Scripts/GOAP/Actions"); // adds all actions avalible to this agent
             foreach(object o in action_scripts)
             {
@@ -35,10 +39,47 @@ namespace GOAP
                 //Debug.Log("Action loaded: "+ a.GetClass().ToString());
                 
                 gameObject.AddComponent(a.GetClass());
-            }
+            }*/
             LoadActionsAndGoals();
         }
-        
+        private void AddAllActions()
+        {
+            // uses reflection to add all action monobehaviours to our gameObject
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            var types = assemblies.SelectMany(assembly => assembly.GetTypes());
+            var filteredTypes = types.Where(
+            type => IsSubclassOfRawGeneric(typeof(GOAP.Action), type)
+            && !type.ContainsGenericParameters
+            && type.IsClass);
+            List<Type> actionTypes = filteredTypes.ToList();
+            Debug.Log("Instantiating this many actions: " + actionTypes.Count);
+            foreach(Type actionType in actionTypes)
+            {
+                //Debug.Log(actionType.ToString());
+                gameObject.AddComponent(actionType);
+            }
+        }
+        static bool IsSubclassOfRawGeneric(Type generic, Type toCheck)
+        {
+            while (toCheck != null && toCheck != typeof(object))
+            {
+                var cur = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
+
+                /*
+                if (toCheck.Namespace == "GOAP")
+                {
+                    Debug.Log("Checking: " + cur.Name.ToString());
+                    Debug.Log("Generic: " + generic.Name.ToString());
+                }*/
+
+                if (generic == cur)
+                {
+                    return true;
+                }
+                toCheck = toCheck.BaseType;
+            }
+            return false;
+        }
         void LoadActionsAndGoals()
         {
             LoadActions();
@@ -150,7 +191,7 @@ namespace GOAP
                 }
                 else if(currentAction.running == false)//action or goal failed -> purge current action,goal,plan
                 {
-                    //Debug.Log("Plan failed");
+                    Debug.Log("Plan failed - ACTION");
                     currentGoal.Deactivate();
                     currentAction = null;
                     currentGoal = null;
@@ -158,7 +199,7 @@ namespace GOAP
                 }
                 else if(currentGoal.Active == false)
                 {
-                    //Debug.Log("Plan failed");
+                    Debug.Log("Plan failed - GOAL");
                     currentAction.Deactivate();
                     currentAction = null;
                     currentGoal = null;

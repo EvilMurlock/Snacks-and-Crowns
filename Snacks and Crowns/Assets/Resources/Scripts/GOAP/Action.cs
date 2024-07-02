@@ -4,11 +4,21 @@ using UnityEngine;
 
 namespace GOAP
 {
+    public enum SpeachBubbleTypes
+    {
+        None,
+        Charge,
+        Fight,
+        Gather,
+        Sleep,
+        Walk,
+        GetItem
+    }
     public abstract class Action : MonoBehaviour
     {
         public bool reusable = false; //can this action be used multiple times in the planner?, often set true for subactions
-        
 
+        float speachBubbleDuration = 3;
         public string actionName = "Action";
         public GameObject target;
         public List<string> targetTags = new List<string>();
@@ -16,6 +26,8 @@ namespace GOAP
         public bool running = false;
         public bool completed = false;
         protected NpcAi npcAi;
+        Sprite speachBubbleSprite = null;
+        protected SpeachBubbleTypes speachBubbleType = SpeachBubbleTypes.None;
 
         public virtual string GetInfo(ActionData data)
         {
@@ -23,8 +35,37 @@ namespace GOAP
         }
         public virtual void Awake()
         {
+            LoadSpeachBubbleSprite();
             actionName = this.GetType().Name;
-
+        }
+        void LoadSpeachBubbleSprite()
+        {
+            string spriteName = "";
+            switch (speachBubbleType)
+            {
+                case SpeachBubbleTypes.None:
+                    return;
+                    break;
+                case SpeachBubbleTypes.Charge:
+                    spriteName = "bubble_charge";
+                    break;
+                case SpeachBubbleTypes.Fight:
+                    spriteName = "bubble_fight";
+                    break;
+                case SpeachBubbleTypes.Gather:
+                    spriteName = "bubble_gather";
+                    break;
+                case SpeachBubbleTypes.Sleep:
+                    spriteName = "bubble_sleep";
+                    break;
+                case SpeachBubbleTypes.Walk:
+                    spriteName = "bubble_walk";
+                    break;
+                case SpeachBubbleTypes.GetItem:
+                    spriteName = "bubble_get_item";
+                    break;
+            }
+            speachBubbleSprite = Resources.Load<Sprite>("Sprites/Speach Bubbles/" + spriteName);
         }
         public virtual void Start()
         {
@@ -50,17 +91,12 @@ namespace GOAP
         {
             Activate(FindTarget());
         }*/
-        public abstract void Activate(ActionData data);
-            /*
+        public virtual void Activate(ActionData data)
         {
-            
-            if (newTarget == null) target = FindTarget();
-            else this.target = (GameObject)newTarget;
+            StartCoroutine(CreateTimedSpeachBubble());
             running = true;
             completed = false;
-            npcAi.ChangeTarget(target);
-
-        }*/
+        }
         public virtual void Deactivate()
         {
             running = false;
@@ -215,6 +251,27 @@ namespace GOAP
                 }
                 index++;
             }
+        }
+
+        IEnumerator CreateTimedSpeachBubble()
+        {
+            SpriteRenderer renderer = transform.Find("SpeachBubble").GetComponent<SpriteRenderer>();
+
+
+            renderer.sprite = speachBubbleSprite;
+
+            float tick = 0.03f;
+            float alphaChange = 0.5f;
+            yield return new WaitForSeconds(speachBubbleDuration - tick/alphaChange);
+            while(renderer.color.a != 0)
+            {
+                float newAlpha = renderer.color.a - alphaChange;
+                renderer.color = new Color(1, 1, 1, Mathf.Max(newAlpha, 0));
+                yield return new WaitForSeconds(tick);
+            }
+            renderer.sprite = null;
+            renderer.color = new Color(1, 1, 1, 1);
+
         }
     }
 }

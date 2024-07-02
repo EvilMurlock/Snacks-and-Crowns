@@ -5,7 +5,7 @@ using UnityEngine;
 public class Race : ScriptableObject
 {
     //Esthetics
-    public Sprite sprite;
+    public List<Sprite> faces;
     public string race;
     //Fyzical Stats
     public float strenght;

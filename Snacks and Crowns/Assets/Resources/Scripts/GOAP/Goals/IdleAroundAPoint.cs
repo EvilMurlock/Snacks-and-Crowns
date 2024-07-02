@@ -51,7 +51,7 @@ namespace GOAP {
             wanderPriority += priorityIncreasePerSecond * Time.deltaTime;
             if (active)
             {
-                Debug.Log("Time passed: " + (Time.realtimeSinceStartup - startTime));
+                //Debug.Log("Time passed: " + (Time.realtimeSinceStartup - startTime));
                 if (Time.realtimeSinceStartup - startTime > resetTime)
                 {
                     ChooseRandomPoint();

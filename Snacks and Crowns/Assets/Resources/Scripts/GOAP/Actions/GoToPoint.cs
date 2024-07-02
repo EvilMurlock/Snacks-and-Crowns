@@ -29,9 +29,9 @@ namespace GOAP
         {
             target = new GameObject("WanderPoint");
             target.transform.position = idleAroundAPoint.RandomIdlePoint;
-            running = true;
-            completed = false;
+
             npcAi.ChangeTarget(target);
+            base.Activate(arg);
         }
         public override void Deactivate()
         {

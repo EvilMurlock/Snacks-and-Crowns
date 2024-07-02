@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcadc2f7bd5b4ad4ab2d7f8a37061b4c, type: 3}
   m_Name: Goblin
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 3b9e43eb3c6560b479e648d458addb9f, type: 3}
+  faces:
+  - {fileID: 21300000, guid: 3b9e43eb3c6560b479e648d458addb9f, type: 3}
   race: Goblin
   strenght: 8
   agility: 10

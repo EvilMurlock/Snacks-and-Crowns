@@ -13,9 +13,10 @@ namespace GOAP
     public class GoToObject : Action
     {
         GoToLocation goToLocation;
-        public override void Start()
+        public override void Awake()
         {
-            base.Start();
+            speachBubbleType = SpeachBubbleTypes.Walk;
+            base.Awake();
         }
         public override void Tick()
         {
@@ -29,9 +30,8 @@ namespace GOAP
         {
             target = goToLocation.targetObject;
 
-            running = true;
-            completed = false;
             npcAi.ChangeTarget(target);
+            base.Activate(arg);
         }
         public override void Deactivate()
         {

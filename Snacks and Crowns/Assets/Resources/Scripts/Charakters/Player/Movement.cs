@@ -49,7 +49,7 @@ public class Movement : MonoBehaviour
     }
     public void ResetSpeed()
     {
-        Charakter_Sheet charakter = GetComponent<Charakter_Sheet>();
+        CharakterSheet charakter = GetComponent<CharakterSheet>();
         movementSpeed = charakter.GetSpeed();
         turningSpeed = charakter.GetTurningSpeed();
     }

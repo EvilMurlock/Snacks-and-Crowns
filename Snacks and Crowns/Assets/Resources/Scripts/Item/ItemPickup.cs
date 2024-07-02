@@ -15,7 +15,7 @@ public class ItemPickup : Interactible
         {
             gameObject.AddComponent<TagSystem>();
         }
-        gameObject.GetComponent<TagSystem>().AddTags(item.Tags);
+        //gameObject.GetComponent<TagSystem>().AddTags(item.Tags);
     }
     public override void Interact(GameObject player)
     {

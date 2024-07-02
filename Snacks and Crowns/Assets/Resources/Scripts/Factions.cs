@@ -29,12 +29,18 @@ public sealed class FactionState
         }
         ChangeFactionRelation(Factions.One, Factions.Two, Relations.War);
     }
-    static void ChangeFactionRelation(Factions aF, Factions bF, Relations relation)
+    public static void ChangeFactionRelation(Factions aF, Factions bF, Relations relation)
     {
         int a = (int)aF;
         int b = (int)bF;
         factionRelations[a, b] = relation;
         factionRelations[b, a] = relation;
+    }
+    public static Relations GetFactionRelations(Factions aF, Factions bF)
+    {
+        int a = (int)aF;
+        int b = (int)bF;
+        return factionRelations[a, b];
     }
 
     public static void PrintRelationsMatrix()

@@ -8,7 +8,6 @@ namespace GOAP {
         public GameObject targetObject;
         public List<Item> desiredItems;
         float defaultPriority = 5;
-        bool active = false;
         protected virtual void Start()
         {
         }

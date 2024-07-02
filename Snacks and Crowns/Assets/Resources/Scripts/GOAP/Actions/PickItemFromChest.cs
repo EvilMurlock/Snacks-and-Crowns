@@ -17,6 +17,11 @@ namespace GOAP
     public class PickItemFromChest : SubAction
     {
         ActionDataPickItemFromChest planingData;
+        public override void Awake()
+        {
+            speachBubbleType = SpeachBubbleTypes.GetItem;
+            base.Awake();
+        }
         public override void Start()
         {
             reusable = true; //This is a subaction
@@ -34,10 +39,11 @@ namespace GOAP
             }
         }
 
-        public override void Activate(ActionData newData)
+        public override void Activate(ActionData arg)
         {
-            planingData = (ActionDataPickItemFromChest)newData;
+            planingData = (ActionDataPickItemFromChest)arg;
             target = planingData.targetObject.gameObject;
+            base.Activate(arg);
         }
         public override void Deactivate()
         {

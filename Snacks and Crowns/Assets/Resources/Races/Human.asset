@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcadc2f7bd5b4ad4ab2d7f8a37061b4c, type: 3}
   m_Name: Human
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 9135c316646ff4e4580f2938ba04f328, type: 3}
+  faces:
+  - {fileID: 21300000, guid: 9135c316646ff4e4580f2938ba04f328, type: 3}
+  - {fileID: 21300000, guid: dc3f05237ac4e434f8a929ecb3bb3b8e, type: 3}
   race: Human
   strenght: 10
   agility: 10

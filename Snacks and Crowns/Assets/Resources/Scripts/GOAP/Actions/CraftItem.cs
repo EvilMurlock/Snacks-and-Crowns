@@ -18,6 +18,11 @@ namespace GOAP
     public class CraftItem : SubAction
     {
         CraftingRecipe currentRecepy;
+        public override void Awake()
+        {
+            speachBubbleType = SpeachBubbleTypes.GetItem;
+            base.Awake();
+        }
         public override void Start()
         {
             base.Start();
@@ -35,9 +40,8 @@ namespace GOAP
             currentRecepy = data.recipe;
             //Debug.Log("Going to craft a: " + data.recipe.result.itemName);
 
-            running = true;
-            completed = false;
             npcAi.ChangeTarget(target, 1f);
+            base.Activate(arg);
         }
         public override void Deactivate()
         {

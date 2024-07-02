@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcadc2f7bd5b4ad4ab2d7f8a37061b4c, type: 3}
   m_Name: Golem
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 0314cb3bb6b202245a8c35f61ab71f50, type: 3}
+  faces:
+  - {fileID: 21300000, guid: 0314cb3bb6b202245a8c35f61ab71f50, type: 3}
   race: Golem
   strenght: 30
   agility: 5

@@ -20,6 +20,11 @@ namespace GOAP
     }
     public class PickUpItem : SubAction
     {
+        public override void Awake()
+        {
+            speachBubbleType = SpeachBubbleTypes.GetItem;
+            base.Awake();
+        }
         public override void Start()
         {
             reusable = true; //this is a subaction
@@ -77,10 +82,10 @@ namespace GOAP
                 }
             }
             target = chosenItem.gameObject;
-            running = true;
-            completed = false;
+
             npcAi.ChangeTarget(target);
             //Debug.Log("NPC reached end of path: " + npcAi.reachedEndOfPath);
+            base.Activate(dataArg);
         }
         public override void Deactivate()
         {

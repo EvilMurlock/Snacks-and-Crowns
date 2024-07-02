@@ -22,7 +22,7 @@ MonoBehaviour:
   componentDataUse:
   - rid: 8153713352461778951
   - rid: 8153713630321049601
-  tags: []
+  tags: 06000000
   recipe:
     ingredients: []
     result: {fileID: 0}

@@ -9,8 +9,6 @@ namespace GOAP {
         float minDistance;
 
         float defaultPriority = 5;
-        
-        bool active = false;
         protected virtual void Start()
         {
         }

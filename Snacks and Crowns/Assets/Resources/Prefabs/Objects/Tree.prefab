@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3544238157502088639}
   - component: {fileID: 4930752767337042014}
   - component: {fileID: 6481573492927185853}
+  - component: {fileID: 3193877091070139308}
   m_Layer: 3
   m_Name: Tree
   m_TagString: Untagged
@@ -214,3 +215,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tags:
   - Tree
+--- !u!114 &3193877091070139308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825667078579017341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d785b372439403c4fa9eee8beeba1ea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentObjectName: Trees

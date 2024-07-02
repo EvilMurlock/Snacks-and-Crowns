@@ -2,6 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum ItemTags
+{
+    meleeWeapon,
+    rangedWeapon,
+    armor,
+    healing,
+    attackBuff,
+    armorBuff,
+    attackSpell,
+    defenceSpell
+}
 [CreateAssetMenu(fileName = "New_Item", menuName = "Inventory/Item")]
 public class Item : ScriptableObject
 {
@@ -14,8 +26,7 @@ public class Item : ScriptableObject
     public float useDuration;
     public bool singleUse = false;
     [SerializeReference] private List<ComponentDataGeneric> componentDataUse;
-    [SerializeReference] List<string> tags;
-
+    [SerializeReference] List<ItemTags> tags;
     [SerializeField]
     CraftingRecipe recipe;
     public CraftingRecipe Recipe { 
@@ -24,7 +35,8 @@ public class Item : ScriptableObject
             recipe.result = this;
             return recipe;       
         } }
-    public List<string> Tags
+    [HideInInspector]
+    public List<ItemTags> Tags
     {
         get { return tags; }
     }

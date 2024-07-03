@@ -129,7 +129,7 @@ namespace GOAP
                     worldState.UpdateBelieves();
                     foreach (Goal g in sortedGoals)
                     {
-                        if (g.CalculatePriority() < 0) continue;
+                        if (g.CalculatePriority() <= 0) continue;
                         Queue<Node> queue = null;
                         //Debug.Log("Current goal can run: " + g.CanRun());
                         if (g.CanRun())
@@ -197,7 +197,7 @@ namespace GOAP
                     currentGoal = null;
                     nodeQueue = null;
                 }
-                else if(currentGoal.Active == false)
+                else if(currentGoal.Active == false || currentGoal.enabledGoal == false)
                 {
                     Debug.Log("Plan failed - GOAL");
                     currentAction.Deactivate();

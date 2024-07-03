@@ -65,7 +65,7 @@ namespace GOAP {
         public override bool CanRun()
         {
             if (targetObject == null) return false;
-            return true;
+            return base.CanRun();
         }
     }
 }

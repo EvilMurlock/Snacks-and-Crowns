@@ -7,6 +7,7 @@ public class Race : ScriptableObject
     //Esthetics
     public List<Sprite> faces;
     public string race;
+
     //Fyzical Stats
     public float strenght;
     public float agility;
@@ -15,4 +16,6 @@ public class Race : ScriptableObject
     //Personality Stats
     public float bravery;
     public float greed;
+
+    public List<ResistanceData> resistances;
 }

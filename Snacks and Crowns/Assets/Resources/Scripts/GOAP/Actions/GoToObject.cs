@@ -4,12 +4,6 @@ using UnityEngine;
 
 namespace GOAP
 {
-    class ActionDataGoToObject : ActionData
-    {
-        public ActionDataGoToObject()
-        {
-        }
-    }
     public class GoToObject : Action
     {
         GoToLocation goToLocation;
@@ -47,7 +41,7 @@ namespace GOAP
         {
             goToLocation = GetComponent<GoToLocation>();
             if (goToLocation == null) return false;
-
+            if (goToLocation.targetObject == null) return false;
             return true;
         }
 
@@ -60,8 +54,7 @@ namespace GOAP
             possibleWorldState.completedGoals.Add(goToLocation);
 
 
-            ActionDataGoToObject actionData = new ActionDataGoToObject();
-            possibleNodes.Add(new Node(parent, 1 + parent.cost + GetDistanceBetween(this.transform.position, goToLocation.targetObject.transform.position ), possibleWorldState, this, actionData));
+            possibleNodes.Add(new Node(parent, 1 + parent.cost + GetDistanceBetween(this.transform.position, goToLocation.targetObject.transform.position ), possibleWorldState, this, null));
             return possibleNodes;
         }
     }

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6098ffd5c10daf549b756a9a83778747, type: 3}
+  m_Name: GolemFireBreath
+  m_EditorClassIdentifier: 
+  cooldown: 1.5
+  abilityComponents:
+  - rid: 604482971642888193
+  - rid: 604482972534702080
+  references:
+    version: 2
+    RefIds:
+    - rid: 604482971642888193
+      type: {class: StunSelf, ns: , asm: Assembly-CSharp}
+      data:
+        name: StunSelf
+        activateAtUse: 0
+        stunDuration: 1
+    - rid: 604482972534702080
+      type: {class: SpawnObject, ns: , asm: Assembly-CSharp}
+      data:
+        name: SpawnObject
+        activateAtUse: 0
+        template: {fileID: 3145319435581564389, guid: 900ce145bcd68504e880e5dd3c0eb066, type: 3}
+        offset: {x: 0, y: 0.75}

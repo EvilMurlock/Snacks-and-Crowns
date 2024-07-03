@@ -22,6 +22,10 @@ public class ReadySelect : MonoBehaviour, ISubmitHandler
     LoadLevelWhenReady whenReady;
     [SerializeField]
     InputSystemUIInputModule uiInput;
+    [SerializeField] 
+    CanvasGroup canvas;
+    [SerializeField]
+    GameObject charakterSelectMenu;
     public void OnSubmit(BaseEventData eventData)
     {
         ReadySelf();
@@ -32,7 +36,7 @@ public class ReadySelect : MonoBehaviour, ISubmitHandler
         shade.SetActive(true);
         StartGameDataHolder.AddPlayer(controlScheme, deviceType, selectRace.GetSelectedRace(), selectFaction.GetFaction(), selectFace.GetFace());
         whenReady.PlayerReady();
-        uiInput.enabled = false;
+        charakterSelectMenu.SetActive(false);
     }
     private void Start()
     {

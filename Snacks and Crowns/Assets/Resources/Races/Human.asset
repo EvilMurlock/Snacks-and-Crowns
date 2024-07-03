@@ -22,3 +22,7 @@ MonoBehaviour:
   magic: 0
   bravery: 0.5
   greed: 0.5
+  resistances: []
+  references:
+    version: 2
+    RefIds: []

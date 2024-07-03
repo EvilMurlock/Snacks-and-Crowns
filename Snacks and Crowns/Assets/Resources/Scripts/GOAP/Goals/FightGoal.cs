@@ -24,11 +24,16 @@ namespace GOAP
                 proxy.OnTriggerExit2D_Action += TriggerExit;
             }
         }
+        public bool IsCompleted()
+        {
+
+            return CalculatePriority() <= 0;
+        }
         void TriggerEnter(Collider2D collision)
         {
             if(collision.gameObject.GetComponent<CharakterSheet>() != null)
             {
-                Debug.Log("Adding this character: " + collision.gameObject.name);
+                //Debug.Log("Adding this character: " + collision.gameObject.name);
                 charactersInRange.Add(collision.gameObject);
             }
         }
@@ -44,20 +49,45 @@ namespace GOAP
                 Factions theirFaction = charakter.GetComponent<FactionMembership>().Faction;
                 if (FactionState.GetFactionRelations(myFaction,theirFaction) == Relations.War)
                 {
-                    Debug.Log("Enemies in range!!!");
+                    //Debug.Log("Enemies in range!!!");
                     return priority;
                 }
             }
-            Debug.Log("No enemies in range!!!");
+            //Debug.Log("No enemies in range!!!");
             return 0;
+        }
+        public GameObject GetClosestEnemy()
+        {
+            GameObject closestEnemy = null;
+            double shortestDistance = -1;
+            foreach (GameObject charakter in charactersInRange)
+            {
+                Factions myFaction = GetComponent<FactionMembership>().Faction;
+                Factions theirFaction = charakter.GetComponent<FactionMembership>().Faction;
+                if (FactionState.GetFactionRelations(myFaction, theirFaction) == Relations.War)
+                {
+                    double newDistance = DistanceCalculator.CalculateDistance(charakter.transform.position, transform.position);
+                    if (closestEnemy == null)
+                    {
+                        closestEnemy = charakter;
+                        shortestDistance = newDistance;
+                    }
+                    if(newDistance < shortestDistance)
+                    {
+                        shortestDistance = newDistance;
+                        closestEnemy = charakter;
+                    }
+                }
+            }
+            return closestEnemy;
+        }
+        public bool EnemyInRange(GameObject enemy)
+        {
+            return charactersInRange.Contains(enemy);
         }
         public override bool CanRun()
         {
-            return EnemiesInRange();
-        }
-        bool EnemiesInRange()
-        {
-            return false;
+            return CalculatePriority() > 0;
         }
     }
 }

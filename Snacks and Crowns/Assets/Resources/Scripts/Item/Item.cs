@@ -43,7 +43,7 @@ public class Item : ScriptableObject
     public virtual void Use(GameObject player)
     {
         Debug.Log("Using " + itemName);
-        GameObject corutiner = Instantiate((GameObject)Resources.Load("Prefabs/ScriptibleCorutiner"));
+        GameObject corutiner = Instantiate((GameObject)Resources.Load("Prefabs/ScriptibleCorutiner")); 
         corutiner.GetComponent<ScriptibleCorutiner>().StartCoroutine(UsingItem(player, corutiner));
         //ScriptibleCorutiner.instance.StartCoroutine(UsingItem(useDuration, player));
     }
@@ -64,5 +64,14 @@ public class Item : ScriptableObject
     public void AddDataUse(ComponentDataGeneric data)
     {
         componentDataUse.Add(data);
+    }
+    public bool HasTags(List<ItemTags> otherTags)
+    {
+        foreach (ItemTags tag in otherTags)
+        {
+            if (!tags.Contains(tag))
+                return false;
+        }
+        return true;
     }
 }

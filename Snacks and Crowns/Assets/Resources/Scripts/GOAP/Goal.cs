@@ -9,8 +9,12 @@ namespace GOAP
     {
         protected WorldState desiredState = new WorldState();
         [SerializeField]
+        
+        public bool enabledGoal = true;
+
         protected bool active = false;
         public bool Active => active;
+
         private void Update()
         {
             Tick();
@@ -21,15 +25,15 @@ namespace GOAP
         }
         public virtual bool CanRun()
         {
-            return true;
+            return enabledGoal;
         }
         public virtual void Activate()
         {
-
+            active = true;
         }
         public virtual void Deactivate()
         {
-
+            active = false;
         }
 
         public virtual void Complete()

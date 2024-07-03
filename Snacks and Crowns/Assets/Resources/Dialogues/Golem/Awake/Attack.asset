@@ -12,11 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a9580f3fd8dd3499071ee92263b089, type: 3}
   m_Name: Attack
   m_EditorClassIdentifier: 
+  autoEndConversation: 0
   requiredItems: []
-  componentData: []
-  text: 
-  nextDialogues: []
-  buttonNames: []
+  componentData:
+  - rid: 604482972534702081
+  text: NONE SHALL LIVE
+  nextDialogues:
+  - {fileID: 0}
+  buttonNames:
+  - ...
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 604482972534702081
+      type: {class: RaidCommand, ns: , asm: Assembly-CSharp}
+      data:
+        name: RaidCommand
+        activateAtUse: 0

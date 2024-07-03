@@ -21,3 +21,8 @@ MonoBehaviour:
   magic: 10
   bravery: 10
   greed: 0
+  resistances:
+  - name: ResistanceData
+    activateAtUse: 0
+    resistanceType: 3
+    resistanceValue: 1

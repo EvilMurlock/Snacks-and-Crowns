@@ -50,7 +50,7 @@ public class DialogueManager : InteractibleInMenu
 		nameText.text = gameObject.name;
 
 		DisplayDialogue(dialogue);
-		Debug.Log("The thingy: " + uiInstance.name);
+		//Debug.Log("The thingy: " + uiInstance.name);
 	}
 	void DisplayButtons()
     {
@@ -151,7 +151,7 @@ public class DialogueManager : InteractibleInMenu
 	public override void UnInteract(GameObject player)
 	{
 		// THE PROBLEMS IS THAT THIS THING GETS CALLED WHEN WE QUIT, BUT WE HAVE TO CALL UnInteract in player manager to actualy reset stuff corectly i think
-		Debug.Log("Leaveling");
+		//Debug.Log("Leaveling");
 		player.GetComponent<PlayerInteractManager>().UnInteract();
 		this.player = null;
 		Destroy(uiInstance);

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using GOAP;
 public class ActivateGolem : DialogueComponentData<ActivateGolem>
 {
     // splite - FACE
@@ -13,11 +13,18 @@ public class ActivateGolem : DialogueComponentData<ActivateGolem>
     {
         Debug.Log("Golem Activated");
         GameObject npc = GameObject.Instantiate(golemPrefab, listener.transform.position, listener.transform.rotation);
-        npc.GetComponent<FactionMembership>().Faction = listener.GetComponent<FactionMembership>().Faction;
-        npc.GetComponent<DialogueManager>().startDialogue = newDialogue;
+        npc.GetComponent<FactionMembership>().Faction = player.GetComponent<FactionMembership>().Faction;
         GameObject.Destroy(listener.gameObject);
-        // give goal FOLLOW PLAYER
-        // CHANGE to PLAYER FACTION
-        // CHANGE FACE TO ACTIVE FACE
+        npc.GetComponent<DialogueManager>().startDialogue = newDialogue;
+        npc.AddComponent<GolemFightGoal>();
+        var goalGoTo = npc.AddComponent<GoToLocation>();
+        goalGoTo.SetDesiredTarget(player);
+        goalGoTo.enabledGoal = false;
+        var goalRaid = npc.AddComponent<LaunchRaid>();
+        goalRaid.enabledGoal = false;
+        npc.AddComponent<IdleAroundAPoint>().SetDesiredTarget(npc.transform.position);
+
+        var refresher = npc.AddComponent<AstarGridRefresher>();
+        GameObject.Destroy(refresher, 5);
     }
 }

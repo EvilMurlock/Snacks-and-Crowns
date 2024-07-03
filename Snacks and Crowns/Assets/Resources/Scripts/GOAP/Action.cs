@@ -28,7 +28,7 @@ namespace GOAP
         protected NpcAi npcAi;
         Sprite speachBubbleSprite = null;
         protected SpeachBubbleTypes speachBubbleType = SpeachBubbleTypes.None;
-
+        int equipmentSlots = 5;
         public virtual string GetInfo(ActionData data)
         {
             return this.GetType().ToString();
@@ -185,6 +185,59 @@ namespace GOAP
 
             return currentNode;
         }
+        protected bool HasItems(WorldState state, List<List<ItemTags>> tagsOfItems)
+        {
+            List<int> shuffledItems = state.myInventory;
+            shuffledItems.Shuffle();
+            foreach(List<ItemTags> tags in tagsOfItems)
+            {
+                for(int i = shuffledItems.Count-1; i < 0; i--)
+                {
+                    Item item = World.GetItemFromId(shuffledItems[i]);
+                    if (item.HasTags(tags))
+                    {
+                        shuffledItems.RemoveAt(i);
+                    }
+                    else
+                        return false;
+                }
+            }
+            return true;
+        }
+        protected bool HasItem(WorldState state, List<ItemTags> tags)
+        {
+            List<int> shuffledItems = new List<int>(state.myInventory);
+            shuffledItems.Shuffle();
+            for (int i = shuffledItems.Count - 1; i >= 0; i--)
+            {
+                Item item = World.GetItemFromId(shuffledItems[i]);
+                if (item.HasTags(tags))
+                    return true;
+            }
+            return false;
+        }
+        protected Node GetRequiredItemWithTags(Node parent, List<ItemTags> tags) //Returns a plan that will colect the required items, returns null if no such plan exists
+        {
+            GetItem getItem = GetComponent<GetItem>();
+            Node currentNode = parent;
+
+            Node newNode = null;
+            List<Item> shufledItems = new List<Item>(World.ItemList);
+            shufledItems.Shuffle();
+            foreach (Item item in shufledItems) 
+            {
+                if (!item.HasTags(tags))
+                    continue;
+                newNode = getItem.GetItemPlan(currentNode, item);
+                if (newNode != null) 
+                    break;
+            }
+
+            if (newNode == null) return null;
+            currentNode = newNode;
+
+            return currentNode;
+        }
 
         protected Node GetRequiredItems(Node parent, List<Item> requiredItems) //Returns a plan that will colect the required items, returns null if no such plan exists
         {
@@ -216,15 +269,39 @@ namespace GOAP
             inventory.RemoveItem(index);
             itemDrop.transform.position = this.transform.position;
         }
+        protected Item FindItemWithTags(List<ItemTags> tags, IEnumerable<Item> items)
+        {
+            foreach(Item item in items)
+            {
+                if (item == null) continue;
+                if (item.HasTags(tags))
+                    return item;
+            }
+            return null;
+        }
+        protected Equipment EquipItem(List<ItemTags> tags)
+        {
+            Inventory inventory = GetComponent<Inventory>();
+            EquipmentManager equipmentManager = GetComponent<EquipmentManager>();
 
+
+            Item test = FindItemWithTags(tags, inventory.Items);
+            Debug.Log("Item is: " + test.itemName);
+            Equipment item = (Equipment)test;//FindItemWithTags(tags, inventory.Items);
+            if (item == null) return null;
+            EquipItem(inventory, equipmentManager, item);
+            return item;
+        }
         protected bool EquipItem(Inventory inventory, EquipmentManager equipmentManager, Item item)
         {
+            if (item == null)
+                return false;
             if (!inventory.HasItem(item))
             {
                 Debug.Log("Ai: npc doesnt have the item it wants to equip");
                 return false;
             }
-            for(int i = 0; i < 5; i++)
+            for(int i = 0; i < equipmentSlots; i++)
             {
                 if(equipmentManager.CanEquipItem(item, i))
                 {
@@ -235,9 +312,18 @@ namespace GOAP
             }
             return false;
         }
+        protected void UnequipItem(List<ItemTags> tags)
+        {
+            Inventory inventory = GetComponent<Inventory>();
+            EquipmentManager equipmentManager = GetComponent<EquipmentManager>();
 
+            Item item = FindItemWithTags(tags, equipmentManager.Equipments);
+            if (item == null) return;
+            EquipItem(inventory, equipmentManager, item);
+        }
         protected void Unequip(Inventory inventory, EquipmentManager equipmentManager, Item item)
         {
+            if (item == null) return;
             Equipment[] equipments = equipmentManager.Equipments;
 
             int index = 0;

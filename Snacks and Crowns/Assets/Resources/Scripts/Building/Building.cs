@@ -5,7 +5,7 @@ using UnityEngine;
 public class Building : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         GameObject objectsSon = transform.Find("Objects").gameObject;
         foreach(Transform childTransform in objectsSon.transform)

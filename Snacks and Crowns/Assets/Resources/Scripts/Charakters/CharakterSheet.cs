@@ -15,12 +15,21 @@ public class CharakterSheet : MonoBehaviour
     {
         //Derived Stats
         SetFace();
-        
+        RaceInnit();
     }
     public void SetRace(Race race, int face)
     {
         this.race = race;
         SetFace(face);
+        RaceInnit();
+    }
+    void RaceInnit()
+    {
+        Damagable damagable = GetComponent<Damagable>();
+        foreach (ResistanceData data in race.resistances)
+        {
+            damagable.ChangeResistance(data.resistanceType, data.resistanceValue);
+        }
     }
     void SetFace()
     {

@@ -8,6 +8,7 @@ namespace GOAP
         private static readonly World instance = new World();
         private static WorldState worldState;
         static List<Item> ItemIdList = new List<Item>();
+        public static List<Item> ItemList => ItemIdList;
         static World()
         {
             Item[] itemArray = Resources.LoadAll<Item>("Items");

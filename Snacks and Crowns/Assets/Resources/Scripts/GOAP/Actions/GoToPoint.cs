@@ -4,12 +4,7 @@ using UnityEngine;
 
 namespace GOAP
 {
-    class ActionDataGoToPoint : ActionData
-    {
-        public ActionDataGoToPoint()
-        {
-        }
-    }
+
     public class GoToPoint : Action
     {
         IdleAroundAPoint idleAroundAPoint;
@@ -62,8 +57,7 @@ namespace GOAP
             possibleWorldState.completedGoals.Add(idleAroundAPoint);
 
 
-            ActionDataGoToObject actionData = new ActionDataGoToObject();
-            possibleNodes.Add(new Node(parent, 1 + parent.cost + GetDistanceBetween(this.transform.position, idleAroundAPoint.RandomIdlePoint ), possibleWorldState, this, actionData));
+            possibleNodes.Add(new Node(parent, 1 + parent.cost + GetDistanceBetween(this.transform.position, idleAroundAPoint.RandomIdlePoint ), possibleWorldState, this, null));
             return possibleNodes;
         }
     }

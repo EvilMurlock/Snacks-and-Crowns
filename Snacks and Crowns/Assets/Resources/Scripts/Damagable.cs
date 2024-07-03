@@ -12,15 +12,17 @@ public class Damagable : MonoBehaviour
 
     public float max_hp = 100;
     public float hp { get; private set; }
-    Dictionary<Damage_Type, float> resistances;
+    Dictionary<Damage_Type, float> resistances = new Dictionary<Damage_Type, float>();
     private void Start()
     {
         Changehealth(max_hp);
-        resistances = new Dictionary<Damage_Type, float>();
+        /*
         foreach(Damage_Type type in Enum.GetValues(typeof(Damage_Type)))
         {
+            if (resistances.ContainsKey(type))
+                continue;
             resistances[type] = 0;
-        }
+        }*/
     }
     public void TakeDamage(Attack attack)
     {
@@ -28,7 +30,7 @@ public class Damagable : MonoBehaviour
         if (resistances.ContainsKey(attack.damage_type))
         { resistance = resistances[attack.damage_type]; }
         float damageTaken = attack.damage * Mathf.Clamp(1 - resistance, 0, 1);
-        //Debug.Log("Damage taken: " + damageTaken);
+        //Debug.Log("Damage taken: " + damageTaken + " | Resistance to type: " + attack.damage_type.ToString() + " => "+ resistance);
         Changehealth(hp-damageTaken);
         if (hp < 0) Die();
     }
@@ -49,12 +51,13 @@ public class Damagable : MonoBehaviour
     }
     public void ChangeResistance(Damage_Type type, float amount)
     {
-        resistances[type] += amount;
+        if (!resistances.TryAdd(type, amount))
+            resistances[type] += amount;
         //Debug.Log("Resistance changed: " + type.ToString());
         //Debug.Log("New resistance value: "+ resistances[type]);
     }
 }
 public enum Damage_Type
 {
-    blunt, pierce, slash
+    blunt, pierce, slash, fire, ice, magic
 }

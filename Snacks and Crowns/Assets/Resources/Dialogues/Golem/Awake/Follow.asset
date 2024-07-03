@@ -12,11 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a9580f3fd8dd3499071ee92263b089, type: 3}
   m_Name: Follow
   m_EditorClassIdentifier: 
+  autoEndConversation: 0
   requiredItems: []
-  componentData: []
-  text: 
-  nextDialogues: []
-  buttonNames: []
+  componentData:
+  - rid: 604482972534702082
+  text: '*Whoosh*'
+  nextDialogues:
+  - {fileID: 0}
+  buttonNames:
+  - Ok
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 604482972534702082
+      type: {class: FollowCommand, ns: , asm: Assembly-CSharp}
+      data:
+        name: FollowCommand
+        activateAtUse: 0

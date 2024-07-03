@@ -20,7 +20,7 @@ namespace GOAP
             //Debug.Log(lastPlanNode.action.actionName);
             Queue<Node> planQueue = CreatePlanQueue(lastPlanNode);
             
-            DebugPrintPlan(planQueue);
+            //DebugPrintPlan(planQueue);
             return planQueue;
         }
         public void DebugPrintPlan(Queue<Node> planQueue)

@@ -15,6 +15,13 @@ public class Inventory : MonoBehaviour
     {
         onChangeInventory.Invoke(this);
     }
+    public void Clear()
+    {
+        for(int i = 0; i < items.Length; i++)
+        {
+            RemoveItem(i);
+        }
+    }
     public IEnumerator<Item> GetEnumerator()
     {
         foreach(Item item in items)

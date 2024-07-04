@@ -11,7 +11,7 @@ public class Explosion : MonoBehaviour
     public GameObject explosionEffect;
     public void Explode(GameObject parent)
     {
-        Debug.Log("EXPLODING");
+        //Debug.Log("EXPLODING");
         CircleCollider2D cc = this.gameObject.AddComponent<CircleCollider2D>();
         cc.isTrigger = true;
         cc.radius = radius;

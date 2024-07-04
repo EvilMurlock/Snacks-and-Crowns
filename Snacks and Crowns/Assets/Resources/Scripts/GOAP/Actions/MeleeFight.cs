@@ -20,11 +20,11 @@ namespace GOAP
         {
             if (!meleeFightGoal.EnemyInRange(target))
                 Deactivate();
-            if (target == null) 
+            else if (target == null) 
                 Complete();
             else if (meleeFightGoal.IsCompleted())
                 Complete();
-            if(npcAi.reachedEndOfPath || DistanceCalculator.CalculateDistance(transform.position, target.transform.position) <= attackRange)
+            else if(npcAi.reachedEndOfPath || DistanceCalculator.CalculateDistance(transform.position, target.transform.position) <= attackRange)
             {
                 meleeItem.instance.GetComponent<Hand_Item_Controler>().Use();
             }
@@ -46,6 +46,7 @@ namespace GOAP
         {
             running = false;
             completed = true;
+            npcAi.ChangeTarget(null);
             UnequipItem(meleeItemTags);
         }
         public override bool IsAchievableGiven(WorldState worldState)//For the planner
@@ -61,12 +62,12 @@ namespace GOAP
             Node parent = parentOriginal;
             if (!HasItem(parentOriginal.state, meleeItemTags))
             {
-                Debug.Log("Getting item");
+                //Debug.Log("Getting item");
                 parent = GetRequiredItemWithTags(parentOriginal, meleeItemTags);
                 if (parent == null)
                     return possibleNodes; // we cant fight, we dont have a weapon
             }
-            else Debug.Log("Already have item");
+            //else Debug.Log("Already have item");
             WorldState possibleWorldState = new WorldState(parent.state);
             possibleWorldState.CopyCompletedGoals();
             possibleWorldState.completedGoals.Add(meleeFightGoal);

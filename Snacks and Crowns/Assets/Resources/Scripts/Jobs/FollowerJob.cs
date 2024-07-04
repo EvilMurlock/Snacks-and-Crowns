@@ -7,6 +7,7 @@ using GOAP;
 [System.Serializable]
 public class FollowerJob : Job
 {
+    
     GameObject whatToFollow;
     float minDistance;
     public override void SetGoalsOfAnNPC(GameObject npc)

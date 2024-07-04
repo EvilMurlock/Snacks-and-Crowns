@@ -12,7 +12,8 @@ namespace GOAP
         Gather,
         Sleep,
         Walk,
-        GetItem
+        GetItem,
+        Heal
     }
     public abstract class Action : MonoBehaviour
     {
@@ -173,7 +174,30 @@ namespace GOAP
 
             return newNode;
         }
+        protected Bed FindClosestBed()
+        {
+            Bed[] beds = FindObjectsByType<Bed>(FindObjectsSortMode.None);
+            Bed closestBed = null;
+            float smallestDistnace = -1f;
+            foreach(Bed bed in beds)
+            {
+                if (bed.GetComponent<FactionMembership>() == null) continue;
+                if (bed.GetComponent<FactionMembership>().Faction != GetComponent<FactionMembership>().Faction) continue;
 
+                float distance = (float)DistanceCalculator.CalculateDistance(transform.position, bed.transform.position);
+                if (smallestDistnace < 0)
+                {
+                    closestBed = bed;
+                    smallestDistnace = distance;
+                }
+                if(distance < smallestDistnace)
+                {
+                    closestBed = bed;
+                    smallestDistnace = distance;
+                }
+            }
+            return closestBed;
+        }
         protected Node GetRequiredItem(Node parent, Item requiredItem) //Returns a plan that will colect the required items, returns null if no such plan exists
         {
             GetItem getItem = GetComponent<GetItem>();
@@ -279,6 +303,20 @@ namespace GOAP
             }
             return null;
         }
+
+        protected bool UseItem(List<ItemTags> tags)
+        {
+            Inventory myInventory = GetComponent<Inventory>();
+            foreach(Item item in myInventory)
+            {
+                if (item.HasTags(tags))
+                {
+                    item.Use(gameObject);
+                    return true;
+                }
+            }
+            return false;
+        }
         protected Equipment EquipItem(List<ItemTags> tags)
         {
             Inventory inventory = GetComponent<Inventory>();
@@ -286,7 +324,7 @@ namespace GOAP
 
 
             Item test = FindItemWithTags(tags, inventory.Items);
-            Debug.Log("Item is: " + test.itemName);
+            //Debug.Log("Item is: " + test.itemName);
             Equipment item = (Equipment)test;//FindItemWithTags(tags, inventory.Items);
             if (item == null) return null;
             EquipItem(inventory, equipmentManager, item);
@@ -319,7 +357,7 @@ namespace GOAP
 
             Item item = FindItemWithTags(tags, equipmentManager.Equipments);
             if (item == null) return;
-            EquipItem(inventory, equipmentManager, item);
+            Unequip(inventory, equipmentManager, item);
         }
         protected void Unequip(Inventory inventory, EquipmentManager equipmentManager, Item item)
         {

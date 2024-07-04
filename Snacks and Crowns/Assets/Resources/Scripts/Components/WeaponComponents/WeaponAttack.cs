@@ -11,6 +11,7 @@ public class WeaponAttack : MonoBehaviour
         Damagable damagable = g.GetComponent<Damagable>();
         if(damagable != null)
         {
+            //Debug.Log("Dealt damage: " + attack.damage);
             damagable.TakeDamage(attack);
         }
     }

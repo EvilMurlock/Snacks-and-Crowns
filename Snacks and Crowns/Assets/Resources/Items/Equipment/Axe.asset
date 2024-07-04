@@ -50,5 +50,5 @@ MonoBehaviour:
         name: AttackComponentData
         activateAtUse: 0
         attack:
-          damage: 30
+          damage: 20
           damage_type: 2

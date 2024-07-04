@@ -145,8 +145,8 @@ MonoBehaviour:
         maxKnockback: 300
         minKnockback: 100
         attack:
-          damage: 30
-          damage_type: 0
+          damage: 50
+          damage_type: 3
         explosionEffect: {fileID: 8079436043623187588, guid: a1077a2b0dce81f4a92e0a2573e58732, type: 3}
     - rid: 8153713630321049602
       type: {class: DeleteOnHitData, ns: , asm: Assembly-CSharp}

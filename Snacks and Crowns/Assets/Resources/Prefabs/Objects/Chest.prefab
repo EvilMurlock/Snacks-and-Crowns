@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2569590612798635493}
   - component: {fileID: 842078749785718414}
   - component: {fileID: 4764549138245695010}
-  - component: {fileID: 2599084429235543347}
   - component: {fileID: 1583434661633873850}
   - component: {fileID: 1616411752393079465}
   - component: {fileID: -8261056025881476221}
@@ -102,25 +101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad544925c9fba04aa0739648eae68f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2599084429235543347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 548664686518509655}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66f9a8cf17b354b4095fb2a498093a2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  death:
-    m_PersistentCalls:
-      m_Calls: []
-  healthChange:
-    m_PersistentCalls:
-      m_Calls: []
-  max_hp: 100
 --- !u!114 &1583434661633873850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +114,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chestUiPrefab: {fileID: 7470949887272524258, guid: 6cccb9f879ca41a49bfa603defb8b704, type: 3}
-  inventory: {fileID: 0}
 --- !u!61 &1616411752393079465
 BoxCollider2D:
   m_ObjectHideFlags: 0

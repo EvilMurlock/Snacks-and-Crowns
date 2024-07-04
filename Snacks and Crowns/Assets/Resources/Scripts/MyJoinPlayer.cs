@@ -9,6 +9,7 @@ public class MyJoinPlayer : MonoBehaviour
     void Start()
     {
         inputManager.playerJoinedEvent.AddListener(PlayerJoined);
+        inputManager.playerLeftEvent.AddListener(PlayerLeft);
         
         PlayerInput player2 = inputManager.JoinPlayer(-1, // player index
                                 -1, // split-screen index
@@ -28,7 +29,7 @@ public class MyJoinPlayer : MonoBehaviour
                                 controlScheme: "Controller", // control scheme
                                 InputSystem.devices[2]); // pairWithDevice
         */
-        inputManager.joinBehavior = PlayerJoinBehavior.JoinPlayersWhenButtonIsPressed;
+        //inputManager.joinBehavior = PlayerJoinBehavior.JoinPlayersWhenButtonIsPressed;
         /*
         Debug.Log("Contorlers detected: " + InputSystem.devices.Count);
         Debug.Log("Contorlers detected: " + InputSystem.devices[0].name);
@@ -37,12 +38,15 @@ public class MyJoinPlayer : MonoBehaviour
 
     void PlayerJoined(PlayerInput input)
     {
-        //Debug.Log("Player scheme: " + input.currentControlScheme);
+        Debug.Log("Player device "+ input.devices[0] + " scheme: " + input.currentControlScheme);
     }
-
-    // Update is called once per frame
-    void Update()
+    void PlayerLeft(PlayerInput input)
     {
+        Debug.Log("Disconected player with device "+ input.devices[0] +" and scheme: " + input.currentControlScheme);
         
+        PlayerInput player = inputManager.JoinPlayer(input.playerIndex, // player index
+                                input.splitScreenIndex, // split-screen index
+                                controlScheme: input.currentControlScheme, // control scheme
+                                input.devices[0]); // pairWithDevice
     }
 }

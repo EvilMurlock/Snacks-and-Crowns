@@ -6,6 +6,8 @@ namespace GOAP
     [System.Serializable]
     public class WorldState
     {
+        static float maxPickupRange = 100f;
+
         public List<ItemPickup> itemPickups;
         public List<int> virtualItemPickups = new List<int>(); // only used for planning, always starts empty
         public Dictionary<GameObject, List<int>> inventories; // chest reference, and its inventory
@@ -59,10 +61,34 @@ namespace GOAP
             this.agent = agent;
         }
 
-        public void UpdateBelieves() 
+        public void UpdateBelieves()
         {
             UpdateGeneralBelieves();
             InventoryUpdate(agent.GetComponent<Inventory>());
+            RemoveInventoriesFromWrongFaction();
+            RemoveItemFarAwayPickups();
+        }
+        void RemoveInventoriesFromWrongFaction()
+        {
+            Factions faction = agent.GetComponent<FactionMembership>().Faction;
+            Dictionary<GameObject, List<int>> newInventories = new Dictionary<GameObject, List<int>>();
+            foreach (GameObject inventoryObject in inventories.Keys)
+            {
+                FactionMembership factionMembership = inventoryObject.GetComponent<FactionMembership>();
+                if (factionMembership == null)
+                    continue;
+                if (faction == factionMembership.Faction)
+                    newInventories[inventoryObject] = inventories[inventoryObject];
+            }
+            inventories = newInventories;
+        }
+        void RemoveItemFarAwayPickups()
+        {
+            for(int i = itemPickups.Count -1; i >=0; i--)
+            {
+                if (DistanceCalculator.CalculateDistance(itemPickups[i].transform.position, agent.transform.position) > maxPickupRange)
+                    itemPickups.RemoveAt(i);
+            }
         }
         void UpdateGeneralBelieves()
         {

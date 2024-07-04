@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a7298259f1804e46a1fec448ab71e10, type: 3}
+  m_Name: GolbinMask
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: c67860001e1f4084ca40b3dde42c1460, type: 3}
+  itemName: Mask
+  description: Mask of the golbin king, is very strong against magic.
+  cost: 500
+  prefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
+  useDuration: 0
+  singleUse: 0
+  componentDataUse: []
+  tags: 02000000
+  recipe:
+    ingredients: []
+    result: {fileID: 0}
+    craftingObjekt: 0
+  componentDataEquipment:
+  - rid: 604482993095966724
+  - rid: 604482993095966725
+  - rid: 604482993095966726
+  - rid: 604482993095966727
+  - rid: 604482993095966728
+  - rid: 604482993095966729
+  - rid: 604482993095966730
+  equipmentSlot: 2
+  equipmentPrefab: {fileID: 6329217519378015856, guid: 11cf72895513ea1459571da1b1620def, type: 3}
+  instance: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 604482993095966724
+      type: {class: ResistanceData, ns: , asm: Assembly-CSharp}
+      data:
+        name: ResistanceData
+        activateAtUse: 0
+        resistanceType: 0
+        resistanceValue: 20
+    - rid: 604482993095966725
+      type: {class: ResistanceData, ns: , asm: Assembly-CSharp}
+      data:
+        name: ResistanceData
+        activateAtUse: 0
+        resistanceType: 1
+        resistanceValue: 20
+    - rid: 604482993095966726
+      type: {class: ResistanceData, ns: , asm: Assembly-CSharp}
+      data:
+        name: ResistanceData
+        activateAtUse: 0
+        resistanceType: 2
+        resistanceValue: 20
+    - rid: 604482993095966727
+      type: {class: ResistanceData, ns: , asm: Assembly-CSharp}
+      data:
+        name: ResistanceData
+        activateAtUse: 0
+        resistanceType: 3
+        resistanceValue: 60
+    - rid: 604482993095966728
+      type: {class: ResistanceData, ns: , asm: Assembly-CSharp}
+      data:
+        name: ResistanceData
+        activateAtUse: 0
+        resistanceType: 4
+        resistanceValue: 60
+    - rid: 604482993095966729
+      type: {class: ResistanceData, ns: , asm: Assembly-CSharp}
+      data:
+        name: ResistanceData
+        activateAtUse: 0
+        resistanceType: 5
+        resistanceValue: 60
+    - rid: 604482993095966730
+      type: {class: ResistanceData, ns: , asm: Assembly-CSharp}
+      data:
+        name: ResistanceData
+        activateAtUse: 0
+        resistanceType: 0
+        resistanceValue: 0

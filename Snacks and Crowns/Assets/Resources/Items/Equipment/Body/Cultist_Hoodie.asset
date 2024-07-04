@@ -28,12 +28,20 @@ MonoBehaviour:
     craftingObjekt: 0
   componentDataEquipment:
   - rid: 8153713674250354728
+  - rid: 604482993095966723
   equipmentSlot: 2
   equipmentPrefab: {fileID: 6329217519378015856, guid: 11cf72895513ea1459571da1b1620def, type: 3}
   instance: {fileID: 0}
   references:
     version: 2
     RefIds:
+    - rid: 604482993095966723
+      type: {class: ResistanceData, ns: , asm: Assembly-CSharp}
+      data:
+        name: ResistanceData
+        activateAtUse: 0
+        resistanceType: 5
+        resistanceValue: 0.1
     - rid: 8153713674250354728
       type: {class: ResistanceData, ns: , asm: Assembly-CSharp}
       data:

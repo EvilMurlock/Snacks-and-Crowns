@@ -40,14 +40,15 @@ public class Damagable : MonoBehaviour
     }
     void Changehealth(float newHealth)
     {
-        hp = newHealth;
+        hp = Mathf.Min(newHealth, max_hp);
         healthChange.Invoke(hp,max_hp);
     }
     void Die()
     {
         //Debug.Log(gameObject.name + " is DEAD");
         death.Invoke();
-        Destroy(gameObject);
+        if(hp<0)
+            Destroy(gameObject);
     }
     public void ChangeResistance(Damage_Type type, float amount)
     {

@@ -52,10 +52,12 @@ namespace GOAP
             && !type.ContainsGenericParameters
             && type.IsClass);
             List<Type> actionTypes = filteredTypes.ToList();
-            Debug.Log("Instantiating this many actions: " + actionTypes.Count);
+            //Debug.Log("Instantiating this many actions: " + actionTypes.Count);
             foreach(Type actionType in actionTypes)
             {
                 //Debug.Log(actionType.ToString());
+                if (actionType.IsAbstract)
+                    continue;
                 gameObject.AddComponent(actionType);
             }
         }
@@ -175,7 +177,7 @@ namespace GOAP
                 {
                     if(nodeQueue.Count == 0)//if end of plan
                     {
-                        Debug.Log("Completed plan: " +currentGoal.ToString());
+                        //Debug.Log("Completed plan: " +currentGoal.ToString());
                         currentGoal.Complete();
                         currentAction = null;
                         currentGoal = null;

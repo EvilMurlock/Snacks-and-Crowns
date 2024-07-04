@@ -48,25 +48,26 @@ namespace GOAP
             return null;
         }
 
-
-        void UpdateWorld()
+        List<ItemPickup> LoadItemPickups()
         {
-
             List<ItemPickup> itemPickups = new List<ItemPickup>();
             foreach (ItemPickup itemPickup in GameObject.FindObjectsByType<ItemPickup>(FindObjectsSortMode.None))
             {
                 itemPickups.Add(itemPickup);
             }
-            worldState.itemPickups = itemPickups;
+            return itemPickups;
+        }
 
+        Dictionary<GameObject, List<int>> LoadInventories()
+        {
             Dictionary<GameObject, List<int>> inventories = new Dictionary<GameObject, List<int>>();
             foreach (Chest chest in GameObject.FindObjectsByType<Chest>(FindObjectsSortMode.None))
             {
                 GameObject gameObject = chest.gameObject;
                 List<int> chestInventory = new List<int>();
-                foreach(Item item in chest.GetComponent<Inventory>().Items)
+                foreach (Item item in chest.GetComponent<Inventory>().Items)
                 {
-                    if(item != null)chestInventory.Add(World.GetIdFromItem(item));
+                    if (item != null) chestInventory.Add(World.GetIdFromItem(item));
                 }
                 inventories[gameObject] = chestInventory;
             }
@@ -80,7 +81,12 @@ namespace GOAP
                 }
                 inventories[gameObject] = chestInventory;
             }
-            worldState.inventories = inventories;
+            return inventories;
+        }
+        void UpdateWorld()
+        {
+            worldState.itemPickups = LoadItemPickups();
+            worldState.inventories = LoadInventories();
         }
     }
 }

@@ -7,8 +7,6 @@ public class RespawnPoint : MonoBehaviour
     [SerializeField]
     GameObject NPCPrefab;    
     [SerializeField]
-    Job job;
-    [SerializeField]
     float respawnDuration;
 
     float timeUnitlRespawn = 0;
@@ -23,7 +21,11 @@ public class RespawnPoint : MonoBehaviour
     {
         npc = Instantiate(NPCPrefab, transform.position, transform.rotation);
         npc.GetComponent<FactionMembership>().Faction = GetComponent<FactionMembership>().Faction;
-        job.SetGoalsOfAnNPC(npc);
+
+        foreach(Job job in GetComponents<Job>())
+        {
+            job.SetGoalsOfAnNPC(npc);
+        }
     }
     // Update is called once per frame
     void Update()

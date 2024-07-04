@@ -106,11 +106,11 @@ namespace GOAP {
         }
         public override float CalculatePriority()
         {
+            if (targetObject == null) return -1;
             if (IsCompleted()) return -1;
             float priority = defaultPriority;
 
 
-            if (targetObject == null) return -1;
 
             priority = HowCloseToFillingTheChest();
 

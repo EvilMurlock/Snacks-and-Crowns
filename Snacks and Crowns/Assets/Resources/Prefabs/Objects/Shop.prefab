@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 727699592601452003}
   - component: {fileID: 4946589247371971127}
-  - component: {fileID: 4352389834332587339}
   - component: {fileID: 5533266654031401072}
   - component: {fileID: 781379820281804322}
   - component: {fileID: 8365996860332740583}
@@ -90,25 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4352389834332587339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7614303839123966125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66f9a8cf17b354b4095fb2a498093a2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  death:
-    m_PersistentCalls:
-      m_Calls: []
-  healthChange:
-    m_PersistentCalls:
-      m_Calls: []
-  max_hp: 100
 --- !u!114 &5533266654031401072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,8 +199,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf0141cfca642d438f6eea68a93682c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  capacity: 9
-  items: []
   onChangeInventory:
     m_PersistentCalls:
       m_Calls: []

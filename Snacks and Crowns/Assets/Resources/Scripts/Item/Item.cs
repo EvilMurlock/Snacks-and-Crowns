@@ -42,7 +42,7 @@ public class Item : ScriptableObject
     }
     public virtual void Use(GameObject player)
     {
-        Debug.Log("Using " + itemName);
+        //Debug.Log("Using " + itemName);
         GameObject corutiner = Instantiate((GameObject)Resources.Load("Prefabs/ScriptibleCorutiner")); 
         corutiner.GetComponent<ScriptibleCorutiner>().StartCoroutine(UsingItem(player, corutiner));
         //ScriptibleCorutiner.instance.StartCoroutine(UsingItem(useDuration, player));
@@ -73,5 +73,13 @@ public class Item : ScriptableObject
                 return false;
         }
         return true;
+    }
+    public static void DropItem(Item item, Vector3 position)
+    {
+        if (item == null) return;
+        GameObject item_object = Instantiate((GameObject)Resources.Load("Prefabs/Items/Item"), position, Quaternion.Euler(0,0,Random.Range(0,360)));
+        item_object.GetComponent<ItemPickup>().item = item;
+        item_object.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-100, 100), Random.Range(-100, 100)).normalized * 500);
+        //item_object.transform.rotation = this.transform.rotation;
     }
 }

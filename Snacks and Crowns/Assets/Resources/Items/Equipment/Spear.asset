@@ -42,13 +42,13 @@ MonoBehaviour:
       data:
         name: 
         activateAtUse: 0
-        knockback: 50
-        stunTime: 0.2
+        knockback: 20
+        stunTime: 0.3
     - rid: 6825547854325481472
       type: {class: AttackComponentData, ns: , asm: Assembly-CSharp}
       data:
         name: 
         activateAtUse: 0
         attack:
-          damage: 40
+          damage: 30
           damage_type: 1

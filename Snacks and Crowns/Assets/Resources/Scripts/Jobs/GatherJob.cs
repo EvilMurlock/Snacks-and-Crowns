@@ -4,7 +4,7 @@ using UnityEngine;
 using GOAP;
 
 [System.Serializable]
-public class GatherJob : JobWithSleep
+public class GatherJob : Job
 {
     [SerializeField]
     GameObject GatheringPlace;

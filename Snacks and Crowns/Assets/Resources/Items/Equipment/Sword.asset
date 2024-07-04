@@ -43,7 +43,7 @@ MonoBehaviour:
         name: AttackComponentData
         activateAtUse: 0
         attack:
-          damage: 20
+          damage: 15
           damage_type: 2
     - rid: 6825547854325481476
       type: {class: KnockbackComponentData, ns: , asm: Assembly-CSharp}
@@ -58,5 +58,5 @@ MonoBehaviour:
         name: AttackComponentData
         activateAtUse: 0
         attack:
-          damage: 20
+          damage: 15
           damage_type: 1

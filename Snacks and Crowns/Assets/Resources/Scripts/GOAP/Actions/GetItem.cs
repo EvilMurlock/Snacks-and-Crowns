@@ -202,20 +202,25 @@ namespace GOAP
             GameObject closestForge = null;
             GameObject closestWorkshop = null;
             GameObject closestAnvil = null;
-
+            Factions myFaction = GetComponent<FactionMembership>().Faction;
             foreach (Crafter crafter in GameObject.FindObjectsByType<Crafter>(FindObjectsSortMode.None))
             {
-                if (crafter.CraftingObjekt == CraftingObjekt.forge && (closestForge == null || GetDistanceBetween(myPosition, closestForge.transform.position) > GetDistanceBetween(myPosition, crafter.transform.position)))
+                Factions craftFaction = crafter.GetComponent<FactionMembership>().Faction;
+                if (craftFaction == myFaction ||
+                    FactionState.GetFactionRelations(craftFaction, myFaction) == Relations.Alliance)
                 {
-                    closestForge = crafter.gameObject;
-                }
-                if (crafter.CraftingObjekt == CraftingObjekt.workshop && (closestWorkshop == null || GetDistanceBetween(myPosition, closestWorkshop.transform.position) > GetDistanceBetween(myPosition, crafter.transform.position)))
-                {
-                    closestWorkshop = crafter.gameObject;
-                }
-                if (crafter.CraftingObjekt == CraftingObjekt.anvil && (closestAnvil == null || GetDistanceBetween(myPosition, closestAnvil.transform.position) > GetDistanceBetween(myPosition, crafter.transform.position)))
-                {
-                    closestAnvil = crafter.gameObject;
+                    if (crafter.CraftingObjekt == CraftingObjekt.forge && (closestForge == null || GetDistanceBetween(myPosition, closestForge.transform.position) > GetDistanceBetween(myPosition, crafter.transform.position)))
+                    {
+                        closestForge = crafter.gameObject;
+                    }
+                    if (crafter.CraftingObjekt == CraftingObjekt.workshop && (closestWorkshop == null || GetDistanceBetween(myPosition, closestWorkshop.transform.position) > GetDistanceBetween(myPosition, crafter.transform.position)))
+                    {
+                        closestWorkshop = crafter.gameObject;
+                    }
+                    if (crafter.CraftingObjekt == CraftingObjekt.anvil && (closestAnvil == null || GetDistanceBetween(myPosition, closestAnvil.transform.position) > GetDistanceBetween(myPosition, crafter.transform.position)))
+                    {
+                        closestAnvil = crafter.gameObject;
+                    }
                 }
             }
 

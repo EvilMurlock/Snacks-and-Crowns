@@ -7,12 +7,32 @@ namespace GOAP
     {
 
         EquipItemGoal equipItemGoal;
+        int goalId = 0;
         public override void Awake()
         {
             speachBubbleType = SpeachBubbleTypes.Heal;
             base.Awake();
         }
+        public override void Start()
+        {
+            if(goalId == 0) DuplicateSelf();
+            base.Start();
+        }
+        public void Innitialize(int id)
+        {
+            goalId = id;
+        }
+        void DuplicateSelf()
+        {
+            EquipItemGoal[] goals = GetComponents<EquipItemGoal>();
 
+            for(int i = 1; i < goals.Length; i++)
+            {
+                var action = gameObject.AddComponent<EquipItemAction>();
+                action.Innitialize(i);
+            }
+            GetComponent<Agent>().RefreshActions();
+        }
         public override void Tick()
         {
             if(EquipItem(equipItemGoal.tags) == null){
@@ -30,15 +50,18 @@ namespace GOAP
         public override void Deactivate()
         {
             running = false;
+            npcAi.ChangeTarget(null);
         }
         public override void Complete()
         {
             running = false;
             completed = true;
+            npcAi.ChangeTarget(null);
         }
         public override bool IsAchievableGiven(WorldState worldState)//For the planner
         {
-            equipItemGoal = GetComponent<EquipItemGoal>();
+            if (GetComponent<EquipItemGoal>() == null) return false;
+            equipItemGoal = GetComponents<EquipItemGoal>()[goalId];
             if (equipItemGoal == null) return false;
             return true;
         }

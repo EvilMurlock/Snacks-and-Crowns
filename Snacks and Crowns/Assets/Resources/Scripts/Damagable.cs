@@ -32,7 +32,7 @@ public class Damagable : MonoBehaviour
         float damageTaken = attack.damage * Mathf.Clamp(1 - resistance, 0, 1);
         //Debug.Log("Damage taken: " + damageTaken + " | Resistance to type: " + attack.damage_type.ToString() + " => "+ resistance);
         Changehealth(hp-damageTaken);
-        if (hp < 0) Die();
+        if (hp <= 0) Die();
     }
     public void Heal(float healAmount)
     {
@@ -47,7 +47,7 @@ public class Damagable : MonoBehaviour
     {
         //Debug.Log(gameObject.name + " is DEAD");
         death.Invoke();
-        if(hp<0)
+        if(hp<=0)
             Destroy(gameObject);
     }
     public void ChangeResistance(Damage_Type type, float amount)

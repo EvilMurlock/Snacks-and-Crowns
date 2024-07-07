@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: race
       value: 
       objectReference: {fileID: 11400000, guid: 5233d4a53b9ec644f8794bd1a8807e79, type: 2}
+    - target: {fileID: 1474918379972465830, guid: 53ea0ecb413b17145bcfcb97714aa3f4, type: 3}
+      propertyPath: max_hp
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 1690622705742801511, guid: 53ea0ecb413b17145bcfcb97714aa3f4, type: 3}
       propertyPath: m_Sprite
       value: 

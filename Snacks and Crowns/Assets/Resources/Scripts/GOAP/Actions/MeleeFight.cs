@@ -32,7 +32,10 @@ namespace GOAP
         public override void Activate(ActionData arg)
         {
             target = meleeFightGoal.GetClosestEnemy();
-            meleeItem = EquipItem(meleeItemTags);
+            if (HasEquipedItem(meleeItemTags))
+                meleeItem = GetEquipedItem(meleeItemTags);
+            else
+                meleeItem = EquipItem(meleeItemTags);
             npcAi.ChangeTarget(target);
             base.Activate(arg);
         }
@@ -60,7 +63,7 @@ namespace GOAP
         {
             List<Node> possibleNodes = new List<Node>();
             Node parent = parentOriginal;
-            if (!HasItem(parentOriginal.state, meleeItemTags))
+            if (!HasItem(parentOriginal.state, meleeItemTags) && !HasEquipedItem(meleeItemTags))
             {
                 //Debug.Log("Getting item");
                 parent = GetRequiredItemWithTags(parentOriginal, meleeItemTags);

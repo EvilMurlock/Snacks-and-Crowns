@@ -9,7 +9,7 @@ public class RespawnPoint : MonoBehaviour
     [SerializeField]
     float respawnDuration;
 
-    float timeUnitlRespawn = 0;
+    float timeUnitlRespawn = 60;
     GameObject npc;
     // Start is called before the first frame update
     private void Start()

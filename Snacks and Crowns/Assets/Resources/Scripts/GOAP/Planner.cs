@@ -5,7 +5,7 @@ namespace GOAP
 {
     public class Planner
     {
-        int maxDepth = 4;
+        int maxDepth = 3;
         float maxCost = 20;
         public Queue<Node> CreatePlan(List<Action> actions, Goal goal, WorldState states)
         {
@@ -20,7 +20,7 @@ namespace GOAP
             //Debug.Log(lastPlanNode.action.actionName);
             Queue<Node> planQueue = CreatePlanQueue(lastPlanNode);
             
-            //DebugPrintPlan(planQueue);
+            DebugPrintPlan(planQueue);
             return planQueue;
         }
         public void DebugPrintPlan(Queue<Node> planQueue)
@@ -39,7 +39,7 @@ namespace GOAP
                 totalCost += a.cost;
             }
             planDebug += " | Total Cost: " + totalCost;
-            Debug.Log(planDebug);
+            //Debug.Log(planDebug);
         }
         Queue<Node> CreatePlanQueue(Node lastPlanNode)
         {

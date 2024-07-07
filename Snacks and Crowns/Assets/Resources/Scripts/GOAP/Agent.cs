@@ -87,7 +87,11 @@ namespace GOAP
             LoadActions();
             LoadGoals();
         }
-        
+        public void RefreshActions()
+        {
+            actions.Clear();
+            LoadActions();
+        }
         void LoadActions()
         {
             Action[] acts = this.GetComponents<Action>();
@@ -99,7 +103,10 @@ namespace GOAP
         {
             Goal[] gs = this.GetComponents<Goal>();
             foreach (Goal g in gs)
+            {
+                //Debug.Log("Adding goal: " + g.GetType().ToString());
                 goals.Add(g);
+            }
         }
         void PrintWorldGoals()
         {

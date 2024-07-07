@@ -18,12 +18,11 @@ public class DialogueManager : InteractibleInMenu
 
 	GameObject player = null;
 	List<GameObject> buttons = new List<GameObject>();
-
-	bool lockMove = true;
 	public override bool LockMove { get { return lockMove; } }
 	// Use this for initialization
 	void Start()
 	{
+		lockMove = true;
 		uiTemplate = (GameObject)Resources.Load("Prefabs/UI/Dialogue UI");
 		buttonTemplate = (GameObject)Resources.Load("Prefabs/UI/Dialogue Button");
 	}

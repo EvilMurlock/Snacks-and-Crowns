@@ -15,13 +15,13 @@ public class MyJoinPlayer : MonoBehaviour
                                 -1, // split-screen index
                                 controlScheme: "Player2", // control scheme
                                 Keyboard.current); // pairWithDevice
-        player2.gameObject.GetComponent<FactionMembership>().Faction = Factions.Two;
+        player2.gameObject.GetComponentInChildren<FactionMembership>().Faction = Factions.Two;
 
         PlayerInput player1 = inputManager.JoinPlayer(-1, // player index
                                 -1, // split-screen index
                                 controlScheme: "Player1", // control scheme
                                 Keyboard.current); // pairWithDevice
-        player1.gameObject.GetComponent<FactionMembership>().Faction = Factions.One;
+        player1.gameObject.GetComponentInChildren<FactionMembership>().Faction = Factions.One;
 
         /*
         inputManager.JoinPlayer(-1, // player index
@@ -43,10 +43,5 @@ public class MyJoinPlayer : MonoBehaviour
     void PlayerLeft(PlayerInput input)
     {
         Debug.Log("Disconected player with device "+ input.devices[0] +" and scheme: " + input.currentControlScheme);
-        
-        PlayerInput player = inputManager.JoinPlayer(input.playerIndex, // player index
-                                input.splitScreenIndex, // split-screen index
-                                controlScheme: input.currentControlScheme, // control scheme
-                                input.devices[0]); // pairWithDevice
     }
 }

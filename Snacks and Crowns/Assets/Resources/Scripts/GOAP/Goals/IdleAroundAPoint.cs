@@ -9,11 +9,13 @@ namespace GOAP {
         [SerializeField]
         float wanderDistance = 3f;
         [SerializeField]
-        float priorityIncreasePerSecond = 1;
+        float priorityIncreasePerSecond = 0.1f;
         [SerializeField]
         float maxPriority = 3;
         [SerializeField]
-        float wanderPriority = 0;
+        float minPriority = 0.95f;
+        [SerializeField]
+        float wanderPriority = 0.95f;
         [SerializeField]
         float distanceFromPoint = 0.002f;
         Vector3 randomIdlePoint;
@@ -26,10 +28,11 @@ namespace GOAP {
             basePoint = this.transform.position;
             ChooseRandomPoint();
         }
-        public void Initialize(Vector3 basePoint, float wanderDistance)
+        public void Initialize(Vector3 basePoint, float wanderDistance, float priority)
         {
             this.basePoint = basePoint;
             this.wanderDistance = wanderDistance;
+            this.maxPriority = priority;
         }
         public void SetDesiredTarget(Vector3 basePoint)
         {
@@ -78,7 +81,7 @@ namespace GOAP {
         {
             //Debug.Log("Plan " + this.GetType().ToString() + " Completed");
             ChooseRandomPoint();
-            wanderPriority = 0;
+            wanderPriority = minPriority;
             active = false;
         }
         void ChooseRandomPoint()
@@ -98,5 +101,6 @@ namespace GOAP {
         {
             return true;
         }
+
     }
 }

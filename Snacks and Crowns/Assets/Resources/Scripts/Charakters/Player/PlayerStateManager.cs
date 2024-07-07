@@ -29,6 +29,7 @@ public class PlayerStateManager : MonoBehaviour
         menuManager = GetComponent<MenuManager>();
         playerState = CharakterState.normal;
         movement.stun.AddListener(ManageStun);
+        hotbarMenu = transform.parent.GetComponentInChildren<HotbarMenu>();
     }
     public void ManageStun(bool value)
     {

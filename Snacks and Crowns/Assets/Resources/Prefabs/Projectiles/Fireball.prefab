@@ -125,6 +125,7 @@ MonoBehaviour:
   - rid: 8153713352461778954
   - rid: 8153713630321049602
   - rid: 8153713630321049603
+  - rid: 604483038593155073
   onHit:
     m_PersistentCalls:
       m_Calls: []
@@ -136,6 +137,12 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 604483038593155073
+      type: {class: DeleteAfterTimeData, ns: , asm: Assembly-CSharp}
+      data:
+        name: DeleteAfterTimeData
+        activateAtUse: 0
+        time: 30
     - rid: 8153713352461778954
       type: {class: ExplosionOnDeleteData, ns: , asm: Assembly-CSharp}
       data:

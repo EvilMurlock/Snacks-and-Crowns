@@ -5,7 +5,7 @@ namespace GOAP
 {
     public abstract class FightGoal : Goal
     {
-        float agroDistance = 6;
+        float agroDistance = 8;
         float priority = 10;
         List<GameObject> charactersInRange = new List<GameObject>();
         private void Start()

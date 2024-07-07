@@ -14,10 +14,14 @@ public class HotbarMenu : Menu
     {
         player = Player;
         SubscribeToSlotEvents();
+        CoupleToPlayer(player);
+    }
+    public void CoupleToPlayer(GameObject newPlayer)
+    {
+        this.player = newPlayer;
         player.GetComponent<Inventory>().onChangeInventory.AddListener(UpdateHotbar);
         UpdateHotbar(player.GetComponent<Inventory>());
     }
-
     void UpdateHotbar(Inventory inventory)
     {
 

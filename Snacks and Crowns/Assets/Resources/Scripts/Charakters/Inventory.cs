@@ -5,7 +5,7 @@ using GOAP;
 using UnityEngine.Events;
 public class Inventory : MonoBehaviour
 {
-    //[SerializeField]
+    [SerializeField]
     Item[] items = new Item[9];
 
     public Item[] Items { get { return items; } } // 
@@ -102,7 +102,11 @@ public class Inventory : MonoBehaviour
     }
     public void SetCapacity(int newCapacity)
     {
-        items = new Item[newCapacity];
+        Item[] newItems = new Item[newCapacity];
+        for(int i = 0; i < Mathf.Min(newCapacity, items.Length); i++)
+        {
+            newItems[i] = items[i]; 
+        }
     }
     public int GetCapacity()
     {

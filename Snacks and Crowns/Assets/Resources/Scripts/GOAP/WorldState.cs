@@ -6,7 +6,7 @@ namespace GOAP
     [System.Serializable]
     public class WorldState
     {
-        static float maxPickupRange = 100f;
+        static float maxPickupRange = 30;
 
         public List<ItemPickup> itemPickups;
         public List<int> virtualItemPickups = new List<int>(); // only used for planning, always starts empty

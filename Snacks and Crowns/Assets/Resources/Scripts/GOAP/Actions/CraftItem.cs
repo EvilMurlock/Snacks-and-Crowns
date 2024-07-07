@@ -52,13 +52,15 @@ namespace GOAP
         public override void Complete()
         {
             // Do the crafting
-            Inventory inventory = GetComponent<Inventory>();
-            foreach(Item item in currentRecepy.ingredients)
+            if (HasItems(currentRecepy.ingredients))
             {
-                inventory.RemoveItem(item);
+                Inventory inventory = GetComponent<Inventory>();
+                foreach (Item item in currentRecepy.ingredients)
+                {
+                    inventory.RemoveItem(item);
+                }
+                inventory.AddItem(currentRecepy.result);
             }
-            inventory.AddItem(currentRecepy.result);
-
             running = false;
             completed = true;
         }

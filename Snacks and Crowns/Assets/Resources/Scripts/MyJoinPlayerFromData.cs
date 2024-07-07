@@ -19,14 +19,19 @@ public class MyJoinPlayerFromData : MonoBehaviour
                                 -1, // split-screen index
                                 controlScheme: data.controlScheme, // control scheme
                                 data.deviceType); // pairWithDevice
-            player.gameObject.GetComponent<FactionMembership>().Faction = data.faction;
-            player.gameObject.GetComponent<CharakterSheet>().SetRace(data.race, data.face);
+            player.gameObject.GetComponentInChildren<FactionMembership>().Faction = data.faction;
+            player.gameObject.GetComponentInChildren<CharakterSheet>().SetRace(data.race, data.face);
+            GameObject spawnPoint;
             if (data.faction == Factions.One)
-                player.transform.position = RespawnPointOne.transform.position;
+                spawnPoint = RespawnPointOne;
             else
-                player.transform.position = RespawnPointTwo.transform.position;
+                spawnPoint = RespawnPointTwo;
+            player.transform.position = spawnPoint.transform.position;
+
+            player.GetComponent<RespawnPlayer>().Initialize(data, spawnPoint);
+
         }
-        
+
     }
 
     void PlayerJoined(PlayerInput input)

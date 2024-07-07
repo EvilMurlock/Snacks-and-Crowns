@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goblin
       objectReference: {fileID: 0}
+    - target: {fileID: 1474918379972465830, guid: 53ea0ecb413b17145bcfcb97714aa3f4, type: 3}
+      propertyPath: max_hp
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 1690622705742801511, guid: 53ea0ecb413b17145bcfcb97714aa3f4, type: 3}
       propertyPath: m_Sprite
       value: 

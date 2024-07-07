@@ -43,6 +43,7 @@ namespace GOAP
         {
             planingData = (ActionDataPickItemFromChest)arg;
             target = planingData.targetObject.gameObject;
+            npcAi.ChangeTarget(target);
             base.Activate(arg);
         }
         public override void Deactivate()

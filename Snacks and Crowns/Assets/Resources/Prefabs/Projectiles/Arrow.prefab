@@ -102,6 +102,7 @@ MonoBehaviour:
   componentData:
   - rid: 8153713352461778945
   - rid: 8153713352461778950
+  - rid: 604483038593155072
   onHit:
     m_PersistentCalls:
       m_Calls: []
@@ -113,10 +114,17 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 604483038593155072
+      type: {class: DeleteAfterTimeData, ns: , asm: Assembly-CSharp}
+      data:
+        name: DeleteAfterTimeData
+        activateAtUse: 0
+        time: 30
     - rid: 8153713352461778945
       type: {class: ProjectileAttackData, ns: , asm: Assembly-CSharp}
       data:
         name: ProjectileAttackData
+        activateAtUse: 0
         attack:
           damage: 20
           damage_type: 1
@@ -124,6 +132,7 @@ MonoBehaviour:
       type: {class: DeleteOnHitData, ns: , asm: Assembly-CSharp}
       data:
         name: DeleteOnHitData
+        activateAtUse: 0
 --- !u!61 &2973678229582772008
 BoxCollider2D:
   m_ObjectHideFlags: 0

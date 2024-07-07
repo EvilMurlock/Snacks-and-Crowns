@@ -209,6 +209,16 @@ namespace GOAP
 
             return currentNode;
         }
+        protected bool HasItems(List<Item> items)
+        {
+            List<Item> inventoryItems = new List<Item>(GetComponent<Inventory>().Items);
+            foreach(Item item in items)
+            {
+                if (!inventoryItems.Remove(item))
+                    return false;
+            }
+            return true;
+        } 
         protected bool HasItems(WorldState state, List<List<ItemTags>> tagsOfItems)
         {
             List<int> shuffledItems = state.myInventory;
@@ -239,6 +249,28 @@ namespace GOAP
                     return true;
             }
             return false;
+        }
+        protected bool HasEquipedItem(List<ItemTags> tags)
+        {
+            foreach(Equipment equipment in GetComponent<EquipmentManager>().Equipments)
+            {
+                if (equipment == null) continue;
+
+                if (equipment.HasTags(tags))
+                    return true;
+            }
+            return false;
+        }
+        protected Equipment GetEquipedItem(List<ItemTags> tags)
+        {
+            foreach (Equipment equipment in GetComponent<EquipmentManager>().Equipments)
+            {
+                if (equipment == null) continue;
+
+                if (equipment.HasTags(tags))
+                    return equipment;
+            }
+            return null;
         }
         protected Node GetRequiredItemWithTags(Node parent, List<ItemTags> tags) //Returns a plan that will colect the required items, returns null if no such plan exists
         {
@@ -322,10 +354,8 @@ namespace GOAP
             Inventory inventory = GetComponent<Inventory>();
             EquipmentManager equipmentManager = GetComponent<EquipmentManager>();
 
-
-            Item test = FindItemWithTags(tags, inventory.Items);
+            Equipment item = (Equipment)FindItemWithTags(tags, inventory.Items);
             //Debug.Log("Item is: " + test.itemName);
-            Equipment item = (Equipment)test;//FindItemWithTags(tags, inventory.Items);
             if (item == null) return null;
             EquipItem(inventory, equipmentManager, item);
             return item;

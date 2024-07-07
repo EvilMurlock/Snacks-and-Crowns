@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 8267405026468492122}
   - component: {fileID: -6743637638139255007}
   - component: {fileID: -2507948306725196046}
+  - component: {fileID: 3496234403287276924}
+  - component: {fileID: 5745670702584915241}
   m_Layer: 3
   m_Name: Iron Ore Deposit
   m_TagString: Untagged
@@ -125,6 +127,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d5a4236e2d44faa4087585bdd6dfcaeb, type: 2}
   - {fileID: 11400000, guid: d5a4236e2d44faa4087585bdd6dfcaeb, type: 2}
   - {fileID: 11400000, guid: d5a4236e2d44faa4087585bdd6dfcaeb, type: 2}
+  - {fileID: 11400000, guid: d5a4236e2d44faa4087585bdd6dfcaeb, type: 2}
+  - {fileID: 11400000, guid: d5a4236e2d44faa4087585bdd6dfcaeb, type: 2}
 --- !u!58 &4428766099340554896
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -214,3 +218,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentObjectName: Iron Ore Deposits
+--- !u!114 &3496234403287276924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7679825583728535749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8895913aeed90aa4a8e738b1d4aa0ab8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5745670702584915241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7679825583728535749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26531edc21a478f4698dae11c420d9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColour: {r: 1, g: 0, b: 0, a: 1}

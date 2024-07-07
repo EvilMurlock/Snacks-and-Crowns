@@ -7,6 +7,8 @@ public class FlashWhenHit : MonoBehaviour
     float previousHp;
     int flashes = 1;
     float flashDuration = 0.1f;
+    [SerializeField]
+    Color flashColour = Color.red;
     void Start()
     {
         var damagable = GetComponent<Damagable>();
@@ -18,7 +20,7 @@ public class FlashWhenHit : MonoBehaviour
     {
         if (curentHp < previousHp)
         {
-            StartCoroutine("Flash", Color.red);
+            StartCoroutine("Flash", flashColour);
         }
         previousHp = curentHp;
     }

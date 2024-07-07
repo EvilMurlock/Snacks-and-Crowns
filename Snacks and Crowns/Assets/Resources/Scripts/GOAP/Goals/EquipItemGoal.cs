@@ -5,9 +5,8 @@ using UnityEngine;
 namespace GOAP {
     public class EquipItemGoal : Goal
     {
-        float defaultPriority = 3;
-        public
-        List<ItemTags> tags;
+        float defaultPriority = 40;
+        public List<ItemTags> tags;
         protected virtual void Start()
         {
         }

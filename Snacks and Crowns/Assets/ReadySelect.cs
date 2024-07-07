@@ -34,6 +34,7 @@ public class ReadySelect : MonoBehaviour, ISubmitHandler
     void ReadySelf()
     {
         shade.SetActive(true);
+        //Debug.Log("Adding player with race: " + selectRace.GetSelectedRace().race + " | Face: " + selectFace.GetFace() + " | Faction: "+ selectFaction.GetFaction().ToString());
         StartGameDataHolder.AddPlayer(controlScheme, deviceType, selectRace.GetSelectedRace(), selectFaction.GetFaction(), selectFace.GetFace());
         whenReady.PlayerReady();
         charakterSelectMenu.SetActive(false);

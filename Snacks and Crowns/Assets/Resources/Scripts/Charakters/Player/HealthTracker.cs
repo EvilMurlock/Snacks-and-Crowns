@@ -14,6 +14,11 @@ public class HealthTracker : MonoBehaviour
     void Awake()
     {
         slider = healthBar.GetComponent<Slider>();
+        CoupleToPlayer(player);
+    }
+    public void CoupleToPlayer(GameObject newPlayer)
+    {
+        this.player = newPlayer;
         healthBar.GetComponentInChildren<Animator>().Play(barAnimation.name);
         player.GetComponent<Damagable>().healthChange.AddListener(UpdateHealthCounter);
         UpdateHealthCounter(player.GetComponent<Damagable>().hp, player.GetComponent<Damagable>().max_hp);

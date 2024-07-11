@@ -19,6 +19,17 @@ public class EquipmentManager : MonoBehaviour
         // i dont know what this function is suposed to do
         throw new System.Exception("FUCNTIO  NOT IMPLEMENTED IN EQUIPMENT MANAGER");
     }*/
+    public bool HasEquipedItem(List<ItemTags> tags)
+    {
+        foreach (Equipment equipment in equipments)
+        {
+            if (equipment == null) continue;
+
+            if (equipment.HasTags(tags))
+                return true;
+        }
+        return false;
+    }
     public bool CanEquipItem(Item item, int index)
     {
         if (item == null) return true;

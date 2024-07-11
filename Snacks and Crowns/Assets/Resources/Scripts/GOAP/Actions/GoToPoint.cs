@@ -24,7 +24,9 @@ namespace GOAP
         {
             target = new GameObject("WanderPoint");
             target.transform.position = idleAroundAPoint.RandomIdlePoint;
-
+            Debug.Log("Is null target: " + (target == null));
+            Debug.Log("Is null npc: " + (npcAi == null));
+            npcAi = GetComponent<NpcAi>();
             npcAi.ChangeTarget(target);
             base.Activate(arg);
         }

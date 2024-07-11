@@ -33,7 +33,10 @@ public class NpcAi : MonoBehaviour
         if (seeker.IsDone() && target != null)
             seeker.StartPath(rb.position, target.position, OnPathComplete);
         else
+        {
+            movement.ChangeMovementDirection(Vector2.zero);
             path = null;
+        }
     }
     void OnPathComplete(Path p)
     {
@@ -99,8 +102,14 @@ public class NpcAi : MonoBehaviour
 
     public void ChangeTarget(GameObject newTarget)
     {
-        
+
         //Debug.Log("New target is: " + newTarget);
+        if (newTarget != null &&
+            target == newTarget.transform)
+        {
+            //Debug.Log("New target is same as old");
+            return;
+        }
         ChangeTarget(newTarget, lastWaypointDistanceDefault);
         
     }

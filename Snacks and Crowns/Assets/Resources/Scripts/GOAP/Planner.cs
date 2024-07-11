@@ -5,7 +5,7 @@ namespace GOAP
 {
     public class Planner
     {
-        int maxDepth = 3;
+        int maxDepth = 2;
         float maxCost = 20;
         public Queue<Node> CreatePlan(List<Action> actions, Goal goal, WorldState states)
         {
@@ -39,7 +39,7 @@ namespace GOAP
                 totalCost += a.cost;
             }
             planDebug += " | Total Cost: " + totalCost;
-            //Debug.Log(planDebug);
+            Debug.Log(planDebug);
         }
         Queue<Node> CreatePlanQueue(Node lastPlanNode)
         {

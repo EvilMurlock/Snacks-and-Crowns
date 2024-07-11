@@ -42,6 +42,6 @@ MonoBehaviour:
         name: SpawnProjectileOnSpriteChangeData
         activateAtUse: 0
         projectilePrefab: {fileID: 2732104517839151264, guid: c2bb36049dc52404eae88bc1d82215cc, type: 3}
-        speed: 10
+        speed: 15
         extraAngle: 0
-        offset: {x: 0, y: 0}
+        offset: {x: 0.2, y: 0}

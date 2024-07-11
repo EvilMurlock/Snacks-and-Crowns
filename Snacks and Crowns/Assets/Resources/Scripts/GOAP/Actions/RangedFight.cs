@@ -8,12 +8,18 @@ namespace GOAP
     {
         RangedFightGoal rangedFightGoal;
         List<ItemTags> rangedItemTags = new List<ItemTags>() { ItemTags.rangedWeapon };
-        float attackRange = 7f;
+        float attackRange = 6f;
         Equipment rangedItem;
+        Movement movement;
         public override void Awake()
         {
             speachBubbleType = SpeachBubbleTypes.Fight;
             base.Awake();
+        }
+        public override void Start()
+        {
+            movement = GetComponent<Movement>();
+            base.Start();
         }
 
         public override void Tick()
@@ -24,18 +30,32 @@ namespace GOAP
                 Complete();
             else if (rangedFightGoal.IsCompleted())
                 Complete();
-            else if(npcAi.reachedEndOfPath || DistanceCalculator.CalculateDistance(transform.position, target.transform.position) <= attackRange)
+            else if(DistanceCalculator.CalculateDistance(transform.position, target.transform.position) <= attackRange)
             {
+                movement.RotateTowars(target.transform.position - transform.position);
                 rangedItem.instance.GetComponent<Hand_Item_Controler>().Use();
+                npcAi.ChangeTarget(null);
+            }
+            else
+            {
+                Debug.Log("Going after target! : " + target.name);
+                npcAi.ChangeTarget(target);
             }
         }
         public override void Activate(ActionData arg)
         {
             target = rangedFightGoal.GetClosestEnemy();
-            if (HasEquipedItem(rangedItemTags))
+            
+            if (GetComponent<EquipmentManager>().HasEquipedItem(rangedItemTags))
+            {
+                //Debug.Log("Reading ranged weapon");
                 rangedItem = GetEquipedItem(rangedItemTags);
+            }
             else
+            {
+                //Debug.Log("Equiped ranged weapon");
                 rangedItem = EquipItem(rangedItemTags);
+            }
             npcAi.ChangeTarget(target);
             base.Activate(arg);
         }
@@ -63,9 +83,9 @@ namespace GOAP
         {
             List<Node> possibleNodes = new List<Node>();
             Node parent = parentOriginal;
-            if (!HasItem(parentOriginal.state, rangedItemTags) && !HasEquipedItem(rangedItemTags))
+            if (!HasItem(parentOriginal.state, rangedItemTags) && !GetComponent<EquipmentManager>().HasEquipedItem(rangedItemTags))
             {
-                //Debug.Log("Getting item");
+                Debug.Log("Getting item");
                 parent = GetRequiredItemWithTags(parentOriginal, rangedItemTags);
                 if (parent == null)
                     return possibleNodes; // we cant fight, we dont have a weapon

@@ -11,7 +11,7 @@ public class Projectile : MonoBehaviour
     public UnityEvent<GameObject> onHit;
     [HideInInspector]
     public UnityEvent<GameObject> onDestroy;
-
+    List<GameObject> colidedObjects = new List<GameObject>();
     [HideInInspector]
     public Vector2 direction;
     [HideInInspector]
@@ -33,8 +33,14 @@ public class Projectile : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("HITING: " + collision.gameObject.name);
-        onHit.Invoke(collision.gameObject);
+        //Debug.Log("HITING: " + collision.gameObject.name);
+        GameObject colObject = collision.gameObject;
+        //Isnt the weilder, can be hit and has not yet been hit
+        if (!colidedObjects.Contains(colObject) &&
+            !collision.isTrigger)
+        {
+            onHit.Invoke(collision.gameObject);
+        }
     }
     public void DestroyEvent()
     {

@@ -21,7 +21,7 @@ public class PlayerData
 }
 public static class StartGameDataHolder
 {
-    static string chosenLevel = "TestLevel";
+    static string chosenLevel = "Level1";
     public static string ChosenLevel { get { return chosenLevel; } set { chosenLevel = value; } }
     static List<PlayerData> players = new List<PlayerData>();
     public static List<PlayerData> Players => players;

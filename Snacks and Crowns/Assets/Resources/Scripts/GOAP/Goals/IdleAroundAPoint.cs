@@ -18,7 +18,7 @@ namespace GOAP {
         float wanderPriority = 0.95f;
         [SerializeField]
         float distanceFromPoint = 0.002f;
-        Vector3 randomIdlePoint;
+        Vector3 randomIdlePoint = Vector3.zero;
         public Vector3 RandomIdlePoint => randomIdlePoint;
         float startTime = 0;
         float resetTime = 10;

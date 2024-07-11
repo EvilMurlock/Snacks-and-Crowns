@@ -71,7 +71,6 @@ namespace GOAP
         public virtual void Start()
         {
             npcAi = GetComponent<NpcAi>();
-
         }
         public virtual void Tick()
         {
@@ -250,17 +249,7 @@ namespace GOAP
             }
             return false;
         }
-        protected bool HasEquipedItem(List<ItemTags> tags)
-        {
-            foreach(Equipment equipment in GetComponent<EquipmentManager>().Equipments)
-            {
-                if (equipment == null) continue;
-
-                if (equipment.HasTags(tags))
-                    return true;
-            }
-            return false;
-        }
+        
         protected Equipment GetEquipedItem(List<ItemTags> tags)
         {
             foreach (Equipment equipment in GetComponent<EquipmentManager>().Equipments)
@@ -339,11 +328,14 @@ namespace GOAP
         protected bool UseItem(List<ItemTags> tags)
         {
             Inventory myInventory = GetComponent<Inventory>();
-            foreach(Item item in myInventory)
+            for(int i = 0; i < myInventory.Items.Length; i++)
             {
+                Item item = myInventory.Items[i];
                 if (item.HasTags(tags))
                 {
                     item.Use(gameObject);
+                    if (item.singleUse)
+                        myInventory.RemoveItem(item);
                     return true;
                 }
             }

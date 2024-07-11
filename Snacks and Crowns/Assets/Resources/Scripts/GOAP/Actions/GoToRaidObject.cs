@@ -9,7 +9,7 @@ namespace GOAP
         LaunchRaid launchRaid;
         public override void Awake()
         {
-            speachBubbleType = SpeachBubbleTypes.Walk;
+            speachBubbleType = SpeachBubbleTypes.Charge;
             base.Awake();
         }
         public override void Tick()

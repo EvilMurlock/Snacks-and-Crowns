@@ -19,6 +19,7 @@ namespace GOAP
         Goal currentGoal;
         WorldState worldState;
 
+        NpcAi npcAi;
         
         float planingDelayAfterFail = 1;
         float planingDelayNow = 1;
@@ -29,7 +30,7 @@ namespace GOAP
 
             planner = new Planner();
             worldState = new WorldState(this.gameObject);
-
+            npcAi = GetComponent<NpcAi>();
             AddAllActions();
             /*
             object[] action_scripts = Resources.LoadAll("Scripts/GOAP/Actions"); // adds all actions avalible to this agent
@@ -126,7 +127,7 @@ namespace GOAP
             }
             if (nodeQueue == null)
             {
-
+                npcAi.ChangeTarget(null); // we have no active action, so we arent moving anywhere
                 // we try to find a plan that fulfils one of our goals, in order of priority
                 var sortedGoals = from goal in goals orderby goal.CalculatePriority() descending select goal;
                 Goal newGoal = null;

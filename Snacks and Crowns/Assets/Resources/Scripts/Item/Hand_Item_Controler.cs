@@ -34,9 +34,12 @@ public class Hand_Item_Controler : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        //Debug.Log("Collising with:" + collision.gameObject.name + " | triger: " + collision.isTrigger);
         GameObject colObject = collision.gameObject;
         //Isnt the weilder, can be hit and has not yet been hit
-        if (colObject! != transform.parent.parent.gameObject && !colidedObjects.Contains(colObject))
+        if (colObject! != transform.parent.parent.gameObject && 
+            !colidedObjects.Contains(colObject) &&
+            !collision.isTrigger)
         {
             colidedObjects.Add(colObject);
             onHitEvent.Invoke(colObject);

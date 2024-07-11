@@ -5,10 +5,12 @@ using UnityEngine;
 namespace GOAP {
     public class EquipItemGoal : Goal
     {
-        float defaultPriority = 40;
+        float defaultPriority = 4;
         public List<ItemTags> tags;
+        EquipmentManager equipmentManager;
         protected virtual void Start()
         {
+            equipmentManager = GetComponent<EquipmentManager>();
         }
         public void Initialize(List<ItemTags> tags)
         {
@@ -61,7 +63,10 @@ namespace GOAP {
         }
         public override float CalculatePriority()
         {
-            return defaultPriority;
+            if (GetComponent<EquipmentManager>().HasEquipedItem(tags))
+                return 0;
+            else
+                return defaultPriority;
         }
 
         public override bool CanRun()

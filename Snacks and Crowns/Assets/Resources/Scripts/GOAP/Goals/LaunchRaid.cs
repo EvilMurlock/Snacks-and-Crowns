@@ -6,21 +6,27 @@ namespace GOAP
     public class LaunchRaid : Goal
     {
         float priority = 4;
-        float raidCooldown = 5;
-        float raidTimeout = 10;
+        //float raidCooldown = 5;
+        float raidTimeout = 120;
         float timeOfLastRaid = 0;
         public bool IsCompleted()
         {
-            if (timeOfLastRaid + raidTimeout >= Time.timeSinceLevelLoad)
+            //Debug.Log("Raid start time: " + timeOfLastRaid + " timeout time: "+raidTimeout + " Curent time: "+ Time.timeSinceLevelLoad);
+            if (timeOfLastRaid < Time.timeSinceLevelLoad - raidTimeout)
                 return true;
             return false;
+        }
+        public override void Activate()
+        {
+            timeOfLastRaid = Time.timeSinceLevelLoad;
+            base.Activate();
         }
         public override float CalculatePriority()
         {/*
             if (timeOfLastRaid + raidCooldown >= Time.timeSinceLevelLoad)
                 return 0;*/
 
-            timeOfLastRaid = Time.timeSinceLevelLoad;
+            //timeOfLastRaid = Time.timeSinceLevelLoad;
             foreach (CharakterSheet charakter in Object.FindObjectsOfType<CharakterSheet>())
             {
                 Factions myFaction = GetComponent<FactionMembership>().Faction;

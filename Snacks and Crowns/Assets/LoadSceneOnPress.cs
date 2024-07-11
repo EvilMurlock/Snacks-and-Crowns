@@ -11,4 +11,8 @@ public class LoadSceneOnPress : MonoBehaviour, ISubmitHandler
     {
         SceneManager.LoadScene(sceneToLoad);
     }
+    public void OnClick()
+    {
+        SceneManager.LoadScene(sceneToLoad);
+    }
 }

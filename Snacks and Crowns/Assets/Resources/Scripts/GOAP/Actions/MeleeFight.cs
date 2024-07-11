@@ -10,12 +10,18 @@ namespace GOAP
         List<ItemTags> meleeItemTags = new List<ItemTags>() { ItemTags.meleeWeapon };
         float attackRange = 0.3f;
         Equipment meleeItem;
+
+        EquipmentManager equipmentManager;
         public override void Awake()
         {
             speachBubbleType = SpeachBubbleTypes.Fight;
             base.Awake();
         }
-
+        public override void Start()
+        {
+            equipmentManager = GetComponent<EquipmentManager>();
+            base.Start();
+        }
         public override void Tick()
         {
             if (!meleeFightGoal.EnemyInRange(target))
@@ -32,7 +38,7 @@ namespace GOAP
         public override void Activate(ActionData arg)
         {
             target = meleeFightGoal.GetClosestEnemy();
-            if (HasEquipedItem(meleeItemTags))
+            if (equipmentManager.HasEquipedItem(meleeItemTags))
                 meleeItem = GetEquipedItem(meleeItemTags);
             else
                 meleeItem = EquipItem(meleeItemTags);
@@ -63,7 +69,7 @@ namespace GOAP
         {
             List<Node> possibleNodes = new List<Node>();
             Node parent = parentOriginal;
-            if (!HasItem(parentOriginal.state, meleeItemTags) && !HasEquipedItem(meleeItemTags))
+            if (!HasItem(parentOriginal.state, meleeItemTags) && !equipmentManager.HasEquipedItem(meleeItemTags))
             {
                 //Debug.Log("Getting item");
                 parent = GetRequiredItemWithTags(parentOriginal, meleeItemTags);

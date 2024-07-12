@@ -30,7 +30,24 @@ namespace GOAP
         public override void Tick()
         {
             if (target == null) Deactivate();
-            if (npcAi.reachedEndOfPath) Complete();
+            if (npcAi.reachedEndOfPath)
+            {
+                // Do the crafting
+                if (HasItems(currentRecepy.ingredients))
+                {
+                    Inventory inventory = GetComponent<Inventory>();
+                    foreach (Item item in currentRecepy.ingredients)
+                    {
+                        inventory.RemoveItem(item);
+                    }
+                    inventory.AddItem(currentRecepy.result);
+                    Complete();
+                }
+                else
+                {
+                    Deactivate();
+                }
+            }
         }
         public override void Activate(ActionData arg)
         {
@@ -51,16 +68,7 @@ namespace GOAP
         }
         public override void Complete()
         {
-            // Do the crafting
-            if (HasItems(currentRecepy.ingredients))
-            {
-                Inventory inventory = GetComponent<Inventory>();
-                foreach (Item item in currentRecepy.ingredients)
-                {
-                    inventory.RemoveItem(item);
-                }
-                inventory.AddItem(currentRecepy.result);
-            }
+
             running = false;
             completed = true;
         }

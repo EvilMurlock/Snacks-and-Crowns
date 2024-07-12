@@ -107,6 +107,7 @@ public class Inventory : MonoBehaviour
         {
             newItems[i] = items[i]; 
         }
+        items = newItems;
     }
     public int GetCapacity()
     {

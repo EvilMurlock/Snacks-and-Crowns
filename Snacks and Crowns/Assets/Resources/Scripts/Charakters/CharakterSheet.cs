@@ -33,7 +33,7 @@ public class CharakterSheet : MonoBehaviour
     }
     void SetFace()
     {
-        SetFace(Random.Range(0, race.faces.Count - 1));
+        SetFace(Random.Range(0, race.faces.Count));
     }
 
     void SetFace(int faceIndex)

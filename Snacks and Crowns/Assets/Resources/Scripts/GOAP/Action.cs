@@ -261,6 +261,17 @@ namespace GOAP
             }
             return null;
         }
+        protected Equipment GetEquipedItem(Item item)
+        {
+            foreach (Equipment equipment in GetComponent<EquipmentManager>().Equipments)
+            {
+                if (equipment == null) continue;
+
+                if (equipment == item)
+                    return equipment;
+            }
+            return null;
+        }
         protected Node GetRequiredItemWithTags(Node parent, List<ItemTags> tags) //Returns a plan that will colect the required items, returns null if no such plan exists
         {
             GetItem getItem = GetComponent<GetItem>();
@@ -351,6 +362,15 @@ namespace GOAP
             if (item == null) return null;
             EquipItem(inventory, equipmentManager, item);
             return item;
+        }
+        protected Equipment EquipItem(Item item)
+        {
+            Inventory inventory = GetComponent<Inventory>();
+            EquipmentManager equipmentManager = GetComponent<EquipmentManager>();
+            //Debug.Log("Item is: " + test.itemName);
+            if (item == null) return null;
+            EquipItem(inventory, equipmentManager, item);
+            return (Equipment)item;
         }
         protected bool EquipItem(Inventory inventory, EquipmentManager equipmentManager, Item item)
         {

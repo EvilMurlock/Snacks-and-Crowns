@@ -24,7 +24,10 @@ MonoBehaviour:
   - rid: 8153713630321049601
   tags: 06000000
   recipe:
-    ingredients: []
+    ingredients:
+    - {fileID: 11400000, guid: 75397ddcd367a7d478eac303b5c80cc4, type: 2}
+    - {fileID: 11400000, guid: 75397ddcd367a7d478eac303b5c80cc4, type: 2}
+    - {fileID: 11400000, guid: 75397ddcd367a7d478eac303b5c80cc4, type: 2}
     result: {fileID: 0}
     craftingObjekt: 0
   references:

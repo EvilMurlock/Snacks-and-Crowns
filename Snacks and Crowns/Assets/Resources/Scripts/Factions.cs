@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 public enum Factions
 {
-    One, Two, Goblin, None
+    One, Two, Goblin, None, Monster, Cat
 }
 public enum Relations
 {
@@ -25,6 +25,11 @@ public sealed class FactionState
             for (int j = 0; j < factionsNames.Length; j++)
             {
                 factionRelations[i, j] = Relations.Neutral;
+                if(i != j &&
+                    factionsNames[i] == "Monster")
+                {
+                    factionRelations[i, j] = Relations.War;
+                }
             }
         }
         ChangeFactionRelation(Factions.One, Factions.Two, Relations.War);
@@ -39,6 +44,8 @@ public sealed class FactionState
             UpdateRelatedFactionRelations(aF);
         if (bF == Factions.One || bF == Factions.Two)
             UpdateRelatedFactionRelations(bF);
+
+        PrintRelationsMatrix();
     }
 
     /// <summary>

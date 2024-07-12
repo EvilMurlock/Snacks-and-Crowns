@@ -12,7 +12,8 @@ public enum ItemTags
     attackBuff,
     armorBuff,
     attackSpell,
-    defenceSpell
+    defenceSpell,
+    monsterWeapon
 }
 [CreateAssetMenu(fileName = "New_Item", menuName = "Inventory/Item")]
 public class Item : ScriptableObject

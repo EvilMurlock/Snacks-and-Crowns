@@ -77,7 +77,8 @@ namespace GOAP
                 FactionMembership factionMembership = inventoryObject.GetComponent<FactionMembership>();
                 if (factionMembership == null)
                     continue;
-                if (faction == factionMembership.Faction)
+                if (faction == factionMembership.Faction
+                    || FactionState.GetFactionRelations(faction, factionMembership.Faction) == Relations.Alliance)
                     newInventories[inventoryObject] = inventories[inventoryObject];
             }
             inventories = newInventories;

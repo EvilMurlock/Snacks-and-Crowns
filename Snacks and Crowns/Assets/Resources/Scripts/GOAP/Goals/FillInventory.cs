@@ -20,6 +20,10 @@ namespace GOAP {
         {
             targetObject = newTarget;
         }
+        public GameObject GetDesiredChest()
+        {
+            return targetObject;
+        }
         public void SetDesiredItems(List<Item> newDesiredItems)
         {
             desiredItems = newDesiredItems;

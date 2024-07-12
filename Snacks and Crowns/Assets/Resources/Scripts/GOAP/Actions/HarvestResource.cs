@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace GOAP
 {
     class ActionDataHarvestResource : ActionData
@@ -32,7 +33,8 @@ namespace GOAP
     {
         List<HarvestData> harvestDatas = new List<HarvestData>();
         ActionDataHarvestResource planingData;
-        Equipment tool;
+        public Equipment tool;
+        EquipmentManager equipmentManager;
         public override void Awake()
         {
             speachBubbleType = SpeachBubbleTypes.Gather;
@@ -49,6 +51,12 @@ namespace GOAP
             Item requiredItemPickaxe = World.GetItemFromName("Pickaxe");
             Item resourceItemIronOre = World.GetItemFromName("Iron Ore");
             harvestDatas.Add(new HarvestData(requiredItemPickaxe, "Iron Ore Mine", resourceItemIronOre));
+
+            Item resourceItemCrystalShard = World.GetItemFromName("Crystal Shard");
+            harvestDatas.Add(new HarvestData(requiredItemPickaxe, "Crystal Mine", resourceItemCrystalShard));
+            
+            
+            equipmentManager = GetComponent<EquipmentManager>();
             base.Start();
         }
         public override void Tick()
@@ -56,6 +64,7 @@ namespace GOAP
             if (target == null) Complete();
             else if (npcAi.reachedEndOfPath)
             {
+                Debug.Log("Using tool to harvest");
                 tool.instance.GetComponent<Hand_Item_Controler>().Use();
                 //Take a swing at it
             }
@@ -64,33 +73,18 @@ namespace GOAP
         {
             planingData = (ActionDataHarvestResource)arg;
             target = planingData.target;
-
-
-            Inventory agentInventory = GetComponent<Inventory>();
-            EquipmentManager agentEquipmentManager = GetComponent<EquipmentManager>();
-            if (!agentInventory.HasItem(planingData.harvestData.requiredTool))
-            {
-                Deactivate();
-                return;
-            }
             
-            // we find the item in our inventory to equipt it
-            foreach(Item item in agentInventory.Items)
-            {
-                if (item == planingData.harvestData.requiredTool)
-                {
-                    tool = (Equipment)item;
-                    break;
-                }
-            }
+            if (equipmentManager.HasEquipedItem(planingData.harvestData.requiredTool))
+                tool = GetEquipedItem(planingData.harvestData.requiredTool);
+            else
+                tool = EquipItem(planingData.harvestData.requiredTool);
 
             // equipts the required tool
-            if(!EquipItem(agentInventory, agentEquipmentManager, planingData.harvestData.requiredTool))
+            if(tool == null)
             {
                 Deactivate();
                 return;
             }
-
 
             npcAi.ChangeTarget(target);
             base.Activate(arg);

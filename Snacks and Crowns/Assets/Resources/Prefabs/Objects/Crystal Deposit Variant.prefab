@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5045603677179353712
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -6743637638139255007, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: tags.Array.data[0]
+      value: Crystal Mine
+      objectReference: {fileID: 0}
+    - target: {fileID: -2507948306725196046, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: parentObjectName
+      value: Crystal Deposits
+      objectReference: {fileID: 0}
+    - target: {fileID: 777011951608788588, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2cfac7cbba70fb043a9007480adcd103, type: 3}
+    - target: {fileID: 3831974095162458690, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3831974095162458690, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -64.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 3831974095162458690, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 13.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 3831974095162458690, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3831974095162458690, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3831974095162458690, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3831974095162458690, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3831974095162458690, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3831974095162458690, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3831974095162458690, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3831974095162458690, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4428766099340554896, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: m_Radius
+      value: 0.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 4428766099340554896, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.25106788
+      objectReference: {fileID: 0}
+    - target: {fileID: 4428766099340554896, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.08559084
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679825583728535749, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: m_Name
+      value: Crystal Deposit Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8705610468198374414, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: itemsToDrop.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9214c197c21413e4cbb5639c90b4570c, type: 2}
+    - target: {fileID: 8705610468198374414, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: itemsToDrop.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9214c197c21413e4cbb5639c90b4570c, type: 2}
+    - target: {fileID: 8705610468198374414, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: itemsToDrop.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9214c197c21413e4cbb5639c90b4570c, type: 2}
+    - target: {fileID: 8705610468198374414, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: itemsToDrop.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9214c197c21413e4cbb5639c90b4570c, type: 2}
+    - target: {fileID: 8705610468198374414, guid: ebf8a4496153e0149824876977b7266b, type: 3}
+      propertyPath: itemsToDrop.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9214c197c21413e4cbb5639c90b4570c, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ebf8a4496153e0149824876977b7266b, type: 3}

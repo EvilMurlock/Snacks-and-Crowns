@@ -23,7 +23,7 @@ namespace GOAP {
         float startTime = 0;
         float resetTime = 10;
         
-        protected virtual void Start()
+        protected virtual void Awake()
         {
             basePoint = this.transform.position;
             ChooseRandomPoint();

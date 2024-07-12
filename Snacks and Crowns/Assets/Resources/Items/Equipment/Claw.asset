@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a7298259f1804e46a1fec448ab71e10, type: 3}
+  m_Name: Claw
+  m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  itemName: Claw
+  description: Claws of a monster. Very strong!
+  cost: 500
+  prefab: {fileID: 0}
+  useDuration: 0
+  singleUse: 0
+  componentDataUse: []
+  tags: 0000000008000000
+  recipe:
+    ingredients: []
+    result: {fileID: 0}
+    craftingObjekt: 0
+  componentDataEquipment:
+  - rid: 604483196795486208
+  - rid: 604483196795486209
+  - rid: 604483196795486211
+  equipmentSlot: 1
+  equipmentPrefab: {fileID: 2449238230562422413, guid: 1a82be9d8f579dd498c452fb3764d1f6, type: 3}
+  instance: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 604483196795486208
+      type: {class: KnockbackComponentData, ns: , asm: Assembly-CSharp}
+      data:
+        name: KnockbackComponentData
+        activateAtUse: 0
+        knockback: 200
+        stunTime: 0.3
+    - rid: 604483196795486209
+      type: {class: AttackComponentData, ns: , asm: Assembly-CSharp}
+      data:
+        name: AttackComponentData
+        activateAtUse: 0
+        attack:
+          damage: 50
+          damage_type: 1
+    - rid: 604483196795486211
+      type: {class: AttackComponentData, ns: , asm: Assembly-CSharp}
+      data:
+        name: AttackComponentData
+        activateAtUse: 0
+        attack:
+          damage: 50
+          damage_type: 0

@@ -256,8 +256,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   nextWaypointDistance: 0.1
-  lastWaypointDistanceDefault: 1
-  lastWaypointDistance: 1
+  lastWaypointDistanceDefault: 0.5
+  lastWaypointDistance: 0.5
   reachedEndOfPath: 0
 --- !u!114 &3701144936241280796
 MonoBehaviour:

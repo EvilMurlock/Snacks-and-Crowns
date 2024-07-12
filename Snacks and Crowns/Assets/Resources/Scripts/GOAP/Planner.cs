@@ -5,7 +5,7 @@ namespace GOAP
 {
     public class Planner
     {
-        int maxDepth = 2;
+        int maxDepth = 3;
         float maxCost = 20;
         public Queue<Node> CreatePlan(List<Action> actions, Goal goal, WorldState states)
         {

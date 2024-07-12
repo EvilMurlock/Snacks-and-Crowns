@@ -90,7 +90,7 @@ namespace GOAP
         public override void Deactivate()
         {
             running = false;
-            Debug.Log("npcAI is: " + npcAi);
+            //Debug.Log("npcAI is: " + npcAi);
             npcAi.ChangeTarget(null);
         }
         public override void Complete()

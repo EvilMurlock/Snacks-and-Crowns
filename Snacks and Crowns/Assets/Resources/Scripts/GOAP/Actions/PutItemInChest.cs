@@ -18,6 +18,7 @@ namespace GOAP
     {
         CraftingRecipes craftingRecipes;
         ActionDataPutItemInChest planingData;
+        FillAnInventory fillInventoryGoal;
         public override void Awake()
         {
             speachBubbleType = SpeachBubbleTypes.GetItem;
@@ -26,6 +27,7 @@ namespace GOAP
         public override void Start()
         {
             craftingRecipes = GameObject.Find("Crafting Recipes").GetComponent<CraftingRecipes>();
+            fillInventoryGoal = GetComponent<FillAnInventory>();
             base.Start();
         }
         public override void Tick()
@@ -131,11 +133,31 @@ namespace GOAP
                 Node nodeParent = parent;
                 if (!inventory.Contains(itemId))
                 {
-                    nodeParent = GetRequiredItemNoChest(parent, item); // this will also try to pick up virtual items (future pick-ups)
+                    // Without chest was used to prevent item bouncing between resource harvesters
+                    //nodeParent = GetRequiredItemNoChest(parent, item); // this will also try to pick up virtual items (future pick-ups)
+                    nodeParent = GetRequiredItem(parent, item);
                     if (nodeParent == null)
                         continue;
                 }
                 List<GameObject> keyList = new List<GameObject>(nodeParent.state.inventories.Keys);
+                GameObject targetChest = fillInventoryGoal.GetDesiredChest();
+
+                // Code replacing the code bellow, this code only checks our target chest, not all chests
+                if (targetChest.GetComponent<Inventory>().GetCapacity() < nodeParent.state.inventories.Count)
+                    continue;
+
+                WorldState possibleWorldState = new WorldState(nodeParent.state);
+                possibleWorldState.CopyChestInventory(targetChest);
+                possibleWorldState.CopyInventory();
+
+                possibleWorldState.myInventory.Remove(itemId);
+                possibleWorldState.inventories[targetChest].Add(itemId);
+
+                Node node = new Node(nodeParent, 1, possibleWorldState, GetComponent<PutItemInChest>(), new ActionDataPutItemInChest(targetChest, item));
+                possibleNodes.Add(node);
+
+
+                /* // code being replaced by code above
                 for (int ch = 0; ch < keyList.Count; ch++) 
                 {
                     GameObject chest = keyList[ch];
@@ -154,6 +176,7 @@ namespace GOAP
                     Node node = new Node(nodeParent, 1, possibleWorldState, GetComponent<PutItemInChest>(), new ActionDataPutItemInChest(chest, item));
                     possibleNodes.Add(node);
                 }
+                */
             }
             return possibleNodes;
         }

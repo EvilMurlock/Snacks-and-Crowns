@@ -30,6 +30,17 @@ public class EquipmentManager : MonoBehaviour
         }
         return false;
     }
+    public bool HasEquipedItem(Item item)
+    {
+        foreach (Equipment equipment in equipments)
+        {
+            if (equipment == null) continue;
+
+            if (equipment == item)
+                return true;
+        }
+        return false;
+    }
     public bool CanEquipItem(Item item, int index)
     {
         if (item == null) return true;

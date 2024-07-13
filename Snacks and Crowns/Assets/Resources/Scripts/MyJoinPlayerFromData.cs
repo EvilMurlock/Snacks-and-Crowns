@@ -9,6 +9,7 @@ public class MyJoinPlayerFromData : MonoBehaviour
     GameObject RespawnPointOne;
     [SerializeField]
     GameObject RespawnPointTwo;
+    List<PlayerInput> players = new List<PlayerInput>();
     // Start is called before the first frame update
     void Start()
     {
@@ -52,10 +53,14 @@ public class MyJoinPlayerFromData : MonoBehaviour
 
     void PlayerJoined(PlayerInput input)
     {
+        players.Add(input);
         //Debug.Log("Player device is: " + input.devices[0]);
         //Debug.Log("Player scheme: " + input.currentControlScheme);
     }
-
+    public List<PlayerInput> GetPlayers()
+    {
+        return players;
+    }
     // Update is called once per frame
     void Update()
     {

@@ -7,11 +7,14 @@ namespace GOAP {
     {
         public GameObject bed;
 
-        float sleepDuration = 30;
+        float sleepDuration = 20;
         float sleepStartTime = 0;
         float defaultPriority = 1;
+        float currentPriority;
+        float sleepPriorityGainPerSecond = 0.002f;
         protected virtual void Start()
         {
+            currentPriority = defaultPriority;
         }
         public void Initialize(GameObject bed)
         {
@@ -34,11 +37,12 @@ namespace GOAP {
         }
         public override void Tick()
         {
-
+            currentPriority += sleepPriorityGainPerSecond * Time.deltaTime;
         }
 
         public bool IsCompleted()
         {
+            currentPriority = defaultPriority;
             if (sleepDuration + sleepStartTime < Time.timeSinceLevelLoad)
                 return true;
             return false;
@@ -61,7 +65,7 @@ namespace GOAP {
         public override float CalculatePriority()
         {
 
-            return defaultPriority;
+            return currentPriority;
         }
 
         

@@ -41,9 +41,9 @@ public sealed class FactionState
         factionRelations[a, b] = relation;
         factionRelations[b, a] = relation;
         if (aF == Factions.One || aF == Factions.Two)
-            UpdateRelatedFactionRelations(aF);
-        if (bF == Factions.One || bF == Factions.Two)
             UpdateRelatedFactionRelations(bF);
+        if (bF == Factions.One || bF == Factions.Two)
+            UpdateRelatedFactionRelations(aF);
 
         PrintRelationsMatrix();
     }
@@ -55,22 +55,22 @@ public sealed class FactionState
     {
         if (factionRelations[(int)changedFaction, (int)Factions.One] == Relations.War)
         {
-            ChangeRelationsOnaAlliesOf(changedFaction, Factions.One, Relations.War);
+            ChangeRelationsOnAlliesOf(changedFaction, Factions.One, Relations.War);
         }
         if (factionRelations[(int)changedFaction, (int)Factions.One] == Relations.Alliance)
         {
-            ChangeRelationsOnaAlliesOf(changedFaction, Factions.One, Relations.Alliance);
+            ChangeRelationsOnAlliesOf(changedFaction, Factions.One, Relations.Alliance);
         }
         if (factionRelations[(int)changedFaction, (int)Factions.Two] == Relations.War)
         {
-            ChangeRelationsOnaAlliesOf(changedFaction, Factions.Two, Relations.War);
+            ChangeRelationsOnAlliesOf(changedFaction, Factions.Two, Relations.War);
         }
         if (factionRelations[(int)changedFaction, (int)Factions.Two] == Relations.Alliance)
         {
-            ChangeRelationsOnaAlliesOf(changedFaction, Factions.Two, Relations.Alliance);
+            ChangeRelationsOnAlliesOf(changedFaction, Factions.Two, Relations.Alliance);
         }
     }
-    static void ChangeRelationsOnaAlliesOf(Factions myFaction, Factions enemyFaction, Relations newRelation)
+    static void ChangeRelationsOnAlliesOf(Factions myFaction, Factions enemyFaction, Relations newRelation)
     {
         for (int i = 0; i < Enum.GetValues(typeof(Factions)).Length; i++)
         {
@@ -103,5 +103,18 @@ public sealed class FactionState
             matrix += "\n";
         }
         Debug.Log(matrix);
+    }
+
+    public static bool Allies(GameObject a, GameObject b)
+    {
+        Factions factionA = a.GetComponent<FactionMembership>().Faction;
+        Factions factionB = b.GetComponent<FactionMembership>().Faction;
+        if (factionA == factionB) 
+            return true;
+
+        if (GetFactionRelations(factionA, factionB) == Relations.Alliance)
+            return true;
+
+        return false;
     }
 }

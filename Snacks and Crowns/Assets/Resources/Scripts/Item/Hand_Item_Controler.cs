@@ -7,20 +7,20 @@ public class Hand_Item_Controler : MonoBehaviour
     Animator animator;
     public AnimationClip idle;
     public AnimationClip use;
-    List<GameObject> colidedObjects;
+    List<GameObject> colidedObjects = new List<GameObject>();
     public UnityEvent<GameObject> onHitEvent;
     public UnityEvent<GameObject> spriteChangeEvent;
 
     // Start is called before the first frame update
     void Start()
     {
-        colidedObjects = new List<GameObject>();
         animator = GetComponent<Animator>();
         animator.Play(idle.name);
     }
     public void Use()
     {
         colidedObjects.Clear();
+        Debug.Log("Trying to play: "+ use.name);
         animator.Play(use.name);
     }
     public void Go_Idle()

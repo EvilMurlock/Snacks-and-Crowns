@@ -27,7 +27,7 @@ MonoBehaviour:
     ingredients:
     - {fileID: 11400000, guid: 75397ddcd367a7d478eac303b5c80cc4, type: 2}
     - {fileID: 11400000, guid: 75397ddcd367a7d478eac303b5c80cc4, type: 2}
-    result: {fileID: 0}
+    result: {fileID: 11400000}
     craftingObjekt: 0
   references:
     version: 2

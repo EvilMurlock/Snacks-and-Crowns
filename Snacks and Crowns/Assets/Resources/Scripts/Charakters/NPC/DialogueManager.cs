@@ -29,7 +29,7 @@ public class DialogueManager : InteractibleInMenu
 
 	public override void Interact(GameObject newPlayer)
 	{
-		if (player != null)
+		if (player != null || startDialogue == null)
 		{
 			lockMove = false;
 			return;
@@ -109,6 +109,17 @@ public class DialogueManager : InteractibleInMenu
 			};
 
 		}
+		if (dialogue.nextDialogues[dialogueIndex].requiredGold > player.GetComponent<GoldTracker>().Gold)
+			return false;
+
+		if (dialogue.nextDialogues[dialogueIndex].mustBeAlly)
+		{
+			if (!FactionState.Allies(player, gameObject))
+			{
+				return false;
+			}
+		}
+
 		return true;
 	}
 	public void DisplayDialogue(Dialogue newDialogue)
@@ -119,7 +130,7 @@ public class DialogueManager : InteractibleInMenu
 			UnInteract(player);
 			return;
 		}
-
+		RemoveRequired();
 		foreach(ComponentDataGeneric component in dialogue.componentData)
         {
 			component.InicializeComponent(player, this.gameObject);
@@ -146,7 +157,17 @@ public class DialogueManager : InteractibleInMenu
 			yield return null;
 		}
 	}
+	void RemoveRequired()
+    {
+		 
+		Inventory playerInventory = player.GetComponent<Inventory>();
+		foreach (Item item in dialogue.requiredItems)
+        {
+			playerInventory.RemoveItem(item);
+        }
+		player.GetComponent<GoldTracker>().AddGold(-dialogue.requiredGold);
 
+    }
 	public override void UnInteract(GameObject player)
 	{
 		// THE PROBLEMS IS THAT THIS THING GETS CALLED WHEN WE QUIT, BUT WE HAVE TO CALL UnInteract in player manager to actualy reset stuff corectly i think

@@ -12,17 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a9580f3fd8dd3499071ee92263b089, type: 3}
   m_Name: Command 1
   m_EditorClassIdentifier: 
+  autoEndConversation: 0
   requiredItems: []
+  requiredGold: 0
+  mustBeAlly: 0
   componentData: []
   text: What do you ask me my lord?
   nextDialogues:
   - {fileID: 11400000, guid: a2853c4658326b4499fe78ab8b1e3f06, type: 2}
   - {fileID: 11400000, guid: be07420ea78a8a044a7c9180dde5d15a, type: 2}
   - {fileID: 11400000, guid: 05b5e744b95c7b941b4f69a903be21e9, type: 2}
+  - {fileID: 11400000, guid: 3b9741f5c562ffb4393240e3b1c45323, type: 2}
   buttonNames:
   - Attack
   - Follow
   - Stay
+  - Never mind
   references:
     version: 2
     RefIds: []

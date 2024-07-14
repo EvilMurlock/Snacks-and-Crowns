@@ -11,18 +11,15 @@ namespace GOAP
         private void Start()
         {
             string name = "FightDetector";
-            if (GameObject.Find(name) == null)
-            {
-                GameObject detector = new GameObject(name);
-                detector.transform.SetParent(transform);
-                detector.transform.position = transform.position;
-                CircleCollider2D collider = detector.AddComponent<CircleCollider2D>();
-                collider.radius = agroDistance;
-                collider.isTrigger = true;
-                Collision2D_Proxy proxy = detector.AddComponent<Collision2D_Proxy>();
-                proxy.OnTriggerEnter2D_Action += TriggerEnter;
-                proxy.OnTriggerExit2D_Action += TriggerExit;
-            }
+            GameObject detector = new GameObject(name);
+            detector.transform.SetParent(transform);
+            detector.transform.position = transform.position;
+            CircleCollider2D collider = detector.AddComponent<CircleCollider2D>();
+            collider.radius = agroDistance;
+            collider.isTrigger = true;
+            Collision2D_Proxy proxy = detector.AddComponent<Collision2D_Proxy>();
+            proxy.OnTriggerEnter2D_Action += TriggerEnter;
+            proxy.OnTriggerExit2D_Action += TriggerExit;
         }
         public bool IsCompleted()
         {
@@ -49,11 +46,11 @@ namespace GOAP
                 Factions theirFaction = charakter.GetComponent<FactionMembership>().Faction;
                 if (FactionState.GetFactionRelations(myFaction,theirFaction) == Relations.War)
                 {
-                    //Debug.Log("Enemies in range!!!");
+                    Debug.Log("Enemies in range!!!");
                     return priority;
                 }
             }
-            //Debug.Log("No enemies in range!!!");
+            Debug.Log("No enemies in range!!!");
             return 0;
         }
         public GameObject GetClosestEnemy()

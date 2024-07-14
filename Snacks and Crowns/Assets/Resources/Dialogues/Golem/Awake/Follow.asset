@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoEndConversation: 0
   requiredItems: []
+  requiredGold: 0
+  mustBeAlly: 1
   componentData:
   - rid: 604482972534702082
   text: '*Whoosh*'

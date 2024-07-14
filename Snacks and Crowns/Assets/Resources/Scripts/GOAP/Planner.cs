@@ -6,6 +6,7 @@ namespace GOAP
     public class Planner
     {
         int maxDepth = 3;
+        float probabilityToSkipLeafNode = 0.5f; // used to reduce procesing power needed
         float maxCost = 20;
         public Queue<Node> CreatePlan(List<Action> actions, Goal goal, WorldState states)
         {
@@ -20,7 +21,7 @@ namespace GOAP
             //Debug.Log(lastPlanNode.action.actionName);
             Queue<Node> planQueue = CreatePlanQueue(lastPlanNode);
             
-            DebugPrintPlan(planQueue);
+            //DebugPrintPlan(planQueue);
             return planQueue;
         }
         public void DebugPrintPlan(Queue<Node> planQueue)
@@ -79,6 +80,11 @@ namespace GOAP
             leaves.Add(start);
             return FindPlanBreathFirstRecursion(leaves, actions, goal, 1);
         }
+        bool SkipCheck()
+        {
+            float rand = Random.value;
+            return rand <= probabilityToSkipLeafNode;
+        }
         Node FindPlanBreathFirstRecursion(List<Node> leaves, List<Action> usableActions, Goal goal, int depth)
         {
             if (depth > maxDepth) return null;
@@ -87,6 +93,10 @@ namespace GOAP
             List<Node> newLeaves = new List<Node>();
             foreach(Node parent in leaves)  // Does a whole graph level at once
             {
+                if (SkipCheck())
+                    continue;
+
+
                 foreach (Action action in usableActions)
                 {
                     if (!action.reusable && ActionAlreadyUsed(parent, action)) continue;

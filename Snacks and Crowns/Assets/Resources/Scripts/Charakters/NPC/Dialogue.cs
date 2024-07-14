@@ -7,6 +7,9 @@ public class Dialogue : ScriptableObject
 {
 	public bool autoEndConversation;
 	public List<Item> requiredItems = new List<Item>();
+	public int requiredGold = 0;
+	[SerializeField]
+	public bool mustBeAlly;
 	[SerializeReference] public List<ComponentDataGeneric> componentData;
 
 

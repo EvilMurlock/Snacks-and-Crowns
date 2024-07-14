@@ -15,7 +15,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 04980c77c2aba7c40a22325206c2a1e6, type: 3}
   itemName: Hammer
   description: Used for building buildings
-  cost: 30
+  cost: 60
   prefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
   useDuration: 0
   singleUse: 0

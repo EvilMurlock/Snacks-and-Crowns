@@ -64,7 +64,7 @@ namespace GOAP
             if (target == null) Complete();
             else if (npcAi.reachedEndOfPath)
             {
-                Debug.Log("Using tool to harvest");
+                Debug.Log("Using tool <"+tool +"> to harvest");
                 tool.instance.GetComponent<Hand_Item_Controler>().Use();
                 //Take a swing at it
             }

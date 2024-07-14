@@ -6,7 +6,10 @@ public class StayCommand : DialogueComponentData<ActivateGolem>
 {
     public override void InicializeComponent(GameObject player, GameObject listener)
     {
-        if (player.GetComponent<FactionMembership>().Faction != listener.GetComponent<FactionMembership>().Faction)
+        Factions playerFaction = player.GetComponent<FactionMembership>().Faction;
+        Factions npcFaction = listener.GetComponent<FactionMembership>().Faction;
+        if (playerFaction != npcFaction &&
+            FactionState.GetFactionRelations(playerFaction, npcFaction) != Relations.Alliance)
             return;
 
         listener.GetComponent<GoToLocation>().enabledGoal = false;

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71a9580f3fd8dd3499071ee92263b089, type: 3}
+  m_Name: Soldier Command
+  m_EditorClassIdentifier: 
+  autoEndConversation: 0
+  requiredItems: []
+  requiredGold: 0
+  mustBeAlly: 0
+  componentData: []
+  text: What are your orders?
+  nextDialogues:
+  - {fileID: 11400000, guid: 13afe36ad9a301b45960aecdd9767598, type: 2}
+  - {fileID: 11400000, guid: 1e8d25678bde6184a972b48af2104584, type: 2}
+  - {fileID: 11400000, guid: 71406ece239bf5c4bbeee7cb70985b75, type: 2}
+  - {fileID: 11400000, guid: dce252d14fefdca4986ef43875ece7cf, type: 2}
+  buttonNames:
+  - Attack
+  - Follow
+  - Stay
+  - Never mind
+  references:
+    version: 2
+    RefIds: []

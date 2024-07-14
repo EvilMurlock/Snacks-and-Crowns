@@ -52,6 +52,7 @@ namespace GOAP
         }
         public override bool IsAchievableGiven(WorldState worldState)//For the planner
         {
+            if (GetComponent<FillAnInventory>() == null) return false;
             bool achievable = true;
             return achievable;
         }

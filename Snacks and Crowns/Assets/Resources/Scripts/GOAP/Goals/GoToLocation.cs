@@ -6,11 +6,12 @@ namespace GOAP {
     public class GoToLocation : Goal
     {
         public GameObject targetObject;
-        float minDistance;
+        float minDistance = 2;
 
         float defaultPriority = 5;
-        protected virtual void Start()
+        public override void Start()
         {
+            MaxPlanDepth = 1;
         }
         public void Initialize(GameObject targetObject, float minDistance)
         {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EquipmentManager : MonoBehaviour
 {
+    [SerializeField]
     Equipment[] equipments = new Equipment[5];
     public Equipment[] Equipments { get { return equipments; } }
     EquipmentLocation[] equipmentLocations = new EquipmentLocation[5];
@@ -52,16 +53,16 @@ public class EquipmentManager : MonoBehaviour
         else return false;
         return true;
     }
-    public void EquipItem(Item item, int index)
+    public Equipment EquipItem(Item item, int index)
     {
         if (!CanEquipItem(item, index)) throw new System.Exception("Failed to equip item: " + item);
         if(item is Equipment equipment)
         {
-            equipment.InstantiateEquipment(equipmentLocations[index].transform);
+            equipment.InstantiateEquipment(equipmentLocations[index].transform, gameObject);
             equipments[index] = equipment;
             //Debug.Log("Item " + equipment.name + " equiped");
         }
-        return;
+        return equipments[index];
     }
     public void UnEquipItem(int index)
     {
@@ -69,7 +70,11 @@ public class EquipmentManager : MonoBehaviour
 
         Equipment equipment = equipments[index];
         equipments[index] = null;
-        equipment.DestroyEquipmentInstance();
+        equipment.DestroyEquipmentInstance(gameObject);
+        foreach(Transform child in equipmentLocations[index].transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
     public void UseLeftHand()
     {
@@ -83,6 +88,6 @@ public class EquipmentManager : MonoBehaviour
     {
         if (equipmentLocations[index].equipmentSlot != EquipmentSlot.hand) return;
         if (equipments[index] == null) return;
-        equipments[index].UseEquipment();
+        equipments[index].UseEquipment(gameObject);
     }
 }

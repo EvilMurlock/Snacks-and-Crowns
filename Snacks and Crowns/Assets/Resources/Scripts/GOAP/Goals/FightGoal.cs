@@ -8,7 +8,8 @@ namespace GOAP
         float agroDistance = 8;
         float priority = 10;
         List<GameObject> charactersInRange = new List<GameObject>();
-        private void Start()
+
+        public override void Start()
         {
             string name = "FightDetector";
             GameObject detector = new GameObject(name);
@@ -20,6 +21,7 @@ namespace GOAP
             Collision2D_Proxy proxy = detector.AddComponent<Collision2D_Proxy>();
             proxy.OnTriggerEnter2D_Action += TriggerEnter;
             proxy.OnTriggerExit2D_Action += TriggerExit;
+            MaxPlanDepth = 1;
         }
         public bool IsCompleted()
         {

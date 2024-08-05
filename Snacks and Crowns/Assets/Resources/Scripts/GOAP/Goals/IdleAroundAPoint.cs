@@ -28,6 +28,10 @@ namespace GOAP {
             basePoint = this.transform.position;
             ChooseRandomPoint();
         }
+        public override void Start()
+        {
+            MaxPlanDepth = 1;
+        }
         public void Initialize(Vector3 basePoint, float wanderDistance, float priority)
         {
             this.basePoint = basePoint;

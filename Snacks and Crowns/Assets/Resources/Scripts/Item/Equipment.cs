@@ -9,24 +9,36 @@ public class Equipment : Item
     public EquipmentSlot equipmentSlot;
     public GameObject equipmentPrefab;
     [HideInInspector]
-    public GameObject instance;
-    public void UseEquipment()
+    public Dictionary<GameObject,GameObject> instances = new Dictionary<GameObject, GameObject>();
+    public void Innit(Equipment equipment)
     {
-        instance.GetComponent<Hand_Item_Controler>().Use();
+        Innit((Item)equipment);
+        componentDataEquipment = equipment.componentDataEquipment;
+        equipmentSlot = equipment.equipmentSlot;
+        equipmentPrefab = equipment.equipmentPrefab;
+        instances = equipment.instances;
     }
-    public virtual void InstantiateEquipment(Transform parent)
+    public void UseEquipment(GameObject key)
     {
-        instance = Instantiate(equipmentPrefab, parent);
-        instance.GetComponent<SpriteRenderer>().sprite = icon;
+        instances[key].GetComponent<Hand_Item_Controler>().Use();
+    }
+    public virtual void InstantiateEquipment(Transform parent, GameObject key)
+    {
+        instances[key] = Instantiate(equipmentPrefab, parent);
+        instances[key].GetComponent<SpriteRenderer>().sprite = icon;
         foreach(ComponentDataGeneric comData in componentDataEquipment)
         {
-            comData.InicializeComponent(instance, (Item) this);
+            comData.InicializeComponent(instances[key], (Item) this);
         }
     }
-    public virtual void DestroyEquipmentInstance()
+    public GameObject GetInstance(GameObject key)
     {
-        Destroy(instance);
-        instance = null;
+        return instances[key];
+    }
+    public virtual void DestroyEquipmentInstance(GameObject key)
+    {
+        Destroy(instances[key]);
+        instances.Remove(key);
     }
     public void AddDataEquipment(ComponentDataGeneric data)
     {

@@ -5,8 +5,10 @@ using UnityEngine;
 
 namespace GOAP
 {
+    
     public abstract class Goal : MonoBehaviour
     {
+        public int MaxPlanDepth { get; protected set; }
         protected WorldState desiredState = new WorldState();
         [SerializeField]
         
@@ -14,7 +16,10 @@ namespace GOAP
 
         protected bool active = false;
         public bool Active => active;
-
+        public virtual void Start()
+        {
+            MaxPlanDepth = 3;
+        }
         private void Update()
         {
             Tick();

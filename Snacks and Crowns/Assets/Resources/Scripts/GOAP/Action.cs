@@ -270,6 +270,8 @@ namespace GOAP
                 if (equipment == item)
                     return equipment;
             }
+
+            Debug.Log("ITEM <" + item.itemName + "> NOT FOUND!!!!");
             return null;
         }
         protected Node GetRequiredItemWithTags(Node parent, List<ItemTags> tags) //Returns a plan that will colect the required items, returns null if no such plan exists

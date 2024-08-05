@@ -12,9 +12,12 @@ namespace GOAP {
         float defaultPriority = 1;
         float currentPriority;
         float sleepPriorityGainPerSecond = 0.002f;
-        protected virtual void Start()
+        float randomDurationSpread = 0.2f;
+        float durationModifier = 1;
+        public override void Start()
         {
             currentPriority = defaultPriority;
+            MaxPlanDepth = 1;
         }
         public void Initialize(GameObject bed)
         {
@@ -43,12 +46,13 @@ namespace GOAP {
         public bool IsCompleted()
         {
             currentPriority = defaultPriority;
-            if (sleepDuration + sleepStartTime < Time.timeSinceLevelLoad)
+            if (sleepDuration * durationModifier + sleepStartTime < Time.timeSinceLevelLoad)
                 return true;
             return false;
         }
         public override void Activate()
         {
+            durationModifier = Random.Range(1 - randomDurationSpread, 1 + randomDurationSpread);
             sleepStartTime = Time.timeSinceLevelLoad;
             active = true;
         }

@@ -10,7 +10,7 @@ public class Hand_Item_Controler : MonoBehaviour
     List<GameObject> colidedObjects = new List<GameObject>();
     public UnityEvent<GameObject> onHitEvent;
     public UnityEvent<GameObject> spriteChangeEvent;
-
+    bool beingUsed = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,13 +19,30 @@ public class Hand_Item_Controler : MonoBehaviour
     }
     public void Use()
     {
-        colidedObjects.Clear();
-        Debug.Log("Trying to play: "+ use.name);
-        animator.Play(use.name);
+        try
+        {
+            if (!beingUsed)
+            {
+                colidedObjects.Clear();
+                //Debug.Log("Trying to play: " + use.name);
+                if (use == null)
+                {
+                    Debug.Log("ANIMATION IS NULLL => " + gameObject.name + " | " + transform.position);
+                }
+                animator.Play(use.name);
+                beingUsed = true;
+            }
+        }
+        catch
+        {
+            Debug.Log("YEP ERRORING HERE");
+        }
     }
     public void Go_Idle()
     {
         animator.Play(idle.name);
+        beingUsed = false;
+        //Debug.Log("Going idle");
     }
     public void SpriteChangeInAnimation()
     {

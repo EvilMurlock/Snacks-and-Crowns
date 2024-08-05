@@ -30,6 +30,20 @@ public class Item : ScriptableObject
     [SerializeReference] List<ItemTags> tags;
     [SerializeField]
     CraftingRecipe recipe;
+    public void Innit(Item item)
+    {
+        icon = item.icon;
+        itemName = item.itemName;
+        description = item.description;
+        cost = item.cost;
+        prefab = item.prefab;
+        useDuration = item.useDuration;
+        singleUse = item.singleUse;
+        componentDataUse = item.componentDataUse;
+        tags = item.tags;
+        recipe = item.recipe;
+    }
+    
     public CraftingRecipe Recipe { 
         get {
             if (recipe.ingredients == null || recipe.ingredients.Count == 0) return null;

@@ -6,8 +6,9 @@ namespace GOAP {
     public class HealGoal : Goal
     {
         float currentPriority = 0;
-        protected virtual void Start()
+        public override void Start()
         {
+            MaxPlanDepth = 1;
             GetComponent<Damagable>().healthChange.AddListener(UpdatePriority);
         }
         void UpdatePriority(float hp, float maxHp)

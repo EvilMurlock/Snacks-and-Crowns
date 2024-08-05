@@ -64,8 +64,14 @@ namespace GOAP
             if (target == null) Complete();
             else if (npcAi.reachedEndOfPath)
             {
-                Debug.Log("Using tool <"+tool +"> to harvest");
-                tool.instance.GetComponent<Hand_Item_Controler>().Use();
+                //Debug.Log("Using tool <" + tool +"> to harvest");
+                if(tool == null || tool.GetInstance(gameObject) == null)
+                {
+                    Deactivate();
+                    return;
+                }
+                Hand_Item_Controler controler = tool.GetInstance(gameObject).GetComponent<Hand_Item_Controler>();
+                controler.Use();
                 //Take a swing at it
             }
         }
@@ -74,17 +80,18 @@ namespace GOAP
             planingData = (ActionDataHarvestResource)arg;
             target = planingData.target;
             
-            if (equipmentManager.HasEquipedItem(planingData.harvestData.requiredTool))
-                tool = GetEquipedItem(planingData.harvestData.requiredTool);
-            else
-                tool = EquipItem(planingData.harvestData.requiredTool);
+            if (!equipmentManager.HasEquipedItem(planingData.harvestData.requiredTool))
+                EquipItem(planingData.harvestData.requiredTool);
+            tool = GetEquipedItem(planingData.harvestData.requiredTool);
 
             // equipts the required tool
-            if(tool == null)
+            if (tool == null)
             {
                 Deactivate();
                 return;
             }
+
+            //Debug.Log("NPC: "+this.transform.position+" Found the correct tool: "+tool.itemName);
 
             npcAi.ChangeTarget(target);
             base.Activate(arg);
@@ -96,7 +103,7 @@ namespace GOAP
             EquipmentManager agentEquipmentManager = GetComponent<EquipmentManager>();
 
             Unequip(agentInventory, agentEquipmentManager, planingData.harvestData.requiredTool);
-
+            tool = null;
             running = false;
             npcAi.ChangeTarget(null);
         }
@@ -106,7 +113,7 @@ namespace GOAP
             EquipmentManager agentEquipmentManager = GetComponent<EquipmentManager>();
 
             Unequip(agentInventory, agentEquipmentManager, planingData.harvestData.requiredTool);
-
+            tool = null;
             running = false;
             completed = true;
         }

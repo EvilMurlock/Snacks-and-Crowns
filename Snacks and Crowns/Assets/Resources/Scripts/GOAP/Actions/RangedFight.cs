@@ -33,7 +33,7 @@ namespace GOAP
             else if(DistanceCalculator.CalculateDistance(transform.position, target.transform.position) <= attackRange)
             {
                 movement.RotateTowars(target.transform.position - transform.position);
-                rangedItem.instance.GetComponent<Hand_Item_Controler>().Use();
+                rangedItem.GetInstance(gameObject).GetComponent<Hand_Item_Controler>().Use();
                 npcAi.ChangeTarget(null);
             }
             else

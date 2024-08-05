@@ -8,9 +8,10 @@ namespace GOAP {
         float defaultPriority = 4;
         public List<ItemTags> tags;
         EquipmentManager equipmentManager;
-        protected virtual void Start()
+        public override void Start()
         {
             equipmentManager = GetComponent<EquipmentManager>();
+            MaxPlanDepth = 1;
         }
         public void Initialize(List<ItemTags> tags)
         {

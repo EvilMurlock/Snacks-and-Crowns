@@ -9,6 +9,10 @@ namespace GOAP
         //float raidCooldown = 5;
         float raidTimeout = 120;
         float timeOfLastRaid = 0;
+        public override void Start()
+        {
+            MaxPlanDepth = 1;
+        }
         public bool IsCompleted()
         {
             //Debug.Log("Raid start time: " + timeOfLastRaid + " timeout time: "+raidTimeout + " Curent time: "+ Time.timeSinceLevelLoad);

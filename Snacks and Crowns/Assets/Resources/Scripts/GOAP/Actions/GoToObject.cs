@@ -14,7 +14,13 @@ namespace GOAP
         }
         public override void Tick()
         {
+            FightGoal fightGoal = GetComponent<FightGoal>();
             if (target == null) Deactivate();
+            else if (fightGoal != null)
+            {
+                if (fightGoal.GetClosestEnemy() != null)
+                    Deactivate();
+            }
             else if (goToLocation.IsCompleted())
             {
                 Complete();

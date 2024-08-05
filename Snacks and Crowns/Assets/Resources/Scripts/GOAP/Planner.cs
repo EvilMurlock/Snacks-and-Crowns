@@ -5,8 +5,8 @@ namespace GOAP
 {
     public class Planner
     {
-        int maxDepth = 3;
-        float probabilityToSkipLeafNode = 0.5f; // used to reduce procesing power needed
+        //int maxDepth = 3;
+        float probabilityToSkipLeafNode = 0.0f; // used to reduce procesing power needed
         float maxCost = 20;
         public Queue<Node> CreatePlan(List<Action> actions, Goal goal, WorldState states)
         {
@@ -87,7 +87,9 @@ namespace GOAP
         }
         Node FindPlanBreathFirstRecursion(List<Node> leaves, List<Action> usableActions, Goal goal, int depth)
         {
-            if (depth > maxDepth) return null;
+            //if (depth > maxDepth) return null;
+            //Debug.Log("Max depth of goal: " + goal.GetType().ToString() + " => " + goal.MaxPlanDepth);
+            if (depth > goal.MaxPlanDepth) return null;
             if (leaves.Count == 0) return null;
 
             List<Node> newLeaves = new List<Node>();

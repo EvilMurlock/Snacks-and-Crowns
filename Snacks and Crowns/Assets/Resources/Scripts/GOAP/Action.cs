@@ -441,5 +441,22 @@ namespace GOAP
             renderer.color = new Color(1, 1, 1, 1);
 
         }
+        protected Node GetTool(Node parent, Item requiredTool)
+        {
+
+            bool haveTool = false;
+            List<int> items = parent.state.myInventory;
+            // we get required tool
+            foreach (int itemId in items)
+            {
+                if (World.GetItemFromId(itemId) == requiredTool) { haveTool = true; break; }
+            }
+            if (!haveTool)
+            {
+                Node newNode = GetRequiredItem(parent, requiredTool);
+                return newNode;
+            }
+            return parent;
+        }
     }
 }

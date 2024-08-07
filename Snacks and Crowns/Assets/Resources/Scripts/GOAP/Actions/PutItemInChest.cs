@@ -100,9 +100,7 @@ namespace GOAP
             List<int> inventory = parent.state.myInventory;
 
             List<int> itemsToProcess = new List<int>();
-
-
-            foreach (int item in inventory)//DOESNT WORK, WILL CHOOSE THE ITEM FROM A CHEST
+            foreach (int item in inventory)
             {
                 //if (!itemsToProcess.Contains(item)) 
                     itemsToProcess.Add(item);
@@ -129,6 +127,8 @@ namespace GOAP
 
             foreach (int itemId in itemsToProcess)
             {
+                if (!fillInventoryGoal.desiredItems.Contains(World.GetItemFromId(itemId)))
+                    continue;
 
                 Item item = World.GetItemFromId(itemId);
                 Node nodeParent = parent;
@@ -157,27 +157,6 @@ namespace GOAP
                 Node node = new Node(nodeParent, 1, possibleWorldState, GetComponent<PutItemInChest>(), new ActionDataPutItemInChest(targetChest, item));
                 possibleNodes.Add(node);
 
-
-                /* // code being replaced by code above
-                for (int ch = 0; ch < keyList.Count; ch++) 
-                {
-                    GameObject chest = keyList[ch];
-                //foreach (Chest chest in nodeParent.state.chests.Keys)
-                //{
-                    if (chest.GetComponent<Inventory>().GetCapacity() < nodeParent.state.inventories.Count)
-                        continue;
-
-                    WorldState possibleWorldState = new WorldState(nodeParent.state);
-                    possibleWorldState.CopyChestInventory(chest);
-                    possibleWorldState.CopyInventory();
-
-                    possibleWorldState.myInventory.Remove(itemId);
-                    possibleWorldState.inventories[chest].Add(itemId);
-
-                    Node node = new Node(nodeParent, 1, possibleWorldState, GetComponent<PutItemInChest>(), new ActionDataPutItemInChest(chest, item));
-                    possibleNodes.Add(node);
-                }
-                */
             }
             return possibleNodes;
         }

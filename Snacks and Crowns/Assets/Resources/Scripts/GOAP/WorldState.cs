@@ -8,9 +8,9 @@ namespace GOAP
     {
         static float maxPickupRange = 30;
 
-        public List<ItemPickup> itemPickups;
+        public List<ItemPickup> itemPickups = new List<ItemPickup>();
         public List<int> virtualItemPickups = new List<int>(); // only used for planning, always starts empty
-        public Dictionary<GameObject, List<int>> inventories; // chest reference, and its inventory
+        public Dictionary<GameObject, List<int>> inventories = new Dictionary<GameObject, List<int>>(); // chest reference, and its inventory
         public GameObject agent;
         public Vector3 myPosition;
         public List<int> myInventory;
@@ -64,6 +64,7 @@ namespace GOAP
         public void UpdateBelieves()
         {
             UpdateGeneralBelieves();
+            
             InventoryUpdate(agent.GetComponent<Inventory>());
             RemoveInventoriesFromWrongFaction();
             RemoveItemFarAwayPickups();
@@ -87,9 +88,28 @@ namespace GOAP
         {
             for(int i = itemPickups.Count -1; i >=0; i--)
             {
-                if (DistanceCalculator.CalculateDistance(itemPickups[i].transform.position, agent.transform.position) > maxPickupRange)
+                if (itemPickups[i] == null)
+                    itemPickups.RemoveAt(i);
+                else if (DistanceCalculator.CalculateDistance(itemPickups[i].transform.position, agent.transform.position) > maxPickupRange)
                     itemPickups.RemoveAt(i);
             }
+        }
+        public void ClearNullElements()
+        {
+            ClearNullItemPickups();
+            ClearNullInventories();
+        }
+        void ClearNullItemPickups()
+        {
+            for(int i = itemPickups.Count-1; i >= 0; i--)
+            {
+                if (itemPickups[i] == null)
+                    itemPickups.RemoveAt(i);
+            }
+        }
+        void ClearNullInventories()
+        {
+            // no need to do anything for now
         }
         void UpdateGeneralBelieves()
         {

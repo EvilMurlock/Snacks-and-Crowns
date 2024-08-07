@@ -31,6 +31,9 @@ namespace GOAP
     }
     public class HarvestResource : Action
     {
+        GameObject trees;
+        GameObject ironOres;
+        GameObject magicOres;
         List<HarvestData> harvestDatas = new List<HarvestData>();
         ActionDataHarvestResource planingData;
         public Equipment tool;
@@ -54,8 +57,10 @@ namespace GOAP
 
             Item resourceItemCrystalShard = World.GetItemFromName("Crystal Shard");
             harvestDatas.Add(new HarvestData(requiredItemPickaxe, "Crystal Mine", resourceItemCrystalShard));
-            
-            
+
+            trees = GameObject.Find("Trees");
+            ironOres = GameObject.Find("Iron Ore Deposits");
+            magicOres = GameObject.Find("Crystal Deposits");
             equipmentManager = GetComponent<EquipmentManager>();
             base.Start();
         }
@@ -117,11 +122,28 @@ namespace GOAP
             running = false;
             completed = true;
         }
+        List<TagSystem> GetListOfResources()
+        {
+            List<TagSystem> resources = new List<TagSystem>();
+            foreach(Transform t in trees.transform)
+            {
+                resources.Add(t.gameObject.GetComponent<TagSystem>());
+            }
+            foreach (Transform t in ironOres.transform)
+            {
+                resources.Add(t.gameObject.GetComponent<TagSystem>());
+            }
+            foreach (Transform t in magicOres.transform)
+            {
+                resources.Add(t.gameObject.GetComponent<TagSystem>());
+            }
+            return resources;
+        }
         public override bool IsAchievableGiven(WorldState worldState)//For the planner
         {
             bool achievable = true;
             bool harvestableExists = false;
-            foreach (TagSystem tagSys in GameObject.FindObjectsByType<TagSystem>(FindObjectsSortMode.None))
+            foreach (TagSystem tagSys in GetListOfResources())//GameObject.FindObjectsByType<TagSystem>(FindObjectsSortMode.None))
             {
                 foreach(HarvestData harvestData in harvestDatas)
                 {
@@ -148,59 +170,22 @@ namespace GOAP
             foreach (HarvestData harvestData in harvestDatas)
             {
                 Node parent = parentOriginal;
-                bool haveTool = false;
-                List<int> items = parent.state.myInventory;
-                foreach (int itemId in items)
-                {
-                    if (World.GetItemFromId(itemId) == harvestData.requiredTool) { haveTool = true; break; }
-                }
-                if (!haveTool)
-                {
-                    Node newNode = GetRequiredItem(parent, harvestData.requiredTool);
-                    if (newNode == null) continue; // we cant find the needed tool, so we stop planing to harvest this resource
-                    parent = newNode;
-                }
-
-
+                parent = GetTool(parent, harvestData.requiredTool);
+                if (parent == null)
+                    continue;
 
                 Vector3 myPosition = parent.state.myPosition;
 
-                // dát do funkce
-                List<TagSystem> resourceDeposits = new List<TagSystem>(); 
-                foreach (TagSystem tagSys in GameObject.FindObjectsByType<TagSystem>(FindObjectsSortMode.None))
-                {
-                    if (tagSys.HasTag(harvestData.targetTag)) resourceDeposits.Add(tagSys);
-                }
-                TagSystem closestDeposit = null;
-                float distanceToDeposit = -1;
-                foreach(TagSystem deposit in resourceDeposits)
-                {
-                    if(closestDeposit == null || GetDistanceBetween(deposit.transform.position, myPosition) < distanceToDeposit)
-                    {
-                        closestDeposit = deposit;
-                        distanceToDeposit = GetDistanceBetween(closestDeposit.transform.position, myPosition);
-                    }
-                }
-
+                TagSystem closestDeposit = FindClosestDeposit(harvestData, myPosition);
 
                 WorldState possibleWorldState = new WorldState(parent.state);
-                possibleWorldState.CopyVirtualItemPickups();
-                    
-                int resource = World.GetIdFromItem(harvestData.resourceItem);
-                
-
-
-
-                string itemName = harvestData.resourceItem.name;
                 if (closestDeposit == null)
                     continue;
-                foreach(string tag in closestDeposit.GetTags()) // we add item pickups droped from the resource deposit to the plan world state
-                {
-                    //Debug.Log("PreCount: " + possibleWorldState.virtualItemPickups.Count);
-                    //Debug.Log("Item name: "+itemName);
-                    if(tag == itemName+"Drop") possibleWorldState.virtualItemPickups.Add(resource);
-                    //Debug.Log("PostCount: " + possibleWorldState.virtualItemPickups.Count);
-                }
+
+                possibleWorldState.CopyVirtualItemPickups();
+
+                AddVirtualItems(harvestData, closestDeposit, possibleWorldState);
+                
 
                 possibleWorldState.myPosition = closestDeposit.transform.position;
                 ActionDataHarvestResource actionData = new ActionDataHarvestResource(closestDeposit.gameObject, harvestData);
@@ -209,6 +194,37 @@ namespace GOAP
                 
             }
             return possibleNodes;
+        }
+        void AddVirtualItems(HarvestData harvestData, TagSystem closestDeposit, WorldState possibleWorldState)
+        {
+            int resource = World.GetIdFromItem(harvestData.resourceItem);
+            string itemName = harvestData.resourceItem.name;
+            foreach (string tag in closestDeposit.GetTags()) // we add item pickups droped from the resource deposit to the plan world state
+            {
+                //Debug.Log("PreCount: " + possibleWorldState.virtualItemPickups.Count);
+                //Debug.Log("Item name: "+itemName);
+                if (tag == itemName + "Drop") possibleWorldState.virtualItemPickups.Add(resource);
+                //Debug.Log("PostCount: " + possibleWorldState.virtualItemPickups.Count);
+            }
+        }
+        TagSystem FindClosestDeposit(HarvestData harvestData, Vector3 myPosition)
+        {
+            List<TagSystem> resourceDeposits = new List<TagSystem>();
+            foreach (TagSystem tagSys in GetListOfResources())//GameObject.FindObjectsByType<TagSystem>(FindObjectsSortMode.None))
+            {
+                if (tagSys.HasTag(harvestData.targetTag)) resourceDeposits.Add(tagSys);
+            }
+            TagSystem closestDeposit = null;
+            float distanceToDeposit = -1;
+            foreach (TagSystem deposit in resourceDeposits)
+            {
+                if (closestDeposit == null || GetDistanceBetween(deposit.transform.position, myPosition) < distanceToDeposit)
+                {
+                    closestDeposit = deposit;
+                    distanceToDeposit = GetDistanceBetween(closestDeposit.transform.position, myPosition);
+                }
+            }
+            return closestDeposit;
         }
     }
 }

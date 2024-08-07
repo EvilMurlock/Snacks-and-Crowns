@@ -93,12 +93,10 @@ namespace GOAP
             if (leaves.Count == 0) return null;
 
             List<Node> newLeaves = new List<Node>();
-            foreach(Node parent in leaves)  // Does a whole graph level at once
+            foreach(Node parent in leaves)
             {
                 if (SkipCheck())
                     continue;
-
-
                 foreach (Action action in usableActions)
                 {
                     if (!action.reusable && ActionAlreadyUsed(parent, action)) continue;

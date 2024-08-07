@@ -128,7 +128,8 @@ namespace GOAP
             if (nodeQueue == null)
             {
                 npcAi.ChangeTarget(null); // we have no active action, so we arent moving anywhere
-                // we try to find a plan that fulfils one of our goals, in order of priority
+                                          // we try to find a plan that fulfils one of our goals, in order of priority
+
                 var sortedGoals = from goal in goals orderby goal.CalculatePriority() descending select goal;
                 Goal newGoal = null;
                 Queue<Node> newNodeQueue = null;
@@ -137,13 +138,16 @@ namespace GOAP
                 else
                 {
                     worldState.UpdateBelieves();
+                    
                     foreach (Goal g in sortedGoals)
                     {
                         if (g.CalculatePriority() <= 0) continue;
                         Queue<Node> queue = null;
                         //Debug.Log("Current goal can run: " + g.CanRun());
+
                         if (g.CanRun())
                             queue = planner.CreatePlan(actions, g, worldState);
+                            
                         if (queue == null)
                         {
                             //Debug.Log("Queue is null!!!!");
@@ -158,7 +162,8 @@ namespace GOAP
                     }
                     planingDelayNow = 0;
                 }
-
+                
+                
                 // we swap into the new plan if we found a plan and our old goal has a lesser priority
                 if (newGoal != null && newGoal.CalculatePriority() > 0 
                     && (currentGoal == null || newGoal.CalculatePriority() > currentGoal.CalculatePriority()))//Switch plans when plan with a higher priority goal is found
@@ -177,6 +182,7 @@ namespace GOAP
                     currentGoal.Activate();
                 }
             }
+            
             if (currentAction != null && currentAction.running)
             {
                 //Debug.Log("Actionin runing");

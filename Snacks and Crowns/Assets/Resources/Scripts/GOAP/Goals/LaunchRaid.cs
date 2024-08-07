@@ -26,11 +26,8 @@ namespace GOAP
             base.Activate();
         }
         public override float CalculatePriority()
-        {/*
-            if (timeOfLastRaid + raidCooldown >= Time.timeSinceLevelLoad)
-                return 0;*/
-
-            //timeOfLastRaid = Time.timeSinceLevelLoad;
+        {
+            
             foreach (CharakterSheet charakter in Object.FindObjectsOfType<CharakterSheet>())
             {
                 Factions myFaction = GetComponent<FactionMembership>().Faction;

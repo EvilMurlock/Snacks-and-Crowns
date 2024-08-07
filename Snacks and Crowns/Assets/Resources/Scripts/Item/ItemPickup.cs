@@ -9,6 +9,7 @@ public class ItemPickup : Interactible
     // Start is called before the first frame update
     void Start()
     {
+        World.AddPickup(this);
         GetComponent<SpriteRenderer>().sprite = item.icon;
         item.prefab = (GameObject)Resources.Load("Prefabs/Items/Item");
         if (!gameObject.GetComponent<TagSystem>())

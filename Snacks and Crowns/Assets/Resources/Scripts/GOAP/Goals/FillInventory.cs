@@ -8,10 +8,15 @@ namespace GOAP {
         public GameObject targetObject;
         public List<Item> desiredItems;
         float defaultPriority = 5;
+        public override void Start()
+        {
+            MaxPlanDepth = 3;
+        }
         public void Initialize(GameObject targetObject, List<Item> desiredItems)
         {
             this.targetObject = targetObject;
             this.desiredItems = desiredItems;
+            
         }
         public void SetDesiredChest(GameObject newTarget)
         {

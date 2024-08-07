@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem.UI;
-
+using GOAP;
 public class Shop : InteractibleInMenu
 {
     public GameObject shopUiPrefab;
@@ -13,6 +13,7 @@ public class Shop : InteractibleInMenu
     public int MaxCapacity { get { return maxCapacity; } }
     public void Start()
     {
+        World.AddInventory(GetComponent<Inventory>());
         menus = new List<Menu>();
         inventory = GetComponent<Inventory>();
         inventory.SetCapacity(maxCapacity);

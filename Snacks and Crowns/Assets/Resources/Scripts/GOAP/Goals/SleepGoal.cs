@@ -7,12 +7,12 @@ namespace GOAP {
     {
         public GameObject bed;
 
-        float sleepDuration = 20;
+        float sleepDuration = 10;
         float sleepStartTime = 0;
         float defaultPriority = 1;
         float currentPriority;
         float sleepPriorityGainPerSecond = 0.002f;
-        float randomDurationSpread = 0.2f;
+        float randomDurationSpread = 0.3f;
         float durationModifier = 1;
         public override void Start()
         {

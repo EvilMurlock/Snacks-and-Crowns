@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using GOAP;
 public class Chest : InteractibleInMenu
 {
     [SerializeField]
@@ -11,6 +11,7 @@ public class Chest : InteractibleInMenu
     int maxCapacity = 16;
     public void Start()
     {
+        World.AddInventory(GetComponent<Inventory>());
         menus = new List<Menu>();
         inventory = GetComponent<Inventory>();
         inventory.SetCapacity(maxCapacity);

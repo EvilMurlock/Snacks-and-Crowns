@@ -51,16 +51,7 @@ namespace GOAP
 
             if (chosenPickup != null)
             {
-                WorldState possibleWorldState = new WorldState(parent.state);
-
-                possibleWorldState.CopyInventory();
-                possibleWorldState.CopyItemPickups();
-
-                possibleWorldState.myInventory.Add(World.GetIdFromItem(chosenPickup.item));
-                possibleWorldState.itemPickups.Remove(chosenPickup);
-
-                Node node = new Node(parent, 1 + parent.cost + distance, possibleWorldState, GetComponent<PickUpItem>(), new ActionDataPickUpItem(chosenPickup));
-                return node;
+                return CreateNodePickUpItem(parent, chosenPickup, distance);
             }
 
 
@@ -68,22 +59,39 @@ namespace GOAP
             {
                 if (virtualItem == item)
                 {
-                    WorldState possibleWorldState = new WorldState(parent.state);
-
-                    possibleWorldState.CopyInventory();
-                    possibleWorldState.CopyVirtualItemPickups();
-
-                    possibleWorldState.myInventory.Add(virtualItem);
-                    possibleWorldState.virtualItemPickups.Remove(virtualItem);
-
-                    // the null in node.actionData will cause a fail,
-                    // but we will probably replan the same thing again, but this time the virtual item will already be instantiated,
-                    // so we will be able to pick it up
-                    Node node = new Node(parent, 1, possibleWorldState, GetComponent<PickUpItem>(), new ActionDataPickUpItem(virtualItem));
-                    return node;
+                    return CreateNodePickUpVirtualItem(parent, virtualItem);
                 }
             }
             return null;
+        }
+        Node CreateNodePickUpItem(Node parent, ItemPickup chosenPickup, float distance)
+        {
+            WorldState possibleWorldState = new WorldState(parent.state);
+
+            possibleWorldState.CopyInventory();
+            possibleWorldState.CopyItemPickups();
+
+            possibleWorldState.myInventory.Add(World.GetIdFromItem(chosenPickup.item));
+            possibleWorldState.itemPickups.Remove(chosenPickup);
+
+            Node node = new Node(parent, 1 + parent.cost + distance, possibleWorldState, GetComponent<PickUpItem>(), new ActionDataPickUpItem(chosenPickup));
+            return node;
+        }
+        Node CreateNodePickUpVirtualItem(Node parent, int virtualItem)
+        {
+            WorldState possibleWorldState = new WorldState(parent.state);
+
+            possibleWorldState.CopyInventory();
+            possibleWorldState.CopyVirtualItemPickups();
+
+            possibleWorldState.myInventory.Add(virtualItem);
+            possibleWorldState.virtualItemPickups.Remove(virtualItem);
+
+            // the null in node.actionData will cause a fail,
+            // but we will probably replan the same thing again, but this time the virtual item will already be instantiated,
+            // so we will be able to pick it up
+            Node node = new Node(parent, 1, possibleWorldState, GetComponent<PickUpItem>(), new ActionDataPickUpItem(virtualItem));
+            return node;
         }
         Node GetItemFromChest(Node parent, Item requestedItem)
         {
@@ -107,21 +115,25 @@ namespace GOAP
             }
             if (closestChest != null)
             {
-                WorldState possibleWorldState = new WorldState(parent.state);
-
-                possibleWorldState.CopyInventory();
-                possibleWorldState.CopyChestInventory(closestChest);
-
-                //World state modification
-                possibleWorldState.myInventory.Add(item);
-                possibleWorldState.inventories[closestChest].Remove(item);
-                possibleWorldState.myPosition = closestChest.transform.position;
-
-                Node node = new Node(parent, 1 + parent.cost + distance, possibleWorldState, GetComponent<PickItemFromChest>(), new ActionDataPickItemFromChest(closestChest, World.GetItemFromId(item)));
-                return node;
+                return CreateNodePikcUpFromChest(parent, closestChest, distance, item);
             }
 
             return null;
+        }
+        Node CreateNodePikcUpFromChest(Node parent, GameObject closestChest, float distance, int item)
+        {
+            WorldState possibleWorldState = new WorldState(parent.state);
+
+            possibleWorldState.CopyInventory();
+            possibleWorldState.CopyChestInventory(closestChest);
+
+            //World state modification
+            possibleWorldState.myInventory.Add(item);
+            possibleWorldState.inventories[closestChest].Remove(item);
+            possibleWorldState.myPosition = closestChest.transform.position;
+
+            Node node = new Node(parent, 1 + parent.cost + distance, possibleWorldState, GetComponent<PickItemFromChest>(), new ActionDataPickItemFromChest(closestChest, World.GetItemFromId(item)));
+            return node;
         }
         Node GetItemFromCrafting(Node parentOriginal, Item requestedItem)
         {

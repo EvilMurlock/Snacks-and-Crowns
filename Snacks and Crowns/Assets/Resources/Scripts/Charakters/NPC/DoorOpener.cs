@@ -6,17 +6,17 @@ public class DoorOpener : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Door door = collision.gameObject.GetComponent<Door>();
-        if (collision.gameObject.GetComponent<Door>() != null)
+        Door door;
+        if (collision.gameObject.TryGetComponent<Door>(out door))
         {
             //Debug.Log("Door entered range");
-            if(!door.open) door.Interact(this.gameObject);
+            if (!door.open) door.Interact(this.gameObject);
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Door door = collision.gameObject.GetComponent<Door>();
-        if (collision.gameObject.GetComponent<Door>() != null)
+        Door door;
+        if(collision.gameObject.TryGetComponent<Door>(out door))
         {
             //Debug.Log("Door entered range");
             if (!door.open) door.Interact(this.gameObject);
@@ -24,10 +24,10 @@ public class DoorOpener : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Door door = collision.gameObject.GetComponent<Door>();
-        if (collision.gameObject.GetComponent<Door>() != null)
+        Door door;
+        if (collision.gameObject.TryGetComponent<Door>(out door))
         {
-            if(door.open)door.Interact(this.gameObject);
+            if (door.open)door.Interact(this.gameObject);
         }
     }
 }

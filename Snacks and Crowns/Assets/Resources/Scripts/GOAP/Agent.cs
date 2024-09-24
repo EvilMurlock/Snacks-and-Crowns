@@ -20,10 +20,12 @@ namespace GOAP
         WorldState worldState;
 
         NpcAi npcAi;
-        
+
         float planingDelayAfterFail = 1;
         float planingDelayNow = 1;
-
+        float replanTimer = 0;
+        float replanCooldown = 3;
+        float replanCooldownRandomSpread = 1;
         // Start is called before the first frame update
         protected virtual void Start()
         {
@@ -43,6 +45,19 @@ namespace GOAP
             }*/
             LoadActionsAndGoals();
         }
+        void ReplanCheck()
+        {
+            replanTimer -= Time.deltaTime;
+            if (replanTimer <= 0)
+            {
+                nodeQueue = null;
+                float rVal = UnityEngine.Random.Range(-replanCooldownRandomSpread, replanCooldownRandomSpread);
+                replanTimer = replanCooldown + rVal;
+                //Debug.Log("Rval is: " + rVal);
+            }
+
+        }
+
         private void AddAllActions()
         {
             // uses reflection to add all action monobehaviours to our gameObject
@@ -54,7 +69,7 @@ namespace GOAP
             && type.IsClass);
             List<Type> actionTypes = filteredTypes.ToList();
             //Debug.Log("Instantiating this many actions: " + actionTypes.Count);
-            foreach(Type actionType in actionTypes)
+            foreach (Type actionType in actionTypes)
             {
                 //Debug.Log(actionType.ToString());
                 if (actionType.IsAbstract)
@@ -97,7 +112,7 @@ namespace GOAP
         {
             Action[] acts = this.GetComponents<Action>();
             foreach (Action a in acts)
-                if (a.IsUsableBy(gameObject)) 
+                if (a.IsUsableBy(gameObject))
                     actions.Add(a);
         }
         void LoadGoals()
@@ -111,11 +126,69 @@ namespace GOAP
         }
         void PrintWorldGoals()
         {
-            Debug.Log("GOALS:\n"+goals.ToString());
+            Debug.Log("GOALS:\n" + goals.ToString());
         }
         // Update is called once per frame
+        void GetNewPlan()
+        {
+            npcAi.ChangeTarget(null); // we have no active action, so we arent moving anywhere
+                                      // we try to find a plan that fulfils one of our goals, in order of priority
+
+            var sortedGoals = from goal in goals orderby goal.CalculatePriority() descending select goal;
+            Goal newGoal = null;
+            Queue<Node> newNodeQueue = null;
+            if (planingDelayNow < planingDelayAfterFail)
+                planingDelayNow += Time.deltaTime;
+            else
+            {
+                worldState.UpdateBelieves();
+
+                foreach (Goal g in sortedGoals)
+                {
+                    if (g.CalculatePriority() <= 0) continue;
+                    Queue<Node> queue = null;
+                    //Debug.Log("Current goal can run: " + g.CanRun());
+
+                    if (g.CanRun())
+                        queue = planner.CreatePlan(actions, g, worldState);
+
+                    if (queue == null)
+                    {
+                        //Debug.Log("Queue is null!!!!");
+                        planner.DebugPrintPlan(queue);
+                    }
+                    if (queue != null)
+                    {
+                        newGoal = g;
+                        newNodeQueue = queue;
+                        break;
+                    }
+                }
+                planingDelayNow = 0;
+            }
+
+
+            // we swap into the new plan if we found a plan and our old goal has a lesser priority
+            if (newGoal != null && newGoal.CalculatePriority() > 0
+                && (currentGoal == null || newGoal.CalculatePriority() > currentGoal.CalculatePriority()))//Switch plans when plan with a higher priority goal is found
+            {
+                //Debug.Log("Working on a new goal: " + newGoal.GetType().ToString());
+                // we cancel what we were doing
+                if (currentGoal != null) currentGoal.Deactivate();
+                if (currentAction != null) currentAction.Deactivate();
+
+                // we initialize our new plan
+                currentGoal = newGoal;
+                nodeQueue = newNodeQueue;
+                currentNode = nodeQueue.Dequeue();
+                currentAction = currentNode.action;
+                currentAction.Activate(currentNode.data);
+                currentGoal.Activate();
+            }
+        }
         void LateUpdate()
         {
+            //ReplanCheck();
             if (goals.Count == 0)
             {
                 //Debug.Log("No goals");
@@ -127,60 +200,7 @@ namespace GOAP
             }
             if (nodeQueue == null)
             {
-                npcAi.ChangeTarget(null); // we have no active action, so we arent moving anywhere
-                                          // we try to find a plan that fulfils one of our goals, in order of priority
-
-                var sortedGoals = from goal in goals orderby goal.CalculatePriority() descending select goal;
-                Goal newGoal = null;
-                Queue<Node> newNodeQueue = null;
-                if (planingDelayNow < planingDelayAfterFail)
-                    planingDelayNow += Time.deltaTime;
-                else
-                {
-                    worldState.UpdateBelieves();
-                    
-                    foreach (Goal g in sortedGoals)
-                    {
-                        if (g.CalculatePriority() <= 0) continue;
-                        Queue<Node> queue = null;
-                        //Debug.Log("Current goal can run: " + g.CanRun());
-
-                        if (g.CanRun())
-                            queue = planner.CreatePlan(actions, g, worldState);
-                            
-                        if (queue == null)
-                        {
-                            //Debug.Log("Queue is null!!!!");
-                            planner.DebugPrintPlan(queue);
-                        }
-                        if (queue != null)
-                        {
-                            newGoal = g;
-                            newNodeQueue = queue;
-                            break;
-                        }
-                    }
-                    planingDelayNow = 0;
-                }
-                
-                
-                // we swap into the new plan if we found a plan and our old goal has a lesser priority
-                if (newGoal != null && newGoal.CalculatePriority() > 0 
-                    && (currentGoal == null || newGoal.CalculatePriority() > currentGoal.CalculatePriority()))//Switch plans when plan with a higher priority goal is found
-                {
-                    //Debug.Log("Working on a new goal: " + newGoal.GetType().ToString());
-                    // we cancel what we were doing
-                    if (currentGoal != null) currentGoal.Deactivate();
-                    if (currentAction != null) currentAction.Deactivate();
-
-                    // we initialize our new plan
-                    currentGoal = newGoal;
-                    nodeQueue = newNodeQueue;
-                    currentNode = nodeQueue.Dequeue();
-                    currentAction = currentNode.action;
-                    currentAction.Activate(currentNode.data);
-                    currentGoal.Activate();
-                }
+                GetNewPlan();
             }
             
             if (currentAction != null && currentAction.running)

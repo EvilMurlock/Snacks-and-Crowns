@@ -288,6 +288,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c2b5d53c0c24454382dda01c3fb1a7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buyPage: {fileID: 6388247097675078505}
+  sellPage: {fileID: 6199690094864063848}
 --- !u!1001 &86606816366839325
 PrefabInstance:
   m_ObjectHideFlags: 0

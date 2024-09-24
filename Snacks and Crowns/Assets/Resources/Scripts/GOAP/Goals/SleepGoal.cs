@@ -11,7 +11,7 @@ namespace GOAP {
         float sleepStartTime = 0;
         float defaultPriority = 1;
         float currentPriority;
-        float sleepPriorityGainPerSecond = 0.002f;
+        float sleepPriorityGainPerSecond = 0.001f;
         float randomDurationSpread = 0.3f;
         float durationModifier = 1;
         public override void Start()

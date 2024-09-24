@@ -1,9 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class ChestMenu : Menu
 {
+    [SerializeField]
+    GameObject menuInventoryChestPart;
+    [SerializeField]
+    GameObject menuInventoryPlayerPart;
     int lastSelectedSlotIndex; // just used to refresh the item description after sale
     ItemInfo itemInfo;
     int inventoryChestDivideIndex;
@@ -103,31 +108,34 @@ public class ChestMenu : Menu
         else
             playerInventory.AddItem(item1, index2);
     }
-    public override void Refresh()
+    void UpdateChestPart()
     {
-        MenuSlot selectedSlot = menuSlots[lastSelectedSlotIndex];
-
-        Inventory playerInventory = player.GetComponent<Inventory>();
-        Inventory chestInventory = chest.GetComponent<Inventory>();
-        // updating buy page
         int index = 0;
-
-        // updating sell page
-        foreach (Item item in playerInventory.Items)
-        {
-            menuSlots[index].AddItem(item);
-            index++;
-        }
+        Inventory chestInventory = chest.GetComponent<Inventory>();
         foreach (Item item in chestInventory.Items)
         {
-            menuSlots[index].AddItem(item);
+            menuInventoryChestPart.GetComponentsInChildren<MenuSlot>()[index].AddItem(item);
+
+            //menuSlots[index].AddItem(item);
             index++;
         }
+    }
+    void UpdatePlayerPart()
+    {
+        int index = 0;
 
-        // updaing item info
-        itemInfo.LoadNewItem(selectedSlot.GetItem());
+        Inventory playerInventory = player.GetComponent<Inventory>();
 
-        // change colour of submited slot
+        foreach (Item item in playerInventory.Items)
+        {
+            menuInventoryPlayerPart.GetComponentsInChildren<MenuSlot>()[index].AddItem(item);
+            //menuSlots[index].AddItem(item);
+            index++;
+        }
+    }
+    void UpdateSelection()
+    {
+        // change colour of submitted slot
 
         if (submitedSlotIndex != null)
         {
@@ -136,6 +144,18 @@ public class ChestMenu : Menu
             lastSubmitedSlotIndex = (int)submitedSlotIndex;
         }
         else menuSlots[lastSubmitedSlotIndex].ChangeColour(Color.white);
+
+    }
+    public override void Refresh()
+    {
+        MenuSlot selectedSlot = menuSlots[lastSelectedSlotIndex];
+        UpdateChestPart();
+        UpdatePlayerPart();
+        UpdateSelection();
+
+        // updating item info
+        itemInfo.LoadNewItem(selectedSlot.GetItem());
+
     }
 
 }

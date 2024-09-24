@@ -1,9 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 public class ShopMenu : Menu
 {
+    [SerializeField]
+    GameObject buyPage;
+    [SerializeField]
+    GameObject sellPage;
     Shop shop;
     int lastSelectedSlotIndex; // just used to refresh the item description after sale
     ItemInfo itemInfo;
@@ -47,29 +53,43 @@ public class ShopMenu : Menu
     {
         // do nothing
     }
-
-    public override void Refresh()
+    void UpdateBuyPage()
     {
-        ShopSlot selectedSlot = (ShopSlot)menuSlots[lastSelectedSlotIndex];
-        Inventory playerInventory = player.GetComponent<Inventory>();
         // updating buy page
         int index = 0;
         Item[] menuInventory = shop.GetComponent<Inventory>().Items;
-        foreach(Item item in menuInventory)
+        foreach (Item item in menuInventory)
         {
-            menuSlots[index].AddItem(item);
+            buyPage.GetComponentsInChildren<ShopSlot>()[index].AddItem(item);
+            //menuSlots[index].AddItem(item);
             index++;
         }
-
+    }
+    void UpdateSellPage()
+    {
         // updating sell page
+        int index = 0;
+        Inventory playerInventory = player.GetComponent<Inventory>();
         foreach (Item item in playerInventory.Items)
         {
-            menuSlots[index].AddItem(item);
+            sellPage.GetComponentsInChildren<ShopSlot>()[index].AddItem(item);
+            //menuSlots[index].AddItem(item);
             index++;
         }
-
-        // updaing item info
+    }
+    void UpdateItemInfo()
+    {
+        // updating item info
+        ShopSlot selectedSlot = (ShopSlot)menuSlots[lastSelectedSlotIndex];
         itemInfo.LoadNewItem(selectedSlot.GetItem());
+
+    }
+    public override void Refresh()
+    {
+
+        UpdateBuyPage(); 
+        UpdateSellPage();
+        UpdateItemInfo();
     }
 
 }

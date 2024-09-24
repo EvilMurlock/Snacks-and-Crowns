@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoEndConversation: 0
   requiredItems: []
+  requiredGold: 0
+  mustBeAlly: 0
   componentData: []
   text: Do you have the Crown?
   nextDialogues:
   - {fileID: 11400000, guid: 8955847f5496f83418e509a0459afcc8, type: 2}
-  - {fileID: 11400000, guid: 0c0861e7c363d074fa7602afc6af58a9, type: 2}
   buttonNames:
   - Yes
-  - No
   references:
     version: 2
     RefIds: []

@@ -155,7 +155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -130, y: 19}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.49999997, y: 0.5}
 --- !u!222 &5189122124826125807
@@ -178,6 +178,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c0cc8db7b6d00242a44a38921d39cfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuInventoryChestPart: {fileID: 5311921155920760820}
+  menuInventoryPlayerPart: {fileID: 2732109790838218187}
   itemDropPrefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
 --- !u!1001 &854263464122374061
 PrefabInstance:
@@ -2298,6 +2300,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a1eb4874cd04514d9686da42ffd1605, type: 3}
+--- !u!1 &2732109790838218187 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6496976549904584383, guid: 0a1eb4874cd04514d9686da42ffd1605, type: 3}
+  m_PrefabInstance: {fileID: 9206345956648047476}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8615569893030257191 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 599864911358734675, guid: 0a1eb4874cd04514d9686da42ffd1605, type: 3}

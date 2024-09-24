@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoEndConversation: 0
   requiredItems: []
+  requiredGold: 0
+  mustBeAlly: 0
   componentData: []
   text: Do you have the Atomic Snack?
   nextDialogues:
   - {fileID: 11400000, guid: b12e319fd116a91428c4d8c248ed6cbb, type: 2}
-  - {fileID: 11400000, guid: 206909eb035213544be5f5b0036855ce, type: 2}
   buttonNames:
   - Yes
-  - No
   references:
     version: 2
     RefIds: []

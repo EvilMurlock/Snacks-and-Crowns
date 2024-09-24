@@ -50,7 +50,7 @@ namespace GOAP
                 //Debug.Log("Getting item");
                 parent = GetRequiredItemWithTags(parentOriginal, healItemTags);
                 if (parent == null)
-                    return possibleNodes; // we cant fight, we dont have a weapon
+                    return possibleNodes;
             }
             //else Debug.Log("Already have item");
             WorldState possibleWorldState = new WorldState(parent.state);

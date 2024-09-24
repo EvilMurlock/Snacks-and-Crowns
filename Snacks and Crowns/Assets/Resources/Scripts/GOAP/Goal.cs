@@ -10,8 +10,8 @@ namespace GOAP
     {
         public int MaxPlanDepth { get; protected set; }
         protected WorldState desiredState = new WorldState();
+
         [SerializeField]
-        
         public bool enabledGoal = true;
 
         protected bool active = false;

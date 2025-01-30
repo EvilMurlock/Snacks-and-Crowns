@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 04980c77c2aba7c40a22325206c2a1e6, type: 3}
   itemName: Hammer
-  description: Used for building buildings
+  description: Used for breakings things... and people
   cost: 60
   prefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
   useDuration: 0
@@ -33,7 +33,6 @@ MonoBehaviour:
   - rid: 6825547854325481474
   equipmentSlot: 1
   equipmentPrefab: {fileID: 2449238230562422413, guid: a98412be7a722d9459612259e5ca2b00, type: 3}
-  instance: {fileID: 0}
   references:
     version: 2
     RefIds:

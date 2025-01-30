@@ -33,7 +33,6 @@ MonoBehaviour:
   - rid: 604483198195597313
   equipmentSlot: 1
   equipmentPrefab: {fileID: 2449238230562422413, guid: 42a58af3536c75740b3a385859849154, type: 3}
-  instance: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -52,7 +51,7 @@ MonoBehaviour:
         activateAtUse: 0
         attack:
           damage: 15
-          damage_type: 3
+          damage_type: 4
     - rid: 6825547854325481475
       type: {class: AttackComponentData, ns: , asm: Assembly-CSharp}
       data:

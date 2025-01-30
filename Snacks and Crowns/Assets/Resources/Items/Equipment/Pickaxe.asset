@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 17ce87a0d24200d4d8f7b07e3b09b01e, type: 3}
   itemName: Pickaxe
-  description: Used to chop down trees
+  description: Used to mine ore
   cost: 50
   prefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
   useDuration: 0
@@ -32,7 +32,6 @@ MonoBehaviour:
   - rid: 8153713742510555141
   equipmentSlot: 1
   equipmentPrefab: {fileID: 2449238230562422413, guid: 2799bf3df38966e47ad6c400b9536193, type: 3}
-  instance: {fileID: 0}
   references:
     version: 2
     RefIds:

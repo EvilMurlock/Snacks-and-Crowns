@@ -31,7 +31,6 @@ MonoBehaviour:
   - rid: 604483196795486211
   equipmentSlot: 1
   equipmentPrefab: {fileID: 2449238230562422413, guid: 1a82be9d8f579dd498c452fb3764d1f6, type: 3}
-  instance: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -57,4 +56,4 @@ MonoBehaviour:
         activateAtUse: 0
         attack:
           damage: 50
-          damage_type: 0
+          damage_type: 2

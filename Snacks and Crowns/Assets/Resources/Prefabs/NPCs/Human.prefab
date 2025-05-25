@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 109711023632469093, guid: 53ea0ecb413b17145bcfcb97714aa3f4, type: 3}
       propertyPath: m_Name
-      value: NPC Variant
+      value: Human
       objectReference: {fileID: 0}
     - target: {fileID: 888526479523577112, guid: 53ea0ecb413b17145bcfcb97714aa3f4, type: 3}
       propertyPath: race
@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 4053dddb40162b0429e7965ed18e2f8c, type: 2}
     - target: {fileID: 2955820943536946334, guid: 53ea0ecb413b17145bcfcb97714aa3f4, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2955820943536946334, guid: 53ea0ecb413b17145bcfcb97714aa3f4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58,6 +58,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2955820943536946334, guid: 53ea0ecb413b17145bcfcb97714aa3f4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982554742775692392, guid: 53ea0ecb413b17145bcfcb97714aa3f4, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

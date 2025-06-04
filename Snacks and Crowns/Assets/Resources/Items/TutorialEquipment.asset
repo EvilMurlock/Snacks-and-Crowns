@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a7298259f1804e46a1fec448ab71e10, type: 3}
+  m_Name: TutorialEquipment
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 4ff404b12725fda41a02973f09f10e15, type: 3}
+  itemName: CoinBow
+  description: Coin that shoots arrows.
+  cost: 99
+  prefab: {fileID: 0}
+  useDuration: 0
+  singleUse: 0
+  componentDataUse: []
+  tags: 01000000
+  recipe:
+    ingredients:
+    - {fileID: 11400000, guid: ded21034c04cc734286e627368c44718, type: 2}
+    result: {fileID: 0}
+    craftingObjekt: 1
+  componentDataEquipment:
+  - rid: 3598674173484597249
+  equipmentSlot: 1
+  equipmentPrefab: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 3598674173484597249
+      type: {class: SpawnProjectileOnSpriteChangeData, ns: , asm: Assembly-CSharp}
+      data:
+        name: SpawnProjectileOnSpriteChangeData
+        activateAtUse: 0
+        projectilePrefab: {fileID: 0}
+        speed: 0
+        extraAngle: 0
+        offset: {x: 0, y: 0}

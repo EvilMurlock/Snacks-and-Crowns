@@ -42,7 +42,7 @@ public class MyJoinPlayerFromData : MonoBehaviour
                                     controlScheme: "Player2", // control scheme
                                     Keyboard.current); // pairWithDevice
             player2.gameObject.GetComponentInChildren<FactionMembership>().Faction = Factions.Two;
-
+            
             PlayerInput player1 = inputManager.JoinPlayer(-1, // player index
                                     -1, // split-screen index
                                     controlScheme: "Player1", // control scheme

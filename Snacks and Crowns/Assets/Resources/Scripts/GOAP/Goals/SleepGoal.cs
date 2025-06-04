@@ -22,6 +22,7 @@ namespace GOAP {
         public void Initialize(GameObject bed)
         {
             this.bed = bed;
+            
         }
         public void SetDesiredTarget(GameObject bed)
         {

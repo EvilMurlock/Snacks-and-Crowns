@@ -22,8 +22,7 @@ MonoBehaviour:
   componentDataUse: []
   tags: 01000000
   recipe:
-    ingredients:
-    - {fileID: 11400000, guid: ded21034c04cc734286e627368c44718, type: 2}
+    ingredients: []
     result: {fileID: 0}
     craftingObjekt: 1
   componentDataEquipment:

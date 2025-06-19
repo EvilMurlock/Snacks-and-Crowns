@@ -15,7 +15,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 8298800cd3537814ab4ff36acdc2218c, type: 3}
   itemName: Crown
   description: 'Crown of rule. It can be used to heal. '
-  cost: 999
+  cost: 0
   prefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
   useDuration: 1
   singleUse: 0
@@ -31,7 +31,6 @@ MonoBehaviour:
   componentDataEquipment: []
   equipmentSlot: 2
   equipmentPrefab: {fileID: 6329217519378015856, guid: 11cf72895513ea1459571da1b1620def, type: 3}
-  instance: {fileID: 0}
   references:
     version: 2
     RefIds:

@@ -20,7 +20,7 @@ MonoBehaviour:
   useDuration: 0
   singleUse: 0
   componentDataUse: []
-  tags: []
+  tags: 
   recipe:
     ingredients: []
     result: {fileID: 0}

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class MyJoinPlayerCharecterSelection : MonoBehaviour
@@ -43,6 +44,5 @@ public class MyJoinPlayerCharecterSelection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 }

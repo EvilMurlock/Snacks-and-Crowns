@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class CrafterMenu : Menu
 {
-    int recepyIndex; // just used to refresh the item description after sale
+    int recipeIndex; // just used to refresh the item description after sale
 
     List<CraftingRecipe> recipes;
     bool craftable;
@@ -21,7 +21,7 @@ public class CrafterMenu : Menu
     GameObject ingredientsPanel;
     private void Start()
     {
-        recepyIndex = 0;
+        recipeIndex = 0;
         
         Refresh();
     }
@@ -29,25 +29,25 @@ public class CrafterMenu : Menu
     {
         this.crafter = crafter;
         this.player = player;
+
         // select first button
         player.GetComponent<MenuManager>().SelectObject(GetComponentInChildren<Button>().gameObject);
+        
         AttachToCanvas();
-
-
         
         Inventory playerInventory = player.GetComponent<Inventory>();
         dropdown = gameObject.GetComponentInChildren<TMPro.TMP_Dropdown>();
 
-        LoadRecepies();
-        foreach (CraftingRecipe recipy in recipes)
+        LoadRecipes();
+        foreach (CraftingRecipe recipe in recipes)
         {
-            Item result = recipy.result;
+            Item result = recipe.result;
             dropdown.options.Add(new TMPro.TMP_Dropdown.OptionData(result.name,result.icon));
         }
-        dropdown.onValueChanged.AddListener(delegate{ SwitchRecepy(); });
-        LoadRecepy(0);
+        dropdown.onValueChanged.AddListener(delegate{ SwitchRecipe(); });
+        LoadRecipe(0);
     }
-    void LoadRecepies()
+    void LoadRecipes()
     {
         recipes = new List<CraftingRecipe>();
         CraftingRecipes craftingRecepies = GameObject.Find("Crafting Recipes").GetComponent<CraftingRecipes>();
@@ -60,25 +60,25 @@ public class CrafterMenu : Menu
         }
     }
 
-    public void SwitchRecepy()
+    public void SwitchRecipe()
     {
-        EraseRecepy();
-        LoadRecepy(dropdown.value);
+        EraseRecipe();
+        LoadRecipe(dropdown.value);
     }
-    void EraseRecepy()
+    void EraseRecipe()
     {
         foreach (Transform child in ingredientsPanel.transform)
         {
             Destroy(child.gameObject);
         }
     }
-    void LoadRecepy(int index)
+    void LoadRecipe(int index)
     {
-        recepyIndex = index;
+        recipeIndex = index;
         craftable = true;
 
-        craftedItem.AddItem(recipes[recepyIndex].result);
-        itemInfo.LoadNewItem(recipes[recepyIndex].result);
+        craftedItem.AddItem(recipes[recipeIndex].result);
+        itemInfo.LoadNewItem(recipes[recipeIndex].result);
         
         List<Item> playerItems = new List<Item>();
         foreach (Item item in player.GetComponent<Inventory>().Items)
@@ -86,7 +86,7 @@ public class CrafterMenu : Menu
             if(item != null) playerItems.Add(item);
         }
 
-        foreach (Item item in recipes[recepyIndex].ingredients)
+        foreach (Item item in recipes[recipeIndex].ingredients)
         {
             MenuSlot menuSlot = Instantiate(prefabMenuSlot, ingredientsPanel.transform).GetComponent<MenuSlot>();
             menuSlot.AddItem(item);
@@ -113,7 +113,7 @@ public class CrafterMenu : Menu
                 craftable = false;
             };
         }
-        itemInfo.LoadNewItem(recipes[recepyIndex].result);
+        itemInfo.LoadNewItem(recipes[recipeIndex].result);
     }
     public void Craft()
     {
@@ -126,7 +126,7 @@ public class CrafterMenu : Menu
             playerInventory.AddItem(recipes[dropdown.value].result);
 
         }
-        SwitchRecepy();
+        SwitchRecipe();
     }
 
 }

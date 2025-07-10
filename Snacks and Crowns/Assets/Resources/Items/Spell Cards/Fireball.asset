@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: e91573236ca2241419561f7a7ad6d343, type: 3}
   itemName: Fireball
-  description: Spell card that will shoot out a ball of fire.
+  description: Spell token that will shoot out a ball of fire.
   cost: 60
   prefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
   useDuration: 1

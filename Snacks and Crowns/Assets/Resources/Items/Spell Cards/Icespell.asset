@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 96045bd983b41d3459fe3e4fe2a50e2d, type: 3}
   itemName: Iceshard
-  description: Spell card that will shoot out an icicle
+  description: Spell token that will shoot out an icicle
   cost: 50
   prefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
   useDuration: 1

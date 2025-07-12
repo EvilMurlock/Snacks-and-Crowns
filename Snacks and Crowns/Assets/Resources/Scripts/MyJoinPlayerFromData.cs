@@ -16,6 +16,7 @@ public class MyJoinPlayerFromData : MonoBehaviour
         inputManager.playerJoinedEvent.AddListener(PlayerJoined);
         if (StartGameDataHolder.Players.Count != 0)
         {
+            StartGameDataHolder.Players.Sort((x, y) => { return x.index.CompareTo(y.index); }) ;
             foreach (PlayerData data in StartGameDataHolder.Players)
             {
                 PlayerInput player = inputManager.JoinPlayer(-1, // player index
@@ -56,8 +57,34 @@ public class MyJoinPlayerFromData : MonoBehaviour
         players.Add(input);
         //Debug.Log("Player device is: " + input.devices[0]);
         //Debug.Log("Player scheme: " + input.currentControlScheme);
+        SetCameras();
+
     }
-    public List<PlayerInput> GetPlayers()
+    void SetCameras()
+    {
+        int index = 0;
+        foreach (var player in players)
+        {
+            if (players.Count == 3)
+            {
+                if (index == 0)
+                {
+                    player.camera.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
+                }
+                if (index == 1)
+                {
+                    player.camera.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
+                }
+                if (index == 2)
+                {
+                    player.camera.rect = new Rect(0, 0, 1f, 0.5f);
+                }
+
+            }
+            index++;
+        }
+    }
+public List<PlayerInput> GetPlayers()
     {
         return players;
     }

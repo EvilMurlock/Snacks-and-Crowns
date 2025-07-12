@@ -193,6 +193,8 @@ namespace GOAP
 
                 
             }
+            //Debug.Log("Number of harvest resource plans: " +possibleNodes.Count);
+            //Debug.Log("Resource: " + ((ActionDataHarvestResource)possibleNodes[0].data).target.ToString());
             return possibleNodes;
         }
         void AddVirtualItems(HarvestData harvestData, TagSystem closestDeposit, WorldState possibleWorldState)

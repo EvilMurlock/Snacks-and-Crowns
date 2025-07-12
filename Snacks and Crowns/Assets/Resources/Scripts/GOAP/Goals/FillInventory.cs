@@ -42,8 +42,8 @@ namespace GOAP {
             if (targetObject == null) return false;
             List<int> chestItems = inventories[targetObject];
 
-            int originalItemCount = 0;
-            int newItemCount = 0;
+            int originalItemCount = 0; // number of items in the chest currently
+            int newItemCount = 0; // number of items in the chest at this state of the plan
 
             List<Item> tempDesiredItems1 = new List<Item>(desiredItems);
             foreach (int itemId in chestItems)
@@ -53,7 +53,6 @@ namespace GOAP {
                 {   
                     newItemCount++;
                     tempDesiredItems1.Remove(item);
-                    //Debug.Log("---- item in plan chest: " + item.name);
                 }
             }
 
@@ -70,7 +69,12 @@ namespace GOAP {
                     tempDesiredItems2.Remove(item);
                 }
             }
-            //Debug.Log("Goal closer to completion: " + (originalItemCount < newItemCount));
+            /*
+            Debug.Log("originalItemCount: " + originalItemCount);
+            Debug.Log("newItemCount: " + newItemCount);
+            Debug.Log("Goal closer to completion: " + (originalItemCount < newItemCount));*/
+
+
             return originalItemCount < newItemCount;
 
         }
@@ -120,9 +124,9 @@ namespace GOAP {
 
             priority = HowCloseToFillingTheChest();
 
+            //Debug.Log("Priority of goal Fill inventory: " + priority);
 
             if (active) priority *= 2;
-
 
             return priority;
         }

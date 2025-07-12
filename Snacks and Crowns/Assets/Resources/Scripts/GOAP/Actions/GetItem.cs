@@ -27,7 +27,7 @@ namespace GOAP
 
         Node GetItemFromDrop(Node parent, Item requestedItem)
         {
-            // this will also try to pick up virtual items (future pick-ups)
+            // this will also try to pick up virtual items (future pick-up Game Objects)
             int item = World.GetIdFromItem(requestedItem);
 
 
@@ -55,7 +55,7 @@ namespace GOAP
             }
 
 
-            foreach (int virtualItem in parent.state.virtualItemPickups) // we try to pick up a virtual pickup (the game object doesnt exist, but it will in the real world after we execute the plan)
+            foreach (int virtualItem in parent.state.virtualItemPickups) // we try to pick up a virtual pickup (the game object doesn't exist, but it will in the real world after we execute the plan)
             {
                 if (virtualItem == item)
                 {

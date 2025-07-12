@@ -26,16 +26,21 @@ public class ReadySelect : MonoBehaviour, ISubmitHandler
     CanvasGroup canvas;
     [SerializeField]
     GameObject charakterSelectMenu;
+
+    int index = 0;
     public void OnSubmit(BaseEventData eventData)
     {
         ReadySelf();
     }
-
+    public void SetIndex(int index)
+    {
+        this.index = index;
+    }
     void ReadySelf()
     {
         shade.SetActive(true);
         //Debug.Log("Adding player with race: " + selectRace.GetSelectedRace().race + " | Face: " + selectFace.GetFace() + " | Faction: "+ selectFaction.GetFaction().ToString());
-        StartGameDataHolder.AddPlayer(controlScheme, deviceType, selectRace.GetSelectedRace(), selectFaction.GetFaction(), selectFace.GetFace());
+        StartGameDataHolder.AddPlayer(controlScheme, deviceType, selectRace.GetSelectedRace(), selectFaction.GetFaction(), selectFace.GetFace(), index);
         whenReady.PlayerReady();
         charakterSelectMenu.GetComponent<PlayerInput>().DeactivateInput();
     }

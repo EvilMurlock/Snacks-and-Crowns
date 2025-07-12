@@ -10,6 +10,7 @@ public class LoadLevelWhenReady : MonoBehaviour
     {
         players++;
     }
+    
     public void PlayerReady()
     {
         readyPlayers++;

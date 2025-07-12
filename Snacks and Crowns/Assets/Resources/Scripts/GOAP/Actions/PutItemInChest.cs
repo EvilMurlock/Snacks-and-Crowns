@@ -137,6 +137,7 @@ namespace GOAP
                     // Without chest was used to prevent item bouncing between resource harvesters
                     //nodeParent = GetRequiredItemNoChest(parent, item); // this will also try to pick up virtual items (future pick-ups)
                     nodeParent = GetRequiredItem(parent, item);
+                    //nodeParent = GetRequiredItemNoChest(parent, item);
                     if (nodeParent == null)
                         continue;
                 }
@@ -151,11 +152,42 @@ namespace GOAP
                 possibleWorldState.CopyChestInventory(targetChest);
                 possibleWorldState.CopyInventory();
 
+                /*
+                Node debug_node = nodeParent;
+                while(debug_node != null)
+                {
+                    if (debug_node.parent == null)
+                    {
+                        foreach (int i in debug_node.state.inventories[targetChest])
+                        {
+                            Item it = World.GetItemFromId(i);
+                            Debug.Log("------------ Chest first state: " + it.itemName);
+                        }
+                    }
+                    debug_node = debug_node.parent;
+
+                }*/
+
                 possibleWorldState.myInventory.Remove(itemId);
                 possibleWorldState.inventories[targetChest].Add(itemId);
 
                 Node node = new Node(nodeParent, 1, possibleWorldState, GetComponent<PutItemInChest>(), new ActionDataPutItemInChest(targetChest, item));
                 possibleNodes.Add(node);
+                /*
+                Debug.Log("Planned item: " + item.name);
+                if(nodeParent.action != null)
+                    Debug.Log("----: " + nodeParent.action.actionName);
+                if(nodeParent.parent != null)
+                    if (nodeParent.parent.action != null)
+                        Debug.Log("--------: " + nodeParent.parent.action.actionName);
+                int tempindex = 0;
+                foreach(int i in possibleWorldState.inventories[targetChest]){
+                    Item it = World.GetItemFromId(i);
+                    Debug.Log("------------ Chest item ["+tempindex+"]: " + it.itemName);
+                    tempindex++;
+                }*/
+
+
 
             }
             return possibleNodes;

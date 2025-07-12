@@ -151,16 +151,16 @@ namespace GOAP
 
                     if (g.CanRun())
                         queue = planner.CreatePlan(actions, g, worldState);
-
                     if (queue == null)
                     {
-                        //Debug.Log("Queue is null!!!!");
+                        //Debug.Log("Queue is null!!!! for plan : "+ g.ToString());
                         planner.DebugPrintPlan(queue);
                     }
                     if (queue != null)
                     {
                         newGoal = g;
                         newNodeQueue = queue;
+                        //Debug.Log("Chosen plan for goal: " + g.ToString());
                         break;
                     }
                 }

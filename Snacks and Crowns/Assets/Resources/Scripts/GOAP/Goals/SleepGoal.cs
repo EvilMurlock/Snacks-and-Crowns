@@ -69,7 +69,7 @@ namespace GOAP {
         }
         public override float CalculatePriority()
         {
-
+            //Debug.Log("Priority of goal Sleep: " + currentPriority);
             return currentPriority;
         }
 

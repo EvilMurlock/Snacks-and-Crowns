@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 namespace GOAP
 {
@@ -78,9 +79,12 @@ namespace GOAP
                 FactionMembership factionMembership = inventoryObject.GetComponent<FactionMembership>();
                 if (factionMembership == null)
                     continue;
-                if (faction == factionMembership.Faction
+                else if (faction == factionMembership.Faction
                     || FactionState.GetFactionRelations(faction, factionMembership.Faction) == Relations.Alliance)
-                    newInventories[inventoryObject] = inventories[inventoryObject];
+                    { 
+                        newInventories[inventoryObject] = inventories[inventoryObject];
+                        CopyChestInventory(inventoryObject); 
+                    }
             }
             inventories = newInventories;
         }
@@ -115,6 +119,7 @@ namespace GOAP
         {
             WorldState generalBelieves = World.Instance.GetWorld();
             itemPickups = generalBelieves.itemPickups;
+            CopyItemPickups();
             inventories = generalBelieves.inventories;
             myPosition = agent.transform.position;
         }

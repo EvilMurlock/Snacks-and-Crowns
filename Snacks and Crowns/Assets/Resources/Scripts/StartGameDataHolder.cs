@@ -10,13 +10,15 @@ public class PlayerData
     public Race race;
     public int face;
     public Factions faction;
-    public PlayerData(string controlScheme, InputDevice deviceType, Race race, Factions faction, int face)
+    public int index;
+    public PlayerData(string controlScheme, InputDevice deviceType, Race race, Factions faction, int face, int index)
     {
         this.controlScheme = controlScheme;
         this.deviceType = deviceType;
         this.race = race;
         this.faction = faction;
         this.face = face;
+        this.index = index;
     }
 }
 public static class StartGameDataHolder
@@ -25,9 +27,9 @@ public static class StartGameDataHolder
     public static string ChosenLevel { get { return chosenLevel; } set { chosenLevel = value; } }
     static List<PlayerData> players = new List<PlayerData>();
     public static List<PlayerData> Players => players;
-    public static void AddPlayer(string controlScheme, InputDevice deviceType, Race race, Factions faction, int face)
+    public static void AddPlayer(string controlScheme, InputDevice deviceType, Race race, Factions faction, int face, int index)
     {
-        players.Add(new PlayerData(controlScheme, deviceType, race, faction, face));
+        players.Add(new PlayerData(controlScheme, deviceType, race, faction, face, index));
     }
 
  

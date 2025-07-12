@@ -7,6 +7,7 @@ public class MyJoinPlayerCharecterSelection : MonoBehaviour
 {
     public PlayerInputManager inputManager;
     // Start is called before the first frame update
+    List<PlayerInput> players = new List<PlayerInput>();
     void Start()
     {
         inputManager.playerJoinedEvent.AddListener(PlayerJoined);
@@ -39,6 +40,33 @@ public class MyJoinPlayerCharecterSelection : MonoBehaviour
         input.transform.parent.GetComponentInChildren<ReadySelect>().deviceType = input.devices[0];
         input.transform.parent.GetComponentInChildren<ReadySelect>().controlScheme = input.currentControlScheme;
         //Debug.Log("Player scheme: " + input.currentControlScheme);
+        input.transform.parent.GetComponentInChildren<ReadySelect>().SetIndex(players.Count);
+        players.Add(input);
+        SetCameras();
+    }
+    void SetCameras()
+    {
+        int index = 0;
+        foreach (var player in players)
+        {
+            if (players.Count == 3)
+            {
+                if (index == 0)
+                {
+                    player.camera.rect = new Rect(0, 0.5f, 0.5f, 0.5f);
+                }
+                if (index == 1)
+                {
+                    player.camera.rect = new Rect(0.5f, 0.5f, 0.5f, 0.5f);
+                }
+                if (index == 2)
+                {
+                    player.camera.rect = new Rect(0, 0, 1f, 0.5f);
+                }
+
+            }
+            index++;
+        }
     }
 
     // Update is called once per frame

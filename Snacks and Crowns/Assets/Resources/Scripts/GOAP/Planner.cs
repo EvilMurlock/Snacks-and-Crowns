@@ -6,7 +6,6 @@ namespace GOAP
     public class Planner
     {
         //int maxDepth = 3;
-        float probabilityToSkipLeafNode = 0.0f; // used to reduce procesing power needed
         float maxCost = 20;
         public Queue<Node> CreatePlan(List<Action> actions, Goal goal, WorldState states)
         {
@@ -21,7 +20,7 @@ namespace GOAP
             //Debug.Log(lastPlanNode.action.actionName);
             Queue<Node> planQueue = CreatePlanQueue(lastPlanNode);
             
-            //DebugPrintPlan(planQueue);
+            DebugPrintPlan(planQueue);
             return planQueue;
         }
         public void DebugPrintPlan(Queue<Node> planQueue)
@@ -80,11 +79,6 @@ namespace GOAP
             leaves.Add(start);
             return FindPlanBreathFirstRecursion(leaves, actions, goal, 1);
         }
-        bool SkipCheck()
-        {
-            float rand = Random.value;
-            return rand <= probabilityToSkipLeafNode;
-        }
         Node FindPlanBreathFirstRecursion(List<Node> leaves, List<Action> usableActions, Goal goal, int depth)
         {
             //if (depth > maxDepth) return null;
@@ -95,8 +89,6 @@ namespace GOAP
             List<Node> newLeaves = new List<Node>();
             foreach(Node parent in leaves)
             {
-                if (SkipCheck())
-                    continue;
                 foreach (Action action in usableActions)
                 {
                     if (!action.reusable && ActionAlreadyUsed(parent, action)) continue;
@@ -104,8 +96,7 @@ namespace GOAP
                     {
                         //if(depth == 1)Debug.Log("Action name: " + action.GetType().ToString());
                         
-                        List<Node> possibleNewStates = new List<Node>();
-                        possibleNewStates = action.OnActionCompleteWorldStates(parent);
+                        List<Node> possibleNewStates = action.OnActionCompleteWorldStates(parent);
                         
                         // currentState = action.OnActionCompleteWorldStates(currentState);
                         //Debug.Log("New Node count: " + possibleNewStates.Count);
@@ -115,12 +106,12 @@ namespace GOAP
                             if (depth == 2 && parent.action.actionName == "HarvestResource")
                             {
                                 //Debug.Log("Action name: " + action.GetType().ToString());
-                                if (action.GetType().ToString() == "GOAP.PutItemInChest")
+                                if (action.GetType().ToString() == "GOAP.PutItemInChest" && ((ActionDataPutItemInChest)node.data).item.itemName == "Log" )
                                 {
-                                    Debug.Log( "Putting this item into a chest: "+((ActionDataPutItemInChest)node.data).item);
+                                    Debug.Log( "Putting this item into a chest: "+((ActionDataPutItemInChest)node.data).item + "  BUT goal completed: "+ goal.CompletedByState(node.state));
                                 }
-                            }
-                            */
+                            }*/
+                            
 
                             if (goal.CompletedByState(node.state))
                             {
@@ -141,7 +132,7 @@ namespace GOAP
                     }
                 }
             }
-            //This code only fires when no action could furfill the goal
+            //This code only fires when no action could fulfil the goal at this depth
             List<Action> subset = new List<Action>(usableActions);
 
             //if (!action.reusable)

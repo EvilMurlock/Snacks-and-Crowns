@@ -66,6 +66,7 @@ namespace GOAP
             return null;
         }
 
+        // we don't track pickups in the world state anymore, we simply look for them when we need them
         List<ItemPickup> LoadItemPickups()
         {
             List<ItemPickup> itemPickups = new List<ItemPickup>();
@@ -77,6 +78,8 @@ namespace GOAP
             return itemPickups;
         }
 
+
+        // was used to load all chests and shops, later we decided it would be better if each such inventory subsribed itself to this singleton, as seen in the method AddInventory
         Dictionary<GameObject, List<int>> LoadInventories()
         {
             
@@ -104,6 +107,20 @@ namespace GOAP
             }
             return inventories;
         }
+        void UpdateInventories()
+        {
+            Dictionary<GameObject, List<int>> updatedInventories = new Dictionary<GameObject, List<int>>();
+            foreach ( GameObject key in worldState.inventories.Keys)
+            {
+                List<int> chestInventory = new List<int>();
+                foreach (Item item in key.GetComponent<Inventory>().Items)
+                {
+                    if (item != null) chestInventory.Add(World.GetIdFromItem(item));
+                }
+                updatedInventories[key] = chestInventory;
+            }
+            worldState.inventories = updatedInventories;
+        }
         void UpdateWorld()
         {
             //worldState.itemPickups = LoadItemPickups();
@@ -113,8 +130,10 @@ namespace GOAP
             
             if (Time.timeSinceLevelLoad > lastUpdateTime + updateCooldown)
             {
+                UpdateInventories();
                 lastUpdateTime = Time.timeSinceLevelLoad;
                 worldState.ClearNullElements();
+                worldState.itemPickups = LoadItemPickups();
             }
         }
     }

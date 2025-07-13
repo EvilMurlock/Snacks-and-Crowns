@@ -7,6 +7,6 @@ public class IncreaseHealthData : ItemComponentData<IncreaseHealthData>
     public float healAmount;
     public override void InicializeComponent(GameObject self, Item item)
     {
-        self.GetComponent<Damagable>().Heal(healAmount);
+        self.GetComponent<Damageable>().Heal(healAmount);
     }
 }

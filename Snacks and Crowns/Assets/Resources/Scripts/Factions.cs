@@ -102,7 +102,7 @@ public sealed class FactionState
             }
             matrix += "\n";
         }
-        Debug.Log(matrix);
+        //Debug.Log(matrix);
     }
 
     public static bool Allies(GameObject a, GameObject b)

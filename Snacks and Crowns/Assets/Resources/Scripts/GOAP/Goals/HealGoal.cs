@@ -9,7 +9,7 @@ namespace GOAP {
         public override void Start()
         {
             MaxPlanDepth = 1;
-            GetComponent<Damagable>().healthChange.AddListener(UpdatePriority);
+            GetComponent<Damageable>().healthChange.AddListener(UpdatePriority);
         }
         void UpdatePriority(float hp, float maxHp)
         {

@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class ResistanceData : EquipmentComponentData<ResistanceData>
 {
-    public Damage_Type resistanceType;
+    public DamageType resistanceType;
     public float resistanceValue;
     public override void InicializeComponent(GameObject equipmentObject, Item item)
     {

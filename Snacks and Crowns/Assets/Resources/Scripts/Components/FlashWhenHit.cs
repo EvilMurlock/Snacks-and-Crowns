@@ -11,7 +11,7 @@ public class FlashWhenHit : MonoBehaviour
     Color flashColour = Color.red;
     void Start()
     {
-        var damagable = GetComponent<Damagable>();
+        var damagable = GetComponent<Damageable>();
         damagable.healthChange.AddListener(FlashRed);
         previousHp = damagable.hp;
     }

@@ -48,11 +48,11 @@ namespace GOAP
                 Factions theirFaction = charakter.GetComponent<FactionMembership>().Faction;
                 if (FactionState.GetFactionRelations(myFaction,theirFaction) == Relations.War)
                 {
-                    Debug.Log("Enemies in range!!!");
+                    //Debug.Log("Enemies in range!!!");
                     return priority;
                 }
             }
-            Debug.Log("No enemies in range!!!");
+            //Debug.Log("No enemies in range!!!");
             return 0;
         }
         public GameObject GetClosestEnemy()

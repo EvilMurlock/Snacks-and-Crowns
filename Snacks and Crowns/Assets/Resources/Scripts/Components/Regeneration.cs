@@ -8,10 +8,10 @@ public class Regeneration : MonoBehaviour
     float healAmount = 1f;
     float lastRegenTime = 0;
     // Start is called before the first frame update
-    Damagable damagable;
+    Damageable damagable;
     void Start()
     {
-        damagable = GetComponent<Damagable>();
+        damagable = GetComponent<Damageable>();
     }
 
     // Update is called once per frame

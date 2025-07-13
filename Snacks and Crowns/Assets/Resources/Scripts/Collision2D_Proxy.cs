@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+// intermediary class for collision detection
 public class Collision2D_Proxy : MonoBehaviour
 {
-
     public Action<Collider2D> OnTriggerEnter2D_Action;
     public Action<Collider2D> OnTriggerExit2D_Action;
 

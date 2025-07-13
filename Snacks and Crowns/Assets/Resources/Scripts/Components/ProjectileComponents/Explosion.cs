@@ -21,9 +21,9 @@ public class Explosion : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<Damagable>())
+        if (collision.GetComponent<Damageable>())
         {
-            collision.GetComponent<Damagable>().TakeDamage(attack);
+            collision.GetComponent<Damageable>().TakeDamage(attack);
         }
         if (collision.GetComponent<Rigidbody2D>())
         {

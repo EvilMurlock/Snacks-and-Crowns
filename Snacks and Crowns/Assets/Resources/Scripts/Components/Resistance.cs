@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Resistance : MonoBehaviour
 {
-    public Damage_Type resistanceType;
+    public DamageType resistanceType;
     public float resistanceValue;
     GameObject resistingObject;
     public void AddResistance(GameObject resistingObject)
@@ -15,10 +15,10 @@ public class Resistance : MonoBehaviour
             this.gameObject.AddComponent<onDestroy>();
         }
         this.gameObject.GetComponent<onDestroy>().destroyEvent.AddListener(RemoveResistance);
-        resistingObject.GetComponent<Damagable>().ChangeResistance(resistanceType, resistanceValue);
+        resistingObject.GetComponent<Damageable>().ChangeResistance(resistanceType, resistanceValue);
     }
     public void RemoveResistance()
     {
-        resistingObject.GetComponent<Damagable>().ChangeResistance(resistanceType, -resistanceValue);
+        resistingObject.GetComponent<Damageable>().ChangeResistance(resistanceType, -resistanceValue);
     }
 }

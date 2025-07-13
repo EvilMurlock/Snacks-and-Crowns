@@ -24,7 +24,7 @@ public class DamageOnHit : MonoBehaviour
             else
                 pastCollisions.Add(collider.gameObject);
         }
-        Damagable damagable = collider.gameObject.GetComponent<Damagable>();
+        Damageable damagable = collider.gameObject.GetComponent<Damageable>();
         if (damagable != null)
         {
             damagable.TakeDamage(attack);

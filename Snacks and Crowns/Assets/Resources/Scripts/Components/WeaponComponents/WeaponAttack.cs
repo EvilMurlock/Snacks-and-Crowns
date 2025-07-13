@@ -8,7 +8,7 @@ public class WeaponAttack : MonoBehaviour
     public void Attack(GameObject g)
     {
         
-        Damagable damagable = g.GetComponent<Damagable>();
+        Damageable damagable = g.GetComponent<Damageable>();
         if(damagable != null)
         {
             //Debug.Log("Dealt damage: " + attack.damage);

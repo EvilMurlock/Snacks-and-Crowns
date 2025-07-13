@@ -85,7 +85,6 @@ namespace GOAP
             Node parent = parentOriginal;
             if (!HasItem(parentOriginal.state, rangedItemTags) && !GetComponent<EquipmentManager>().HasEquipedItem(rangedItemTags))
             {
-                Debug.Log("Getting item");
                 parent = GetRequiredItemWithTags(parentOriginal, rangedItemTags);
                 if (parent == null)
                     return possibleNodes; // we cant fight, we dont have a weapon

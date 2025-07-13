@@ -20,8 +20,8 @@ public class HealthTracker : MonoBehaviour
     {
         this.player = newPlayer;
         healthBar.GetComponentInChildren<Animator>().Play(barAnimation.name);
-        player.GetComponent<Damagable>().healthChange.AddListener(UpdateHealthCounter);
-        UpdateHealthCounter(player.GetComponent<Damagable>().hp, player.GetComponent<Damagable>().max_hp);
+        player.GetComponent<Damageable>().healthChange.AddListener(UpdateHealthCounter);
+        UpdateHealthCounter(player.GetComponent<Damageable>().hp, player.GetComponent<Damageable>().max_hp);
     }
     void UpdateHealthCounter(float health, float maxHealth)
     {

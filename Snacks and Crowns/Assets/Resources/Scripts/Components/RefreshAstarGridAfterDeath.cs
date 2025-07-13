@@ -6,7 +6,7 @@ public class RefreshAstarGridAfterDeath : MonoBehaviour
 {
     void Start()
     {
-        GetComponent<Damagable>().death.AddListener(CallUpdateAstarGrid);
+        GetComponent<Damageable>().death.AddListener(CallUpdateAstarGrid);
     }
     void CallUpdateAstarGrid()
     {

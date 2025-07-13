@@ -6,5 +6,5 @@ using UnityEngine;
 public class Attack
 {
     public float damage;
-    public Damage_Type damage_type;
+    public DamageType damage_type;
 }

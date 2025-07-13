@@ -25,7 +25,7 @@ public class CharakterSheet : MonoBehaviour
     }
     void RaceInnit()
     {
-        Damagable damagable = GetComponent<Damagable>();
+        Damageable damagable = GetComponent<Damageable>();
         foreach (ResistanceData data in race.resistances)
         {
             damagable.ChangeResistance(data.resistanceType, data.resistanceValue);

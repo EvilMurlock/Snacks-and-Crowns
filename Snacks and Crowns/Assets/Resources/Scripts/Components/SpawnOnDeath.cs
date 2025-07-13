@@ -7,7 +7,7 @@ public class SpawnOnDeath : MonoBehaviour
     public GameObject GameObjectToSpawn;
     void Start()
     {
-        GetComponent<Damagable>().death.AddListener(DropItems);
+        GetComponent<Damageable>().death.AddListener(DropItems);
     }
     void DropItems()
     {

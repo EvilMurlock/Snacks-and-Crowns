@@ -8,7 +8,7 @@ public class RespawnPlayer : MonoBehaviour
     [SerializeField]
     GameObject playerPrefab;
 
-    Damagable damagable;
+    Damageable damagable;
     CameraFollowPlayer cameraFollow;
     
     PlayerData playerData;
@@ -16,7 +16,7 @@ public class RespawnPlayer : MonoBehaviour
     PlayerInputInbetween playerInputInbetween;
     void Start()
     {
-        damagable = GetComponentInChildren<Damagable>();
+        damagable = GetComponentInChildren<Damageable>();
         SetUpDeathListener();
         cameraFollow = GetComponentInChildren<CameraFollowPlayer>();
         playerInputInbetween = GetComponent<PlayerInputInbetween>();
@@ -43,7 +43,7 @@ public class RespawnPlayer : MonoBehaviour
             playerChar.gameObject.GetComponent<FactionMembership>().Faction = playerData.faction;
             playerChar.gameObject.GetComponent<CharakterSheet>().SetRace(playerData.race, playerData.face);
         }
-        damagable = playerChar.GetComponent<Damagable>();
+        damagable = playerChar.GetComponent<Damageable>();
         SetUpDeathListener();
         cameraFollow.player = playerChar;
         playerInputInbetween.Initialize();

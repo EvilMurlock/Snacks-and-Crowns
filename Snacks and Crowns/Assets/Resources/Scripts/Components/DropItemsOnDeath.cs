@@ -7,7 +7,7 @@ public class DropItemsOnDeath : MonoBehaviour
     public List<Item> itemsToDrop;
     void Start()
     {
-        GetComponent<Damagable>().death.AddListener(DropItems);
+        GetComponent<Damageable>().death.AddListener(DropItems);
         if (!gameObject.GetComponent<TagSystem>())
         {
             gameObject.AddComponent<TagSystem>();

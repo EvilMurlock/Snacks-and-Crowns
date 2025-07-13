@@ -11,7 +11,6 @@ public class Ability : ScriptableObject
     List<ComponentDataGeneric> abilityComponents;
     public virtual void Use(GameObject user)
     {
-        //Debug.Log("Using ability" + name);
         foreach (ComponentDataGeneric comData in abilityComponents)
         {
             comData.InicializeComponent(user);

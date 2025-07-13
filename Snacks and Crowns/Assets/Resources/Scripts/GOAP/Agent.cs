@@ -227,7 +227,7 @@ namespace GOAP
                 }
                 else if(currentAction.running == false)//action or goal failed -> purge current action,goal,plan
                 {
-                    Debug.Log("Plan failed - ACTION");
+                    //Debug.Log("Plan failed - ACTION");
                     currentGoal.Deactivate();
                     currentAction = null;
                     currentGoal = null;
@@ -235,7 +235,7 @@ namespace GOAP
                 }
                 else if(currentGoal.Active == false || currentGoal.enabledGoal == false)
                 {
-                    Debug.Log("Plan failed - GOAL");
+                    //Debug.Log("Plan failed - GOAL");
                     currentAction.Deactivate();
                     currentAction = null;
                     currentGoal = null;

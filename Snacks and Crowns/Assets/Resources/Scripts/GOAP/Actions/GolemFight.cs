@@ -25,8 +25,8 @@ namespace GOAP
                     break;
                 }
             }
-            if (golemFire == null)
-                Destroy(this);
+            //if (golemFire == null)
+            //    Destroy(this);
             base.Awake();
             
         }

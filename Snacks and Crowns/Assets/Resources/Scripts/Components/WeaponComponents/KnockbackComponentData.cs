@@ -16,6 +16,6 @@ public class KnockbackComponentData : EquipmentComponentData<WeaponKnockback>
         WeaponKnockback weaponKnockback = weapon.AddComponent<WeaponKnockback>();
         weaponKnockback.knockback = knockback;
         weaponKnockback.stunTime = stunTime;
-        weapon.GetComponent<HandItemControler>().onHitEvent.AddListener(weaponKnockback.Knockback);
+        weapon.GetComponent<HandItemController>().onHitEvent.AddListener(weaponKnockback.Knockback);
     }
 }

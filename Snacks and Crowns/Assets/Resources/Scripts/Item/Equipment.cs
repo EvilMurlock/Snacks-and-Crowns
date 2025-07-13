@@ -20,7 +20,7 @@ public class Equipment : Item
     }
     public void UseEquipment(GameObject key)
     {
-        instances[key].GetComponent<HandItemControler>().Use();
+        instances[key].GetComponent<HandItemController>().Use();
     }
     public virtual void InstantiateEquipment(Transform parent, GameObject key)
     {

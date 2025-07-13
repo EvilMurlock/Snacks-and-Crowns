@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-public class HandItemControler : MonoBehaviour
+public class HandItemController : MonoBehaviour
 { 
     Animator animator;
     public AnimationClip idle;
     public AnimationClip use;
-    List<GameObject> colidedObjects = new List<GameObject>();
+    List<GameObject> collidedObjects = new List<GameObject>();
     public UnityEvent<GameObject> onHitEvent;
     public UnityEvent<GameObject> spriteChangeEvent;
     bool beingUsed = false;
@@ -23,7 +23,7 @@ public class HandItemControler : MonoBehaviour
         {
             if (!beingUsed)
             {
-                colidedObjects.Clear();
+                collidedObjects.Clear();
                 if (use == null)
                 {
                     Debug.Log("ANIMATION IS NULLL => " + gameObject.name + " | " + transform.position);
@@ -50,12 +50,12 @@ public class HandItemControler : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject colObject = collision.gameObject;
-        //Isn't the weilder, can be hit and has not yet been hit
+        //Isn't the wielder, can be hit and has not yet been hit
         if (colObject! != transform.parent.parent.gameObject && 
-            !colidedObjects.Contains(colObject) &&
+            !collidedObjects.Contains(colObject) &&
             !collision.isTrigger)
         {
-            colidedObjects.Add(colObject);
+            collidedObjects.Add(colObject);
             onHitEvent.Invoke(colObject);
         }
 

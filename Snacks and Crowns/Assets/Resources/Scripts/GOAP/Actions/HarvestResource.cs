@@ -29,7 +29,7 @@ namespace GOAP
         public HarvestData(Item requiredTool, string targetTag, Item resourceItem)
         {
             // use argument null exception
-            if (requiredTool == null || resourceItem == null) throw new System.Exception("Harvest data does not have correct item data - in HarvesResource.cs");
+            if (requiredTool == null || resourceItem == null) throw new System.Exception("Harvest data does not have correct item data - in HarvestResource.cs");
             this.requiredTool = requiredTool;
             this.targetTag = targetTag;
             this.resourceItem = resourceItem;
@@ -47,7 +47,7 @@ namespace GOAP
         GameObject ironOres;
         GameObject magicOres;
         List<HarvestData> harvestDatas = new List<HarvestData>();
-        ActionDataHarvestResource planingData;
+        ActionDataHarvestResource planningData;
         public Equipment tool;
         EquipmentManager equipmentManager;
         public override void Awake()
@@ -89,19 +89,19 @@ namespace GOAP
                     Deactivate();
                     return;
                 }
-                HandItemControler controller = tool.GetInstance(gameObject).GetComponent<HandItemControler>();
+                HandItemController controller = tool.GetInstance(gameObject).GetComponent<HandItemController>();
                 controller.Use();
                 //Take a swing at it
             }
         }
         public override void Activate(ActionData arg)
         {
-            planingData = (ActionDataHarvestResource)arg;
-            target = planingData.target;
+            planningData = (ActionDataHarvestResource)arg;
+            target = planningData.target;
             
-            if (!equipmentManager.HasEquippedItem(planingData.harvestData.requiredTool))
-                EquipItem(planingData.harvestData.requiredTool);
-            tool = GetEquippedItem(planingData.harvestData.requiredTool);
+            if (!equipmentManager.HasEquippedItem(planningData.harvestData.requiredTool))
+                EquipItem(planningData.harvestData.requiredTool);
+            tool = GetEquippedItem(planningData.harvestData.requiredTool);
 
             // equips the required tool
             if (tool == null)
@@ -119,7 +119,7 @@ namespace GOAP
             Inventory agentInventory = GetComponent<Inventory>();
             EquipmentManager agentEquipmentManager = GetComponent<EquipmentManager>();
 
-            Unequip(agentInventory, agentEquipmentManager, planingData.harvestData.requiredTool);
+            Unequip(agentInventory, agentEquipmentManager, planningData.harvestData.requiredTool);
             tool = null;
             running = false;
             npcAi.ChangeTarget(null);
@@ -129,7 +129,7 @@ namespace GOAP
             Inventory agentInventory = GetComponent<Inventory>();
             EquipmentManager agentEquipmentManager = GetComponent<EquipmentManager>();
 
-            Unequip(agentInventory, agentEquipmentManager, planingData.harvestData.requiredTool);
+            Unequip(agentInventory, agentEquipmentManager, planningData.harvestData.requiredTool);
             tool = null;
             running = false;
             completed = true;
@@ -137,18 +137,15 @@ namespace GOAP
         List<TagSystem> GetListOfResources()
         {
             List<TagSystem> resources = new List<TagSystem>();
-            //if (trees != null)
-                foreach(Transform t in trees.transform)
+            foreach(Transform t in trees.transform)
             {
                 resources.Add(t.gameObject.GetComponent<TagSystem>());
             }
-            //if (ironOres != null)
-                foreach (Transform t in ironOres.transform)
+            foreach (Transform t in ironOres.transform)
             {
                 resources.Add(t.gameObject.GetComponent<TagSystem>());
             }
-            //if (magicOres != null)
-                foreach (Transform t in magicOres.transform)
+            foreach (Transform t in magicOres.transform)
             {
                 resources.Add(t.gameObject.GetComponent<TagSystem>());
             }
@@ -184,15 +181,18 @@ namespace GOAP
                 Node parent = parentOriginal;
                 parent = GetTool(parent, harvestData.requiredTool);
                 if (parent == null)
+                {
                     continue;
-
+                }
                 Vector3 myPosition = parent.state.myPosition;
 
                 TagSystem closestDeposit = FindClosestDeposit(harvestData, myPosition);
 
                 WorldState possibleWorldState = new WorldState(parent.state);
                 if (closestDeposit == null)
+                {
                     continue;
+                }
 
                 possibleWorldState.CopyVirtualItemPickups();
 

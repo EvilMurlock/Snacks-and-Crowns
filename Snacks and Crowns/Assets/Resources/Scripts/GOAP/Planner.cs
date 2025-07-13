@@ -17,6 +17,7 @@ namespace GOAP
             {
                 return null;
             }
+            
             Queue<Node> planQueue = CreatePlanQueue(lastPlanNode);
             //DebugPrintPlan(planQueue);
             return planQueue;
@@ -100,17 +101,27 @@ namespace GOAP
         /// <returns></returns>
         Node FindPlanBreathFirstRecursion(List<Node> leaves, List<NPCAction> usableActions, Goal goal, int depth)
         {
-            if (depth > goal.MaxPlanDepth) return null;
-            if (leaves.Count == 0) return null;
+            /// WE FAIL AT DEPTH 3 FROM LEAF COUNT == 0
+            if (depth > goal.MaxPlanDepth)
+            {
+                return null; 
+            }
+            if (leaves.Count == 0) {
+                return null; 
+            }
 
             List<Node> newLeaves = new List<Node>();
             foreach(Node parent in leaves)
             {
                 foreach (NPCAction action in usableActions)
                 {
-                    if (!action.reusable && ActionAlreadyUsed(parent, action)) continue;
+                    //if (!action.reusable && ActionAlreadyUsed(parent, action)) continue;
                     if (action.IsAchievableGiven(parent.state))
                     {
+                        if (goal.GetType() == typeof(FillAnInventory) && action.GetType() == typeof(HarvestResource))
+                        {
+                            goal.GetComponent<SpriteRenderer>().color = Color.blue;
+                        }
                         List<Node> possibleNewStates = action.OnActionCompleteWorldStates(parent);
                         
                         foreach (Node node in possibleNewStates)

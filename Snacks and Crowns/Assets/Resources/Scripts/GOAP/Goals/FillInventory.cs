@@ -7,7 +7,7 @@ namespace GOAP {
     {
         public GameObject targetObject;
         public List<Item> desiredItems;
-        float defaultPriority = 5;
+        //float defaultPriority = 5;
         public override void Start()
         {
             MaxPlanDepth = 3;
@@ -112,11 +112,9 @@ namespace GOAP {
         {
             if (targetObject == null) return -1;
             if (IsCompleted()) return -1;
-            float priority = defaultPriority;
 
 
-
-            priority = HowCloseToFillingTheChest();
+            float priority = HowCloseToFillingTheChest();
 
             if (active) priority *= 2;
 

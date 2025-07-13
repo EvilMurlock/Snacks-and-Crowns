@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Linq;
 using System;
+using Unity.VisualScripting;
 
 namespace GOAP
 {
@@ -66,6 +67,7 @@ namespace GOAP
             {
                 if (actionType.IsAbstract)
                     continue;
+                
                 gameObject.AddComponent(actionType);
             }
         }
@@ -117,20 +119,25 @@ namespace GOAP
         /// </summary>
         void GetNewPlan()
         {
+
             npcAi.ChangeTarget(null); // we have no active action, so we aren't moving anywhere
                                       // we try to find a plan that fulfils one of our goals, in order of priority
 
             var sortedGoals = from goal in goals orderby goal.CalculatePriority() descending select goal;
+            
             Goal newGoal = null;
             Queue<Node> newNodeQueue = null;
             if (planningDelayNow < planningDelayAfterFail)
                 planningDelayNow += Time.deltaTime;
             else
             {
+                
                 worldState.UpdateBelieves();
-
+                //bool testFirst = true;
                 foreach (Goal g in sortedGoals)
                 {
+
+
                     if (g.CalculatePriority() <= 0) continue;
                     Queue<Node> queue = null;
 

@@ -15,6 +15,6 @@ public class AttackComponentData : EquipmentComponentData<WeaponAttack>
     {
         WeaponAttack weaponAttack = weapon.AddComponent<WeaponAttack>();
         weaponAttack.attack = attack;
-        weapon.GetComponent<HandItemControler>().onHitEvent.AddListener(weaponAttack.Attack);
+        weapon.GetComponent<HandItemController>().onHitEvent.AddListener(weaponAttack.Attack);
     }
 }

@@ -22,6 +22,6 @@ public class SpawnProjectileOnSpriteChangeData : EquipmentComponentData<SpawnPro
         weaponAttack.extraAngle = extraAngle;
         weaponAttack.offset = offset;
 
-        weapon.GetComponent<HandItemControler>().spriteChangeEvent.AddListener(weaponAttack.SpawnProjectile);
+        weapon.GetComponent<HandItemController>().spriteChangeEvent.AddListener(weaponAttack.SpawnProjectile);
     }
 }

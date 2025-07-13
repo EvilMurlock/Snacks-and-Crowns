@@ -20,7 +20,7 @@ namespace GOAP
     public class PutItemInChest : NPCAction
     {
         CraftingRecipes craftingRecipes;
-        ActionDataPutItemInChest planingData;
+        ActionDataPutItemInChest planningData;
         FillAnInventory fillInventoryGoal;
         public override void Awake()
         {
@@ -61,9 +61,9 @@ namespace GOAP
         }
         public override void Activate(ActionData newData)
         {
-            planingData = (ActionDataPutItemInChest)newData;
+            planningData = (ActionDataPutItemInChest)newData;
 
-            target = planingData.targetObject.gameObject;
+            target = planningData.targetObject.gameObject;
 
 
             npcAi.ChangeTarget(target);
@@ -76,8 +76,8 @@ namespace GOAP
         public override void Complete()
         {
             Inventory agentInventory = GetComponent<Inventory>();
-            Inventory chestInventory = planingData.targetObject.GetComponent<Inventory>();
-            if (!agentInventory.HasItem(planingData.item)) 
+            Inventory chestInventory = planningData.targetObject.GetComponent<Inventory>();
+            if (!agentInventory.HasItem(planningData.item)) 
             { 
                 Deactivate();
                 return;
@@ -88,8 +88,8 @@ namespace GOAP
                 return;
             }
 
-            agentInventory.RemoveItem(planingData.item);
-            chestInventory.AddItem(planingData.item);
+            agentInventory.RemoveItem(planningData.item);
+            chestInventory.AddItem(planningData.item);
             
             running = false;
             completed = true;

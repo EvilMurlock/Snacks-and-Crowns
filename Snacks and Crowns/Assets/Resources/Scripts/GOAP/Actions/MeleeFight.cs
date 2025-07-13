@@ -35,7 +35,7 @@ namespace GOAP
                 Complete();
             else if(npcAi.reachedEndOfPath || DistanceCalculator.CalculateDistance(transform.position, target.transform.position) <= attackRange)
             {
-                meleeItem.GetInstance(gameObject).GetComponent<HandItemControler>().Use();
+                meleeItem.GetInstance(gameObject).GetComponent<HandItemController>().Use();
             }
         }
         public override void Activate(ActionData arg)

@@ -17,9 +17,13 @@ public class RespawnPlayer : MonoBehaviour
     void Start()
     {
         damagable = GetComponentInChildren<Damagable>();
-        damagable.death.AddListener(Respawn);
+        SetUpDeathListener();
         cameraFollow = GetComponentInChildren<CameraFollowPlayer>();
         playerInputInbetween = GetComponent<PlayerInputInbetween>();
+    }
+    void SetUpDeathListener()
+    {
+        damagable.death.AddListener(Respawn);
     }
     public void Initialize(PlayerData data, GameObject spawnPoint)
     {
@@ -39,6 +43,8 @@ public class RespawnPlayer : MonoBehaviour
             playerChar.gameObject.GetComponent<FactionMembership>().Faction = playerData.faction;
             playerChar.gameObject.GetComponent<CharakterSheet>().SetRace(playerData.race, playerData.face);
         }
+        damagable = playerChar.GetComponent<Damagable>();
+        SetUpDeathListener();
         cameraFollow.player = playerChar;
         playerInputInbetween.Initialize();
 

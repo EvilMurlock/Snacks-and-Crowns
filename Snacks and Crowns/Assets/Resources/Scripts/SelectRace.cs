@@ -6,6 +6,10 @@ using TMPro;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(InputField))]
+
+/// <summary>
+/// Manages race selection 
+/// </summary>
 public class SelectRace : MonoBehaviour, ISubmitHandler
 {
     [SerializeField]

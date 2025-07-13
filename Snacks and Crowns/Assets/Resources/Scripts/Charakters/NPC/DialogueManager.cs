@@ -5,6 +5,10 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem.UI;
 
+
+/// <summary>
+/// Manages dialogue for an NPC, loads dialogues, checks conditions and activates effects
+/// </summary>
 public class DialogueManager : InteractibleInMenu
 {
 
@@ -19,7 +23,6 @@ public class DialogueManager : InteractibleInMenu
 	GameObject player = null;
 	List<GameObject> buttons = new List<GameObject>();
 	public override bool LockMove { get { return lockMove; } }
-	// Use this for initialization
 	void Start()
 	{
 		lockMove = true;
@@ -49,7 +52,6 @@ public class DialogueManager : InteractibleInMenu
 		nameText.text = gameObject.name;
 
 		DisplayDialogue(dialogue);
-		//Debug.Log("The thingy: " + uiInstance.name);
 	}
 	void DisplayButtons()
     {
@@ -75,7 +77,6 @@ public class DialogueManager : InteractibleInMenu
 		}
 		
 		player.GetComponent<MenuManager>().SelectObject(buttons[0]);
-		//player_inventory.event_system.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(buttons[0]);
 	}
 	public bool CheckDialogueRequirements(int dialogueIndex)
     {
@@ -133,7 +134,7 @@ public class DialogueManager : InteractibleInMenu
 		RemoveRequired();
 		foreach(ComponentDataGeneric component in dialogue.componentData)
         {
-			component.InicializeComponent(player, this.gameObject);
+			component.InitializeComponent(player, this.gameObject);
         }
 
         if (dialogue.autoEndConversation)
@@ -170,8 +171,6 @@ public class DialogueManager : InteractibleInMenu
     }
 	public override void UnInteract(GameObject player)
 	{
-		// THE PROBLEMS IS THAT THIS THING GETS CALLED WHEN WE QUIT, BUT WE HAVE TO CALL UnInteract in player manager to actualy reset stuff corectly i think
-		//Debug.Log("Leaveling");
 		player.GetComponent<PlayerInteractManager>().UnInteract();
 		this.player = null;
 		Destroy(uiInstance);

@@ -13,7 +13,7 @@ public class Ability : ScriptableObject
     {
         foreach (ComponentDataGeneric comData in abilityComponents)
         {
-            comData.InicializeComponent(user);
+            comData.InitializeComponent(user);
         }
     }
     public void AddAbilityComponent(ComponentDataGeneric data)

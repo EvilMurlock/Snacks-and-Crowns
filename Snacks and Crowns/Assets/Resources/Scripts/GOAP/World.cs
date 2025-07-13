@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace GOAP
 {
+
+    /// <summary>
+    /// Keeps track of some important data that are used in the WorldState
+    /// </summary>
     public sealed class World
     {
         
@@ -66,7 +70,6 @@ namespace GOAP
             return null;
         }
 
-        // we don't track pickups in the world state anymore, we simply look for them when we need them
         List<ItemPickup> LoadItemPickups()
         {
             List<ItemPickup> itemPickups = new List<ItemPickup>();
@@ -122,12 +125,7 @@ namespace GOAP
             worldState.inventories = updatedInventories;
         }
         void UpdateWorld()
-        {
-            //worldState.itemPickups = LoadItemPickups();
-            //worldState.inventories = LoadInventories();
-            //lastUpdateTime = 0f;
-            //float updateCooldown
-            
+        {            
             if (Time.timeSinceLevelLoad > lastUpdateTime + updateCooldown)
             {
                 UpdateInventories();

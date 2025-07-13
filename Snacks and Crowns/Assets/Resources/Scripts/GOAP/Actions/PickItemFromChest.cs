@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace GOAP
 {
-
+    /// <summary>
+    /// Action data for which item and from which chest it is taken
+    /// </summary>
     public class ActionDataPickItemFromChest : ActionData
     {
         public GameObject targetObject;
@@ -14,17 +16,20 @@ namespace GOAP
             this.item = item;
         }
     }
+    /// <summary>
+    /// Takes an item from a chest
+    /// </summary>
     public class PickItemFromChest : SubAction
     {
-        ActionDataPickItemFromChest planingData;
+        ActionDataPickItemFromChest planningData;
         public override void Awake()
         {
-            speachBubbleType = SpeachBubbleTypes.GetItem;
+            speechBubbleType = SpeechBubbleTypes.GetItem;
             base.Awake();
         }
         public override void Start()
         {
-            reusable = true; //This is a subaction
+            reusable = true; //This is a sub-action
             base.Start();
         }
         public override void Tick()
@@ -41,8 +46,8 @@ namespace GOAP
 
         public override void Activate(ActionData arg)
         {
-            planingData = (ActionDataPickItemFromChest)arg;
-            target = planingData.targetObject.gameObject;
+            planningData = (ActionDataPickItemFromChest)arg;
+            target = planningData.targetObject.gameObject;
             npcAi.ChangeTarget(target);
             base.Activate(arg);
         }
@@ -53,13 +58,13 @@ namespace GOAP
         public override void Complete()
         {
 
-            Inventory chestInventory = planingData.targetObject.GetComponent<Inventory>();
-            if (!chestInventory.HasItem(planingData.item))
+            Inventory chestInventory = planningData.targetObject.GetComponent<Inventory>();
+            if (!chestInventory.HasItem(planningData.item))
             {
                 Deactivate();
                 return;
             }
-            chestInventory.RemoveItem(planingData.item);
+            chestInventory.RemoveItem(planningData.item);
 
 
             Inventory agentInventory = GetComponent<Inventory>();
@@ -67,7 +72,7 @@ namespace GOAP
             {
                 DropRandomItemFromInventory(agentInventory);
             }
-            agentInventory.AddItem(planingData.item);
+            agentInventory.AddItem(planningData.item);
             running = false;
             completed = true;
         }

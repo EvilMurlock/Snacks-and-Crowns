@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Holds dialogue data, the text, responces, requirements and effects
+/// </summary>
 [CreateAssetMenu(fileName = "New_Dialogue", menuName = "Dialogue")]
+
 public class Dialogue : ScriptableObject
 {
 	public bool autoEndConversation;

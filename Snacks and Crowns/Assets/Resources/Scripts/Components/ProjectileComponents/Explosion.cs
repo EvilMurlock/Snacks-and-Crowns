@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Generates an explosion
+/// </summary>
 public class Explosion : MonoBehaviour
 {
     public float radius;

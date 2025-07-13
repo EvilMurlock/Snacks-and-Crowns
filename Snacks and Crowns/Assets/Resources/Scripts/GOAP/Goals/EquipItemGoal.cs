@@ -17,16 +17,15 @@ namespace GOAP {
         {
             this.tags = tags;
         }
-        public override bool CompletedByState(WorldState state) //If more of desired item in chest then there is curently, then returns true
+        public override bool CompletedByState(WorldState state) //If more of desired item in chest then there is currently, then returns true
         {
-            // used in the planing step
+            // used in the planning step
             return CloserToGoalCheck(state);
         }
         public bool CloserToGoalCheck(WorldState state)
         {
 
             return state.completedGoals.Contains(this);
-            //return DistanceCalculator.CalculateDistance(state.myPosition, targetObject.transform.position) <= minDistance;
         }
         public override void Tick()
         {
@@ -59,12 +58,11 @@ namespace GOAP {
 
         public override void Complete()
         {
-            //Debug.Log("Plan " + this.GetType().ToString() + " Completed");
             active = false;
         }
         public override float CalculatePriority()
         {
-            if (GetComponent<EquipmentManager>().HasEquipedItem(tags))
+            if (GetComponent<EquipmentManager>().HasEquippedItem(tags))
                 return 0;
             else
                 return defaultPriority;

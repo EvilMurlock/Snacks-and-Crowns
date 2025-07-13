@@ -1,6 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
+
+/// <summary>
+/// Flashes sprite with a colour when hit
+/// </summary>
 public class FlashWhenHit : MonoBehaviour
 {
     // Start is called before the first frame update

@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+/// <summary>
+/// Building script, simply copies its faction into all its children
+/// </summary>
 public class Building : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -16,12 +21,6 @@ public class Building : MonoBehaviour
             Factions myFaction = this.GetComponent<FactionMembership>().Faction;
             child.GetComponent<FactionMembership>().Faction = myFaction;
         }
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         
     }
 }

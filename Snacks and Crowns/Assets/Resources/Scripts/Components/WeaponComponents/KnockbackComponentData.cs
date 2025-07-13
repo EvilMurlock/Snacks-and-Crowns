@@ -1,6 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
+/// <summary>
+/// Knockback data
+/// </summary>
 public class KnockbackComponentData : EquipmentComponentData<WeaponKnockback>
 {
     public float knockback;
@@ -11,6 +16,6 @@ public class KnockbackComponentData : EquipmentComponentData<WeaponKnockback>
         WeaponKnockback weaponKnockback = weapon.AddComponent<WeaponKnockback>();
         weaponKnockback.knockback = knockback;
         weaponKnockback.stunTime = stunTime;
-        weapon.GetComponent<Hand_Item_Controler>().onHitEvent.AddListener(weaponKnockback.Knockback);
+        weapon.GetComponent<HandItemControler>().onHitEvent.AddListener(weaponKnockback.Knockback);
     }
 }

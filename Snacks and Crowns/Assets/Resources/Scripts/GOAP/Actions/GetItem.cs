@@ -4,7 +4,11 @@ using UnityEngine;
 
 namespace GOAP
 {
-    public class GetItem : Action
+
+    /// <summary>
+    /// Gets an item using various means
+    /// </summary>
+    public class GetItem : NPCAction
     {
         CraftingRecipes craftingRecipes;
         public override void Start()
@@ -88,7 +92,7 @@ namespace GOAP
             possibleWorldState.virtualItemPickups.Remove(virtualItem);
 
             // the null in node.actionData will cause a fail,
-            // but we will probably replan the same thing again, but this time the virtual item will already be instantiated,
+            // but we will probably re-plan the same thing again, but this time the virtual item will already be instantiated,
             // so we will be able to pick it up
             Node node = new Node(parent, 1, possibleWorldState, GetComponent<PickUpItem>(), new ActionDataPickUpItem(virtualItem));
             return node;
@@ -140,6 +144,7 @@ namespace GOAP
             Node parent = parentOriginal;
             // does a recipe exist?
             CraftingRecipe recipe = null;
+            //if(craftingRecipes != null && craftingRecipes.craftingRecipes != null)
             foreach(CraftingRecipe thisRecipe in craftingRecipes.craftingRecipes)
             {
                 if(thisRecipe.result == requestedItem)
@@ -183,7 +188,6 @@ namespace GOAP
             Node node = new Node(parent, 1 + parent.cost, possibleWorldState, GetComponent<CraftItem>(), new ActionDataCraftItem(recipe, craftingObject));
             return node;
             // use GetRequiredItems(Node parent, List<Item> requiredItems) to get missing items, returns null if cant get all items
-            //
         }
         public Node GetItemPlan(Node parent, Item requestedItem) //Gets a specific Item
         {
@@ -221,23 +225,23 @@ namespace GOAP
                 if (craftFaction == myFaction ||
                     FactionState.GetFactionRelations(craftFaction, myFaction) == Relations.Alliance)
                 {
-                    if (crafter.CraftingObjekt == CraftingObjekt.forge && (closestForge == null || GetDistanceBetween(myPosition, closestForge.transform.position) > GetDistanceBetween(myPosition, crafter.transform.position)))
+                    if (crafter.CraftingObjekt == CraftingObject.forge && (closestForge == null || GetDistanceBetween(myPosition, closestForge.transform.position) > GetDistanceBetween(myPosition, crafter.transform.position)))
                     {
                         closestForge = crafter.gameObject;
                     }
-                    if (crafter.CraftingObjekt == CraftingObjekt.workshop && (closestWorkshop == null || GetDistanceBetween(myPosition, closestWorkshop.transform.position) > GetDistanceBetween(myPosition, crafter.transform.position)))
+                    if (crafter.CraftingObjekt == CraftingObject.workshop && (closestWorkshop == null || GetDistanceBetween(myPosition, closestWorkshop.transform.position) > GetDistanceBetween(myPosition, crafter.transform.position)))
                     {
                         closestWorkshop = crafter.gameObject;
                     }
-                    if (crafter.CraftingObjekt == CraftingObjekt.anvil && (closestAnvil == null || GetDistanceBetween(myPosition, closestAnvil.transform.position) > GetDistanceBetween(myPosition, crafter.transform.position)))
+                    if (crafter.CraftingObjekt == CraftingObject.anvil && (closestAnvil == null || GetDistanceBetween(myPosition, closestAnvil.transform.position) > GetDistanceBetween(myPosition, crafter.transform.position)))
                     {
                         closestAnvil = crafter.gameObject;
                     }
                 }
             }
 
-            if (recipe.craftingObjekt == CraftingObjekt.anvil) return closestAnvil;
-            else if (recipe.craftingObjekt == CraftingObjekt.workshop) return closestWorkshop;
+            if (recipe.craftingObjekt == CraftingObject.anvil) return closestAnvil;
+            else if (recipe.craftingObjekt == CraftingObject.workshop) return closestWorkshop;
             else return closestForge;
 
         }

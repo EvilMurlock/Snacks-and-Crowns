@@ -7,25 +7,29 @@ using System;
 
 namespace GOAP
 {
+    /// <summary>
+    /// Agent class, keeps track of action and goals and the current plan
+    /// 
+    /// </summary>
     public class Agent : MonoBehaviour
     {
-        public List<Action> actions = new List<Action>();
+        public List<NPCAction> actions = new List<NPCAction>();
         public List<Goal> goals = new List<Goal>();
 
         Planner planner;
         Queue<Node> nodeQueue;
         Node currentNode;
-        public Action currentAction;
+        public NPCAction currentAction;
         Goal currentGoal;
         WorldState worldState;
 
         NpcAi npcAi;
 
-        float planingDelayAfterFail = 1;
-        float planingDelayNow = 1;
-        float replanTimer = 0;
-        float replanCooldown = 3;
-        float replanCooldownRandomSpread = 1;
+        float planningDelayAfterFail = 1;
+        float planningDelayNow = 1;
+        float rePlanTimer = 0;
+        float rePlanCooldown = 3;
+        float rePlanCooldownRandomSpread = 1;
         // Start is called before the first frame update
         protected virtual void Start()
         {
@@ -34,26 +38,16 @@ namespace GOAP
             worldState = new WorldState(this.gameObject);
             npcAi = GetComponent<NpcAi>();
             AddAllActions();
-            /*
-            object[] action_scripts = Resources.LoadAll("Scripts/GOAP/Actions"); // adds all actions avalible to this agent
-            foreach(object o in action_scripts)
-            {
-                MonoScript a = (MonoScript)o;
-                //Debug.Log("Action loaded: "+ a.GetClass().ToString());
-                
-                gameObject.AddComponent(a.GetClass());
-            }*/
             LoadActionsAndGoals();
         }
         void ReplanCheck()
         {
-            replanTimer -= Time.deltaTime;
-            if (replanTimer <= 0)
+            rePlanTimer -= Time.deltaTime;
+            if (rePlanTimer <= 0)
             {
                 nodeQueue = null;
-                float rVal = UnityEngine.Random.Range(-replanCooldownRandomSpread, replanCooldownRandomSpread);
-                replanTimer = replanCooldown + rVal;
-                //Debug.Log("Rval is: " + rVal);
+                float rVal = UnityEngine.Random.Range(-rePlanCooldownRandomSpread, rePlanCooldownRandomSpread);
+                rePlanTimer = rePlanCooldown + rVal;
             }
 
         }
@@ -64,14 +58,12 @@ namespace GOAP
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             var types = assemblies.SelectMany(assembly => assembly.GetTypes());
             var filteredTypes = types.Where(
-            type => IsSubclassOfRawGeneric(typeof(GOAP.Action), type)
+            type => IsSubclassOfRawGeneric(typeof(GOAP.NPCAction), type)
             && !type.ContainsGenericParameters
             && type.IsClass);
             List<Type> actionTypes = filteredTypes.ToList();
-            //Debug.Log("Instantiating this many actions: " + actionTypes.Count);
             foreach (Type actionType in actionTypes)
             {
-                //Debug.Log(actionType.ToString());
                 if (actionType.IsAbstract)
                     continue;
                 gameObject.AddComponent(actionType);
@@ -82,14 +74,6 @@ namespace GOAP
             while (toCheck != null && toCheck != typeof(object))
             {
                 var cur = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
-
-                /*
-                if (toCheck.Namespace == "GOAP")
-                {
-                    Debug.Log("Checking: " + cur.Name.ToString());
-                    Debug.Log("Generic: " + generic.Name.ToString());
-                }*/
-
                 if (generic == cur)
                 {
                     return true;
@@ -110,8 +94,8 @@ namespace GOAP
         }
         void LoadActions()
         {
-            Action[] acts = this.GetComponents<Action>();
-            foreach (Action a in acts)
+            NPCAction[] acts = this.GetComponents<NPCAction>();
+            foreach (NPCAction a in acts)
                 if (a.IsUsableBy(gameObject))
                     actions.Add(a);
         }
@@ -128,17 +112,19 @@ namespace GOAP
         {
             Debug.Log("GOALS:\n" + goals.ToString());
         }
-        // Update is called once per frame
+        /// <summary>
+        /// We try to find a new plan, we search for a plan that completes a goal in order of goal priority, we choose the first plan we find
+        /// </summary>
         void GetNewPlan()
         {
-            npcAi.ChangeTarget(null); // we have no active action, so we arent moving anywhere
+            npcAi.ChangeTarget(null); // we have no active action, so we aren't moving anywhere
                                       // we try to find a plan that fulfils one of our goals, in order of priority
 
             var sortedGoals = from goal in goals orderby goal.CalculatePriority() descending select goal;
             Goal newGoal = null;
             Queue<Node> newNodeQueue = null;
-            if (planingDelayNow < planingDelayAfterFail)
-                planingDelayNow += Time.deltaTime;
+            if (planningDelayNow < planningDelayAfterFail)
+                planningDelayNow += Time.deltaTime;
             else
             {
                 worldState.UpdateBelieves();
@@ -147,24 +133,21 @@ namespace GOAP
                 {
                     if (g.CalculatePriority() <= 0) continue;
                     Queue<Node> queue = null;
-                    //Debug.Log("Current goal can run: " + g.CanRun());
 
                     if (g.CanRun())
                         queue = planner.CreatePlan(actions, g, worldState);
                     if (queue == null)
                     {
-                        //Debug.Log("Queue is null!!!! for plan : "+ g.ToString());
-                        planner.DebugPrintPlan(queue);
+                        //planner.DebugPrintPlan(queue);
                     }
                     if (queue != null)
                     {
                         newGoal = g;
                         newNodeQueue = queue;
-                        //Debug.Log("Chosen plan for goal: " + g.ToString());
                         break;
                     }
                 }
-                planingDelayNow = 0;
+                planningDelayNow = 0;
             }
 
 
@@ -172,7 +155,6 @@ namespace GOAP
             if (newGoal != null && newGoal.CalculatePriority() > 0
                 && (currentGoal == null || newGoal.CalculatePriority() > currentGoal.CalculatePriority()))//Switch plans when plan with a higher priority goal is found
             {
-                //Debug.Log("Working on a new goal: " + newGoal.GetType().ToString());
                 // we cancel what we were doing
                 if (currentGoal != null) currentGoal.Deactivate();
                 if (currentAction != null) currentAction.Deactivate();
@@ -191,12 +173,7 @@ namespace GOAP
             //ReplanCheck();
             if (goals.Count == 0)
             {
-                //Debug.Log("No goals");
                 return;
-            }
-            if(currentGoal != null)
-            {
-                //Debug.Log("Current goal: " + currentGoal.GetType().ToString());
             }
             if (nodeQueue == null)
             {
@@ -205,13 +182,11 @@ namespace GOAP
             
             if (currentAction != null && currentAction.running)
             {
-                //Debug.Log("Actionin runing");
                 currentAction.Tick(); // actions step
                 if (currentAction.completed)//if action done
                 {
                     if(nodeQueue.Count == 0)//if end of plan
                     {
-                        //Debug.Log("Completed plan: " +currentGoal.ToString());
                         currentGoal.Complete();
                         currentAction = null;
                         currentGoal = null;
@@ -227,7 +202,6 @@ namespace GOAP
                 }
                 else if(currentAction.running == false)//action or goal failed -> purge current action,goal,plan
                 {
-                    //Debug.Log("Plan failed - ACTION");
                     currentGoal.Deactivate();
                     currentAction = null;
                     currentGoal = null;
@@ -235,7 +209,6 @@ namespace GOAP
                 }
                 else if(currentGoal.Active == false || currentGoal.enabledGoal == false)
                 {
-                    //Debug.Log("Plan failed - GOAL");
                     currentAction.Deactivate();
                     currentAction = null;
                     currentGoal = null;

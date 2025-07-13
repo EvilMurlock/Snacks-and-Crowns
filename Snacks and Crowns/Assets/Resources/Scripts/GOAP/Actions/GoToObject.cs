@@ -4,12 +4,15 @@ using UnityEngine;
 
 namespace GOAP
 {
-    public class GoToObject : Action
+    /// <summary>
+    /// Travels to an Object
+    /// </summary>
+    public class GoToObject : NPCAction
     {
         GoToLocation goToLocation;
         public override void Awake()
         {
-            speachBubbleType = SpeachBubbleTypes.Walk;
+            speechBubbleType = SpeechBubbleTypes.Walk;
             base.Awake();
         }
         public override void Tick()

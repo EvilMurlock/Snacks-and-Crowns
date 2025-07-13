@@ -5,6 +5,11 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 
+
+/// <summary>
+/// Locks in players character selection
+/// </summary>
+
 public class ReadySelect : MonoBehaviour, ISubmitHandler
 {
     [SerializeField]
@@ -25,7 +30,7 @@ public class ReadySelect : MonoBehaviour, ISubmitHandler
     [SerializeField] 
     CanvasGroup canvas;
     [SerializeField]
-    GameObject charakterSelectMenu;
+    GameObject characterSelectMenu;
 
     int index = 0;
     public void OnSubmit(BaseEventData eventData)
@@ -39,10 +44,9 @@ public class ReadySelect : MonoBehaviour, ISubmitHandler
     void ReadySelf()
     {
         shade.SetActive(true);
-        //Debug.Log("Adding player with race: " + selectRace.GetSelectedRace().race + " | Face: " + selectFace.GetFace() + " | Faction: "+ selectFaction.GetFaction().ToString());
         StartGameDataHolder.AddPlayer(controlScheme, deviceType, selectRace.GetSelectedRace(), selectFaction.GetFaction(), selectFace.GetFace(), index);
         whenReady.PlayerReady();
-        charakterSelectMenu.GetComponent<PlayerInput>().DeactivateInput();
+        characterSelectMenu.GetComponent<PlayerInput>().DeactivateInput();
     }
     private void Start()
     {

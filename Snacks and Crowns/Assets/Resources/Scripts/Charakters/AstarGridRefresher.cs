@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+
+/// <summary>
+/// Updates the AstarGrid in the area of the collider, 
+/// was used to during experiments trying to make NPCs walk around each other
+/// is unsed as this aproach was not effective.
+/// </summary>
 public class AstarGridRefresher : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
     // Update is called once per frame
     void Update()

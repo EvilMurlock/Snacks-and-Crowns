@@ -31,7 +31,6 @@ namespace GOAP {
         {
 
             return state.completedGoals.Contains(this);
-            //return DistanceCalculator.CalculateDistance(state.myPosition, targetObject.transform.position) <= minDistance;
         }
         public override void Tick()
         {
@@ -53,7 +52,6 @@ namespace GOAP {
 
         public override void Complete()
         {
-            //Debug.Log("Plan " + this.GetType().ToString() + " Completed");
             active = false;
         }
         public override float CalculatePriority()

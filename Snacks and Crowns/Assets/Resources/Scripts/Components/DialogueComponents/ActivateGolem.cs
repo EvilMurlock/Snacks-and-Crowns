@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GOAP;
+
+
+/// <summary>
+/// Removes Dormant Golem and spawns a Golem NPC
+/// </summary>
 public class ActivateGolem : DialogueComponentData<ActivateGolem>
 {
     [SerializeField]
     GameObject golemPrefab;
     [SerializeField]
     Dialogue newDialogue;
-    public override void InicializeComponent(GameObject player, GameObject listener)
+    public override void InitializeComponent(GameObject player, GameObject listener)
     {
         Debug.Log("Golem Activated");
         GameObject npc = GameObject.Instantiate(golemPrefab, listener.transform.position, listener.transform.rotation);

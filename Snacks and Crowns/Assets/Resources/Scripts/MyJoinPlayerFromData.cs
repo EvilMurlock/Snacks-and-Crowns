@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+
+/// <summary>
+/// Creates players in the level, based on character data generated in the character selection scene
+/// If no such data exists generates 2 players for debugging
+/// </summary>
 public class MyJoinPlayerFromData : MonoBehaviour
 {
     public PlayerInputManager inputManager;
@@ -10,7 +16,6 @@ public class MyJoinPlayerFromData : MonoBehaviour
     [SerializeField]
     GameObject RespawnPointTwo;
     List<PlayerInput> players = new List<PlayerInput>();
-    // Start is called before the first frame update
     void Start()
     {
         inputManager.playerJoinedEvent.AddListener(PlayerJoined);
@@ -55,11 +60,13 @@ public class MyJoinPlayerFromData : MonoBehaviour
     void PlayerJoined(PlayerInput input)
     {
         players.Add(input);
-        //Debug.Log("Player device is: " + input.devices[0]);
-        //Debug.Log("Player scheme: " + input.currentControlScheme);
         SetCameras();
 
     }
+
+    /// <summary>
+    /// manages camera shapes for 3 players, so that the third players camera stretches over 2 quadrants 
+    /// </summary>
     void SetCameras()
     {
         int index = 0;

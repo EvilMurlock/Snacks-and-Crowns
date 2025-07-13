@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+
+/// <summary>
+/// Manages interaction with objects, remembers long run interactions and highlights objects for interaction
+/// </summary>
 public class PlayerInteractManager : MonoBehaviour
 {
     List<GameObject> interactiblesInRange;
@@ -63,7 +68,7 @@ public class PlayerInteractManager : MonoBehaviour
                 interactible.Interact(gameObject);
 
                 if (interactible.LockMove)
-                    playerStateManager.ChangeState(CharakterState.inMenu);
+                    playerStateManager.ChangeState(CharacterState.inMenu);
                 interactedObjekt = interactible;
 
             }
@@ -82,7 +87,7 @@ public class PlayerInteractManager : MonoBehaviour
     {
         if (interactedObjekt == null) return;
         if (interactedObjekt.LockMove)
-            playerStateManager.ChangeState(CharakterState.normal);
+            playerStateManager.ChangeState(CharacterState.normal);
         interactedObjekt = null;
     }
     private void OnTriggerEnter2D(Collider2D collision)

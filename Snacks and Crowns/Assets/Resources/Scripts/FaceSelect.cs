@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
+
+
+// manages the face selection in the character selection menu
 public class FaceSelect : MonoBehaviour, ISubmitHandler
 {
     Race race;

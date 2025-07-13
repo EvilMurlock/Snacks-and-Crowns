@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GOAP;
+
+/// <summary>
+/// Drops equipment when this character dies
+/// </summary>
 public class DropEquipmentOnDeath : MonoBehaviour
 {
     void Start()

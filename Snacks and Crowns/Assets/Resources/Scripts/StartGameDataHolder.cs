@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
+/// <summary>
+/// remembers player data, both some character data and meta data, like the controls 
+/// </summary>
 public class PlayerData
 {
     public string controlScheme;
@@ -21,6 +25,10 @@ public class PlayerData
         this.index = index;
     }
 }
+
+/// <summary>
+/// manages player data, that are used to initialize the players and the chosen level
+/// </summary>
 public static class StartGameDataHolder
 {
     static string chosenLevel = "Level1";

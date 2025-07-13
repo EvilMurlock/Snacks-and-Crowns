@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+/// <summary>
+/// Manages equipment, equiping and swaping items
+/// </summary>
 public class EquipmentManager : MonoBehaviour
 {
     [SerializeField]
@@ -12,15 +17,8 @@ public class EquipmentManager : MonoBehaviour
     void Start()
     {
         equipmentLocations = GetComponentsInChildren<EquipmentLocation>();
-        //GetComponent<Inventory>().onChangeInventory.AddListener(InventoryUpdateUnequipCheck);
     }
-    /*
-    void InventoryUpdateUnequipCheck(Inventory inventory)
-    {
-        // i dont know what this function is suposed to do
-        throw new System.Exception("FUCNTIO  NOT IMPLEMENTED IN EQUIPMENT MANAGER");
-    }*/
-    public bool HasEquipedItem(List<ItemTags> tags)
+    public bool HasEquippedItem(List<ItemTags> tags)
     {
         foreach (Equipment equipment in equipments)
         {
@@ -31,7 +29,7 @@ public class EquipmentManager : MonoBehaviour
         }
         return false;
     }
-    public bool HasEquipedItem(Item item)
+    public bool HasEquippedItem(Item item)
     {
         foreach (Equipment equipment in equipments)
         {
@@ -60,7 +58,6 @@ public class EquipmentManager : MonoBehaviour
         {
             equipment.InstantiateEquipment(equipmentLocations[index].transform, gameObject);
             equipments[index] = equipment;
-            //Debug.Log("Item " + equipment.name + " equiped");
         }
         return equipments[index];
     }

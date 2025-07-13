@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace GOAP
 {
-    public class HealAction : Action
+    /// <summary>
+    /// Heals self
+    /// </summary>
+    public class HealAction : NPCAction
     {
 
         HealGoal healGoal;
         List<ItemTags> healItemTags = new List<ItemTags>() { ItemTags.healing };
         public override void Awake()
         {
-            speachBubbleType = SpeachBubbleTypes.Heal;
+            speechBubbleType = SpeechBubbleTypes.Heal;
             base.Awake();
         }
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class ArrayExtentions
+public static class ArrayExtensions
 {
     public static int GetIndex<T>(this T[] array,T element)
     {

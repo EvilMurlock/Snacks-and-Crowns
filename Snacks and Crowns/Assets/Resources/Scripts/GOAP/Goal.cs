@@ -5,7 +5,9 @@ using UnityEngine;
 
 namespace GOAP
 {
-    
+    /// <summary>
+    /// Base goal class
+    /// </summary>
     public abstract class Goal : MonoBehaviour
     {
         public int MaxPlanDepth { get; protected set; }

@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Adds resistance on initialization, removes resistance on deletion
+/// </summary>
 public class Resistance : MonoBehaviour
 {
     public DamageType resistanceType;

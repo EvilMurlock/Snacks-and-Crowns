@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 
+
+
+/// <summary>
+/// Manages the player state and interprets player inputs according to the state
+/// </summary>
 public class PlayerStateManager : MonoBehaviour
 {
     bool debug = false;
@@ -20,14 +25,14 @@ public class PlayerStateManager : MonoBehaviour
     MenuManager menuManager;
     [SerializeField]
     HotbarMenu hotbarMenu;
-    public CharakterState playerState;
+    public CharacterState playerState;
     // Start is called before the first frame update
-    CharakterState preStunState;
+    CharacterState preStunState;
     void Start()
     {
         interactManager = GetComponent<PlayerInteractManager>();
         menuManager = GetComponent<MenuManager>();
-        playerState = CharakterState.normal;
+        playerState = CharacterState.normal;
         movement.stun.AddListener(ManageStun);
         hotbarMenu = transform.parent.GetComponentInChildren<HotbarMenu>();
     }
@@ -36,7 +41,7 @@ public class PlayerStateManager : MonoBehaviour
         if (value)
         {
             preStunState = playerState;
-            ChangeState(CharakterState.stun);
+            ChangeState(CharacterState.stun);
         }
         else ChangeState(preStunState);
     }
@@ -46,12 +51,12 @@ public class PlayerStateManager : MonoBehaviour
         if(debug) Debug.Log("MOVIGN");
         switch (playerState)
         {
-            case CharakterState.normal:
+            case CharacterState.normal:
                 movement.OnMove(context);
                 break;
-            case CharakterState.inMenu:
+            case CharacterState.inMenu:
                 break;
-            case CharakterState.stun:
+            case CharacterState.stun:
                 movement.OnMove(context);
                 break;
 
@@ -64,12 +69,12 @@ public class PlayerStateManager : MonoBehaviour
         if (debug) Debug.Log("Left hand");
         switch (playerState)
         {
-            case CharakterState.normal:
+            case CharacterState.normal:
                 equipmentManager.UseLeftHand();
                 break;
-            case CharakterState.inMenu:
+            case CharacterState.inMenu:
                 break;
-            case CharakterState.stun:
+            case CharacterState.stun:
                 break;
 
         }
@@ -81,12 +86,12 @@ public class PlayerStateManager : MonoBehaviour
         if (debug) Debug.Log("Right hand");
         switch (playerState)
         {
-            case CharakterState.normal:
+            case CharacterState.normal:
                 equipmentManager.UseRightHand();
                 break;
-            case CharakterState.inMenu:
+            case CharacterState.inMenu:
                 break;
-            case CharakterState.stun:
+            case CharacterState.stun:
                 break;
 
 
@@ -100,12 +105,12 @@ public class PlayerStateManager : MonoBehaviour
         if (debug) Debug.Log("Use item");
         switch (playerState)
         {
-            case CharakterState.normal:
+            case CharacterState.normal:
                 hotbarMenu.UseItem();
                 break;
-            case CharakterState.inMenu:
+            case CharacterState.inMenu:
                 break;
-            case CharakterState.stun:
+            case CharacterState.stun:
                 break;
 
 
@@ -116,13 +121,13 @@ public class PlayerStateManager : MonoBehaviour
         if (debug) Debug.Log("Interacting");
         switch (playerState)
         {
-            case CharakterState.normal:
+            case CharacterState.normal:
                 interactManager.Interact(context);
                 break;
-            case CharakterState.inMenu:
+            case CharacterState.inMenu:
                 interactManager.UnInteract(context);
                 break;
-            case CharakterState.stun:
+            case CharacterState.stun:
                 break;
 
 
@@ -130,20 +135,17 @@ public class PlayerStateManager : MonoBehaviour
     }
     public void Scroll(InputAction.CallbackContext context)
     {
-        /*
-        if (context.started) Debug.Log("STARTED");
-        if (context.performed) Debug.Log("PERFORMING");*/
         if (!context.started) return;
 
         if (debug) Debug.Log("Scroll");
         switch (playerState)
         {
-            case CharakterState.normal:
+            case CharacterState.normal:
                 hotbarMenu.Scroll(context);
                 break;
-            case CharakterState.inMenu:
+            case CharacterState.inMenu:
                 break;
-            case CharakterState.stun:
+            case CharacterState.stun:
                 break;
 
 
@@ -155,28 +157,28 @@ public class PlayerStateManager : MonoBehaviour
         if (debug) Debug.Log("Inventory");
         switch (playerState)
         {
-            case CharakterState.normal:
+            case CharacterState.normal:
                 menuManager.OpenInventory();
                 break;
-            case CharakterState.inMenu:
+            case CharacterState.inMenu:
                 menuManager.CloseInventory();
                 break;
-            case CharakterState.stun:
+            case CharacterState.stun:
                 break;
 
         }
     }
 
-    public void ChangeState(CharakterState newState)
+    public void ChangeState(CharacterState newState)
     {
         switch (newState)
         {
-            case CharakterState.normal:
+            case CharacterState.normal:
                 break;
-            case CharakterState.inMenu:
+            case CharacterState.inMenu:
                 movement.MoveStop();
                 break;
-            case CharakterState.stun:
+            case CharacterState.stun:
                 break;
         }
 

@@ -7,8 +7,7 @@ namespace GOAP
     public class LaunchRaid : Goal
     {
         float priority = 4;
-        //float raidCooldown = 5;
-        float raidTimeout = 120;
+        float raidTimeout = 60;
         float timeOfLastRaid = 0;
         public override void Start()
         {
@@ -16,7 +15,6 @@ namespace GOAP
         }
         public bool IsCompleted()
         {
-            //Debug.Log("Raid start time: " + timeOfLastRaid + " timeout time: "+raidTimeout + " Curent time: "+ Time.timeSinceLevelLoad);
             if (timeOfLastRaid < Time.timeSinceLevelLoad - raidTimeout)
                 return true;
             return false;
@@ -29,17 +27,15 @@ namespace GOAP
         public override float CalculatePriority()
         {
             
-            foreach (CharakterSheet charakter in Object.FindObjectsOfType<CharakterSheet>())
+            foreach (CharakterSheet character in Object.FindObjectsOfType<CharakterSheet>())
             {
                 Factions myFaction = GetComponent<FactionMembership>().Faction;
-                Factions theirFaction = charakter.GetComponent<FactionMembership>().Faction;
-                if (FactionState.GetFactionRelations(myFaction,theirFaction) == Relations.War)
+                Factions theirFaction = character.GetComponent<FactionMembership>().Faction;
+                if (FactionState.GetFactionRelations(myFaction, theirFaction) == Relations.War)
                 {
-                    //Debug.Log("Enemies in range!!!");
                     return priority;
                 }
             }
-            //Debug.Log("No enemies in range!!!");
             return 0;
         }
         public GameObject GetRandomEnemy()

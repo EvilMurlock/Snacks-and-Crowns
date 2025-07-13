@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace GOAP
 {
-    public abstract class SubAction : Action
+    /// <summary>
+    /// Parent class for all SubActions, those actions are not being chosen during planning by the planner, but can be inserted into the plan by the actions themselves, for example to get certain required items
+    /// </summary>
+    public abstract class SubAction : NPCAction
     {
         public override bool IsUsableBy(GameObject g)
         {
@@ -12,7 +15,6 @@ namespace GOAP
         public override bool IsAchievableGiven(WorldState worldState)//For the planner
         {
             return false;
-            //Its a subaction
         }
         public override List<Node> OnActionCompleteWorldStates(Node parent)
         {

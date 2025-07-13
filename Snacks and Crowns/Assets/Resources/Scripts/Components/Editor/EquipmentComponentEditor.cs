@@ -4,6 +4,12 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+
+
+/// <summary>
+/// Loads Equipment components and displays buttons in the Editor UI that allow for their initialization to a component list
+/// </summary>
+
 [CustomEditor(typeof(Equipment))]
 public class EquipmentComponentEditor : ItemComponentEditor
 {

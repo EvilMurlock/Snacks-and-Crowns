@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace GOAP
 {
-    public class EquipItemAction : Action
+    /// <summary>
+    /// Equips an Item
+    /// </summary>
+    public class EquipItemAction : NPCAction
     {
 
         EquipItemGoal equipItemGoal;
         int goalId = 0;
         public override void Awake()
         {
-            speachBubbleType = SpeachBubbleTypes.Heal;
+            speechBubbleType = SpeechBubbleTypes.Heal;
             base.Awake();
         }
         public override void Start()
@@ -72,12 +75,10 @@ namespace GOAP
             Node parent = parentOriginal;
             if (!HasItem(parentOriginal.state, equipItemGoal.tags))
             {
-                //Debug.Log("Getting item");
                 parent = GetRequiredItemWithTags(parentOriginal, equipItemGoal.tags);
                 if (parent == null)
-                    return possibleNodes; // we cant fight, we dont have a weapon
+                    return possibleNodes; // we cant fight, we don't have a weapon
             }
-            //else Debug.Log("Already have item");
             WorldState possibleWorldState = new WorldState(parent.state);
             possibleWorldState.CopyCompletedGoals();
             possibleWorldState.completedGoals.Add(equipItemGoal);

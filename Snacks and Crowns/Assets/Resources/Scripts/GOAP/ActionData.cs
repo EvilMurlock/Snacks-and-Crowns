@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace GOAP
 {
+    /// <summary>
+    /// Base ActionData class
+    /// </summary>
     public class ActionData
     {
 

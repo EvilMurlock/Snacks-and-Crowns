@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+
+
+/// <summary>
+/// Projectile class that manages movement and effect activation
+/// </summary>
 public class Projectile : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -20,7 +25,7 @@ public class Projectile : MonoBehaviour
     {
         foreach (ComponentDataGeneric compData in componentData)
         {
-            compData.InicializeComponent(gameObject);
+            compData.InitializeComponent(gameObject);
         }
     }
     private void Update()
@@ -33,9 +38,7 @@ public class Projectile : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("HITING: " + collision.gameObject.name);
         GameObject colObject = collision.gameObject;
-        //Isnt the weilder, can be hit and has not yet been hit
         if (!colidedObjects.Contains(colObject) &&
             !collision.isTrigger)
         {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace GOAP
 {
+
     class ActionDataCraftItem : ActionData
     {
         public CraftingRecipe recipe;
@@ -15,12 +16,15 @@ namespace GOAP
             this.craftingPiece = craftingPiece;
         }
     }
+    /// <summary>
+    /// Crafts an Item
+    /// </summary>
     public class CraftItem : SubAction
     {
-        CraftingRecipe currentRecepy;
+        CraftingRecipe currentRecipy;
         public override void Awake()
         {
-            speachBubbleType = SpeachBubbleTypes.GetItem;
+            speechBubbleType = SpeechBubbleTypes.GetItem;
             base.Awake();
         }
         public override void Start()
@@ -33,14 +37,14 @@ namespace GOAP
             if (npcAi.reachedEndOfPath)
             {
                 // Do the crafting
-                if (HasItems(currentRecepy.ingredients))
+                if (HasItems(currentRecipy.ingredients))
                 {
                     Inventory inventory = GetComponent<Inventory>();
-                    foreach (Item item in currentRecepy.ingredients)
+                    foreach (Item item in currentRecipy.ingredients)
                     {
                         inventory.RemoveItem(item);
                     }
-                    inventory.AddItem(currentRecepy.result);
+                    inventory.AddItem(currentRecipy.result);
                     Complete();
                 }
                 else
@@ -54,8 +58,7 @@ namespace GOAP
             ActionDataCraftItem data = (ActionDataCraftItem)arg;
 
             target = data.craftingPiece;
-            currentRecepy = data.recipe;
-            //Debug.Log("Going to craft a: " + data.recipe.result.itemName);
+            currentRecipy = data.recipe;
 
             npcAi.ChangeTarget(target, 1f);
             base.Activate(arg);
@@ -86,52 +89,7 @@ namespace GOAP
         public override List<Node> OnActionCompleteWorldStates(Node parent_)//Tells the planer how the world state will change on completion
         {
             List<Node> possibleNodes = new List<Node>();
-            /*
-            Vector3 myPosition = (Vector3)parent_.state.GetStates()["MyPosition"];
-            List<int> inventory = (List<int>)parent_.state.GetStates()["Inventory"];
 
-            List<Item> inventoryItems = new List<Item>();
-            foreach( int i in inventory)
-            {
-                inventoryItems.Add(World.GetItemFromId(i));
-            }
-
-            foreach(Crafting_Recepy craftingRecepy in craftingRecepyList)
-            {
-                Node parent = parent_;
-                if (GetClosestCraftingObject(craftingRecepy ,myPosition) == null) continue;
-
-                if (!craftingRecepy.CanCraftFrom(inventoryItems))
-                {
-                    List<Item> requiredItems = new List<Item>(craftingRecepy.ingredients);
-                    foreach(int i in inventory)
-                    {
-                        Item item = World.GetItemFromId(i);
-                        if (requiredItems.Contains(item)) requiredItems.Remove(item);
-                    }
-                    Node newParent = GetRequiredItems(parent, requiredItems);
-                    if (newParent == null) continue;
-                    parent = newParent;
-                }
-
-                WorldState possibleWorldState = parent.state.MakeReferencialDuplicate();
-                List<int> newInventory = new List<int>(inventory);
-                foreach(Item item in craftingRecepy.ingredients)
-                {
-                    newInventory.Remove(World.GetIdFromItem(item));
-                }
-                newInventory.Add(World.GetIdFromItem(craftingRecepy.result));
-
-                GameObject craftingPiece = GetClosestCraftingObject(craftingRecepy, myPosition);
-                Vector3 craftingPosition = craftingPiece.transform.position;
-                float distance = GetDistanceBetween(craftingPosition, myPosition);
-
-                possibleWorldState.ModifyState("Inventory", newInventory);
-                possibleWorldState.ModifyState("MyPosition", craftingPosition);
-                Node newNode = new Node(parent, 15 + parent.cost + distance, possibleWorldState, this, (craftingRecepy, craftingPiece));
-                possibleNodes.Add(newNode);
-            }
-            */
             return possibleNodes;
         }
 

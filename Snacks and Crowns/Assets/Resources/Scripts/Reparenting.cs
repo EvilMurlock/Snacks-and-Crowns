@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //[ExecuteInEditMode]
+
+/// <summary>
+/// Reparenting script, used to keep the scene hierarchy clean
+/// </summary>
 public class Reparenting : MonoBehaviour
 {
     public string parentObjectName;

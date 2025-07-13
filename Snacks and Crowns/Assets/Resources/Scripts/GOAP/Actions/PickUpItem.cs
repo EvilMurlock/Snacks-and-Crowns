@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace GOAP
 {
+    /// <summary>
+    /// Picks up an Item pickup
+    /// </summary>
     public class ActionDataPickUpItem : ActionData
     {
         public ActionDataPickUpItem(ItemPickup itemPickup)
@@ -22,12 +25,12 @@ namespace GOAP
     {
         public override void Awake()
         {
-            speachBubbleType = SpeachBubbleTypes.GetItem;
+            speechBubbleType = SpeechBubbleTypes.GetItem;
             base.Awake();
         }
         public override void Start()
         {
-            reusable = true; //this is a subaction
+            reusable = true; //this is a sub-action
             base.Start();
         }
         public override string GetInfo(ActionData data)
@@ -67,8 +70,6 @@ namespace GOAP
             Item item = itemPickup.item;
             Vector3 targetPosition = itemPickup.transform.position;
 
-            //Debug.Log("Going to pick up " + item+" at position: "+position);
-
 
             ItemPickup[] itemControlers = GameObject.FindObjectsByType<ItemPickup>(FindObjectsSortMode.None);
             float distance = -1;
@@ -84,19 +85,15 @@ namespace GOAP
             target = chosenItem.gameObject;
 
             npcAi.ChangeTarget(target);
-            //Debug.Log("NPC reached end of path: " + npcAi.reachedEndOfPath);
             base.Activate(dataArg);
         }
         public override void Deactivate()
         {
             running = false;
-            //Debug.Log("npcAI is: " + npcAi);
             npcAi.ChangeTarget(null);
         }
         public override void Complete()
         {
-            //Debug.Log("Distance from target: " + GetDistanceFromTarget());
-            //Debug.Log("NPC AI Target is: " + npcAi.target.name + " | Action target: " + target.name);
             if (GetComponent<Inventory>().HasEmptySpace(1))
             {
                 GetComponent<Inventory>().AddItem(target.GetComponent<ItemPickup>().item);

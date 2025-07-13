@@ -4,11 +4,16 @@ using UnityEngine;
 using GOAP;
 using UnityEngine.InputSystem;
 using Pathfinding;
+
+
+/// <summary>
+/// Displays victory screen for each player
+/// </summary>
 public class TeamWin : DialogueComponentData<ActivateGolem>
 {
     [SerializeField]
     GameObject prefabGameEndMenu;
-    public override void InicializeComponent(GameObject player, GameObject listener)
+    public override void InitializeComponent(GameObject player, GameObject listener)
     {
         Factions winningFaction = listener.GetComponent<FactionMembership>().Faction;//player.GetComponent<FactionMembership>().Faction;
         MyJoinPlayerFromData myJoinPlayers = GameObject.Find("PlayerManager").GetComponent<MyJoinPlayerFromData>();
@@ -34,6 +39,6 @@ public class TeamWin : DialogueComponentData<ActivateGolem>
     IEnumerator SetPlaytInMenuState(PlayerInput input)
     {
         yield return new WaitForSeconds(0.05f);
-        input.gameObject.GetComponentInChildren<PlayerStateManager>().ChangeState(CharakterState.inMenu);
+        input.gameObject.GetComponentInChildren<PlayerStateManager>().ChangeState(CharacterState.inMenu);
     }
 }

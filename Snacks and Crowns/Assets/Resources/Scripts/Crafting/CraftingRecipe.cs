@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Recipe for crafting an item
+/// </summary>
 [System.Serializable]
 public class CraftingRecipe
 {
@@ -9,7 +13,7 @@ public class CraftingRecipe
     public List<Item> ingredients;
     [HideInInspector]
     public Item result;
-    public CraftingObjekt craftingObjekt;
+    public CraftingObject craftingObjekt;
 
     public bool CanCraftFrom(List<Item> givenItems)
     {

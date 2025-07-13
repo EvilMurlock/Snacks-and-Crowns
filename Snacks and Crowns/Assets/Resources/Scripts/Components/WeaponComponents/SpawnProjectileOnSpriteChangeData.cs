@@ -1,6 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
+
+/// <summary>
+/// Spawns projectile when SpriteChange event from an animation fires
+/// </summary>
 public class SpawnProjectileOnSpriteChangeData : EquipmentComponentData<SpawnProjectileOnSpriteChange>
 {
     public GameObject projectilePrefab;
@@ -16,6 +22,6 @@ public class SpawnProjectileOnSpriteChangeData : EquipmentComponentData<SpawnPro
         weaponAttack.extraAngle = extraAngle;
         weaponAttack.offset = offset;
 
-        weapon.GetComponent<Hand_Item_Controler>().spriteChangeEvent.AddListener(weaponAttack.SpawnProjectile);
+        weapon.GetComponent<HandItemControler>().spriteChangeEvent.AddListener(weaponAttack.SpawnProjectile);
     }
 }

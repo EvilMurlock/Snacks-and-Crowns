@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+/// <summary>
+/// Attack data
+/// </summary>
 public class AttackComponentData : EquipmentComponentData<WeaponAttack>
 {
     public Attack attack;
@@ -10,6 +15,6 @@ public class AttackComponentData : EquipmentComponentData<WeaponAttack>
     {
         WeaponAttack weaponAttack = weapon.AddComponent<WeaponAttack>();
         weaponAttack.attack = attack;
-        weapon.GetComponent<Hand_Item_Controler>().onHitEvent.AddListener(weaponAttack.Attack);
+        weapon.GetComponent<HandItemControler>().onHitEvent.AddListener(weaponAttack.Attack);
     }
 }

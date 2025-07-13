@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+
+/// <summary>
+/// Respawns the player
+/// </summary>
 public class RespawnPlayer : MonoBehaviour
 {
     // Start is called before the first frame update

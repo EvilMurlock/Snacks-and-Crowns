@@ -4,7 +4,10 @@ using UnityEngine;
 
 namespace GOAP
 {
-    public class RangedFight : Action
+    /// <summary>
+    /// Gets a ranged weapon and fights with it
+    /// </summary>
+    public class RangedFight : NPCAction
     {
         RangedFightGoal rangedFightGoal;
         List<ItemTags> rangedItemTags = new List<ItemTags>() { ItemTags.rangedWeapon };
@@ -13,7 +16,7 @@ namespace GOAP
         Movement movement;
         public override void Awake()
         {
-            speachBubbleType = SpeachBubbleTypes.Fight;
+            speechBubbleType = SpeechBubbleTypes.Fight;
             base.Awake();
         }
         public override void Start()
@@ -32,13 +35,12 @@ namespace GOAP
                 Complete();
             else if(DistanceCalculator.CalculateDistance(transform.position, target.transform.position) <= attackRange)
             {
-                movement.RotateTowars(target.transform.position - transform.position);
-                rangedItem.GetInstance(gameObject).GetComponent<Hand_Item_Controler>().Use();
+                movement.RotateTowards(target.transform.position - transform.position);
+                rangedItem.GetInstance(gameObject).GetComponent<HandItemControler>().Use();
                 npcAi.ChangeTarget(null);
             }
             else
             {
-                Debug.Log("Going after target! : " + target.name);
                 npcAi.ChangeTarget(target);
             }
         }
@@ -46,14 +48,12 @@ namespace GOAP
         {
             target = rangedFightGoal.GetClosestEnemy();
             
-            if (GetComponent<EquipmentManager>().HasEquipedItem(rangedItemTags))
+            if (GetComponent<EquipmentManager>().HasEquippedItem(rangedItemTags))
             {
-                //Debug.Log("Reading ranged weapon");
-                rangedItem = GetEquipedItem(rangedItemTags);
+                rangedItem = GetEquippedItem(rangedItemTags);
             }
             else
             {
-                //Debug.Log("Equiped ranged weapon");
                 rangedItem = EquipItem(rangedItemTags);
             }
             npcAi.ChangeTarget(target);
@@ -83,13 +83,12 @@ namespace GOAP
         {
             List<Node> possibleNodes = new List<Node>();
             Node parent = parentOriginal;
-            if (!HasItem(parentOriginal.state, rangedItemTags) && !GetComponent<EquipmentManager>().HasEquipedItem(rangedItemTags))
+            if (!HasItem(parentOriginal.state, rangedItemTags) && !GetComponent<EquipmentManager>().HasEquippedItem(rangedItemTags))
             {
                 parent = GetRequiredItemWithTags(parentOriginal, rangedItemTags);
                 if (parent == null)
-                    return possibleNodes; // we cant fight, we dont have a weapon
+                    return possibleNodes; // we cant fight, we don't have a weapon
             }
-            //else Debug.Log("Already have item");
             WorldState possibleWorldState = new WorldState(parent.state);
             possibleWorldState.CopyCompletedGoals();
             possibleWorldState.completedGoals.Add(rangedFightGoal);

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-public class Hand_Item_Controler : MonoBehaviour
+public class HandItemControler : MonoBehaviour
 { 
     Animator animator;
     public AnimationClip idle;
@@ -24,7 +24,6 @@ public class Hand_Item_Controler : MonoBehaviour
             if (!beingUsed)
             {
                 colidedObjects.Clear();
-                //Debug.Log("Trying to play: " + use.name);
                 if (use == null)
                 {
                     Debug.Log("ANIMATION IS NULLL => " + gameObject.name + " | " + transform.position);
@@ -42,7 +41,6 @@ public class Hand_Item_Controler : MonoBehaviour
     {
         animator.Play(idle.name);
         beingUsed = false;
-        //Debug.Log("Going idle");
     }
     public void SpriteChangeInAnimation()
     {
@@ -51,9 +49,8 @@ public class Hand_Item_Controler : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("Collising with:" + collision.gameObject.name + " | triger: " + collision.isTrigger);
         GameObject colObject = collision.gameObject;
-        //Isnt the weilder, can be hit and has not yet been hit
+        //Isn't the weilder, can be hit and has not yet been hit
         if (colObject! != transform.parent.parent.gameObject && 
             !colidedObjects.Contains(colObject) &&
             !collision.isTrigger)
@@ -61,9 +58,6 @@ public class Hand_Item_Controler : MonoBehaviour
             colidedObjects.Add(colObject);
             onHitEvent.Invoke(colObject);
         }
-        //Debug.Log("Colision with: " + collision.gameObject.name);
-        //FIRE EFFECTS ON OBJECTS THAT ARE RELEVANT
-        //collision.gameObject.GetComponent<>();//GET THE DAMAGABLE COMPONENT    
 
     }
 }

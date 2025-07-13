@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+/// <summary>
+/// Loads the level after all players ready
+/// </summary>
 public class LoadLevelWhenReady : MonoBehaviour
 {
     int players = 0;

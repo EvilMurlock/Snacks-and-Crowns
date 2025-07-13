@@ -4,18 +4,22 @@ using UnityEngine;
 
 namespace GOAP
 {
-    public class GoToRaidObject : Action
+    /// <summary>
+    /// Chooses a random enemy and travels towards them
+    /// </summary>
+    public class GoToRaidObject : NPCAction
     {
         LaunchRaid launchRaid;
         float lessThanFightGoalAggroRange = 7;
         public override void Awake()
         {
-            speachBubbleType = SpeachBubbleTypes.Charge;
+            speechBubbleType = SpeechBubbleTypes.Charge;
             base.Awake();
         }
         public override void Tick()
         {
-            if (target == null || DistanceCalculator.CalculateDistance( target.transform.position, gameObject.transform.position ) < lessThanFightGoalAggroRange) Deactivate();
+            if (target == null || DistanceCalculator.CalculateDistance( target.transform.position, gameObject.transform.position ) < lessThanFightGoalAggroRange) 
+                Deactivate();
             else if (launchRaid.IsCompleted())
             {
                 Complete();
@@ -23,7 +27,6 @@ namespace GOAP
         }
         public override void Activate(ActionData arg)
         {
-            Debug.Log("Chosen action!!!! RAD");
             target = launchRaid.GetRandomEnemy();
             npcAi.ChangeTarget(target);
             base.Activate(arg);
@@ -42,9 +45,7 @@ namespace GOAP
         {
             
             launchRaid = GetComponent<LaunchRaid>();
-            //Debug.Log("Is launchraid null? : "+launchRaid == null);
             if (launchRaid == null) return false;
-            //Debug.Log("Is achgiavable");
             return true;
         }
 

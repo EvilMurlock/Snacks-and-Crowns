@@ -4,6 +4,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 namespace GOAP
 {
+    /// <summary>
+    /// Holds the word state used for planning
+    /// </summary>
     [System.Serializable]
     public class WorldState
     {
@@ -16,27 +19,39 @@ namespace GOAP
         public Vector3 myPosition;
         public List<int> myInventory;
         public List<int> myEquipment;
-        //float myHealth;
-        //float myGold;
         public HashSet<Goal> completedGoals = new HashSet<Goal>();
 
-        // DEEP COPIES individual items---
+        /// <summary>
+        /// DEEP COPIES individual fields---, "DEEP" means that we copy references inside of the lists, but don't duplicate the actual items
+        /// </summary>
         public void CopyItemPickups()
         {
             itemPickups = new List<ItemPickup>(itemPickups);
         }
+        /// <summary>
+        /// DEEP COPIES individual fields---, "DEEP" means that we copy references inside of the lists, but don't duplicate the actual items
+        /// </summary>
         public void CopyVirtualItemPickups()
         {
             virtualItemPickups = new List<int>(virtualItemPickups);
         }
+        /// <summary>
+        /// DEEP COPIES individual fields---, "DEEP" means that we copy references inside of the lists, but don't duplicate the actual items
+        /// </summary>
         public void CopyInventory()
         {
             myInventory = new List<int>(myInventory);
         }
+        /// <summary>
+        /// DEEP COPIES individual fields---, "DEEP" means that we copy references inside of the lists, but don't duplicate the actual items
+        /// </summary>
         public void CopyCompletedGoals()
         {
             completedGoals = new HashSet<Goal>(completedGoals);
         }
+        /// <summary>
+        /// DEEP COPIES individual fields---, "DEEP" means that we copy references inside of the lists, but don't duplicate the actual items
+        /// </summary>
         public void CopyChestInventory(GameObject chest)
         {
             inventories = new Dictionary<GameObject, List<int>>(inventories);
@@ -45,6 +60,10 @@ namespace GOAP
         public WorldState()
         {
         }
+        /// <summary>
+        /// Shallow copies all fields
+        /// </summary>
+        /// <param name="worldState"></param>
         public WorldState( WorldState worldState)
         {
             // reference copy - shallow copy

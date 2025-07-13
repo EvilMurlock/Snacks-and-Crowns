@@ -511,7 +511,7 @@ MonoBehaviour:
   controlScheme: 
   uiInput: {fileID: 1316725568725158242}
   canvas: {fileID: 337053358425029208}
-  charakterSelectMenu: {fileID: 7327138702465215656}
+  characterSelectMenu: {fileID: 7327138702465215656}
 --- !u!1 &2688857913315565055
 GameObject:
   m_ObjectHideFlags: 0

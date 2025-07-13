@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+// class used to store the faction of the GameObject
 public class FactionMembership : MonoBehaviour
 {
     [SerializeField]
     Factions faction;
-    private void Start()
-    {
-    }
     public Factions Faction
     {
         get { return faction; }

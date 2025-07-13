@@ -8,6 +8,9 @@ using UnityEngine.EventSystems;
 public interface IRegistrable{
     public void ToRegister();
 }
+/// <summary>
+/// Class that sets up button listeners and allows other classes to subscribe to them
+/// </summary>
 public class SubmitHandler : MonoBehaviour, ISubmitHandler
 {
     protected UnityEvent buttonEvent = new UnityEvent();

@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+
+
+/// <summary>
+/// Tracks players gold
+/// </summary>
 public class GoldTracker : MonoBehaviour
 {
     int gold = 100;

@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GOAP;
+
+
+/// <summary>
+/// Changes relationship between NPC and playr factions to Alliance
+/// </summary>
 public class JoinPlayerFaction : DialogueComponentData<ActivateGolem>
 {
-    public override void InicializeComponent(GameObject player, GameObject listener)
+    public override void InitializeComponent(GameObject player, GameObject listener)
     {
         Factions playerFaction = player.GetComponent<FactionMembership>().Faction;
         Factions npcFaction = listener.GetComponent<FactionMembership>().Faction;

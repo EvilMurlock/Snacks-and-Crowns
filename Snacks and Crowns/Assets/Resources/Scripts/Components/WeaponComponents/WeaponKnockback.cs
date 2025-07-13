@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+/// <summary>
+/// Knocks back hit objects
+/// </summary>
 public class WeaponKnockback : MonoBehaviour
 {
     public float knockback;

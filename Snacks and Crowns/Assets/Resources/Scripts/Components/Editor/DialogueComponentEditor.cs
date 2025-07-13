@@ -4,6 +4,13 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+
+
+
+/// <summary>
+/// Loads Dialogue components and displays buttons in the Editor UI that allow for their initialization to a component list
+/// </summary>
+
 [CustomEditor(typeof(Dialogue),true)]
 public class DialogueComponentEditor : Editor
 {

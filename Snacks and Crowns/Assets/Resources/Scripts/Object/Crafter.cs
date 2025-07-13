@@ -10,8 +10,8 @@ public class Crafter : InteractibleInMenu
     [SerializeField]
     GameObject prefabCrafterlUi;
     [SerializeField]
-    CraftingObjekt craftingObjekt;
-    public CraftingObjekt CraftingObjekt { get => craftingObjekt; }    
+    CraftingObject craftingObjekt;
+    public CraftingObject CraftingObjekt { get => craftingObjekt; }    
     //ItemSlot craftedItem;
 
     GameObject player;

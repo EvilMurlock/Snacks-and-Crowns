@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+
+
+/// <summary>
+/// Used for debug spawning without needing to set up player data during character selection
+/// Is lo longer used, as we implemented the same thing in the MyJoinPlayerFromData class
+/// </summary>
 public class MyJoinPlayer : MonoBehaviour
 {
     public PlayerInputManager inputManager;
@@ -22,18 +29,6 @@ public class MyJoinPlayer : MonoBehaviour
                                 controlScheme: "Player1", // control scheme
                                 Keyboard.current); // pairWithDevice
         player1.gameObject.GetComponentInChildren<FactionMembership>().Faction = Factions.One;
-
-        /*
-        inputManager.JoinPlayer(-1, // player index
-                                -1, // split-screen index
-                                controlScheme: "Controller", // control scheme
-                                InputSystem.devices[2]); // pairWithDevice
-        */
-        //inputManager.joinBehavior = PlayerJoinBehavior.JoinPlayersWhenButtonIsPressed;
-        /*
-        Debug.Log("Contorlers detected: " + InputSystem.devices.Count);
-        Debug.Log("Contorlers detected: " + InputSystem.devices[0].name);
-        Debug.Log("Contorlers detected: " + InputSystem.devices[2].name);*/
     }
 
     void PlayerJoined(PlayerInput input)

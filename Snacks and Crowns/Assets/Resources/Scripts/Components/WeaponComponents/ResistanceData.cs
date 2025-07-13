@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+/// <summary>
+/// Data for a Resistance component
+/// </summary>
 [System.Serializable]
 public class ResistanceData : EquipmentComponentData<ResistanceData>
 {

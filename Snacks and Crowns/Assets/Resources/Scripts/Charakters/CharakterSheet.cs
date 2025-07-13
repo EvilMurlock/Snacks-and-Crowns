@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+/// <summary>
+/// Initializes character stats from the race
+/// </summary>
 public class CharakterSheet : MonoBehaviour
 {
     [SerializeField]

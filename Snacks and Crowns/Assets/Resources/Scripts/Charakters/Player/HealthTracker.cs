@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+
+
+/// <summary>
+/// Manages player health UI
+/// </summary>
 public class HealthTracker : MonoBehaviour
 {
     public GameObject healthBar;
@@ -26,6 +31,5 @@ public class HealthTracker : MonoBehaviour
     void UpdateHealthCounter(float health, float maxHealth)
     {
        slider.value = health/maxHealth;
-        //text.text = health.ToString();
     }
 }

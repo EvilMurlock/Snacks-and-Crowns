@@ -4,7 +4,10 @@ using UnityEngine;
 
 namespace GOAP
 {
-    public class MeleeFight : Action
+    /// <summary>
+    /// Gets a melee weapon and fights enemies in its agro range with it
+    /// </summary>
+    public class MeleeFight : NPCAction
     {
         MeleeFightGoal meleeFightGoal;
         List<ItemTags> meleeItemTags = new List<ItemTags>() { ItemTags.meleeWeapon };
@@ -14,7 +17,7 @@ namespace GOAP
         EquipmentManager equipmentManager;
         public override void Awake()
         {
-            speachBubbleType = SpeachBubbleTypes.Fight;
+            speechBubbleType = SpeechBubbleTypes.Fight;
             base.Awake();
         }
         public override void Start()
@@ -32,14 +35,14 @@ namespace GOAP
                 Complete();
             else if(npcAi.reachedEndOfPath || DistanceCalculator.CalculateDistance(transform.position, target.transform.position) <= attackRange)
             {
-                meleeItem.GetInstance(gameObject).GetComponent<Hand_Item_Controler>().Use();
+                meleeItem.GetInstance(gameObject).GetComponent<HandItemControler>().Use();
             }
         }
         public override void Activate(ActionData arg)
         {
             target = meleeFightGoal.GetClosestEnemy();
-            if (equipmentManager.HasEquipedItem(meleeItemTags))
-                meleeItem = GetEquipedItem(meleeItemTags);
+            if (equipmentManager.HasEquippedItem(meleeItemTags))
+                meleeItem = GetEquippedItem(meleeItemTags);
             else
                 meleeItem = EquipItem(meleeItemTags);
             npcAi.ChangeTarget(target);
@@ -69,14 +72,12 @@ namespace GOAP
         {
             List<Node> possibleNodes = new List<Node>();
             Node parent = parentOriginal;
-            if (!HasItem(parentOriginal.state, meleeItemTags) && !equipmentManager.HasEquipedItem(meleeItemTags))
+            if (!HasItem(parentOriginal.state, meleeItemTags) && !equipmentManager.HasEquippedItem(meleeItemTags))
             {
-                //Debug.Log("Getting item");
                 parent = GetRequiredItemWithTags(parentOriginal, meleeItemTags);
                 if (parent == null)
-                    return possibleNodes; // we cant fight, we dont have a weapon
+                    return possibleNodes; // we cant fight, we don't have a weapon
             }
-            //else Debug.Log("Already have item");
             WorldState possibleWorldState = new WorldState(parent.state);
             possibleWorldState.CopyCompletedGoals();
             possibleWorldState.completedGoals.Add(meleeFightGoal);

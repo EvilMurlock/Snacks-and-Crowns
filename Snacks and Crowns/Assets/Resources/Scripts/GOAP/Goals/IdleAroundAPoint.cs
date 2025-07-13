@@ -44,21 +44,19 @@ namespace GOAP {
         }
         public override bool CompletedByState(WorldState state) //If more of desired item in chest then there is curently, then returns true
         {
-            // used in the planing step
+            // used in the planning step
             return CloserToGoalCheck(state);
         }
         public bool CloserToGoalCheck(WorldState state)
         {
 
             return state.completedGoals.Contains(this);
-            //return DistanceCalculator.CalculateDistance(state.myPosition, targetObject.transform.position) <= minDistance;
         }
         public override void Tick()
         {
             wanderPriority += priorityIncreasePerSecond * Time.deltaTime;
             if (active)
             {
-                //Debug.Log("Time passed: " + (Time.realtimeSinceStartup - startTime));
                 if (Time.realtimeSinceStartup - startTime > resetTime)
                 {
                     ChooseRandomPoint();
@@ -83,7 +81,6 @@ namespace GOAP {
 
         public override void Complete()
         {
-            //Debug.Log("Plan " + this.GetType().ToString() + " Completed");
             ChooseRandomPoint();
             wanderPriority = minPriority;
             active = false;
@@ -92,7 +89,6 @@ namespace GOAP {
         {
             Vector3 randomPoint = Random.insideUnitCircle * wanderDistance;
             randomIdlePoint = randomPoint + basePoint;
-            //Debug.Log("New random point chosen: " + "("+randomIdlePoint.x + ", "+randomIdlePoint.y+")");
         }
         public override float CalculatePriority()
         {

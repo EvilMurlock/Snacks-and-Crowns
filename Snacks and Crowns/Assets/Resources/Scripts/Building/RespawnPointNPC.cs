@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Manages respawning of NPCs and inicializes their jobs
+/// </summary>
 public class RespawnPoint : MonoBehaviour
 {
     [SerializeField]

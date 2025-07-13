@@ -11,7 +11,9 @@ public enum Relations
     Alliance, Neutral, War
 }
 
-
+/// <summary>
+/// Manages global faction relations
+/// </summary>
 public sealed class FactionState
 {
     public static Relations[,] factionRelations;
@@ -34,6 +36,9 @@ public sealed class FactionState
         }
         ChangeFactionRelation(Factions.One, Factions.Two, Relations.War);
     }
+    /// <summary>
+    /// Changes relations between 2 factions
+    /// </summary>
     public static void ChangeFactionRelation(Factions aF, Factions bF, Relations relation)
     {
         int a = (int)aF;
@@ -70,6 +75,7 @@ public sealed class FactionState
             ChangeRelationsOnAlliesOf(changedFaction, Factions.Two, Relations.Alliance);
         }
     }
+
     static void ChangeRelationsOnAlliesOf(Factions myFaction, Factions enemyFaction, Relations newRelation)
     {
         for (int i = 0; i < Enum.GetValues(typeof(Factions)).Length; i++)
@@ -87,6 +93,9 @@ public sealed class FactionState
         return factionRelations[a, b];
     }
 
+    /// <summary>
+    /// Prints relation matrix
+    /// </summary>
     public static void PrintRelationsMatrix()
     {
         string[] factionsNames = Enum.GetNames(typeof(Factions));
@@ -102,9 +111,12 @@ public sealed class FactionState
             }
             matrix += "\n";
         }
-        //Debug.Log(matrix);
+        Debug.Log(matrix);
     }
 
+    /// <summary>
+    /// Checks if the factions are allies
+    /// </summary>
     public static bool Allies(GameObject a, GameObject b)
     {
         Factions factionA = a.GetComponent<FactionMembership>().Faction;

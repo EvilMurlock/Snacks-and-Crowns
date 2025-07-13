@@ -4,6 +4,9 @@ using UnityEngine;
 using System.Linq;
 namespace GOAP
 {
+    /// <summary>
+    /// Puts an item inside of a chest
+    /// </summary>
     public class ActionDataPutItemInChest : ActionData
     {
         public GameObject targetObject;
@@ -14,14 +17,14 @@ namespace GOAP
             this.item = item;
         }
     }
-    public class PutItemInChest : Action
+    public class PutItemInChest : NPCAction
     {
         CraftingRecipes craftingRecipes;
         ActionDataPutItemInChest planingData;
         FillAnInventory fillInventoryGoal;
         public override void Awake()
         {
-            speachBubbleType = SpeachBubbleTypes.GetItem;
+            speechBubbleType = SpeechBubbleTypes.GetItem;
             base.Awake();
         }
         public override void Start()
@@ -102,20 +105,17 @@ namespace GOAP
             List<int> itemsToProcess = new List<int>();
             foreach (int item in inventory)
             {
-                //if (!itemsToProcess.Contains(item)) 
-                    itemsToProcess.Add(item);
+                itemsToProcess.Add(item);
             }
             foreach (ItemPickup itemPickup in parent.state.itemPickups)
             {
                 int itemId = World.GetIdFromItem(itemPickup.item);
-                //if (!itemsToProcess.Contains(itemId))
-                    itemsToProcess.Add(itemId);
+                itemsToProcess.Add(itemId);
                 
             }
             foreach (int itemId in parent.state.virtualItemPickups)
             {
-                //if (!itemsToProcess.Contains(itemId))
-                    itemsToProcess.Add(itemId);
+                itemsToProcess.Add(itemId);
             }
 
             foreach (CraftingRecipe recipe in craftingRecipes.craftingRecipes)
@@ -134,10 +134,8 @@ namespace GOAP
                 Node nodeParent = parent;
                 if (!inventory.Contains(itemId))
                 {
-                    // Without chest was used to prevent item bouncing between resource harvesters
-                    //nodeParent = GetRequiredItemNoChest(parent, item); // this will also try to pick up virtual items (future pick-ups)
+                    // Without chest is used to prevent item bouncing between resource harvesters
                     nodeParent = GetRequiredItem(parent, item);
-                    //nodeParent = GetRequiredItemNoChest(parent, item);
                     if (nodeParent == null)
                         continue;
                 }
@@ -152,41 +150,12 @@ namespace GOAP
                 possibleWorldState.CopyChestInventory(targetChest);
                 possibleWorldState.CopyInventory();
 
-                /*
-                Node debug_node = nodeParent;
-                while(debug_node != null)
-                {
-                    if (debug_node.parent == null)
-                    {
-                        foreach (int i in debug_node.state.inventories[targetChest])
-                        {
-                            Item it = World.GetItemFromId(i);
-                            Debug.Log("------------ Chest first state: " + it.itemName);
-                        }
-                    }
-                    debug_node = debug_node.parent;
-
-                }*/
 
                 possibleWorldState.myInventory.Remove(itemId);
                 possibleWorldState.inventories[targetChest].Add(itemId);
 
                 Node node = new Node(nodeParent, 1, possibleWorldState, GetComponent<PutItemInChest>(), new ActionDataPutItemInChest(targetChest, item));
                 possibleNodes.Add(node);
-                /*
-                Debug.Log("Planned item: " + item.name);
-                if(nodeParent.action != null)
-                    Debug.Log("----: " + nodeParent.action.actionName);
-                if(nodeParent.parent != null)
-                    if (nodeParent.parent.action != null)
-                        Debug.Log("--------: " + nodeParent.parent.action.actionName);
-                int tempindex = 0;
-                foreach(int i in possibleWorldState.inventories[targetChest]){
-                    Item it = World.GetItemFromId(i);
-                    Debug.Log("------------ Chest item ["+tempindex+"]: " + it.itemName);
-                    tempindex++;
-                }*/
-
 
 
             }

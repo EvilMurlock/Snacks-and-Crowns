@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
+
+/// <summary>
+/// Pathfinding management for an NPC, determines walk direction
+/// and detects when the target was reached
+/// </summary>
 public class NpcAi : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -25,7 +30,6 @@ public class NpcAi : MonoBehaviour
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
 
-        //target = GameObject.Find("Player1(Clone)").transform;
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
     void UpdatePath()
@@ -47,6 +51,9 @@ public class NpcAi : MonoBehaviour
         }
     }
     // Update is called once per frame
+    /// <summary>
+    /// Here we check which node we should travel to and determine our direction of travel
+    /// </summary>
     void FixedUpdate()
     {
         if (path == null) return;
@@ -65,7 +72,6 @@ public class NpcAi : MonoBehaviour
         float distanceFromWaypoint = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
         float distanceFromEnd = Vector2.Distance(rb.position, path.vectorPath[path.vectorPath.Count-1]);//HERE READ LAST WAIPOINT!!!!
 
-        //Debug.Log("A*: Distance from waypoint = "+ distanceFromWaypoint);
         if (distanceFromWaypoint < nextWaypointDistance)
         {
             currentWaypoint++;
@@ -79,12 +85,11 @@ public class NpcAi : MonoBehaviour
     {
         if (target != null) {
             Vector2 direction = ((Vector2)target.position - rb.position).normalized;
-            movement.RotateTowars(direction);//End of path not nececeraly insode of the actual object, use diferent end point
+            movement.RotateTowards(direction);//End of path not necessarily inside of the actual object
         }
         else target = null;
         reachedEndOfPath = true;
         movement.ChangeMovementDirection(Vector2.zero);
-        //Debug.Log("reached End of path");
     }
     public void ChangeTarget(GameObject newTarget, float distanceFromTarget)
     {
@@ -93,7 +98,6 @@ public class NpcAi : MonoBehaviour
             target = null;
         else
             target = newTarget.transform;
-        //Debug.Log("Pathing target is now: " + target.name);
 
         reachedEndOfPath = false;
         path = null;
@@ -102,12 +106,9 @@ public class NpcAi : MonoBehaviour
 
     public void ChangeTarget(GameObject newTarget)
     {
-
-        //Debug.Log("New target is: " + newTarget);
         if (newTarget != null &&
             target == newTarget.transform)
         {
-            //Debug.Log("New target is same as old");
             return;
         }
         ChangeTarget(newTarget, lastWaypointDistanceDefault);

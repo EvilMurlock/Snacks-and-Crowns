@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+/// <summary>
+/// Deletes this GameObject after the givven amount of time
+/// </summary>
 public class DeleteAfterTime : MonoBehaviour
 {
     public float time;

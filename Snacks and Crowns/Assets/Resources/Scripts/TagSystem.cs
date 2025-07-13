@@ -1,6 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
+/// <summary>
+/// manages tags on an objects and has some helper methods
+/// </summary>
 public class TagSystem : MonoBehaviour
 {
     [SerializeReference] List<string> tags = new List<string>();

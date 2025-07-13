@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+
+
+
+/// <summary>
+/// Refreshes pathfinding grid around self on death, used to allow pathfiding through destructible objects after their death, like an ore deposit or a tree
+/// </summary>
 public class RefreshAstarGridAfterDeath : MonoBehaviour
 {
     void Start()

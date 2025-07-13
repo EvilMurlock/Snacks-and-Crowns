@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
+/// <summary>
+/// Intermediery class for input deteciton, simply passed detected inputs  into the PlayerStateManager class
+/// </summary>
 public class PlayerInputInbetween : MonoBehaviour
 {
     public

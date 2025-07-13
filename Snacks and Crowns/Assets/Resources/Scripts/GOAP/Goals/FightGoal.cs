@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace GOAP
 {
+    /// <summary>
+    /// Fights enemies in agro range
+    /// </summary>
     public abstract class FightGoal : Goal
     {
         float agroDistance = 8;
@@ -32,7 +35,6 @@ namespace GOAP
         {
             if(collision.gameObject.GetComponent<CharakterSheet>() != null)
             {
-                //Debug.Log("Adding this character: " + collision.gameObject.name);
                 charactersInRange.Add(collision.gameObject);
             }
         }
@@ -48,11 +50,9 @@ namespace GOAP
                 Factions theirFaction = charakter.GetComponent<FactionMembership>().Faction;
                 if (FactionState.GetFactionRelations(myFaction,theirFaction) == Relations.War)
                 {
-                    //Debug.Log("Enemies in range!!!");
                     return priority;
                 }
             }
-            //Debug.Log("No enemies in range!!!");
             return 0;
         }
         public GameObject GetClosestEnemy()

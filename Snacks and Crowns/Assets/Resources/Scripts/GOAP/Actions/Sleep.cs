@@ -4,14 +4,16 @@ using UnityEngine;
 
 namespace GOAP
 {
-
-    public class Sleep : Action
+    /// <summary>
+    /// sleeps in a bed
+    /// </summary>
+    public class Sleep : NPCAction
     {
         SleepGoal sleepGoal;
         bool sleeping;
         public override void Awake()
         {
-            speachBubbleType = SpeachBubbleTypes.Sleep;
+            speechBubbleType = SpeechBubbleTypes.Sleep;
             base.Awake();
         }
         public override void Start()

@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+/// <summary>
+/// Automatically opens and closes adjacent doors
+/// </summary>
 public class DoorOpener : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
@@ -9,7 +14,6 @@ public class DoorOpener : MonoBehaviour
         Door door;
         if (collision.gameObject.TryGetComponent<Door>(out door))
         {
-            //Debug.Log("Door entered range");
             if (!door.open) door.Interact(this.gameObject);
         }
     }
@@ -18,7 +22,6 @@ public class DoorOpener : MonoBehaviour
         Door door;
         if(collision.gameObject.TryGetComponent<Door>(out door))
         {
-            //Debug.Log("Door entered range");
             if (!door.open) door.Interact(this.gameObject);
         }
     }

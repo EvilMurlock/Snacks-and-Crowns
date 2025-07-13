@@ -4,6 +4,13 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+
+
+
+/// <summary>
+/// Loads Ability components and displays buttons in the Editor UI that allow for their initialization to a component list
+/// </summary>
+
 [CustomEditor(typeof(Ability),true)]
 public class AbilityComponentEditor : Editor
 {

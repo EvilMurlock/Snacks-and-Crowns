@@ -7,11 +7,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New_Race", menuName = "Race")]
 public class Race : ScriptableObject
 {
-    //Esthetics
+    //Aesthetics
     public List<Sprite> faces;
     public string race;
 
-    //Fyzical Stats
+    //Physical Stats
     public float strenght;
     public float agility;
     public float size;

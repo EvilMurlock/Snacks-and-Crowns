@@ -30,7 +30,7 @@ namespace GOAP {
         {
             desiredItems = newDesiredItems;
         }
-        public override bool CompletedByState(WorldState state) //If more of desired item in chest then there is curently, then returns true
+        public override bool CompletedByState(WorldState state) //If more of desired item in chest then there is currently, then returns true
         {
             // bug here i think
             return CloserToGoalCheck(state);
@@ -69,11 +69,6 @@ namespace GOAP {
                     tempDesiredItems2.Remove(item);
                 }
             }
-            /*
-            Debug.Log("originalItemCount: " + originalItemCount);
-            Debug.Log("newItemCount: " + newItemCount);
-            Debug.Log("Goal closer to completion: " + (originalItemCount < newItemCount));*/
-
 
             return originalItemCount < newItemCount;
 
@@ -111,7 +106,6 @@ namespace GOAP {
 
         public override void Complete()
         {
-            //Debug.Log("Plan " + this.GetType().ToString() + " Completed");
             active = false;
         }
         public override float CalculatePriority()
@@ -123,8 +117,6 @@ namespace GOAP {
 
 
             priority = HowCloseToFillingTheChest();
-
-            //Debug.Log("Priority of goal Fill inventory: " + priority);
 
             if (active) priority *= 2;
 
@@ -146,25 +138,7 @@ namespace GOAP {
                 }
             }
 
-            //Debug.Log("Priority is: "+similarityCount);
             return similarityCount;
         }
-        /*
-        public override bool CanRun()
-        {
-            WorldState state = World.Instance.GetWorld();
-            //List<(int, Vector3)> itemDrops = (List<(int, Vector3)>)state.GetStates()["ItemDropList"];
-            //foreach((int, Vector3) pair in itemDrops)
-            //{
-            //    if (pair.Item1 == World.GetIdFromItem(iron)) return true;
-            //}
-
-            TagSystem[] tagSystems = FindObjectsOfType<TagSystem>();
-            foreach (TagSystem tagSys in tagSystems)
-            {
-                if (tagSys.HasTag("Iron Ore Mine")) return true;
-            }
-            return false;
-        }*/
     }
 }

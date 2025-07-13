@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+/// <summary>
+/// Deals damage on hit
+/// </summary>
 [RequireComponent(typeof(Collision2D_Proxy))]
 public class DamageOnHit : MonoBehaviour
 {

@@ -5,8 +5,10 @@ using UnityEngine;
 namespace GOAP
 {
 
-
-    public class GolemFight : Action
+    /// <summary>
+    /// Fight logic for the Golem
+    /// </summary>
+    public class GolemFight : NPCAction
     {
         GolemFightGoal golemFightGoal;
         float attackRange = 0.3f;
@@ -14,7 +16,7 @@ namespace GOAP
         float timeOfLastFireUse;
         public override void Awake()
         {
-            speachBubbleType = SpeachBubbleTypes.Fight;
+            speechBubbleType = SpeechBubbleTypes.Fight;
             foreach(Ability ability in GetComponent<Abilities>().abilities)
             {
                 if (ability.name == "GolemFireBreath")

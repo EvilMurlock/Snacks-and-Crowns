@@ -5,6 +5,10 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
+
+/// <summary>
+/// Manages faction selection during character selection
+/// </summary>
 public class FactionSelect : MonoBehaviour, ISubmitHandler
 {
     [SerializeField]
@@ -12,7 +16,6 @@ public class FactionSelect : MonoBehaviour, ISubmitHandler
 
     Factions faction;
 
-    // Start is called before the first frame update
     void Start()
     {
         faction = Factions.One;

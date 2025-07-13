@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+
+
+/// <summary>
+/// Custom UI navigation generator, but is UNUSED because it was not generating desired connections
+/// </summary>
 public class UINavigationGenerator : MonoBehaviour
 {
     List<Selectable> selectables = new List<Selectable>();
     void Start()
     {
-        /*
-        var a = new Vector2(0, 0);
-        var b = new Vector2(1, 1);
-        Debug.Log("Test: " + Vector2.Angle(a,b));
-        Debug.Log("Test: " + Vector2.Angle(b,a));*/
         GenerateNavigation();
     }
     void UpdateSelectables()
@@ -35,7 +36,6 @@ public class UINavigationGenerator : MonoBehaviour
             myNavigation.selectOnDown = ClosestInAngle(sel, 135, 225);
             myNavigation.selectOnLeft = ClosestInAngle(sel, 225, 335);
             sel.navigation = myNavigation;
-            //Debug.Log("LEFT IS: "+sel.navigation.selectOnLeft.name);
         }
     }
 
@@ -50,7 +50,6 @@ public class UINavigationGenerator : MonoBehaviour
             float angle = Vector2.SignedAngle((Vector2)me.transform.position - (Vector2)other.transform.position, Vector2.down);
             if (angle < 0)
                 angle += 360;
-            //Debug.Log("Mesuring: " + me.name + " | "+ other.name + " => " + angle);
             if (other == me)
                 continue;
             if (minAngle > 0 && angle > maxAngle)
@@ -76,7 +75,6 @@ public class UINavigationGenerator : MonoBehaviour
                 closest = candidate;
             }
         }
-        //Debug.Log("Connected: " + me.name + " | "+ closest.name);
         return closest;
     }
 }

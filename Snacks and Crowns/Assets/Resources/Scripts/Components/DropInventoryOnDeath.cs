@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GOAP;
+
+
+/// <summary>
+/// Drops inventory when it dies
+/// </summary>
 public class DropInventoryOnDeath : MonoBehaviour
 {
     void Start()

@@ -9,7 +9,7 @@ namespace GOAP {
 
         float sleepDuration = 10;
         float sleepStartTime = 0;
-        float defaultPriority = 1;
+        float defaultPriority = 0;
         float currentPriority;
         float sleepPriorityGainPerSecond = 0.001f;
         float randomDurationSpread = 0.3f;
@@ -28,7 +28,7 @@ namespace GOAP {
         {
             this.bed = bed;
         }
-        public override bool CompletedByState(WorldState state) //If more of desired item in chest then there is curently, then returns true
+        public override bool CompletedByState(WorldState state) //If more of desired item in chest then there is currently, then returns true
         {
             // used in the planing step
             return CloserToGoalCheck(state);
@@ -37,11 +37,12 @@ namespace GOAP {
         {
 
             return state.completedGoals.Contains(this);
-            //return DistanceCalculator.CalculateDistance(state.myPosition, targetObject.transform.position) <= minDistance;
         }
         public override void Tick()
         {
             currentPriority += sleepPriorityGainPerSecond * Time.deltaTime;
+            if(currentPriority > 4)
+                currentPriority = 4;
         }
 
         public bool IsCompleted()
@@ -53,6 +54,7 @@ namespace GOAP {
         }
         public override void Activate()
         {
+            currentPriority = defaultPriority;
             durationModifier = Random.Range(1 - randomDurationSpread, 1 + randomDurationSpread);
             sleepStartTime = Time.timeSinceLevelLoad;
             active = true;
@@ -64,12 +66,11 @@ namespace GOAP {
 
         public override void Complete()
         {
-            //Debug.Log("Plan " + this.GetType().ToString() + " Completed");
+            currentPriority = defaultPriority;
             active = false;
         }
         public override float CalculatePriority()
         {
-            //Debug.Log("Priority of goal Sleep: " + currentPriority);
             return currentPriority;
         }
 

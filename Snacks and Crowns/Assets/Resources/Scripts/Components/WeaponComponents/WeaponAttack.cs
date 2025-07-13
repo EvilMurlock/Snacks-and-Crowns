@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Attack data
+/// </summary>
 public class WeaponAttack : MonoBehaviour
 {
     public Attack attack;
@@ -11,7 +15,6 @@ public class WeaponAttack : MonoBehaviour
         Damageable damagable = g.GetComponent<Damageable>();
         if(damagable != null)
         {
-            //Debug.Log("Dealt damage: " + attack.damage);
             damagable.TakeDamage(attack);
         }
     }

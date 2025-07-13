@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Damanges and kncokbacks and creates partciles representing an explosion
+/// </summary>
 public class ExplosionOnDeleteData : ProjectileComponentData<Explosion>
 {
     public float radius;
@@ -9,7 +12,7 @@ public class ExplosionOnDeleteData : ProjectileComponentData<Explosion>
     public float minKnockback;
     public Attack attack;
     public GameObject explosionEffect;
-    public override void InicializeComponent(GameObject projectile)
+    public override void InitializeComponent(GameObject projectile)
     {
         Explosion explosion = projectile.AddComponent<Explosion>();
         explosion.radius = radius;

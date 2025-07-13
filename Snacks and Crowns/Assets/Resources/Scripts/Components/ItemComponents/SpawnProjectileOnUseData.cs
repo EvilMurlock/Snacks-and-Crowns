@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Spawns a projectile with given atributes
+/// </summary>
 public class SpawnProjectileOnUseData : ItemComponentData<SpawnProjectileOnUseData>
 {
     public GameObject projectilePrefab;

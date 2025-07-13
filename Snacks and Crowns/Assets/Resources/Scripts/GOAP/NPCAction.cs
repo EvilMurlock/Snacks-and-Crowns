@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GOAP
 {
-    public enum SpeachBubbleTypes
+    public enum SpeechBubbleTypes
     {
         None,
         Charge,
@@ -15,11 +15,15 @@ namespace GOAP
         GetItem,
         Heal
     }
-    public abstract class Action : MonoBehaviour
-    {
-        public bool reusable = false; //can this action be used multiple times in the planner?, often set true for subactions
 
-        float speachBubbleDuration = 3;
+    /// <summary>
+    /// Base action class inlcuding some helpfull methods
+    /// </summary>
+    public abstract class NPCAction : MonoBehaviour
+    {
+        public bool reusable = false; //can this action be used multiple times in the planner?, often set true for sub actions
+
+        float speechBubbleDuration = 3;
         public string actionName = "Action";
         public GameObject target;
         public List<string> targetTags = new List<string>();
@@ -27,8 +31,8 @@ namespace GOAP
         public bool running = false;
         public bool completed = false;
         protected NpcAi npcAi;
-        Sprite speachBubbleSprite = null;
-        protected SpeachBubbleTypes speachBubbleType = SpeachBubbleTypes.None;
+        Sprite speechBubbleSprite = null;
+        protected SpeechBubbleTypes speechBubbleType = SpeechBubbleTypes.None;
         int equipmentSlots = 5;
         public virtual string GetInfo(ActionData data)
         {
@@ -42,31 +46,30 @@ namespace GOAP
         void LoadSpeachBubbleSprite()
         {
             string spriteName = "";
-            switch (speachBubbleType)
+            switch (speechBubbleType)
             {
-                case SpeachBubbleTypes.None:
+                case SpeechBubbleTypes.None:
                     return;
-                    break;
-                case SpeachBubbleTypes.Charge:
+                case SpeechBubbleTypes.Charge:
                     spriteName = "bubble_charge";
                     break;
-                case SpeachBubbleTypes.Fight:
+                case SpeechBubbleTypes.Fight:
                     spriteName = "bubble_fight";
                     break;
-                case SpeachBubbleTypes.Gather:
+                case SpeechBubbleTypes.Gather:
                     spriteName = "bubble_gather";
                     break;
-                case SpeachBubbleTypes.Sleep:
+                case SpeechBubbleTypes.Sleep:
                     spriteName = "bubble_sleep";
                     break;
-                case SpeachBubbleTypes.Walk:
+                case SpeechBubbleTypes.Walk:
                     spriteName = "bubble_walk";
                     break;
-                case SpeachBubbleTypes.GetItem:
+                case SpeechBubbleTypes.GetItem:
                     spriteName = "bubble_get_item";
                     break;
             }
-            speachBubbleSprite = Resources.Load<Sprite>("Sprites/Speach Bubbles/" + spriteName);
+            speechBubbleSprite = Resources.Load<Sprite>("Sprites/Speach Bubbles/" + spriteName);
         }
         public virtual void Start()
         {
@@ -86,14 +89,9 @@ namespace GOAP
         {
             return true;
         }
-        /*
-        public virtual void Activate()
-        {
-            Activate(FindTarget());
-        }*/
         public virtual void Activate(ActionData data)
         {
-            StartCoroutine(CreateTimedSpeachBubble());
+            StartCoroutine(CreateTimedSpeechBubble());
             running = true;
             completed = false;
         }
@@ -141,27 +139,20 @@ namespace GOAP
                     {
                         foundTarget = tagSys.gameObject;
                     }
-                    //Debug.Log("Target found");
                 }
             }
-
-
-            //DEBUG SECTION
-            /*
-            string allTgs = "";
-            foreach (string t in targetTags)
-            {
-                allTgs += (t + ", ");
-            }
-            Debug.Log("Target with tags: "+ allTgs);
-            Debug.Log("\n Found: " + foundTarget.name);
-            */
             return foundTarget;
         }
 
         public abstract bool IsAchievableGiven(WorldState worldState);//For the planner
 
-        protected Node GetRequiredItemNoChest(Node parent, Item requiredItem) //Returns a plan that will colect the required items, returns null if no such plan exists
+        /// <summary>
+        /// Inserts actions into the plan that find the given Item, the Item will not be taken from a chest
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="requiredItem"></param>
+        /// <returns></returns>
+        protected Node GetRequiredItemNoChest(Node parent, Item requiredItem) //Returns a plan that will collect the required items, returns null if no such plan exists
         {
             // this will also try to pick up virtual items (future pick-ups)
 
@@ -197,7 +188,10 @@ namespace GOAP
             }
             return closestBed;
         }
-        protected Node GetRequiredItem(Node parent, Item requiredItem) //Returns a plan that will colect the required items, returns null if no such plan exists
+        /// <summary>
+        /// Inserts actions into the plan that find the given Item, the Item can be crated, picked up from a pick up, or taken from a chest
+        /// </summary>
+        protected Node GetRequiredItem(Node parent, Item requiredItem) //Returns a plan that will collect the required items, returns null if no such plan exists
         {
             GetItem getItem = GetComponent<GetItem>();
             Node currentNode = parent;
@@ -250,7 +244,7 @@ namespace GOAP
             return false;
         }
         
-        protected Equipment GetEquipedItem(List<ItemTags> tags)
+        protected Equipment GetEquippedItem(List<ItemTags> tags)
         {
             foreach (Equipment equipment in GetComponent<EquipmentManager>().Equipments)
             {
@@ -261,7 +255,7 @@ namespace GOAP
             }
             return null;
         }
-        protected Equipment GetEquipedItem(Item item)
+        protected Equipment GetEquippedItem(Item item)
         {
             foreach (Equipment equipment in GetComponent<EquipmentManager>().Equipments)
             {
@@ -274,7 +268,10 @@ namespace GOAP
             Debug.Log("ITEM <" + item.itemName + "> NOT FOUND!!!!");
             return null;
         }
-        protected Node GetRequiredItemWithTags(Node parent, List<ItemTags> tags) //Returns a plan that will colect the required items, returns null if no such plan exists
+        /// <summary>
+        /// Inserts actions into the plan that find an Item that has given tags, the Item can be crated, picked up from a pick up, or taken from a chest
+        /// </summary>
+        protected Node GetRequiredItemWithTags(Node parent, List<ItemTags> tags) //Returns a plan that will collect the required items, returns null if no such plan exists
         {
             GetItem getItem = GetComponent<GetItem>();
             Node currentNode = parent;
@@ -296,8 +293,10 @@ namespace GOAP
 
             return currentNode;
         }
-
-        protected Node GetRequiredItems(Node parent, List<Item> requiredItems) //Returns a plan that will colect the required items, returns null if no such plan exists
+        /// <summary>
+        /// Inserts actions into the plan that find all given Items, the Items can be crated, picked up from a pick up, or taken from a chest
+        /// </summary>
+        protected Node GetRequiredItems(Node parent, List<Item> requiredItems) //Returns a plan that will collect the required items, returns null if no such plan exists
         {
             GetItem getItem = GetComponent<GetItem>();
             Node currentNode = parent;
@@ -380,7 +379,7 @@ namespace GOAP
                 return false;
             if (!inventory.HasItem(item))
             {
-                Debug.Log("Ai: npc doesnt have the item it wants to equip");
+                Debug.Log("Ai: npc doesn't have the item it wants to equip");
                 return false;
             }
             for(int i = 0; i < equipmentSlots; i++)
@@ -421,16 +420,16 @@ namespace GOAP
             }
         }
 
-        IEnumerator CreateTimedSpeachBubble()
+        IEnumerator CreateTimedSpeechBubble()
         {
             SpriteRenderer renderer = transform.Find("SpeachBubble").GetComponent<SpriteRenderer>();
 
 
-            renderer.sprite = speachBubbleSprite;
+            renderer.sprite = speechBubbleSprite;
 
             float tick = 0.03f;
             float alphaChange = 0.5f;
-            yield return new WaitForSeconds(speachBubbleDuration - tick/alphaChange);
+            yield return new WaitForSeconds(speechBubbleDuration - tick/alphaChange);
             while(renderer.color.a != 0)
             {
                 float newAlpha = renderer.color.a - alphaChange;
@@ -441,6 +440,10 @@ namespace GOAP
             renderer.color = new Color(1, 1, 1, 1);
 
         }
+
+        /// <summary>
+        /// Inserts actions into the plan that find the given Item
+        /// </summary>
         protected Node GetTool(Node parent, Item requiredTool)
         {
 

@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
+/// <summary>
+/// Attack data for a projectile
+/// </summary>
 public class ProjectileAttackData : ProjectileComponentData<WeaponAttack>
 {
     public Attack attack;
 
-    public override void InicializeComponent(GameObject projectile)
+    public override void InitializeComponent(GameObject projectile)
     {
         WeaponAttack weaponAttack = projectile.AddComponent<WeaponAttack>();
         weaponAttack.attack = attack;

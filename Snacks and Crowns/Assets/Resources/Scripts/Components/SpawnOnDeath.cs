@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+/// <summary>
+/// Spawns prefab on death
+/// </summary>
 public class SpawnOnDeath : MonoBehaviour
 {
     public GameObject GameObjectToSpawn;

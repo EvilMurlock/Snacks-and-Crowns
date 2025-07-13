@@ -25,13 +25,13 @@ public class MenuManager : MonoBehaviour
     {
         inventoryMenu = Instantiate(inventoryMenuPrefab, canvas.transform);
         inventoryMenu.GetComponent<InventoryMenu>().Initialize(this.gameObject);
-        GetComponent<PlayerStateManager>().ChangeState(CharakterState.inMenu);
+        GetComponent<PlayerStateManager>().ChangeState(CharacterState.inMenu);
     }
     public void CloseInventory()
     {
         if (inventoryMenu == null) return;
         Destroy(inventoryMenu);
-        GetComponent<PlayerStateManager>().ChangeState(CharakterState.normal);
+        GetComponent<PlayerStateManager>().ChangeState(CharacterState.normal);
     }
     public void SelectObject(GameObject gameObjecct)
     {

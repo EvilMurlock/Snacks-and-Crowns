@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 namespace GOAP
 {
     public class LaunchRaid : Goal
@@ -43,9 +44,19 @@ namespace GOAP
         }
         public GameObject GetRandomEnemy()
         {
-            var characters = Object.FindObjectsOfType<CharakterSheet>();
-            CharakterSheet chosenEnemy = characters[Random.Range(0, characters.Length - 1)];
-            Debug.Log("Random enemy is: "+ chosenEnemy.gameObject.name);
+            CharakterSheet[] characters = FindObjectsOfType<CharakterSheet>();
+            List<CharakterSheet> enemies = new List<CharakterSheet> ();
+            for (int i = characters.Length-1;  i >= 0; i--)
+            {
+                Factions myFaction = GetComponent<FactionMembership>().Faction;
+                Factions theirFaction = characters[i].GetComponent<FactionMembership>().Faction;
+                if (FactionState.GetFactionRelations(myFaction, theirFaction) == Relations.War)
+                {
+                    enemies.Add(characters[i]);       
+                }
+            }
+            CharakterSheet chosenEnemy = enemies[Random.Range(0, enemies.Count)];
+
 
             return chosenEnemy.gameObject;
         }

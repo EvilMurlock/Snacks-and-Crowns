@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a7298259f1804e46a1fec448ab71e10, type: 3}
   m_Name: Rainbow Sword
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: edf02af0aa593c345b584e540fa72124, type: 3}
+  icon: {fileID: 21300000, guid: 139749680907e3342a7a61040304ef74, type: 3}
   itemName: Rainbow Sword
   description: 'A legendary sword of great power. '
-  cost: 666
+  cost: 150
   prefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
   useDuration: 0
   singleUse: 0

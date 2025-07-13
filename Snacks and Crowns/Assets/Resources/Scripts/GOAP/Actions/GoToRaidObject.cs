@@ -7,6 +7,7 @@ namespace GOAP
     public class GoToRaidObject : Action
     {
         LaunchRaid launchRaid;
+        float lessThanFightGoalAggroRange = 7;
         public override void Awake()
         {
             speachBubbleType = SpeachBubbleTypes.Charge;
@@ -14,7 +15,7 @@ namespace GOAP
         }
         public override void Tick()
         {
-            if (target == null) Deactivate();
+            if (target == null || DistanceCalculator.CalculateDistance( target.transform.position, gameObject.transform.position ) < lessThanFightGoalAggroRange) Deactivate();
             else if (launchRaid.IsCompleted())
             {
                 Complete();

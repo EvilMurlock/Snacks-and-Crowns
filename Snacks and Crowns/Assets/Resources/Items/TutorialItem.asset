@@ -15,8 +15,8 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 4ff404b12725fda41a02973f09f10e15, type: 3}
   itemName: Coin
   description: Its a coin! You can look at it for some time.
-  cost: 15
-  prefab: {fileID: 0}
+  cost: 1000
+  prefab: {fileID: 7545164443257969220, guid: 1077ac0415f7460428480f8f44135faa, type: 3}
   useDuration: 0
   singleUse: 0
   componentDataUse:

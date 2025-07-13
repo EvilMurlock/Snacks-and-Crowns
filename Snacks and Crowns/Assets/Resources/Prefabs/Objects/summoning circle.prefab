@@ -98,4 +98,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NPCPrefab: {fileID: 2665861023158908525, guid: f7ce812d5a12b2a43b82e79065df9a52, type: 3}
-  respawnDuration: 360
+  respawnDuration: 90

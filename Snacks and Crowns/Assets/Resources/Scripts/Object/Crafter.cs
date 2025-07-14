@@ -5,6 +5,11 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 
+
+
+/// <summary>
+/// Manages crafter object, loads up crafter menu
+/// </summary>
 public class Crafter : InteractibleInMenu
 {
     [SerializeField]

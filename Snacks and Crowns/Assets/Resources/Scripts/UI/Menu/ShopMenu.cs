@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
+
+
+/// <summary>
+/// Manages the interaction with a shop
+/// </summary>
 public class ShopMenu : Menu
 {
     [SerializeField]
@@ -13,6 +18,9 @@ public class ShopMenu : Menu
     Shop shop;
     int lastSelectedSlotIndex; // just used to refresh the item description after sale
     ItemInfo itemInfo;
+    /// <summary>
+    /// index that determines if we are selling or buying, each item slot has an index, so we want all indexes from the shop half and player inventory half to be on different sides
+    /// </summary>
     int buySellDivideIndex;
     private void Start()
     {
@@ -34,7 +42,6 @@ public class ShopMenu : Menu
     {
         int index = menuSlots.GetIndex(slot);
         lastSelectedSlotIndex = index;
-        // Debug.Log("Index is:" + index);
         itemInfo.LoadNewItem(slot.GetItem());
     }
     public override void SlotSubmit(MenuSlot slot)
@@ -61,7 +68,6 @@ public class ShopMenu : Menu
         foreach (Item item in menuInventory)
         {
             buyPage.GetComponentsInChildren<ShopSlot>()[index].AddItem(item);
-            //menuSlots[index].AddItem(item);
             index++;
         }
     }
@@ -73,7 +79,6 @@ public class ShopMenu : Menu
         foreach (Item item in playerInventory.Items)
         {
             sellPage.GetComponentsInChildren<ShopSlot>()[index].AddItem(item);
-            //menuSlots[index].AddItem(item);
             index++;
         }
     }

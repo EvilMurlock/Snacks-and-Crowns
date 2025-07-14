@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+/// <summary>
+/// Manages interactions with the chest menu
+/// </summary>
 public class ChestMenu : Menu
 {
     [SerializeField]
@@ -115,8 +119,6 @@ public class ChestMenu : Menu
         foreach (Item item in chestInventory.Items)
         {
             menuInventoryChestPart.GetComponentsInChildren<MenuSlot>()[index].AddItem(item);
-
-            //menuSlots[index].AddItem(item);
             index++;
         }
     }
@@ -129,7 +131,6 @@ public class ChestMenu : Menu
         foreach (Item item in playerInventory.Items)
         {
             menuInventoryPlayerPart.GetComponentsInChildren<MenuSlot>()[index].AddItem(item);
-            //menuSlots[index].AddItem(item);
             index++;
         }
     }

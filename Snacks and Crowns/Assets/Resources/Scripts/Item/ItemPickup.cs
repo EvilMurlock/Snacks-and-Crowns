@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GOAP;
+
+/// <summary>
+/// Pickup object
+/// </summary>
 public class ItemPickup : Interactible
 {
     public override bool LockMove { get { return false; } }
@@ -16,7 +20,6 @@ public class ItemPickup : Interactible
         {
             gameObject.AddComponent<TagSystem>();
         }
-        //gameObject.GetComponent<TagSystem>().AddTags(item.Tags);
     }
     public override void Interact(GameObject player)
     {

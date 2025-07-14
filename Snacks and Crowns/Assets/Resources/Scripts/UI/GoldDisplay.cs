@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+
+
+/// <summary>
+/// Displays the gold in the UI
+/// </summary>
 public class GoldDisplay : MonoBehaviour
 {
     [SerializeField]

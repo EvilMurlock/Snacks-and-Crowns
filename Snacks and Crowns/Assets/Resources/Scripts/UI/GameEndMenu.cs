@@ -5,6 +5,11 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+
+
+/// <summary>
+/// Generates Win and Lose screens for both players
+/// </summary>
 public class GameEndMenu : MonoBehaviour, IRegistrable
 {
     Color winColor = Color.green;
@@ -51,7 +56,7 @@ public class GameEndMenu : MonoBehaviour, IRegistrable
             text.text = loseText;
         }
 
-        gameObject.transform.parent.parent.GetComponentInChildren<MenuManager>().SelectObject(MenuButton.gameObject);
+        gameObject.transform.parent.parent.GetComponentInChildren<MenuManager>().SelectObject(QuitButton.gameObject);
         
         QuitButton.Register(this);
 

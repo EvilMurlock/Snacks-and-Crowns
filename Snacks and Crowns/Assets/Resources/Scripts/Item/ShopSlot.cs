@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+
+/// <summary>
+/// UI helper class for graphical management
+/// </summary>
 public class ShopSlot : MenuSlot
 {
     [SerializeField]

@@ -16,7 +16,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 23b920f16b568414390e4706338484ef, type: 3}
   race: Monster
   strenght: 20
-  agility: 18
+  agility: 15
   size: 20
   magic: 10
   bravery: 10

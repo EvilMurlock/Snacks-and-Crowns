@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Parent class for interactible objects with menus
+/// </summary>
 public abstract class InteractibleInMenu : Interactible
 {
     public override bool LockMove { get { return true; } }

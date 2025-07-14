@@ -55,6 +55,6 @@ public class CharakterSheet : MonoBehaviour
     }
     public float GetMaxHP()
     {
-        return race.size * 10;
+        return race.size * 10 + race.strenght*10;
     }
 }

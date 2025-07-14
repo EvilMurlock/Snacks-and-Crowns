@@ -16,13 +16,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9135c316646ff4e4580f2938ba04f328, type: 3}
   - {fileID: 21300000, guid: dc3f05237ac4e434f8a929ecb3bb3b8e, type: 3}
   race: Human
-  strenght: 10
+  strenght: 0
   agility: 10
   size: 10
   magic: 0
   bravery: 0.5
   greed: 0.5
   resistances: []
-  references:
-    version: 2
-    RefIds: []

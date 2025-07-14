@@ -39,6 +39,9 @@ public static class StartGameDataHolder
     {
         players.Add(new PlayerData(controlScheme, deviceType, race, faction, face, index));
     }
+    public static void ResetValues()
+    {
+        players = new List<PlayerData>();
+    }
 
- 
 }

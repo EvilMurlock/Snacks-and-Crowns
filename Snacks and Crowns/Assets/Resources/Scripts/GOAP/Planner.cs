@@ -115,13 +115,9 @@ namespace GOAP
             {
                 foreach (NPCAction action in usableActions)
                 {
-                    //if (!action.reusable && ActionAlreadyUsed(parent, action)) continue;
+                    if (!action.reusable && ActionAlreadyUsed(parent, action)) continue;
                     if (action.IsAchievableGiven(parent.state))
                     {
-                        if (goal.GetType() == typeof(FillAnInventory) && action.GetType() == typeof(HarvestResource))
-                        {
-                            goal.GetComponent<SpriteRenderer>().color = Color.blue;
-                        }
                         List<Node> possibleNewStates = action.OnActionCompleteWorldStates(parent);
                         
                         foreach (Node node in possibleNewStates)

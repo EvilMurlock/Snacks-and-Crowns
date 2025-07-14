@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+
+/// <summary>
+/// Manages the crafter menu and interactions with it
+/// </summary>
 public class CrafterMenu : Menu
 {
     int recipeIndex; // just used to refresh the item description after sale

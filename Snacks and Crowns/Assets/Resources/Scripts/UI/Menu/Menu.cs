@@ -1,6 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
+/// <summary>
+/// Parent to all menu classes
+/// </summary>
 public class Menu : MonoBehaviour
 {
     protected GameObject player;

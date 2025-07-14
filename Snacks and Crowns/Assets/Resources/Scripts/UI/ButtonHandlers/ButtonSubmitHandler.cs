@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
+
+/// <summary>
+/// Hadnles submit events from a button
+/// </summary>
 public class ButtonSubmitHandler : ButtonHandler, ISubmitHandler
 {
     // this event fires when the Submit key is pressed on this button

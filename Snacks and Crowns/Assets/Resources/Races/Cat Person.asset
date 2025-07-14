@@ -15,7 +15,7 @@ MonoBehaviour:
   faces:
   - {fileID: 21300000, guid: 5e30bd60c9c614b4996d38fdf353c3dc, type: 3}
   race: Cat Person
-  strenght: 10
+  strenght: 0
   agility: 12
   size: 10
   magic: 5

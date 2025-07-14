@@ -12,7 +12,7 @@ public class NpcAi : MonoBehaviour
 {
     // Start is called before the first frame update
     public Transform target;
-    public float nextWaypointDistance = 0.3f;
+    public float nextWaypointDistance = 0.7f;
     public float lastWaypointDistanceDefault = 0.8f; // used to be 0.8f
 
     public float lastWaypointDistance;
@@ -72,11 +72,13 @@ public class NpcAi : MonoBehaviour
         float distanceFromWaypoint = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
         float distanceFromEnd = Vector2.Distance(rb.position, path.vectorPath[path.vectorPath.Count-1]);//HERE READ LAST WAIPOINT!!!!
 
-        if (distanceFromWaypoint < nextWaypointDistance)
+
+        while (distanceFromWaypoint < nextWaypointDistance && distanceFromEnd >= lastWaypointDistance)
         {
+            distanceFromWaypoint = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
             currentWaypoint++;
         }
-        else if(distanceFromEnd < lastWaypointDistance)
+        if(distanceFromEnd < lastWaypointDistance)
         {
             ReachedEnd();
         }

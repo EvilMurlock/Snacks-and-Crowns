@@ -106,7 +106,6 @@ namespace GOAP
             Goal[] gs = this.GetComponents<Goal>();
             foreach (Goal g in gs)
             {
-                //Debug.Log("Adding goal: " + g.GetType().ToString());
                 goals.Add(g);
             }
         }

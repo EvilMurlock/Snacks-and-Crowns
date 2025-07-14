@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// UI helper class
+/// </summary>
 [System.Serializable]
 public class MenuSlot : MonoBehaviour
 {

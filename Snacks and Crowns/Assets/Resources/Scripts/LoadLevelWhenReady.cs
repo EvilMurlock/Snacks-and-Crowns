@@ -14,7 +14,12 @@ public class LoadLevelWhenReady : MonoBehaviour
     {
         players++;
     }
-    
+    public void ResetValues()
+    {
+        players = 0;
+        readyPlayers = 0;
+        StartGameDataHolder.ResetValues();
+    }
     public void PlayerReady()
     {
         readyPlayers++;

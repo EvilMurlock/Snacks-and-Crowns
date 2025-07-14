@@ -15,7 +15,7 @@ MonoBehaviour:
   faces:
   - {fileID: 21300000, guid: 3b9e43eb3c6560b479e648d458addb9f, type: 3}
   race: Goblin
-  strenght: 8
+  strenght: 0
   agility: 12
   size: 10
   magic: 0

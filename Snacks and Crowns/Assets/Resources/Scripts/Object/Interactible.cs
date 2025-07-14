@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// parent class for interactible objects
+/// </summary>
 public abstract class Interactible : MonoBehaviour
 {
     protected bool lockMove = false;

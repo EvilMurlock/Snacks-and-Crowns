@@ -14,6 +14,7 @@ public class MyJoinPlayerCharecterSelection : MonoBehaviour
     /// </summary>
     void Start()
     {
+        FindFirstObjectByType<LoadLevelWhenReady>().ResetValues();
         inputManager.playerJoinedEvent.AddListener(PlayerJoined);
         
         PlayerInput player2 = inputManager.JoinPlayer(-1, // player index

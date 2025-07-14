@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
+
+/// <summary>
+/// Displays currently selected item
+/// </summary>
 public class ItemInfo : MonoBehaviour
 {
     [SerializeField]

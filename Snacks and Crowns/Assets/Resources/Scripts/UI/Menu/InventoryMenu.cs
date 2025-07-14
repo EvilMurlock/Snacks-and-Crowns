@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+/// <summary>
+/// manages interaction with the player inventory
+/// </summary>
 public class InventoryMenu : Menu
 {
     int lastSelectedSlotIndex; // just used to refresh the item description after sale
@@ -34,7 +38,6 @@ public class InventoryMenu : Menu
     {
         int index = menuSlots.GetIndex(slot);
         lastSelectedSlotIndex = index;
-        // Debug.Log("Index is:" + index);
         itemInfo.LoadNewItem(slot.GetItem());
         Refresh();
     }

@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+
+
+/// <summary>
+/// Manages door opening and closing animations and updates Astar grid
+/// </summary>
 public class Door : Interactible
 {
     public bool open = false;

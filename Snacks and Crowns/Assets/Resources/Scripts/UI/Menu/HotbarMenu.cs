@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
+
+/// <summary>
+/// Manages the hotbar UI
+/// </summary>
 public class HotbarMenu : Menu
 {
     [SerializeField]

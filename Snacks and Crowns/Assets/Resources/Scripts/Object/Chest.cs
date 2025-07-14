@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using GOAP;
+
+
+/// <summary>
+/// Manages the chest
+/// </summary>
 public class Chest : InteractibleInMenu
 {
     [SerializeField]

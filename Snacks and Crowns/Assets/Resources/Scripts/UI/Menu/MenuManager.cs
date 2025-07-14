@@ -7,6 +7,9 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// Menu manager, manages player inventory menu opening and closing
+/// </summary>
 public class MenuManager : MonoBehaviour
 {
     public Canvas canvas;

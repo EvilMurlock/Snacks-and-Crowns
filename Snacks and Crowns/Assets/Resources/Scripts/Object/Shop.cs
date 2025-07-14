@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem.UI;
 using GOAP;
+
+
+/// <summary>
+/// Manages the shop and loads up the interaction UI
+/// </summary>
 public class Shop : InteractibleInMenu
 {
     public GameObject shopUiPrefab;
@@ -17,20 +22,6 @@ public class Shop : InteractibleInMenu
         menus = new List<Menu>();
         inventory = GetComponent<Inventory>();
         inventory.SetCapacity(maxCapacity);
-
-        //Testing initial item inventory
-        /*
-        Item axe = (Item)Resources.Load("Items/Equipment/Axe");
-        Item hpPotion = (Item)Resources.Load("Items/Potions/Health Potion");
-        for (int i = 0; i<8; i++)
-        {
-            inventory.AddItem(axe);
-        }
-        for (int i = 8; i < 14; i++)
-        {
-            inventory.AddItem(hpPotion);
-        }
-        */
     }
 
     public override void Interact(GameObject player)
@@ -63,7 +54,7 @@ public class Shop : InteractibleInMenu
             inventory.RemoveItem(itemIndex);
         }
 
-        // dont forget to call refresh on all menus so they show the corect avvailible items
+        // don't forget to call refresh on all menus so they show the correct available items
         RefreshMenus();
     }
     public void TryToSellItem(GameObject player, int itemIndex)
@@ -81,7 +72,7 @@ public class Shop : InteractibleInMenu
             playerInventory.RemoveItem(itemToBeSold);
         }
 
-        // dont forget to call refresh on all menus so they show the corect avvailible items
+        // don't forget to call refresh on all menus so they show the correct available items
         RefreshMenus();
     }
 }

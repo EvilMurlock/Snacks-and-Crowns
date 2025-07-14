@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// Scrolling implementation for the dropdown menu
+/// </summary>
 public class Dropdown_Scroller : MonoBehaviour, ISelectHandler
 {
     ScrollRect scroll_rekt;

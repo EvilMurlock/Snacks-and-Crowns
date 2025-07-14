@@ -15,6 +15,11 @@ public enum ItemTags
     defenceSpell,
     monsterWeapon
 }
+
+
+/// <summary>
+/// Item ScriptableObject, has helper methods
+/// </summary>
 [CreateAssetMenu(fileName = "New_Item", menuName = "Inventory/Item")]
 public class Item : ScriptableObject
 {
@@ -57,10 +62,8 @@ public class Item : ScriptableObject
     }
     public virtual void Use(GameObject player)
     {
-        //Debug.Log("Using " + itemName);
         GameObject corutiner = Instantiate((GameObject)Resources.Load("Prefabs/ScriptibleCorutiner")); 
         corutiner.GetComponent<ScriptibleCorutiner>().StartCoroutine(UsingItem(player, corutiner));
-        //ScriptibleCorutiner.instance.StartCoroutine(UsingItem(useDuration, player));
     }
     IEnumerator UsingItem(GameObject user, GameObject corutiner)
     {
@@ -95,6 +98,5 @@ public class Item : ScriptableObject
         GameObject item_object = Instantiate((GameObject)Resources.Load("Prefabs/Items/Item"), position, Quaternion.Euler(0,0,Random.Range(0,360)));
         item_object.GetComponent<ItemPickup>().item = item;
         item_object.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-100, 100), Random.Range(-100, 100)).normalized * 500);
-        //item_object.transform.rotation = this.transform.rotation;
     }
 }

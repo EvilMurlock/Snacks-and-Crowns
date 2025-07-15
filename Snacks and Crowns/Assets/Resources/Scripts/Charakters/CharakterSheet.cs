@@ -7,18 +7,14 @@ using UnityEngine;
 /// <summary>
 /// Initializes character stats from the race
 /// </summary>
-public class CharakterSheet : MonoBehaviour
+public class CharacterSheet : MonoBehaviour
 {
     [SerializeField]
     Race race;
 
-    
-    //Fyzical Stats
-
-    //Derived Stats
+   
     void Awake()
     {
-        //Derived Stats
         SetFace();
         RaceInnit();
     }

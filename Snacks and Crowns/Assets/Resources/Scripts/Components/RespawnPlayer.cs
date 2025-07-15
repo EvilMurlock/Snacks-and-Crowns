@@ -46,7 +46,7 @@ public class RespawnPlayer : MonoBehaviour
         if (playerData != null)
         {
             playerChar.gameObject.GetComponent<FactionMembership>().Faction = playerData.faction;
-            playerChar.gameObject.GetComponent<CharakterSheet>().SetRace(playerData.race, playerData.face);
+            playerChar.gameObject.GetComponent<CharacterSheet>().SetRace(playerData.race, playerData.face);
         }
         damagable = playerChar.GetComponent<Damageable>();
         SetUpDeathListener();

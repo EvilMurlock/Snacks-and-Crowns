@@ -27,7 +27,7 @@ namespace GOAP
         public override float CalculatePriority()
         {
             
-            foreach (CharakterSheet character in Object.FindObjectsOfType<CharakterSheet>())
+            foreach (CharacterSheet character in Object.FindObjectsOfType<CharacterSheet>())
             {
                 Factions myFaction = GetComponent<FactionMembership>().Faction;
                 Factions theirFaction = character.GetComponent<FactionMembership>().Faction;
@@ -40,8 +40,8 @@ namespace GOAP
         }
         public GameObject GetRandomEnemy()
         {
-            CharakterSheet[] characters = FindObjectsOfType<CharakterSheet>();
-            List<CharakterSheet> enemies = new List<CharakterSheet> ();
+            CharacterSheet[] characters = FindObjectsOfType<CharacterSheet>();
+            List<CharacterSheet> enemies = new List<CharacterSheet> ();
             for (int i = characters.Length-1;  i >= 0; i--)
             {
                 Factions myFaction = GetComponent<FactionMembership>().Faction;
@@ -51,7 +51,7 @@ namespace GOAP
                     enemies.Add(characters[i]);       
                 }
             }
-            CharakterSheet chosenEnemy = enemies[Random.Range(0, enemies.Count)];
+            CharacterSheet chosenEnemy = enemies[Random.Range(0, enemies.Count)];
 
 
             return chosenEnemy.gameObject;

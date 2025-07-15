@@ -33,7 +33,7 @@ namespace GOAP
         }
         void TriggerEnter(Collider2D collision)
         {
-            if(collision.gameObject.GetComponent<CharakterSheet>() != null)
+            if(collision.gameObject.GetComponent<CharacterSheet>() != null)
             {
                 charactersInRange.Add(collision.gameObject);
             }

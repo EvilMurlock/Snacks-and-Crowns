@@ -29,7 +29,7 @@ public class MyJoinPlayerFromData : MonoBehaviour
                                     controlScheme: data.controlScheme, // control scheme
                                     data.deviceType); // pairWithDevice
                 player.gameObject.GetComponentInChildren<FactionMembership>().Faction = data.faction;
-                player.gameObject.GetComponentInChildren<CharakterSheet>().SetRace(data.race, data.face);
+                player.gameObject.GetComponentInChildren<CharacterSheet>().SetRace(data.race, data.face);
                 GameObject spawnPoint;
                 if (data.faction == Factions.One)
                     spawnPoint = RespawnPointOne;
@@ -41,6 +41,7 @@ public class MyJoinPlayerFromData : MonoBehaviour
 
             }
         }
+
         else
         {
             PlayerInput player2 = inputManager.JoinPlayer(-1, // player index
